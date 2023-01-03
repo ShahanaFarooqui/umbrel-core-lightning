@@ -1,5 +1,6 @@
-import { HttpStatusCode, ValidationError } from '../models/errors';
+import { ValidationError } from '../models/errors';
 import { Post } from '../models/post';
+import { HttpStatusCode } from '../shared/consts';
 import { logger } from '../shared/logger';
 
 export class DataService {
@@ -14,10 +15,10 @@ export class DataService {
 
   async addPost(newPost: Post) {
     if (
-      typeof newPost.userId === 'undefined' ||
-      typeof newPost.userId !== 'number' ||
-      typeof newPost.id === 'undefined' ||
-      typeof newPost.id !== 'number' ||
+      !newPost.userId ||
+      isNaN(newPost.userId) ||
+      !newPost.id ||
+      isNaN(newPost.id) ||
       !newPost.title ||
       !newPost.body
     ) {

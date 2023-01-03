@@ -14,7 +14,7 @@ const app: express.Application = express();
 const server: http.Server = http.createServer(app);
 
 const CLN_PORT = normalizePort(process.env.PORT || '3007');
-const CLN_HOST = '127.0.0.1';
+const CLN_HOST = process.env.HOST || '127.0.0.1';
 
 function normalizePort(val: string) {
   var port = parseInt(val, 10);
@@ -31,31 +31,28 @@ app.set('trust proxy', true);
 app.use(bodyParser.json({ limit: '25mb' }));
 app.use(bodyParser.urlencoded({ extended: false, limit: '25mb' }));
 app.use(cors());
-
 app.use(expressWinston.logger(expressLogConfiguration));
+app.use(expressWinston.errorLogger(expressLogConfiguration));
 
 routes.push(new PostsRoutes(app));
 
-app.use((req, res, next) => {
+// serve frontend
+app.use('/', express.static(join(__dirname, '..', '..', 'frontend', 'build')));
+app.use((req: express.Request, res: express.Response, next: any) => {
+  res.sendFile(join(__dirname, '..', '..', 'frontend', 'build', 'index.html'));
+});
+
+app.use((req: express.Request, res: express.Response, next: any) => {
   const error = new Error('not found');
   return res.status(404).json({
     message: error.message
   });
 });
 
-// app.use('/', express.static(join(directoryName, '../..', 'frontend')));
-// app.use((req: any, res, next) => {
-//   res.cookie('XSRF-TOKEN', req.csrfToken ? req.csrfToken() : (req.cookies && req.cookies._csrf) ? req.cookies._csrf : ''); // RTL Angular Frontend
-//   res.setHeader('XSRF-TOKEN', req.csrfToken ? req.csrfToken() : (req.cookies && req.cookies._csrf) ? req.cookies._csrf : ''); // RTL Quickpay JQuery
-//   res.sendFile(join(directoryName, '../..', 'frontend', 'index.html'));
-// });
-
 app.use((err: any, req: express.Request, res: express.Response, next: any) => {
   handleApplicationErrors(err, res);
   next();
 });
-
-app.use(expressWinston.errorLogger(expressLogConfiguration));
 
 const onListening = () => {
   logger.info('Server running at http://' + CLN_HOST + ':' + CLN_PORT);

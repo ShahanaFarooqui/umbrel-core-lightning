@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import dataService from '../service/data.service';
 import { logger } from '../shared/logger';
 import { Post } from '../models/post';
+import handleError from '../middleware/error-handler';
 
 class PostsController {
   async getPosts(req: Request, res: Response, next: NextFunction) {
@@ -26,7 +27,7 @@ class PostsController {
       logger.info('Added new post. Latest Total: ' + (posts.length + 1));
       return res.status(201).json(posts);
     } catch (error: any) {
-      return res.status(error.statusCode).json(error);
+      handleError(error, req, res);
     }
   }
 }

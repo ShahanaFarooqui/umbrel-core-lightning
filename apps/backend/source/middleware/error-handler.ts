@@ -1,21 +1,14 @@
 import { Request, Response, NextFunction } from 'express';
-import {
-  APIError,
-  BaseError,
-  BitcoindError,
-  CLNError,
-  HttpStatusCode,
-  ValidationError
-} from '../models/errors';
+import { APIError, BaseError, BitcoindError, CLNError, ValidationError } from '../models/errors';
+import { HttpStatusCode } from '../shared/consts';
 import { logger } from '../shared/logger';
 
 function handleError(
   error: BaseError | APIError | BitcoindError | CLNError | ValidationError,
   req: Request,
   res: Response,
-  next: NextFunction
+  next?: NextFunction
 ) {
-  var statusCode = error.statusCode || HttpStatusCode.INTERNAL_SERVER;
   var route = req.url || '';
   var message = error.message || '';
   if (error instanceof CLNError) {
@@ -23,10 +16,8 @@ function handleError(
       message += ', ' + error.error.details;
     }
   }
-
   logger.error(message, route, error.stack);
-
-  res.status(statusCode).json(message);
+  res.status(error.statusCode || HttpStatusCode.INTERNAL_SERVER).json(message);
 }
 
-module.exports = handleError;
+export default handleError;

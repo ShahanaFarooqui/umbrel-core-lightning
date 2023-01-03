@@ -1,4 +1,11 @@
+.vscode
 node_modules
 dist
 build
-data
+data/app
+data/bitcoin/regtest
+data/cln/regtest
+data/cln/lightningd-regtest.pid
+data/cln/log
+data/cln/rune
+
