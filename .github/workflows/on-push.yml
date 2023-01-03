@@ -1,17 +1,15 @@
 name: Build and publish Docker image on push
-
 on: push
-
 env:
   DOCKER_CLI_EXPERIMENTAL: enabled
-
 jobs:
   build:
-    name: Check Setup
-    run: echo "Add Actions after the application is ready to deploy"
-    # name: Build Docker image
-    # runs-on: ubuntu-22.04
-    # steps:
+    name: Build Docker image
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Check Setup
+        run: echo "Add Actions after the application is ready to deploy"
+
     #   - name: Set BRANCH
     #     run: echo "BRANCH=$(echo ${GITHUB_REF#refs/heads/} | sed 's/\//-/g')" >> $GITHUB_ENV
 
