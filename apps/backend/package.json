@@ -1,0 +1,29 @@
+{
+  "name": "umbrel-cln-backend",
+  "version": "0.0.1",
+  "description": "Core lightning application backend on Umbrel",
+  "private": true,
+  "license": "MIT",
+  "scripts": {
+    "build": "rm -rf dist/ && prettier --write source/ && tsc --project tsconfig.json",
+    "serve": "nodemon ./dist/server",
+    "watch": "tsc --project tsconfig.json --watch & prettier --write source/",
+    "start": "node ./dist/server"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.13",
+    "@types/express": "^4.17.15",
+    "@types/morgan": "^1.9.3",
+    "nodemon": "^2.0.20",
+    "prettier": "^2.8.1",
+    "tslint": "^6.1.3",
+    "typescript": "^4.9.4"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "express-winston": "^4.2.0",
+    "ts-node": "^10.9.1",
+    "winston": "^3.8.2"
+  }
+}
