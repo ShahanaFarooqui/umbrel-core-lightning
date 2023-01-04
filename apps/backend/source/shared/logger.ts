@@ -6,7 +6,7 @@ export const enum LogLevel {
   WARN = 'warn',
   INFO = 'info',
   VERBOSE = 'verbose',
-  DEBUG = 'debug'
+  DEBUG = 'debug',
 }
 
 export const logConfiguration = {
@@ -23,8 +23,8 @@ export const logConfiguration = {
         winston.format.timestamp(),
         winston.format.align(),
         winston.format.json(),
-        winston.format.colorize({ all: true })
-      )
+        winston.format.colorize({ all: true }),
+      ),
     }),
     new winston.transports.File({
       filename: LOG_FILE,
@@ -39,10 +39,10 @@ export const logConfiguration = {
         winston.format.timestamp(),
         winston.format.align(),
         winston.format.json(),
-        winston.format.colorize({ all: true })
-      )
-    })
-  ]
+        winston.format.colorize({ all: true }),
+      ),
+    }),
+  ],
 };
 
 export const expressLogConfiguration = {
@@ -50,7 +50,7 @@ export const expressLogConfiguration = {
   meta: NODE_ENV !== Environment.PRODUCTION,
   message: 'HTTP {{res.statusCode}} {{req.method}} {{res.responseTime}}ms {{req.url}}',
   expressFormat: false,
-  colorize: true
+  colorize: true,
 };
 
 export const logger = winston.createLogger(logConfiguration);

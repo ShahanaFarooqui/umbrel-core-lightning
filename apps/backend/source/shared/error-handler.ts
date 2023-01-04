@@ -4,7 +4,7 @@ import {
   BaseError,
   BitcoindError,
   LightningError,
-  ValidationError
+  ValidationError,
 } from '../models/errors.js';
 import { HttpStatusCode } from './consts.js';
 import { logger } from './logger.js';
@@ -13,7 +13,7 @@ function handleError(
   error: BaseError | APIError | BitcoindError | LightningError | ValidationError,
   req: Request,
   res: Response,
-  next?: NextFunction
+  next?: NextFunction,
 ) {
   var route = req.url || '';
   var message = error.message || '';

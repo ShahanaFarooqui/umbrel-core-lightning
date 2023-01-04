@@ -11,8 +11,16 @@
     "forceConsistentCasingInFileNames": true,
     "rootDir": "./source",
     "skipLibCheck": true,
-    "paths": {
-      "crypto": ["node_modules/@types/node"]
-    }
-  }  
+    "lib": [
+      "ES2022"
+    ]  
+  },
+  "files": [
+    "./source/server.ts",
+    "./source/polyfills.ts"
+  ],
+  "include": [
+    "./source/polyfills.ts",
+    "./source/**/*.d.ts"
+  ]  
 }

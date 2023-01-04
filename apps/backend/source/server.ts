@@ -1,3 +1,4 @@
+import * as polyfills from './polyfills.js';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 import express from 'express';
@@ -10,11 +11,7 @@ import { logger, expressLogConfiguration } from './shared/logger.js';
 import { CommonRoutesConfig } from './shared/routes.config.js';
 import { LightningRoutes } from './routes/v1/lightning.js';
 
-// import * as crypto from 'crypto';
-
-// window.global.crypto = crypto;
-// global.crypto = crypto;
-
+polyfills;
 let directoryName = dirname(fileURLToPath(import.meta.url));
 let routes: Array<CommonRoutesConfig> = [];
 const app: express.Application = express();
@@ -52,7 +49,7 @@ app.use((req: express.Request, res: express.Response, next: any) => {
 app.use((req: express.Request, res: express.Response, next: any) => {
   const error = new Error('not found');
   return res.status(404).json({
-    message: error.message
+    message: error.message,
   });
 });
 
