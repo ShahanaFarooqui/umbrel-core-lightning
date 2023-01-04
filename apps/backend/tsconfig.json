@@ -1,13 +1,18 @@
 {
   "compilerOptions": {
-    "target": "ES2022",
-    "module": "CommonJS",
+    "baseUrl": "./",
+    "target":"ES2022",
+    "module": "ES2022",
+    "moduleResolution": "node",
     "outDir": "./dist",
     "strict": true,
     "esModuleInterop": true,
     "inlineSourceMap": false,
     "forceConsistentCasingInFileNames": true,
     "rootDir": "./source",
-    "skipLibCheck": true
-  }
+    "skipLibCheck": true,
+    "paths": {
+      "crypto": ["node_modules/@types/node"]
+    }
+  }  
 }

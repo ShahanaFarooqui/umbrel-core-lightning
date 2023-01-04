@@ -1,4 +1,4 @@
-import { HttpStatusCode } from '../shared/consts';
+import { HttpStatusCode } from '../shared/consts.js';
 
 export class BaseError extends Error {
   public readonly statusCode: HttpStatusCode;
@@ -40,7 +40,7 @@ export class BitcoindError extends BaseError {
   }
 }
 
-export class CLNError extends BaseError {
+export class LightningError extends BaseError {
   public readonly error?: any;
 
   constructor(

@@ -1,5 +1,5 @@
 import winston from 'winston';
-import { NODE_ENV, LOG_FILE, Environment } from './consts';
+import { NODE_ENV, LOG_FILE, Environment } from './consts.js';
 
 export const enum LogLevel {
   ERROR = 'error',
@@ -54,3 +54,12 @@ export const expressLogConfiguration = {
 };
 
 export const logger = winston.createLogger(logConfiguration);
+
+// export class LoggerService {
+//   public logger: any = null;
+//   constructor() {
+//     this.logger = winston.createLogger(logConfiguration);
+//   }
+// }
+
+// export const logger = new LoggerService().logger;

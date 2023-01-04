@@ -15,7 +15,10 @@
     "build": "npm run frontend:build & npm run backend:build",
     "start": "npm run start -w umbrel-cln-backend"
   },
-  "keywords": ["umbrel", "core lightning"],
+  "keywords": [
+    "umbrel",
+    "core lightning"
+  ],
   "workspaces": [
     "apps/*"
   ]

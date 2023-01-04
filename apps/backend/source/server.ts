@@ -1,14 +1,21 @@
-import { join } from 'path';
+import { join, dirname } from 'path';
+import { fileURLToPath } from 'url';
 import express from 'express';
 import http from 'http';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import expressWinston from 'express-winston';
 
-import { logger, expressLogConfiguration } from './shared/logger';
-import { CommonRoutesConfig } from './shared/routes.config';
-import { PostsRoutes } from './routes/v1/post';
+import { logger, expressLogConfiguration } from './shared/logger.js';
+import { CommonRoutesConfig } from './shared/routes.config.js';
+import { LightningRoutes } from './routes/v1/lightning.js';
 
+// import * as crypto from 'crypto';
+
+// window.global.crypto = crypto;
+// global.crypto = crypto;
+
+let directoryName = dirname(fileURLToPath(import.meta.url));
 let routes: Array<CommonRoutesConfig> = [];
 const app: express.Application = express();
 const server: http.Server = http.createServer(app);
@@ -34,12 +41,12 @@ app.use(cors());
 app.use(expressWinston.logger(expressLogConfiguration));
 app.use(expressWinston.errorLogger(expressLogConfiguration));
 
-routes.push(new PostsRoutes(app));
+routes.push(new LightningRoutes(app));
 
 // serve frontend
-app.use('/', express.static(join(__dirname, '..', '..', 'frontend', 'build')));
+app.use('/', express.static(join(directoryName, '..', '..', 'frontend', 'build')));
 app.use((req: express.Request, res: express.Response, next: any) => {
-  res.sendFile(join(__dirname, '..', '..', 'frontend', 'build', 'index.html'));
+  res.sendFile(join(directoryName, '..', '..', 'frontend', 'build', 'index.html'));
 });
 
 app.use((req: express.Request, res: express.Response, next: any) => {
