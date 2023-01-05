@@ -1,0 +1,13 @@
+@import 'constants';
+
+$enable-shadows: true;
+$enable-gradients: true;
+$enable-responsive-font-sizes: true;
+$font-family-base: $font-family;
+
+$theme-colors: (
+  'info': $info,
+  'danger': $danger
+);
+
+@import '~bootstrap/scss/bootstrap';

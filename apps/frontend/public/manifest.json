@@ -8,12 +8,12 @@
       "type": "image/x-icon"
     },
     {
-      "src": "cln-logo-192.png",
+      "src": "cln-logo.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "cln-logo-512.png",
+      "src": "cln-logo.png",
       "type": "image/png",
       "sizes": "512x512"
     }

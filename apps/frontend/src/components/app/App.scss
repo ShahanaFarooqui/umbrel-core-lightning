@@ -1,0 +1,11 @@
+@import '../../styles/customized-bootstrap';
+@import '../../styles/constants';
+
+.row {
+  margin-top: 1rem;
+  & .col {
+    min-height: 15rem;
+    border: 1px solid $info;
+    padding: 2rem 1rem;
+  }
+}
