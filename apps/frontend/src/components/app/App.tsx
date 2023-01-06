@@ -3,19 +3,23 @@ import './App.scss';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import Header from '../header/Header';
+import Header from '../../shared/header/Header';
+import BTCWallet from '../btc-wallet/BTCWallet';
+import CLNWallet from '../cln-wallet/CLNWallet';
+import Channels from '../channels/Channels';
+import Overview from '../overview/Overview';
 
-function App() {
+const App = () => {
   return (
-    <Container data-testid="container">
+    <Container className='py-4' data-testid='container'>
       <Header />
-      <Row>
-        <Col>Overview</Col>
+      <Row className='mb-4'>
+        <Col className='mx-1'><Overview /></Col>
       </Row>
-      <Row>
-        <Col>Bitcoin Wallet</Col>
-        <Col>Lightning Wallet</Col>
-        <Col>Payment Channels</Col>
+      <Row className='node-info'>
+        <Col xs={12} md={4}><BTCWallet /></Col>
+        <Col xs={12} md={4}><CLNWallet /></Col>
+        <Col xs={12} md={4}><Channels /></Col>
       </Row>
     </Container>
   );
