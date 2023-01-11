@@ -2,7 +2,7 @@ import './Overview.scss';
 
 import Card from 'react-bootstrap/Card';
 import Row from 'react-bootstrap/Row';
-import InfoBox from '../../shared/info-box/InfoBox';
+import InfoBox from '../shared/info-box/InfoBox';
 import { NumberTypes } from '../../utilities/constants';
 
 const Overview = () => {

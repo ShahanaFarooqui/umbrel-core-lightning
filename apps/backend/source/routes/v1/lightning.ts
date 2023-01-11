@@ -11,7 +11,8 @@ export class LightningRoutes extends CommonRoutesConfig {
   }
 
   configureRoutes() {
-    this.app.route(API_VERSION + LIGHTNING_ROOT_ROUTE + '/call')
+    this.app
+      .route(API_VERSION + LIGHTNING_ROOT_ROUTE + '/call')
       .post(LightningController.callMethod);
     return this.app;
   }

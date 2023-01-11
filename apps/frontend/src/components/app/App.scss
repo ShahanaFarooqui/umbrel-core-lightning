@@ -1,14 +1,6 @@
 @import '../../styles/customized-bootstrap';
 @import '../../styles/constants';
 
-body {
-  font-weight: 400;
-  line-height: 1.5;
-  text-align: left;
-  background-color: #fbfaf7;
-  color: $secondary;
-}
-
 .node-info {
   max-height: 30rem;
 }

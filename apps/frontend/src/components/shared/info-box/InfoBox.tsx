@@ -1,5 +1,5 @@
-import { NumberTypes } from '../../utilities/constants';
-import { formatCurrency } from '../../utilities/data-formatters';
+import { NumberTypes } from '../../../utilities/constants';
+import { formatCurrency } from '../../../utilities/data-formatters';
 import './InfoBox.scss';
 
 const InfoBox = (props) => {

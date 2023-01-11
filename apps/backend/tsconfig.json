@@ -16,8 +16,7 @@
     ]  
   },
   "files": [
-    "./source/server.ts",
-    "./source/polyfills.ts"
+    "./source/server.ts"
   ],
   "include": [
     "./source/polyfills.ts",

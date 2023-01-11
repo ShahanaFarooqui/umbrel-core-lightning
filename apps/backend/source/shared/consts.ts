@@ -12,7 +12,8 @@ export const COMMANDO_PUBKEY = '0233263e392b38d0d905e8b35cead00063e8a6b7601d2d2b
 export const COMMANDO_WS_PROXY = 'ws://0.0.0.0:5001';
 export const COMMANDO_IP = '0.0.0.0';
 export const COMMANDO_PORT = 19846;
-export const COMMANDO_PRIVATE_KEY = 'ea8d3091934f2c86c216370f0206acaaa2ee12462387743c358ca5f0245bf561';
+export const COMMANDO_PRIVATE_KEY =
+  'ea8d3091934f2c86c216370f0206acaaa2ee12462387743c358ca5f0245bf561';
 
 export enum HttpStatusCode {
   GET_OK = 200,

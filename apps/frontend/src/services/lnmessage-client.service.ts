@@ -6,10 +6,9 @@ import {
   COMMANDO_PUBKEY,
   COMMANDO_RUNE,
   COMMANDO_WS_PROXY,
-} from '../shared/consts.js';
-import { logger } from '../shared/logger.js';
+} from '../utilities/constants';
 
-export class LightningService {
+export class LNMessageService {
   private lnMessage: any = null;
 
   constructor() {
@@ -36,15 +35,15 @@ export class LightningService {
         rune: COMMANDO_RUNE,
       })
       .then((commandRes: any) => {
-        logger.info('Command Res for ' + method + ': ' + JSON.stringify(commandRes));
+        console.log('Command Res for ' + method + ': ' + JSON.stringify(commandRes));
         return Promise.resolve(commandRes);
       })
       .catch((err: any) => {
-        logger.error('Lightning error from ' + method + ' command');
-        logger.error(JSON.stringify(err));
+        console.error('Lightning error from ' + method + ' command');
+        console.error(JSON.stringify(err));
         throw err;
       });
   };
 }
 
-export const LNMessage = new LightningService();
+export const LNMessageClient = new LNMessageService();

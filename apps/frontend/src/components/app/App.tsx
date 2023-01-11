@@ -3,7 +3,7 @@ import './App.scss';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import Header from '../../shared/header/Header';
+import Header from '../shared/header/Header';
 import BTCWallet from '../btc-wallet/BTCWallet';
 import CLNWallet from '../cln-wallet/CLNWallet';
 import Channels from '../channels/Channels';
