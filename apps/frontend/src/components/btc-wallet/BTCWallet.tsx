@@ -1,11 +1,16 @@
 import './BTCWallet.scss';
 import 'react-perfect-scrollbar/dist/css/styles.css';
 
+import Transactions from '../transactions/Transactions';
+import CurrencyBox from '../shared/currency-box/CurrencyBox';
+
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
-import Transactions from '../transactions/Transactions';
+import Col from 'react-bootstrap/Col';
+import Image from 'react-bootstrap/Image';
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
 
 const btcTransactions = [
   { key: 1, direction: 'out', title: 'Lightning Wallet', amount: 100494, time: 1672614745 },
@@ -25,18 +30,35 @@ const BTCWallet = () => {
   return (
     <Row className='h-100 mb-4 mx-1'>
       <Card className='d-flex align-items-stretch'>
-        <Card.Body className='d-flex align-items-stretch flex-column'>
-          <Card.Header>BTC Wallet</Card.Header>
+        <Card.Body className='d-flex align-items-stretch flex-column pt-4'>
+          <Card className='bg-primary bg-gradient text-white'>
+            <Card.Body>
+              <Row>
+                <Col xs={9} className='d-flex align-items-center justify-content-start'>
+                  <Image src="images/bitcoin-wallet.svg" alt="Bitcoin image" className='me-4'></Image>
+                  <div>
+                    <div className='fs-6'>Bitcoin Wallet</div>
+                    <CurrencyBox value='1384943' alignment='column'></CurrencyBox>
+                  </div>
+                </Col>
+                <Col xs={3} className='d-flex align-items-start justify-content-end fw-bold'>...</Col>
+              </Row>
+            </Card.Body>
+            <ButtonGroup className="sticky-bottom">
+              <Button className='bg-primary-dark border-primary-dark text-white fw-bold'>
+                <Image src="images/withdraw.svg" alt="Withdraw image" className='me-2'></Image>Withdraw
+              </Button>
+              <Button className='bg-primary-dark border-primary-dark text-white fw-bold'>
+                <Image src="images/deposit.svg" alt="Deposit image" className='me-2'></Image>Deposit
+              </Button>
+            </ButtonGroup>
+          </Card>
           <Card.Body className='px-0 transaction-list'>
             <PerfectScrollbar
               onScrollY={container => console.log(`scrolled to: ${container.scrollTop}.`)}>
               <Transactions transactions={btcTransactions} />
             </PerfectScrollbar>
           </Card.Body>
-          <Card.Footer className='d-flex justify-content-between'>
-            <Button variant='secondary'>Withdraw</Button>
-            <Button variant='primary'>Deposit</Button>
-          </Card.Footer>
         </Card.Body>
       </Card>
     </Row>

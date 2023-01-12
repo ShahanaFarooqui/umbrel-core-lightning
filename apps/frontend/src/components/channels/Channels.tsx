@@ -1,11 +1,12 @@
 import './Channels.scss';
+import { formatCurrency } from '../../utilities/data-formatters';
 
 import ListGroup from 'react-bootstrap/ListGroup';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
-import { formatCurrency } from '../../utilities/data-formatters';
+import Image from 'react-bootstrap/Image';
 
 const channels = [
   { key: 1, peer: 'Coin Gate', local_balance: 99670, remote_balance: 0 },
@@ -23,8 +24,8 @@ const Channels = () => {
   return (
     <Row className='h-100 mb-4 mx-1'>
       <Card className='d-flex align-items-stretch'>
-        <Card.Body className='d-flex align-items-stretch flex-column'>
-          <Card.Header>Payment Channels</Card.Header>
+        <Card.Body className='d-flex align-items-stretch flex-column pt-4'>
+          <Card.Header className='text-secondary fs-5 fw-bold'>Payment Channels</Card.Header>
           <Card.Body className='px-0 transaction-list'>
             <PerfectScrollbar
               onScrollY={container => console.log(`scrolled to: ${container.scrollTop}.`)}
@@ -46,8 +47,10 @@ const Channels = () => {
               </ListGroup>
             </PerfectScrollbar>
           </Card.Body>
-          <Card.Footer className='d-flex justify-content-between'>
-            <Button variant='primary'>Open Channel</Button>
+          <Card.Footer className='d-flex justify-content-center'>
+            <Button variant='primary' className='rounded text-white fw-bold'>
+              Open Channel<Image src="images/action.svg" alt="Open channel image" className='ms-2'></Image>
+            </Button>
           </Card.Footer>
         </Card.Body>
       </Card>

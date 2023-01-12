@@ -8,6 +8,9 @@ $enable-gradients: true;
 $enable-responsive-font-sizes: true;
 $font-family-base: $font-family;
 
+$font-weight-base: 500;
+$body-bg: #F5F5F5;
+
 $primary-text-dark: $yellow-theme-600;
 $primary-bg-subtle-dark: $yellow-theme-900;
 $primary-border-subtle-dark: $yellow-theme-700;
@@ -33,8 +36,16 @@ $form-switch-checked-bg-image: url("data:image/svg+xml,<svg xmlns='http://www.w3
 $form-check-input-checked-bg-color: $gray-900;
 $form-check-input-checked-border-color: $yellow-theme-800;
 
+$card-border-width: 0.5px;
+$card-border-color: rgba($secondary, 0.9);
+$card-border-radius: $border-radius;
+$card-box-shadow: 0px 4px 4px rgba($gray-400, 0.1);
+$card-cap-bg: transparent;
+
 $theme-colors: (
   primary: $yellow-theme-500,
+  secondary: $secondary,
+  success: $success
 );
 
 @import '~bootstrap';

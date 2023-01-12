@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react';
-import InfoBox from './InfoBox';
+import CurrencyBox from './CurrencyBox';
 
-describe('InfoBox component ', () => {
-  beforeEach(() => render(<InfoBox />));
+describe('CurrencyBox component ', () => {
+  beforeEach(() => render(<CurrencyBox />));
 
   it('should be in the document', () => {
     // expect(screen.getByTestId('header-context')).toBeInTheDocument();

@@ -16,7 +16,7 @@ const App = () => {
       <Row className='mb-4'>
         <Col className='mx-1'><Overview /></Col>
       </Row>
-      <Row className='node-info'>
+      <Row className='node-info px-3'>
         <Col xs={12} md={4}><BTCWallet /></Col>
         <Col xs={12} md={4}><CLNWallet /></Col>
         <Col xs={12} md={4}><Channels /></Col>
