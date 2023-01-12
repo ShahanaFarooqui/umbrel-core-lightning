@@ -48,7 +48,7 @@ const Channels = () => {
             </PerfectScrollbar>
           </Card.Body>
           <Card.Footer className='d-flex justify-content-center'>
-            <Button variant='primary' className='rounded text-white fw-bold'>
+            <Button variant='primary' className='btn-rounded text-white fw-bold'>
               Open Channel<Image src="images/action.svg" alt="Open channel image" className='ms-2'></Image>
             </Button>
           </Card.Footer>

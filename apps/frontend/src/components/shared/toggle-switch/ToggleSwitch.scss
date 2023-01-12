@@ -1,0 +1,44 @@
+@import '../../../styles/constants.scss';
+
+.toggle {
+  color: $secondary;
+  font-weight: 700;
+  border-radius: 1rem;
+  width: 7.3rem;
+  height: 2rem;
+  box-sizing: border-box;
+  position: relative;
+  display: flex;
+  cursor: pointer;
+  background: $white;
+
+  & .toggle-bg-text {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+  }
+
+  & .toggle-switch {
+    margin: 2px;
+    height: 1.6rem;
+    width: 3.5rem;
+    border-radius: 2rem;
+    color: $white;
+    font-size: 1rem;
+    font-weight: 700;
+    background: $primary;
+    transition: .8s cubic-bezier(.2,.8,.2,1);
+    &.toggle-left {
+      transform: translateX(0);
+    }
+    &.toggle-right {
+      transform: translateX(54px);
+    }
+    &:hover {
+      background-color: $yellow-theme-400;
+      border-color: $yellow-theme-400;
+    }
+  }
+}

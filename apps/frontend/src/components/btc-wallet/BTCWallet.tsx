@@ -35,7 +35,7 @@ const BTCWallet = () => {
             <Card.Body>
               <Row>
                 <Col xs={9} className='d-flex align-items-center justify-content-start'>
-                  <Image src="images/bitcoin-wallet.svg" alt="Bitcoin image" className='me-4'></Image>
+                  <Image src='images/bitcoin-wallet.svg' alt='Bitcoin image' className='me-4'></Image>
                   <div>
                     <div className='fs-6'>Bitcoin Wallet</div>
                     <CurrencyBox value='1384943' alignment='column'></CurrencyBox>
@@ -44,12 +44,12 @@ const BTCWallet = () => {
                 <Col xs={3} className='d-flex align-items-start justify-content-end fw-bold'>...</Col>
               </Row>
             </Card.Body>
-            <ButtonGroup className="sticky-bottom">
-              <Button className='bg-primary-dark border-primary-dark text-white fw-bold'>
-                <Image src="images/withdraw.svg" alt="Withdraw image" className='me-2'></Image>Withdraw
+            <ButtonGroup className='sticky-bottom btn-group-dark'>
+              <Button>
+                <Image src='images/withdraw.svg' alt='Withdraw image' className='me-2'></Image>Withdraw
               </Button>
-              <Button className='bg-primary-dark border-primary-dark text-white fw-bold'>
-                <Image src="images/deposit.svg" alt="Deposit image" className='me-2'></Image>Deposit
+              <Button>
+                <Image src='images/deposit.svg' alt='Deposit image' className='me-2'></Image>Deposit
               </Button>
             </ButtonGroup>
           </Card>
