@@ -5,7 +5,7 @@ import ToggleSwitch from '../toggle-switch/ToggleSwitch';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Image from 'react-bootstrap/Image';
-import Button from 'react-bootstrap/Button';
+import Dropdown from 'react-bootstrap/Dropdown';
 
 const Header = () => {
 
@@ -26,9 +26,16 @@ const Header = () => {
           <ToggleSwitch />
         </Col>
         <Col>
-          <Button variant='primary' className='btn-rounded text-white fw-bold'>
-            Settings<Image src='images/settings.svg' alt='Settings image' className='ms-2'></Image>
-          </Button>
+          <Dropdown className='settings-dropdown'>
+            <Dropdown.Toggle variant='primary' className='text-white'>
+              Settings<Image src='images/settings.svg' alt='Settings image' className='ms-2'></Image>
+            </Dropdown.Toggle>
+            <Dropdown.Menu>
+              <Dropdown.Item href='#/action-1'>Show Node ID</Dropdown.Item>
+              <Dropdown.Item href='#/action-2'>Connect Wallet</Dropdown.Item>
+              <Dropdown.Item href='#/action-3'>Dark Mode</Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
         </Col>
       </Col>
     </Row>

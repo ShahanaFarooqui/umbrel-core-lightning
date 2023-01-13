@@ -9,41 +9,12 @@ $enable-responsive-font-sizes: true;
 $font-family-base: $font-family;
 
 $font-weight-base: 500;
-$body-bg: #F4F7FE;
-
-$primary-text-dark: $yellow-theme-600;
-$primary-bg-subtle-dark: $yellow-theme-900;
-$primary-border-subtle-dark: $yellow-theme-700;
-$link-color-dark: $yellow-theme-300;
-$link-hover-color-dark: $yellow-theme-200;
-
-$component-active-bg: $yellow-theme-500;
-$form-range-track-bg: $yellow-theme-800;
-$form-range-thumb-bg: $yellow-theme-500;
-$form-range-thumb-disabled-bg: $yellow-theme-100;
-
-$form-check-input-bg: $gray-900;
-$form-switch-color: $gray-100;
-$form-switch-bg-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'><circle r='3' fill='#{$yellow-theme-100}'/></svg>");
-
-$form-switch-focus-color: $yellow-theme-200;
-$form-switch-focus-bg-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'><circle r='3' fill='#{$form-switch-focus-color}'/></svg>");
-$form-check-input-focus-border: $gray-100;
-$form-check-input-focus-box-shadow: $gray-900;
-
-$form-switch-checked-color: $yellow-theme-500;
-$form-switch-checked-bg-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'><circle r='3' fill='#{$form-switch-checked-color}'/></svg>");
-$form-check-input-checked-bg-color: $gray-900;
-$form-check-input-checked-border-color: $yellow-theme-800;
 
 $card-border-width: 0.5px;
 $card-border-color: rgba($secondary, 0.1);
 $card-border-radius: $border-radius;
 $card-box-shadow: 0px 4px 4px rgba($gray-400, 0.1);
 $card-cap-bg: transparent;
-$card-bg: $white;
-
-$list-group-bg: $white;
 
 $theme-colors: (
   primary: $primary,

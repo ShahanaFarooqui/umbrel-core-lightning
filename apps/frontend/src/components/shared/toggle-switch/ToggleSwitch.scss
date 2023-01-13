@@ -21,7 +21,7 @@
   }
 
   & .toggle-switch {
-    margin: 2px;
+    margin: 3px;
     height: 1.6rem;
     width: 3.5rem;
     border-radius: 2rem;
@@ -37,8 +37,8 @@
       transform: translateX(54px);
     }
     &:hover {
-      background-color: $yellow-theme-400;
-      border-color: $yellow-theme-400;
+      background-color: lighten($primary, 5%);
+      border-color: lighten($primary, 5%);
     }
   }
 }

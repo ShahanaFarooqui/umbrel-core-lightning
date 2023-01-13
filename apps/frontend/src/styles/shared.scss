@@ -25,13 +25,13 @@
   &.btn-group-dark .btn {
     color: $white;
     font-weight: 700;
-    background-color: $yellow-theme-700;
-    border-color: $yellow-theme-700;
+    background-color: darken($primary, 10%);
+    border-color: darken($primary, 12%);
     &:hover {
       color: $white;
       font-weight: 700;
-      background-color: lighten($yellow-theme-700, 5%);
-      border-color: lighten($yellow-theme-700, 2%);
+      background-color: darken($primary, 5%);
+      border-color: darken($primary, 7%);
       // background-color: var(--bs-btn-hover-bg);
       // border-color: var(--bs-btn-hover-border-color);
     }
