@@ -6,15 +6,13 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Image from 'react-bootstrap/Image';
 import Dropdown from 'react-bootstrap/Dropdown';
-import { CURRENCY_UNITS, APPLICATION_MODES } from '../../../utilities/Constants';
+import { CURRENCY_UNITS, APPLICATION_MODES } from '../../../utilities/constants';
+import { useContext, useState } from 'react';
 import { AppContext } from '../../../store/AppContext';
-import { useContext } from 'react';
+import logger from '../../../services/logger.service';
 
 const Header = () => {
   const appCtx = useContext(AppContext);
-
-  console.warn('HEADER');
-  console.warn(appCtx.nodeInfo);
 
   return (
     <Row className='header mb-4 mx-1' data-testid='header'>
@@ -24,17 +22,17 @@ const Header = () => {
           <h4 className='m-0' style={{color:'#1B2559'}}><strong>Core Lightning Node</strong></h4>
           <Row className='text-secondary align-items-center'>
             <div className='ms-3 me-1 bg-success dot'></div>
-            Running (none)
+            Running ({appCtx.nodeInfo.version})({appCtx.appConfig.unit})
           </Row>
         </Row>
       </Col>
       <Col xs={3} className='header-context d-flex align-items-center justify-content-end' data-testid='header-context'>
         <Col>
-          <ToggleSwitch values={CURRENCY_UNITS} />
+          <ToggleSwitch values={CURRENCY_UNITS} storeSelector='appConfig' storeKey='unit' />
         </Col>
-        {/* <Col>
-          <ToggleSwitch values={APPLICATION_MODES} />
-        </Col> */}
+        <Col>
+          <ToggleSwitch values={APPLICATION_MODES} storeSelector='appConfig' storeKey='appMode' />
+        </Col>
         <Col>
           <Dropdown className='settings-dropdown'>
             <Dropdown.Toggle variant='primary' className='text-white'>

@@ -1,24 +1,32 @@
-import { useState } from 'react';
+import axios from 'axios';
+import { useContext, useState } from 'react';
+import { AppContext } from '../../../store/AppContext';
+import { API_BASE_URL, API_VERSION } from '../../../utilities/constants';
 import './ToggleSwitch.scss';
+import logger from '../../../services/logger.service';
 
 const ToggleSwitch = (props) => {
   const [selectedValue, setSelectedValue] = useState(props.values[0]);
   const [toggleClasses, setToggleClasses] = useState('toggle-switch justify-content-center d-flex align-items-center toggle-left');
+  const appCtx = useContext(AppContext);
   
   const changeValueHandler = (event) => {
+    let newAppConfig: any = null;
     if (selectedValue === props.values[0]) {
+      newAppConfig = { ...appCtx[props.storeSelector], [props.storeKey]: props.values[1]};
       setToggleClasses('toggle-switch justify-content-center d-flex align-items-center toggle-right');
-      setSelectedValue(prevValue => {
-        console.warn(props.values[1]);
-        return props.values[1];
-      });
+      setSelectedValue(props.values[1]);
     } else {
+      newAppConfig = { ...appCtx[props.storeSelector], [props.storeKey]: props.values[0]};
       setToggleClasses('toggle-switch justify-content-center d-flex align-items-center toggle-left');
-      setSelectedValue(prevValue => {
-        console.warn(props.values[0]);
-        return props.values[0];
-      });
+      setSelectedValue(props.values[0]);
     }
+    axios.post(API_BASE_URL + API_VERSION + '/shared/config', newAppConfig)
+    .then((response: any) => {
+      appCtx.setConfig(newAppConfig);
+    }).catch(err => {
+      logger.error(err);
+    });
   };
 
   return (

@@ -1,3 +1,4 @@
+export const LOG_LEVEL = 'info';
 export const API_BASE_URL = 'http://localhost:3007';
 export const API_VERSION = '/v1';
 export const COMMANDO_RUNE = 'Am3W_wI0PRn4qVNEsJ2iInHyFPQK8wfdqEXztm8-icQ9MA==';
@@ -7,6 +8,8 @@ export const COMMANDO_IP = '0.0.0.0';
 export const COMMANDO_PORT = 19846;
 export const COMMANDO_PRIVATE_KEY =
   'ea8d3091934f2c86c216370f0206acaaa2ee12462387743c358ca5f0245bf561';
+
+export type LogLevel = 'info' | 'warn' | 'error';
 
 export enum NumberTypes {
   COMMON = 'COMMON',

@@ -3,6 +3,7 @@ import 'react-perfect-scrollbar/dist/css/styles.css';
 
 import Transactions from '../Transactions/Transactions';
 import CurrencyBox from '../Shared/CurrencyBox/CurrencyBox';
+import logger from '../../services/logger.service';
 
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import Card from 'react-bootstrap/Card';
@@ -55,7 +56,7 @@ const BTCWallet = () => {
           </Card>
           <Card.Body className='px-0 transaction-list'>
             <PerfectScrollbar
-              onScrollY={container => console.log(`scrolled to: ${container.scrollTop}.`)}>
+              onScrollY={container => logger.info(`scrolled to: ${container.scrollTop}.`)}>
               <Transactions transactions={btcTransactions} />
             </PerfectScrollbar>
           </Card.Body>

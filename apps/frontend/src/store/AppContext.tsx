@@ -4,12 +4,14 @@
 // 3: Polling after every 10 seconds can make it even slower.
 
 import React, { useReducer } from 'react';
-// import { AppContextType } from '../types/AppContext.type';
-import { ApplicationActions, ApplicationModes, Units } from '../utilities/Constants';
-import { ApplicationConfiguration } from '../types/AppConfig.type';
-import { NodeInfo } from '../types/LightningWallet.type';
+import { AppContextType } from '../types/app-context.type';
+import { ApplicationActions, ApplicationModes, Units } from '../utilities/constants';
+import { ApplicationConfiguration } from '../types/app-config.type';
+import { NodeInfo } from '../types/lightning-wallet.type';
+import logger from '../services/logger.service';
 
-export const AppContext = React.createContext({
+
+const AppContext = React.createContext<AppContextType>({
   appConfig: { unit: Units.SATS, currencyUnit: 'USD', appMode: ApplicationModes.DARK },
   nodeInfo: {},
   setConfig: (config: ApplicationConfiguration) => {},
@@ -19,23 +21,22 @@ export const AppContext = React.createContext({
 
 const defaultAppState = {
   appConfig: { unit: Units.SATS, currencyUnit: 'USD', appMode: ApplicationModes.DARK },
-  nodeInfo: { version: 'cln-test-version' }
+  nodeInfo: {}
 };
 
 const appReducer = (state, action) => {
-  console.info(action);
+  logger.info({
+    ...state,
+    appConfig: action.payload
+  });
   switch (action.type) {
     case ApplicationActions.SET_CONFIG:
-      console.warn('Set Config');
-      console.warn(action.payload);
       return {
         ...state,
-        appSettings: action.payload
+        appConfig: action.payload
       };
 
     case ApplicationActions.SET_NODE_INFO:
-      console.warn('Set Info');
-      console.warn(action.payload);
       return {
         ...state,
         nodeInfo: action.payload
@@ -49,16 +50,14 @@ const appReducer = (state, action) => {
   }
 };
 
-const AppContextProvider = (props) => {
+const AppProvider: React.PropsWithChildren<any> = (props) => {
   const [applicationState, dispatchApplicationAction] = useReducer(appReducer, defaultAppState);
 
   const setConfigurationHandler = (config: ApplicationConfiguration) => {
-    console.warn('Config Handler');
     dispatchApplicationAction({ type: ApplicationActions.SET_CONFIG, payload: config });
   };
 
   const setNodeInfoHandler = (info: NodeInfo) => {
-    console.warn('Node Handler');
     dispatchApplicationAction({ type: ApplicationActions.SET_NODE_INFO, payload: info });
   };
 
@@ -66,7 +65,7 @@ const AppContextProvider = (props) => {
     dispatchApplicationAction({ type: ApplicationActions.CLEAR_CONTEXT });
   };
 
-  const appContext = {
+  const appContext: AppContextType = {
     appConfig: applicationState.appConfig,
     nodeInfo: applicationState.nodeInfo,
     setConfig: setConfigurationHandler,
@@ -77,4 +76,4 @@ const AppContextProvider = (props) => {
   return <AppContext.Provider value={appContext}>{props.children}</AppContext.Provider>;
 };
 
-export default AppContextProvider;
+export { AppProvider, AppContext };

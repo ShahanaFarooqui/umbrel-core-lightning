@@ -1,4 +1,4 @@
-import { ApplicationModes, Units } from "../utilities/Constants";
+import { ApplicationModes, Units } from "../utilities/constants";
 
 export type ApplicationConfiguration = {
   unit: Units;

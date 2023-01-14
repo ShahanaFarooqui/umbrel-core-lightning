@@ -1,5 +1,6 @@
 import './Channels.scss';
-import { formatCurrency } from '../../utilities/DataFormatters';
+import { formatCurrency } from '../../utilities/data-formatters';
+import logger from '../../services/logger.service';
 
 import ListGroup from 'react-bootstrap/ListGroup';
 import PerfectScrollbar from 'react-perfect-scrollbar';
@@ -28,7 +29,7 @@ const Channels = () => {
           <Card.Header className='text-secondary fs-5 fw-bold'>Payment Channels</Card.Header>
           <Card.Body className='px-0 transaction-list'>
             <PerfectScrollbar
-              onScrollY={container => console.log(`scrolled to: ${container.scrollTop}.`)}
+              onScrollY={container => logger.info(`scrolled to: ${container.scrollTop}.`)}
             >
               <ListGroup as='ul' variant='flush'>
                 {channels.map(channel => (

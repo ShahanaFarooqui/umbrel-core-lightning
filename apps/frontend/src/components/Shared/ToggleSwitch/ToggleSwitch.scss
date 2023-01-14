@@ -4,7 +4,7 @@
   color: $secondary;
   font-weight: 700;
   border-radius: 1rem;
-  width: 7.3rem;
+  width: 9rem;
   height: 2rem;
   box-sizing: border-box;
   position: relative;
@@ -23,7 +23,7 @@
   & .toggle-switch {
     margin: 3px;
     height: 1.6rem;
-    width: 3.5rem;
+    width: 4.5rem;
     border-radius: 2rem;
     color: $white;
     font-size: 1rem;
@@ -34,7 +34,7 @@
       transform: translateX(0);
     }
     &.toggle-right {
-      transform: translateX(54px);
+      transform: translateX(4.1rem);
     }
     &:hover {
       background-color: lighten($primary, 5%);
