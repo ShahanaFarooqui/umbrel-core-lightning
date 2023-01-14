@@ -1,8 +1,8 @@
 import './BTCWallet.scss';
 import 'react-perfect-scrollbar/dist/css/styles.css';
 
-import Transactions from '../transactions/Transactions';
-import CurrencyBox from '../shared/currency-box/CurrencyBox';
+import Transactions from '../Transactions/Transactions';
+import CurrencyBox from '../Shared/CurrencyBox/CurrencyBox';
 
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import Card from 'react-bootstrap/Card';

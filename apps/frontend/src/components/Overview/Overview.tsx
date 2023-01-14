@@ -4,7 +4,7 @@ import Card from 'react-bootstrap/Card';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Image from 'react-bootstrap/Image'
-import CurrencyBox from '../shared/currency-box/CurrencyBox';
+import CurrencyBox from '../Shared/CurrencyBox/CurrencyBox';
 
 const activeChannels = 14;
 const numPeers = 8;

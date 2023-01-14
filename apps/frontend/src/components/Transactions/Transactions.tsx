@@ -1,7 +1,7 @@
 import './Transactions.scss';
 
 import ListGroup from 'react-bootstrap/ListGroup';
-import { formatCurrency } from '../../utilities/data-formatters';
+import { formatCurrency } from '../../utilities/DataFormatters';
 
 const Transactions = (props) => {
   return (

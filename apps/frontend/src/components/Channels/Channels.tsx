@@ -1,5 +1,5 @@
 import './Channels.scss';
-import { formatCurrency } from '../../utilities/data-formatters';
+import { formatCurrency } from '../../utilities/DataFormatters';
 
 import ListGroup from 'react-bootstrap/ListGroup';
 import PerfectScrollbar from 'react-perfect-scrollbar';

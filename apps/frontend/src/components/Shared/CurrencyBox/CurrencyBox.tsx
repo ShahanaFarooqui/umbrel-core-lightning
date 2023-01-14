@@ -1,6 +1,6 @@
 import './CurrencyBox.scss';
 
-import { formatCurrency } from '../../../utilities/data-formatters';
+import { formatCurrency } from '../../../utilities/DataFormatters';
 
 const showInBTC = false;
 

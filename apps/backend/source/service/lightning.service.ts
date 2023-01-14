@@ -22,8 +22,8 @@ export class LightningService {
       logger: {
         info: console.log,
         warn: console.warn,
-        error: console.error
-      }
+        error: console.error,
+      },
     });
     this.lnMessage.connect();
   }

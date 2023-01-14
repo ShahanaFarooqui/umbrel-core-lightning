@@ -1,13 +1,20 @@
 import './Header.scss';
 
-import ToggleSwitch from '../toggle-switch/ToggleSwitch';
+import ToggleSwitch from '../ToggleSwitch/ToggleSwitch';
 
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Image from 'react-bootstrap/Image';
 import Dropdown from 'react-bootstrap/Dropdown';
+import { CURRENCY_UNITS, APPLICATION_MODES } from '../../../utilities/Constants';
+import { AppContext } from '../../../store/AppContext';
+import { useContext } from 'react';
 
 const Header = () => {
+  const appCtx = useContext(AppContext);
+
+  console.warn('HEADER');
+  console.warn(appCtx.nodeInfo);
 
   return (
     <Row className='header mb-4 mx-1' data-testid='header'>
@@ -17,14 +24,17 @@ const Header = () => {
           <h4 className='m-0' style={{color:'#1B2559'}}><strong>Core Lightning Node</strong></h4>
           <Row className='text-secondary align-items-center'>
             <div className='ms-3 me-1 bg-success dot'></div>
-            Running (v23.2.0-beta)
+            Running (none)
           </Row>
         </Row>
       </Col>
       <Col xs={3} className='header-context d-flex align-items-center justify-content-end' data-testid='header-context'>
         <Col>
-          <ToggleSwitch />
+          <ToggleSwitch values={CURRENCY_UNITS} />
         </Col>
+        {/* <Col>
+          <ToggleSwitch values={APPLICATION_MODES} />
+        </Col> */}
         <Col>
           <Dropdown className='settings-dropdown'>
             <Dropdown.Toggle variant='primary' className='text-white'>
@@ -33,7 +43,6 @@ const Header = () => {
             <Dropdown.Menu>
               <Dropdown.Item href='#/action-1'>Show Node ID</Dropdown.Item>
               <Dropdown.Item href='#/action-2'>Connect Wallet</Dropdown.Item>
-              <Dropdown.Item href='#/action-3'>Dark Mode</Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
         </Col>

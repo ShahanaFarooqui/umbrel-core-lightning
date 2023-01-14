@@ -27,3 +27,5 @@ export enum HttpStatusCode {
   BITCOIN_SERVER = 520,
   CLN_SERVER = 521,
 }
+
+export const SETTINGS_FILE_PATH = '../../data/app/app.config.json';
