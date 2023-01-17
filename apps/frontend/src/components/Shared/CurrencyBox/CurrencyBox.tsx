@@ -1,12 +1,10 @@
 import './CurrencyBox.scss';
-import CSSTransition from "react-transition-group/Transition";
 
 import { formatCurrency } from '../../../utilities/data-formatters';
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import { AppContext } from '../../../store/AppContext';
 
 const CurrencyBox = props => {
-  const [inProp, setInProp] = useState(true);
   const mainDivClassList =
     props.alignment === 'row'
       ? 'd-inline-flex flex-row align-items-center'
