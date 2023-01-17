@@ -25,10 +25,8 @@ const defaultAppState = {
 };
 
 const appReducer = (state, action) => {
-  logger.info({
-    ...state,
-    appConfig: action.payload
-  });
+  logger.info(state);
+  logger.info(action);
   switch (action.type) {
     case ApplicationActions.SET_CONFIG:
       return {
