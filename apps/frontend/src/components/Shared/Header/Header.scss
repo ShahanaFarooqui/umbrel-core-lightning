@@ -10,7 +10,7 @@
       display: none;
     }
     & .dropdown-item {
-      color: $secondary;
+      color: $light;
       &.active, &:active {
         color: $primary;
         text-decoration: none;

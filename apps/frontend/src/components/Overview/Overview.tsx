@@ -35,7 +35,7 @@ const Overview = () => {
                 <div className='d-flex align-items-center justify-content-start'>
                   <Image src="images/channels.svg" alt="Active channels image" className='me-4'></Image>
                   <div>
-                    <div className='fs-6 text-secondary'>Active Channels</div>
+                    <div className='fs-6 text-light'>Active Channels</div>
                     <div className='fs-4 fw-bold'>{parseFloat(activeChannels.toString()).toLocaleString('en-us')}</div>
                   </div>
                 </div>
@@ -44,7 +44,7 @@ const Overview = () => {
                 <div className='d-flex align-items-center justify-content-start'>
                   <Image src="images/peers.svg" alt="Peers image" className='me-4'></Image>
                   <div>
-                    <div className='fs-6 text-secondary'>Peers</div>
+                    <div className='fs-6 text-light'>Peers</div>
                     <div className='fs-4 fw-bold'>{parseFloat(numPeers.toString()).toLocaleString('en-us')}</div>
                   </div>
                 </div>
@@ -54,11 +54,11 @@ const Overview = () => {
                   <Image src="images/capacity.svg" alt="Capacity image" className='me-4'></Image>
                   <Col>
                     <div className='d-flex align-items-center justify-content-between'>
-                      <div className='fs-6 text-secondary'>Maximum Send</div>
+                      <div className='fs-6 text-light'>Maximum Send</div>
                       <CurrencyBox value='15000' alignment='row'></CurrencyBox>
                     </div>
                     <div className='d-flex align-items-center justify-content-between'>
-                      <div className='fs-6 text-secondary'>Maximum Receive</div>
+                      <div className='fs-6 text-light'>Maximum Receive</div>
                       <CurrencyBox value='5000' alignment='row'></CurrencyBox>
                     </div>
                   </Col>

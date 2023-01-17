@@ -1,29 +1,25 @@
 @import '../../../styles/constants.scss';
 
 .toggle {
-  color: $secondary;
+  color: $light;
   font-weight: 700;
   border-radius: 1rem;
-  width: 9rem;
   height: 2rem;
   box-sizing: border-box;
   position: relative;
   display: flex;
   cursor: pointer;
   background: $white;
-
+  
   & .toggle-bg-text {
-    position: absolute;
-    top: 0;
-    left: 0;
     height: 100%;
-    width: 100%;
   }
 
   & .toggle-switch {
+    position: absolute;
     margin: 3px;
     height: 1.6rem;
-    width: 4.5rem;
+    width: calc(50%);
     border-radius: 2rem;
     color: $white;
     font-size: 1rem;
@@ -34,7 +30,7 @@
       transform: translateX(0);
     }
     &.toggle-right {
-      transform: translateX(4.1rem);
+      transform: translateX(90%);
     }
     &:hover {
       background-color: lighten($primary, 5%);

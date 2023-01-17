@@ -12,12 +12,15 @@ import { API_BASE_URL, API_VERSION } from '../../utilities/constants';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import Spinner from 'react-bootstrap/Spinner';
 import { AppContext } from '../../store/AppContext';
 import logger from '../../services/logger.service';
 
 const App = () => {
   const appCtx = useContext(AppContext);
+  const htmlAttributes = document.getElementsByTagName('body')[0].attributes;
+  const theme = document.createAttribute('data-bs-theme');
+  theme.value = (appCtx.appConfig.appMode).toLowerCase();
+  htmlAttributes.setNamedItem(theme);
 
   useEffect(() => {
     axios.get(API_BASE_URL + API_VERSION + '/shared/config')

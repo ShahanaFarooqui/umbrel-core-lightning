@@ -39,8 +39,8 @@ const BTCWallet = () => {
                   <Image src='images/bitcoin-wallet.svg' alt='Bitcoin image' className='me-4'></Image>
                   <div>
                     <div className='fs-6'>Bitcoin Wallet</div>
-                    <CurrencyBox value='1384943' alignment='column'></CurrencyBox>
-                  </div>
+                      <CurrencyBox value='1384943' alignment='column'></CurrencyBox>
+                    </div>
                 </Col>
                 <Col xs={3} className='d-flex align-items-start justify-content-end fw-bold'>...</Col>
               </Row>

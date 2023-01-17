@@ -26,7 +26,7 @@ const Channels = () => {
     <Row className='h-100 mb-4 mx-1'>
       <Card className='d-flex align-items-stretch'>
         <Card.Body className='d-flex align-items-stretch flex-column pt-4'>
-          <Card.Header className='text-secondary fs-5 fw-bold'>Payment Channels</Card.Header>
+          <Card.Header className='text-light fs-5 fw-bold'>Payment Channels</Card.Header>
           <Card.Body className='px-0 transaction-list'>
             <PerfectScrollbar
               onScrollY={container => logger.info(`scrolled to: ${container.scrollTop}.`)}
