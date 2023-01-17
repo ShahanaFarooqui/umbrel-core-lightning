@@ -42,3 +42,11 @@
   padding-top: 2px;
   height: 2rem;
 }
+
+.btn.btn-primary {
+  color: var(--bs-body-bg);
+  &.active, &:active {
+    color: var(--bs-body-bg);
+    text-decoration: none;
+  }
+}

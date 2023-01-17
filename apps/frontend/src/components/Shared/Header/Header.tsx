@@ -7,10 +7,12 @@ import Col from 'react-bootstrap/Col';
 import Image from 'react-bootstrap/Image';
 import Dropdown from 'react-bootstrap/Dropdown';
 import { CURRENCY_UNITS, APPLICATION_MODES } from '../../../utilities/constants';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { AppContext } from '../../../store/AppContext';
+import ModalComponent from '../NodeInfo/NodeInfo';
 
 const Header = () => {
+  const [show, setShow] = useState(false);
   const appCtx = useContext(AppContext);
 
   return (
@@ -18,7 +20,7 @@ const Header = () => {
       <Col xs={8} className='text-start' data-testid='header-info'>
         <Image src='images/cln-logo.png' className='header-info-logo me-3 rounded float-start' alt='Core Lightning Logo' />
         <Row className='header-info-text mt-3'>
-          <h4 className='m-0' style={{color:'#1B2559'}}><strong>Core Lightning Node</strong></h4>
+          <h4 className='m-0 text-dark'><strong>Core Lightning Node</strong></h4>
           <Row className='text-light align-items-center'>
             <div className='ms-3 me-1 bg-success dot'></div>
             Running ({appCtx.nodeInfo.version})
@@ -33,8 +35,9 @@ const Header = () => {
             Settings<Image src='images/settings.svg' alt='Settings image' className='ms-2'></Image>
           </Dropdown.Toggle>
           <Dropdown.Menu>
-            <Dropdown.Item href='#/action-1'>Show Node ID</Dropdown.Item>
+            <Dropdown.Item data-bs-toggle="modal" data-bs-target="#staticBackdrop" onClick={() => setShow(true)}>Show Node ID</Dropdown.Item>
             <Dropdown.Item href='#/action-2'>Connect Wallet</Dropdown.Item>
+            <ModalComponent show={show} onHide={() => setShow(false)}/>
           </Dropdown.Menu>
         </Dropdown>
       </Col>

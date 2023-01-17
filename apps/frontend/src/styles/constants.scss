@@ -1,16 +1,37 @@
-// $font-family: -apple-system, BlinkMacSystemFont, '', 'Helvetica Neue', 'Segoe UI', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-$font-family: 'DM Sans Medium';
+@import '~bootstrap/scss/functions';
+@import '~bootstrap/scss/variables';
+@import '~bootstrap/scss/mixins';
+
+$enable-shadows: true;
+$enable-gradients: true;
+$enable-responsive-font-sizes: true;
+
+// $font-family-base: -apple-system, BlinkMacSystemFont, '', 'Helvetica Neue', 'Segoe UI', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+$font-family-base: 'DM Sans Medium';
+$font-weight-base: 500;
 
 $white: #ffffff;
 $primary: #f0d003;
 $success: #33db95;
 $light: #a3aed0;
+$dark: #1B2559;
 
-$body-bg: #f8f2cc;
+// $body-bg: #f3f0dd;
+$body-bg: $white;
 $body-bg-dark: #131314;
+
 
 $card-bg-light: $white;
 $card-bg-dark: #262626;
 
 $border-radius: 1.25rem;
 
+$dropdown-link-active-bg: $white;
+
+$card-border-width: 0.5px;
+$card-border-color: rgba($light, 0.1);
+$card-border-radius: $border-radius;
+$card-box-shadow: 0px 4px 4px rgba($gray-400, 0.1);
+$card-cap-bg: transparent;
+
+$btn-active-color: $white;
