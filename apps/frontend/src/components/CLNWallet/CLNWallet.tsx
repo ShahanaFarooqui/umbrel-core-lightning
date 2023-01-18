@@ -10,8 +10,10 @@ import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import Image from 'react-bootstrap/Image';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
+import { LightningWalletSVG } from '../../svgs/lightning-wallet';
+import { WithdrawSVG } from '../../svgs/withdraw';
+import { DepositSVG } from '../../svgs/deposit';
 
 const clnTransactions = [
   { key: 1, direction: 'out', title: 'LSAT', amount: 100494, time: 1672614745 },
@@ -36,7 +38,7 @@ const CLNWallet = () => {
             <Card.Body>
               <Row>
                 <Col xs={9} className='d-flex align-items-center justify-content-start'>
-                  <Image src='images/lightning-wallet.svg' alt='Core lightning wallet image' className='me-4'></Image>
+                  <LightningWalletSVG className='me-4' />
                   <div>
                     <div className='fs-6'>Lightning Wallet</div>
                     <CurrencyBox value='32943' alignment='column'></CurrencyBox>
@@ -47,10 +49,10 @@ const CLNWallet = () => {
             </Card.Body>
             <ButtonGroup className='sticky-bottom btn-group-dark'>
               <Button>
-                <Image src='images/withdraw.svg' alt='Withdraw image' className='me-2'></Image>Withdraw
+                <WithdrawSVG className='me-2' />Withdraw
               </Button>
               <Button>
-                <Image src='images/deposit.svg' alt='Deposit image' className='me-2'></Image>Deposit
+                <DepositSVG className='me-2' />Deposit
               </Button>
             </ButtonGroup>
           </Card>

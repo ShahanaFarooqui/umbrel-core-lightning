@@ -3,8 +3,11 @@ import './Overview.scss';
 import Card from 'react-bootstrap/Card';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import Image from 'react-bootstrap/Image'
 import CurrencyBox from '../Shared/CurrencyBox/CurrencyBox';
+import { BalanceSVG } from '../../svgs/balance';
+import { PeersSVG } from '../../svgs/peers';
+import { CapacitySVG } from '../../svgs/capacity';
+import { ChannelsSVG } from '../../svgs/channels';
 
 const activeChannels = 14;
 const numPeers = 8;
@@ -21,7 +24,7 @@ const Overview = () => {
                 <CurrencyBox value='1804943' alignment='column'></CurrencyBox>
               </Col>
               <Col xs={6} className='d-flex align-items-center justify-content-end'>
-                <Image src="images/balance.svg" alt="Balance image"></Image>
+                <BalanceSVG />
               </Col>
             </Row>
           </Card.Body>
@@ -33,7 +36,7 @@ const Overview = () => {
             <Row>
               <Col>
                 <div className='d-flex align-items-center justify-content-start'>
-                  <Image src="images/channels.svg" alt="Active channels image" className='me-4'></Image>
+                  <ChannelsSVG className='me-4' />
                   <div>
                     <div className='fs-6 text-light'>Active Channels</div>
                     <div className='fs-4 fw-bold'>{parseFloat(activeChannels.toString()).toLocaleString('en-us')}</div>
@@ -42,7 +45,7 @@ const Overview = () => {
               </Col>
               <Col>
                 <div className='d-flex align-items-center justify-content-start'>
-                  <Image src="images/peers.svg" alt="Peers image" className='me-4'></Image>
+                  <PeersSVG className='me-4' />
                   <div>
                     <div className='fs-6 text-light'>Peers</div>
                     <div className='fs-4 fw-bold'>{parseFloat(numPeers.toString()).toLocaleString('en-us')}</div>
@@ -51,7 +54,7 @@ const Overview = () => {
               </Col>
               <Col xs={12} md={5}>
                 <div className='d-flex align-items-center justify-content-start'>
-                  <Image src="images/capacity.svg" alt="Capacity image" className='me-4'></Image>
+                  <CapacitySVG className='me-4' />
                   <Col>
                     <div className='d-flex align-items-center justify-content-between'>
                       <div className='fs-6 text-light'>Maximum Send</div>

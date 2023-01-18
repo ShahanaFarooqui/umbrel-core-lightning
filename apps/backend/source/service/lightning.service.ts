@@ -1,4 +1,5 @@
 import Lnmessage from 'lnmessage';
+import { LightningError } from '../models/errors.js';
 import {
   COMMANDO_IP,
   COMMANDO_PORT,
@@ -6,6 +7,7 @@ import {
   COMMANDO_PUBKEY,
   COMMANDO_RUNE,
   COMMANDO_WS_PROXY,
+  HttpStatusCode,
 } from '../shared/consts.js';
 import { logger } from '../shared/logger.js';
 
@@ -42,7 +44,12 @@ export class LightningService {
       .catch((err: any) => {
         logger.error('Lightning error from ' + method + ' command');
         logger.error(JSON.stringify(err));
-        throw err;
+        throw new LightningError(
+          err.error,
+          HttpStatusCode.CLN_SERVER,
+          err.message,
+          'Core Lightning API Error',
+        );
       });
   };
 }

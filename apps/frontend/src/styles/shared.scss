@@ -1,7 +1,14 @@
+@import '~bootstrap/scss/functions';
+@import '~bootstrap/scss/variables';
+@import '~bootstrap/scss/mixins';
 @import 'constants';
 
 .fs-7 {
   font-size: 75% !important;
+}
+
+.mt-10 {
+  margin-top: $spacer * 10;
 }
 
 .dot {
@@ -44,9 +51,37 @@
 }
 
 .btn.btn-primary {
-  color: var(--bs-body-bg);
+  color: var(--bs-body-color);
+  &.disabled, &:disabled {
+    color: $gray-600;
+  }
   &.active, &:active {
-    color: var(--bs-body-bg);
+    color: var(--bs-body-color);
     text-decoration: none;
+  }
+}
+
+.dropdown {
+  &.dropdown-disabled {
+    cursor: not-allowed;
+    color: $gray-600;
+  }
+}
+
+.svg-fill-light {
+  path {
+    fill: $light;
+  }
+}
+
+.svg-fill-white {
+  path {
+    fill: $white;
+  }
+}
+
+.svg-fill-disabled {
+  path {
+    fill: $gray-600;
   }
 }

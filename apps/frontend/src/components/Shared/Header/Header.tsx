@@ -10,6 +10,7 @@ import { CURRENCY_UNITS, APPLICATION_MODES } from '../../../utilities/constants'
 import { useContext, useState } from 'react';
 import { AppContext } from '../../../store/AppContext';
 import ModalComponent from '../NodeInfo/NodeInfo';
+import { SettingsSVG } from '../../../svgs/settings';
 
 const Header = () => {
   const [show, setShow] = useState(false);
@@ -22,20 +23,21 @@ const Header = () => {
         <Row className='header-info-text mt-3'>
           <h4 className='m-0 text-dark'><strong>Core Lightning Node</strong></h4>
           <Row className='text-light align-items-center'>
-            <div className='ms-3 me-1 bg-success dot'></div>
-            Running ({appCtx.nodeInfo.version})
+            <div className={'ms-3 me-1 dot ' + ((appCtx.nodeInfo.id) ? 'bg-success' : (appCtx.nodeInfo.error) ? 'bg-danger' : 'bg-warning')}></div>
+            { (appCtx.nodeInfo.id) ? 'Running (' + appCtx.nodeInfo.version + ')' : (appCtx.nodeInfo.error) ? ('Error: ' + appCtx.nodeInfo.error) : 'Loading...' }
           </Row>
         </Row>
       </Col>
       <Col xs={4} className='d-flex align-items-center justify-content-end' data-testid='header-context'>
         <ToggleSwitch values={CURRENCY_UNITS} selValue={appCtx.appConfig.unit} storeSelector='appConfig' storeKey='unit' />
         <ToggleSwitch values={APPLICATION_MODES} selValue={appCtx.appConfig.appMode} storeSelector='appConfig' storeKey='appMode' />
-        <Dropdown className='settings-dropdown'>
-          <Dropdown.Toggle variant='primary' className='text-white'>
-            Settings<Image src='images/settings.svg' alt='Settings image' className='ms-2'></Image>
+        <Dropdown className={'settings-dropdown ' + ((appCtx.nodeInfo.error) ? 'dropdown-disabled' : '')} >
+          <Dropdown.Toggle variant='primary' disabled={!!appCtx.nodeInfo.error} className='text-white'>
+            <strong>Settings</strong>
+            <SettingsSVG className={'ms-2' + ((appCtx.nodeInfo.error) ? ' svg-fill-disabled' : ' svg-fill-white')} />
           </Dropdown.Toggle>
           <Dropdown.Menu>
-            <Dropdown.Item data-bs-toggle="modal" data-bs-target="#staticBackdrop" onClick={() => setShow(true)}>Show Node ID</Dropdown.Item>
+            <Dropdown.Item data-bs-toggle='modal' data-bs-target='#staticBackdrop' onClick={() => setShow(true)}>Show Node ID</Dropdown.Item>
             <Dropdown.Item href='#/action-2'>Connect Wallet</Dropdown.Item>
             <ModalComponent show={show} onHide={() => setShow(false)}/>
           </Dropdown.Menu>

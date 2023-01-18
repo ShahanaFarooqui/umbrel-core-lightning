@@ -21,5 +21,6 @@ export type NodeInfo = {
   fees_collected_msat?: string;
   'lightning-dir'?: string;
   warning_bitcoind_sync?: string;
-  our_features?: any 
+  our_features?: any;
+  error?: any;
 }

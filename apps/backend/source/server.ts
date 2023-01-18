@@ -11,6 +11,7 @@ import { logger, expressLogConfiguration } from './shared/logger.js';
 import { CommonRoutesConfig } from './shared/routes.config.js';
 import { LightningRoutes } from './routes/v1/lightning.js';
 import { SharedRoutes } from './routes/v1/shared.js';
+import { APIError } from './models/errors.js';
 
 polyfills;
 let directoryName = dirname(fileURLToPath(import.meta.url));
@@ -67,7 +68,7 @@ const onListening = () => {
 const onError = (error: any) => {
   logger.error('Server error: ' + error);
   if (error.syscall !== 'listen') {
-    throw error;
+    throw new APIError(error);
   }
   switch (error.code) {
     case 'EACCES':
@@ -88,7 +89,7 @@ const onError = (error: any) => {
       break;
     default:
       logger.error('DEFUALT ERROR: ' + error.code);
-      throw error;
+      throw new APIError(error);
   }
 };
 

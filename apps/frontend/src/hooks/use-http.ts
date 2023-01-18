@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useCallback, useState } from 'react';
 import { API_BASE_URL, API_VERSION } from '../utilities/constants';
+import logger from '../services/logger.service';
 
 const useHttp = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -14,19 +15,22 @@ const useHttp = () => {
         url: API_BASE_URL + API_VERSION + url,
         data: reqBody
       }).then((response: any) => {
-        if (!response.ok) {
+        logger.info(response);
+        if (response.statusText !== 'OK') {
           setError('Unknown Error from Axios Response!');
         }
         setIsLoading(false);
         setStoreFunction(response.data);
       })
       .catch(err => {
-        console.error(err);
+        logger.error(err);
+        setStoreFunction({error: err.response.data});
         setIsLoading(false);
         setError((err.message && typeof err.message === 'string') ? err.message : (err.message && typeof err.message === 'object') ? JSON.stringify(err.message) : 'Unknown Error from Axios Call!');
       });
-    } catch (err) {
-      console.error(err);
+    } catch (err: any) {
+      logger.error(err);
+      setStoreFunction({error: err});
       setIsLoading(false);
       setError(JSON.stringify(err) || 'Unknown Error from Axios!');
     }

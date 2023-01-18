@@ -15,7 +15,7 @@ const AppContext = React.createContext<AppContextType>({
   appConfig: { unit: Units.SATS, currencyUnit: 'USD', appMode: ApplicationModes.DARK },
   nodeInfo: {},
   setConfig: (config: ApplicationConfiguration) => {},
-  setNodeInfo: (info: NodeInfo) => {},
+  setNodeInfo: (info: NodeInfo | Error) => {},
   clearStore: () => {}
 });
 

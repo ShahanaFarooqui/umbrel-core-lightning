@@ -12,20 +12,53 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { AppContext } from '../../store/AppContext';
 import useHttp from '../../hooks/use-http';
+import { Spinner } from 'react-bootstrap';
+import { ApplicationModes } from '../../utilities/constants';
 
 const App = () => {
   const appCtx = useContext(AppContext);
   const { isLoading, error, sendRequest: fetchData } = useHttp();
 
-  const htmlAttributes = document.getElementsByTagName('body')[0].attributes;
+  const bodyHTML = document.getElementsByTagName('body')[0];
+  const htmlAttributes = bodyHTML.attributes;
   const theme = document.createAttribute('data-bs-theme');
   theme.value = (appCtx.appConfig.appMode).toLowerCase();
+  bodyHTML.style.backgroundColor = (appCtx.appConfig.appMode === ApplicationModes.LIGHT) ? '#EEEEEE' : '#131313';
   htmlAttributes.setNamedItem(theme);
 
   useEffect(() => {
     fetchData(appCtx.setConfig, 'get', '/shared/config');
     fetchData(appCtx.setNodeInfo, 'post', '/cln/call', { 'method': 'getinfo', 'params': [] });
   }, [fetchData]);
+
+  if (isLoading) {
+    return (
+      <Container className='py-4' data-testid='container'>
+        <Header />
+        <Row className='mt-10'>
+          <Col xs={12} className='d-flex align-items-center justify-content-center'>
+            <Spinner animation='grow' variant='primary' />
+          </Col>            
+          <Col xs={12} className='d-flex align-items-center justify-content-center'>
+            <div>Loading...</div>
+          </Col>
+        </Row>
+      </Container>
+    );
+  }
+
+  if (error) {
+    return (
+      <Container className='py-4' data-testid='container'>
+        <Header />
+        <Row className='mt-10'>
+          <Col xs={12} className='d-flex align-items-center justify-content-center'>
+            {error}
+          </Col>            
+        </Row>
+      </Container>
+    );
+  }
 
   return (
     <Container className='py-4' data-testid='container'>

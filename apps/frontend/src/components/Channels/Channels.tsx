@@ -7,7 +7,7 @@ import PerfectScrollbar from 'react-perfect-scrollbar';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
-import Image from 'react-bootstrap/Image';
+import { ActionSVG } from '../../svgs/action';
 
 const channels = [
   { key: 1, peer: 'Coin Gate', local_balance: 99670, remote_balance: 0 },
@@ -50,7 +50,8 @@ const Channels = () => {
           </Card.Body>
           <Card.Footer className='d-flex justify-content-center'>
             <Button variant='primary' className='btn-rounded text-white fw-bold'>
-              Open Channel<Image src="images/action.svg" alt="Open channel image" className='ms-2'></Image>
+              Open Channel
+              <ActionSVG className='ms-2' />
             </Button>
           </Card.Footer>
         </Card.Body>
