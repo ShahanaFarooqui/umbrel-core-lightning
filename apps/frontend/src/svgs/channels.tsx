@@ -2,68 +2,20 @@ export const ChannelsSVG = props => {
   return (
     <svg
       className={props.className}
-      width="45"
-      height="66"
-      viewBox="0 0 45 50"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
+      width='38'
+      height='42'
+      viewBox='0 0 38 42'
+      fill='none'
+      xmlns='http://www.w3.org/2000/svg'
     >
-      <rect
-        x="0.714355"
-        y="43.8962"
-        width="44.1149"
-        height="5.33286"
-        rx="2.66643"
-        fill="currentColor"
-      />
-      <rect
-        x="0.714355"
-        y="43.8962"
-        width="10.5197"
-        height="5.33286"
-        rx="2.66643"
-        fill="currentColor"
-      />
-      <rect
-        x="0.714355"
-        y="29.3774"
-        width="44.1149"
-        height="5.33281"
-        rx="2.66641"
-        fill="currentColor"
-      />
-      <rect
-        x="0.714355"
-        y="29.3774"
-        width="40.0427"
-        height="5.33287"
-        rx="2.66643"
-        fill="currentColor"
-      />
-      <rect
-        x="0.714355"
-        y="14.8594"
-        width="44.1149"
-        height="5.33286"
-        rx="2.66643"
-        fill="currentColor"
-      />
-      <rect
-        x="0.714355"
-        y="14.8594"
-        width="30.5411"
-        height="5.33287"
-        rx="2.66643"
-        fill="currentColor"
-      />
-      <rect
-        x="0.714355"
-        y="0.341309"
-        width="44.1149"
-        height="5.33287"
-        rx="2.66644"
-        fill="currentColor"
-      />
+      <rect y='37.4185' width='37.8996' height='4.58151' rx='2.29076' className='fill-contrast' />
+      <rect y='37.4185' width='9.03759' height='4.58152' rx='2.29076' className='fill-primary' />
+      <rect y='24.9452' width='37.8996' height='4.58147' rx='2.29074' className='fill-contrast' />
+      <rect y='24.9452' width='34.4011' height='4.58152' rx='2.29076' className='fill-primary' />
+      <rect y='12.4727' width='37.8996' height='4.58152' rx='2.29076' className='fill-contrast' />
+      <rect y='12.4727' width='26.2382' height='4.58152' rx='2.29076' className='fill-primary' />
+      <rect width='37.8996' height='4.58152' rx='2.29076' className='fill-contrast' />
+      <rect width='19.5328' height='4.58152' rx='2.29076' className='fill-primary' />
     </svg>
   );
 };

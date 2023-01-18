@@ -26,7 +26,7 @@ const Channels = () => {
     <Row className='h-100 mb-4 mx-1'>
       <Card className='d-flex align-items-stretch'>
         <Card.Body className='d-flex align-items-stretch flex-column pt-4'>
-          <Card.Header className='text-light fs-5 fw-bold'>Payment Channels</Card.Header>
+          <Card.Header className='fs-5 fw-bold text-dark'>Payment Channels</Card.Header>
           <Card.Body className='px-0 transaction-list'>
             <PerfectScrollbar
               onScrollY={container => logger.info(`scrolled to: ${container.scrollTop}.`)}
@@ -38,7 +38,7 @@ const Channels = () => {
                     as='li'
                     className='d-flex justify-content-between align-items-start'
                   >
-                    <div className='ms-2 me-auto text-muted'>
+                    <div className='ms-2 me-auto text-dark'>
                       <div className='fw-bold'>{channel.peer}</div>
                       {formatCurrency(channel.local_balance)} &{' '}
                       {formatCurrency(channel.remote_balance)}
@@ -49,7 +49,7 @@ const Channels = () => {
             </PerfectScrollbar>
           </Card.Body>
           <Card.Footer className='d-flex justify-content-center'>
-            <Button variant='primary' className='btn-rounded text-white fw-bold'>
+            <Button variant='primary' className='btn-rounded fw-bold'>
               Open Channel
               <ActionSVG className='ms-2' />
             </Button>

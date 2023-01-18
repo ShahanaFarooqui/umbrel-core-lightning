@@ -18,23 +18,23 @@ const Header = () => {
 
   return (
     <Row className='header mb-4 mx-1' data-testid='header'>
-      <Col xs={8} className='text-start' data-testid='header-info'>
+      <Col xs={12} md={8} data-testid='header-info'>
         <Image src='images/cln-logo.png' className='header-info-logo me-3 rounded float-start' alt='Core Lightning Logo' />
         <Row className='header-info-text mt-3'>
           <h4 className='m-0 text-dark'><strong>Core Lightning Node</strong></h4>
-          <Row className='text-light align-items-center'>
+          <Row className='align-items-center text-light'>
             <div className={'ms-3 me-1 dot ' + ((appCtx.nodeInfo.id) ? 'bg-success' : (appCtx.nodeInfo.error) ? 'bg-danger' : 'bg-warning')}></div>
             { (appCtx.nodeInfo.id) ? 'Running (' + appCtx.nodeInfo.version + ')' : (appCtx.nodeInfo.error) ? ('Error: ' + appCtx.nodeInfo.error) : 'Loading...' }
           </Row>
         </Row>
       </Col>
-      <Col xs={4} className='d-flex align-items-center justify-content-end' data-testid='header-context'>
+      <Col xs={12} md={4} className='d-flex align-items-center justify-content-end' data-testid='header-context'>
         <ToggleSwitch values={CURRENCY_UNITS} selValue={appCtx.appConfig.unit} storeSelector='appConfig' storeKey='unit' />
         <ToggleSwitch values={APPLICATION_MODES} selValue={appCtx.appConfig.appMode} storeSelector='appConfig' storeKey='appMode' />
-        <Dropdown className={'settings-dropdown ' + ((appCtx.nodeInfo.error) ? 'dropdown-disabled' : '')} >
-          <Dropdown.Toggle variant='primary' disabled={!!appCtx.nodeInfo.error} className='text-white'>
+        <Dropdown className={'settings-dropdown ' + ((!!appCtx.nodeInfo.error) ? 'dropdown-disabled' : '')} >
+          <Dropdown.Toggle variant='primary' disabled={!!appCtx.nodeInfo.error} className='btn-rounded'>
             <strong>Settings</strong>
-            <SettingsSVG className={'ms-2' + ((appCtx.nodeInfo.error) ? ' svg-fill-disabled' : ' svg-fill-white')} />
+            <SettingsSVG className={'ms-2' + ((!!appCtx.nodeInfo.error) ? ' svg-fill-disabled' : '')} />
           </Dropdown.Toggle>
           <Dropdown.Menu>
             <Dropdown.Item data-bs-toggle='modal' data-bs-target='#staticBackdrop' onClick={() => setShow(true)}>Show Node ID</Dropdown.Item>

@@ -34,17 +34,16 @@ const BTCWallet = () => {
     <Row className='h-100 mb-4 mx-1'>
       <Card className='d-flex align-items-stretch'>
         <Card.Body className='d-flex align-items-stretch flex-column pt-4'>
-          <Card className='bg-primary bg-gradient text-white'>
+          <Card className='bg-primary bg-gradient'>
             <Card.Body>
               <Row>
-                <Col xs={9} className='d-flex align-items-center justify-content-start'>
+                <Col xs={12} className='d-flex align-items-center justify-content-start'>
                   <BitcoinWalletSVG className='me-4' />
                   <div>
                     <div className='fs-6'>Bitcoin Wallet</div>
-                      <CurrencyBox value='1384943' alignment='column'></CurrencyBox>
+                      <CurrencyBox value='1384943' rootClasses='d-inline-flex flex-column' currencyClasses='fs-4 fw-bold' unitClasses='fs-7 fw-bold'></CurrencyBox>
                     </div>
                 </Col>
-                <Col xs={3} className='d-flex align-items-start justify-content-end fw-bold'>...</Col>
               </Row>
             </Card.Body>
             <ButtonGroup className='sticky-bottom btn-group-dark'>

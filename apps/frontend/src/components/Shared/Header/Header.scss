@@ -10,14 +10,7 @@
       display: none;
     }
     & .dropdown-item {
-      color: $light;
-      &:hover {
-        color: $primary;
-      }
-      &.active, &:active {
-        color: $primary;
-        text-decoration: none;
-      }
+      color: $primary;
     }
   }
 }

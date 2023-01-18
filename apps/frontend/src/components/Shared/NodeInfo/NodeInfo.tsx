@@ -35,12 +35,12 @@ const NodeInfo = (props) => {
             <QRCodeCanvas value={appCtx.nodeInfo.id || ''} size={240} includeMargin={false} />
           </Col>
           <Col xs={12} md={8}>
-            <p className='text-break'>{appCtx.nodeInfo.id}</p>
+            <p className='text-break text-dark'>{appCtx.nodeInfo.id}</p>
           </Col>
         </Row>
       </Modal.Body>
-      <Modal.Footer>
-        <Button variant='primary' onClick={copyHandler}>{btnText}</Button>
+      <Modal.Footer className='d-flex align-items-center justify-content-center'>
+        <Button className='btn-rounded' variant='primary' onClick={copyHandler}>{btnText}</Button>
       </Modal.Footer>
     </Modal>
   );

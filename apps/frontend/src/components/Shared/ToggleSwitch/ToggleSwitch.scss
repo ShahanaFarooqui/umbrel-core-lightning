@@ -38,3 +38,14 @@
     }
   }
 }
+
+@include color-mode(dark) {
+  .toggle {
+    color: $white;
+    background: lighten($gray-910, 10%);
+    
+    & .toggle-switch {
+      color: $gray-910;
+    }
+  }  
+}

@@ -23,7 +23,7 @@ const App = () => {
   const htmlAttributes = bodyHTML.attributes;
   const theme = document.createAttribute('data-bs-theme');
   theme.value = (appCtx.appConfig.appMode).toLowerCase();
-  bodyHTML.style.backgroundColor = (appCtx.appConfig.appMode === ApplicationModes.LIGHT) ? '#EEEEEE' : '#131313';
+  bodyHTML.style.backgroundColor = (appCtx.appConfig.appMode === ApplicationModes.LIGHT) ? '#F4F7FE' : '#131314';
   htmlAttributes.setNamedItem(theme);
 
   useEffect(() => {
