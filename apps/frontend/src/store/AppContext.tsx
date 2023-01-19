@@ -7,41 +7,41 @@ import React, { useReducer } from 'react';
 import { AppContextType } from '../types/app-context.type';
 import { ApplicationActions, ApplicationModes, Units } from '../utilities/constants';
 import { ApplicationConfiguration } from '../types/app-config.type';
-import { Fund, Invoice, NodeInfo, Payment, Peer, Transaction } from '../types/lightning-wallet.type';
+import { Fund, ListInvoices, ListPayments, ListPeers, ListTransactions, NodeInfo } from '../types/lightning-wallet.type';
 import logger from '../services/logger.service';
 
 
 const AppContext = React.createContext<AppContextType>({
   appConfig: { unit: Units.SATS, currencyUnit: 'USD', appMode: ApplicationModes.DARK },
-  nodeInfo: {},
-  listFunds: {},
-  listPeers: [],
-  listInvoices: [],
-  listPayments: [],
-  listTransactions: [],
+  nodeInfo: {isLoading: true},
+  listFunds: {isLoading: true, channels: [], outputs: []},
+  listPeers: {isLoading: true, peers: []},
+  listInvoices: {isLoading: true, invoices: []},
+  listPayments: {isLoading: true, payments: []},
+  listTransactions: {isLoading: true, transactions: []},
   setConfig: (config: ApplicationConfiguration) => {},
-  setNodeInfo: (info: NodeInfo | Error) => {},
+  setNodeInfo: (info: NodeInfo) => {},
   setListFunds: (fundsList: Fund) => {},
-  setListPeers: (peersList: {peers: Peer[]}) => {},
-  setListInvoices: (invoicesList: {invoices: Invoice[]}) => {},
-  setListPayments: (paymentsList: {payments: Payment[]}) => {},
-  setListTransactions: (transactionsList: {transactions: Transaction[]}) => {},
+  setListPeers: (peersList: ListPeers) => {},
+  setListInvoices: (invoicesList: ListInvoices) => {},
+  setListPayments: (paymentsList: ListPayments) => {},
+  setListTransactions: (transactionsList: ListTransactions) => {},
   clearStore: () => {}
 });
 
 const defaultAppState = {
   appConfig: { unit: Units.SATS, currencyUnit: 'USD', appMode: ApplicationModes.DARK },
-  nodeInfo: {},
-  listFunds: {},
-  listPeers: [],
-  listInvoices: [],
-  listPayments: [],
-  listTransactions: []
+  nodeInfo: {isLoading: true},
+  listFunds: {isLoading: true, channels: [], outputs: []},
+  listPeers: {isLoading: true, peers: []},
+  listInvoices: {isLoading: true, invoices: []},
+  listPayments: {isLoading: true, payments: []},
+  listTransactions: {isLoading: true, transactions: []},
 };
 
 const appReducer = (state, action) => {
-  logger.info(state);
   logger.info(action);
+  logger.info(state);
   switch (action.type) {
     case ApplicationActions.SET_CONFIG:
       return {
@@ -105,23 +105,23 @@ const AppProvider: React.PropsWithChildren<any> = (props) => {
   };
 
   const setListFundsHandler = (fund: Fund) => {
-    dispatchApplicationAction({ type: ApplicationActions.SET_LIST_FUNDS, payload: fund || {} });
+    dispatchApplicationAction({ type: ApplicationActions.SET_LIST_FUNDS, payload: fund });
   };
 
-  const setListPeersHandler = (list: {peers: Peer[]}) => {
-    dispatchApplicationAction({ type: ApplicationActions.SET_LIST_PEERS, payload: list.peers || [] });
+  const setListPeersHandler = (list: ListPeers) => {
+    dispatchApplicationAction({ type: ApplicationActions.SET_LIST_PEERS, payload: list });
   };
 
-  const setListInvoicesHandler = (list: {invoices: Invoice[]}) => {
-    dispatchApplicationAction({ type: ApplicationActions.SET_LIST_INVOICES, payload: list.invoices || [] });
+  const setListInvoicesHandler = (list: ListInvoices) => {
+    dispatchApplicationAction({ type: ApplicationActions.SET_LIST_INVOICES, payload: list });
   };
 
-  const setListPaymentsHandler = (list: {payments: Payment[]}) => {
-    dispatchApplicationAction({ type: ApplicationActions.SET_LIST_SEND_PAYS, payload: list.payments || [] });
+  const setListPaymentsHandler = (list: ListPayments) => {
+    dispatchApplicationAction({ type: ApplicationActions.SET_LIST_SEND_PAYS, payload: list });
   };
 
-  const setListTransactionsHandler = (list: {transactions: Transaction[]}) => {
-    dispatchApplicationAction({ type: ApplicationActions.SET_LIST_TRANSACTIONS, payload: list.transactions || [] });
+  const setListTransactionsHandler = (list: ListTransactions) => {
+    dispatchApplicationAction({ type: ApplicationActions.SET_LIST_TRANSACTIONS, payload: list });
   };
 
   const clearContextHandler = () => {

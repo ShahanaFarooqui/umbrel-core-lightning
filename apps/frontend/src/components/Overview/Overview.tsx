@@ -8,11 +8,18 @@ import { BalanceSVG } from '../../svgs/balance';
 import { PeersSVG } from '../../svgs/peers';
 import { CapacitySVG } from '../../svgs/capacity';
 import { ChannelsSVG } from '../../svgs/channels';
-
-const activeChannels = 14;
-const numPeers = 8;
+import { AppContext } from '../../store/AppContext';
+import { useContext } from 'react';
+import Spinner from 'react-bootstrap/Spinner';
+import Alert from 'react-bootstrap/Alert';
 
 const Overview = () => {
+  const appCtx = useContext(AppContext);
+
+  const calcNumChannels = () => {
+    return appCtx.listPeers.peers?.reduce((numActiveChannels, peer) => numActiveChannels + ((peer.channels && peer.channels.length && peer.channels.length > 0 && peer.connected && peer.channels?.reduce((count, channel) => ((channel.state === 'CHANNELD_NORMAL') ? (count + 1) : count), 0)) || 0), 0);
+  }
+
   return (
     <Row className='mx-1'>
       <Col xs={12} md={3}>
@@ -39,7 +46,14 @@ const Overview = () => {
                   <ChannelsSVG className='me-4' />
                   <div>
                     <div className='fs-6 text-light'>Active Channels</div>
-                    <div className='fs-4 fw-bold text-dark-primary'>{parseFloat(activeChannels.toString()).toLocaleString('en-us')}</div>
+                    <div className='fs-4 fw-bold text-dark-primary'>
+                      { appCtx.listPeers.isLoading ? 
+                        <Spinner animation='grow' variant='primary' /> : 
+                        appCtx.listPeers.error ? 
+                          <Alert className='py-0 px-1 fs-11' variant='danger'>{appCtx.listPeers.error}</Alert> : 
+                          (calcNumChannels() || 0).toLocaleString('en-us')
+                      }
+                    </div>
                   </div>
                 </div>
               </Col>
@@ -48,7 +62,14 @@ const Overview = () => {
                   <PeersSVG className='me-4' />
                   <div>
                     <div className='fs-6 text-light'>Peers</div>
-                    <div className='fs-4 fw-bold text-dark-primary'>{parseFloat(numPeers.toString()).toLocaleString('en-us')}</div>
+                    <div className='fs-4 fw-bold text-dark-primary'>
+                    { appCtx.listPeers.isLoading ? 
+                      <Spinner animation='grow' variant='primary' /> : 
+                      appCtx.listPeers.error ? 
+                        <Alert className='py-0 px-1 fs-11' variant='danger'>{appCtx.listPeers.error}</Alert> : 
+                        (appCtx.listPeers.peers?.length || 0).toLocaleString('en-us')
+                    }
+                    </div>
                   </div>
                 </div>
               </Col>

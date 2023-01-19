@@ -28,9 +28,7 @@ const Channels = () => {
         <Card.Body className='d-flex align-items-stretch flex-column pt-4'>
           <Card.Header className='fs-5 fw-bold text-dark'>Payment Channels</Card.Header>
           <Card.Body className='px-0 transaction-list'>
-            <PerfectScrollbar
-              onScrollY={container => logger.info(`scrolled to: ${container.scrollTop}.`)}
-            >
+            <PerfectScrollbar>
               <ListGroup as='ul' variant='flush'>
                 {channels.map(channel => (
                   <ListGroup.Item

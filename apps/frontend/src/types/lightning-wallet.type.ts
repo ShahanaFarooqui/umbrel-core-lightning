@@ -5,6 +5,7 @@ export type Address = {
 };
 
 export type NodeInfo = {
+  isLoading: boolean;
   id?: string;
   alias?: string;
   color?: string;
@@ -63,6 +64,7 @@ export type Alias = {
 
 export type Channel = {
   state?: string;
+  connected?: boolean;
   scratch_txid?: string;
   feerate?: FeeRate;
   owner?: string;
@@ -114,6 +116,12 @@ export type Peer = {
   channels?: Channel[];
 };
 
+export type ListPeers = {
+  isLoading: boolean;
+  peers?: Peer[];
+  error?: any;
+}
+
 export type Invoice = {
   bolt11?: string;
   description?: string;
@@ -127,6 +135,12 @@ export type Invoice = {
   status?: string;
   error?: any;
 };
+
+export type ListInvoices = {
+  isLoading: boolean;
+  invoices?: Invoice[];
+  error?: any;
+}
 
 export type Payment = {
   id?: number;
@@ -143,6 +157,12 @@ export type Payment = {
   bolt12?: string;
   payment_preimage?: string;
   erroronion?: string;
+}
+
+export type ListPayments = {
+  isLoading: boolean;
+  payments?: Payment[];
+  error?: any;
 }
 
 export type TxInput = {
@@ -174,6 +194,12 @@ export type Transaction = {
   channel?: string;
 }
 
+export type ListTransactions = {
+  isLoading: boolean;
+  transactions?: Transaction[];
+  error?: any;
+}
+
 export type FundOutput = {
   txid?: string;
   output?: string;
@@ -199,6 +225,8 @@ export type FundChannel = {
 }
 
 export type Fund = {
+  isLoading: boolean;
   channels?: FundChannel[];
   outputs?: FundOutput[];
+  error?: any;
 }

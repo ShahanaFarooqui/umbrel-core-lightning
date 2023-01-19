@@ -17,12 +17,12 @@ import { ApplicationModes } from '../../utilities/constants';
 
 const App = () => {
   const appCtx = useContext(AppContext);
-  const { isLoading, error, fetchData } = useHttp();
+  const { fetchData } = useHttp();
 
   const bodyHTML = document.getElementsByTagName('body')[0];
   const htmlAttributes = bodyHTML.attributes;
   const theme = document.createAttribute('data-bs-theme');
-  theme.value = (appCtx.appConfig.appMode).toLowerCase();
+  theme.value = (appCtx.appConfig.appMode)?.toLowerCase() || 'dark';
   bodyHTML.style.backgroundColor = (appCtx.appConfig.appMode === ApplicationModes.LIGHT) ? '#F4F7FE' : '#131314';
   htmlAttributes.setNamedItem(theme);
 
@@ -30,7 +30,7 @@ const App = () => {
     fetchData();
   }, []);
 
-  if (isLoading) {
+  if (appCtx.nodeInfo.isLoading) {
     return (
       <Container className='py-4' data-testid='container'>
         <Header />
@@ -46,13 +46,13 @@ const App = () => {
     );
   }
 
-  if (error) {
+  if (appCtx.nodeInfo.error) {
     return (
       <Container className='py-4' data-testid='container'>
         <Header />
         <Row className='mt-10'>
           <Col xs={12} className='d-flex align-items-center justify-content-center'>
-            {error}
+            {appCtx.nodeInfo.error}
           </Col>            
         </Row>
       </Container>

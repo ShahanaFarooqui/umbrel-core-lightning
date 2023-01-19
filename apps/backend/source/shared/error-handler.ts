@@ -16,12 +16,15 @@ function handleError(
   next?: NextFunction,
 ) {
   var route = req.url || '';
-  var message = error.message || '';
-  if (error instanceof LightningError) {
-    if (error.error && error.error.details) {
-      message += ', ' + error.error.details;
-    }
-  }
+  var message = error.message
+    ? error.message
+    : error.error
+    ? error.error
+    : typeof error === 'object'
+    ? JSON.stringify(error)
+    : typeof error === 'string'
+    ? error
+    : 'Unknow Error!';
   logger.error(message, route, error.stack);
   res.status(error.statusCode || HttpStatusCode.INTERNAL_SERVER).json(message);
 }

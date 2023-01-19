@@ -6,8 +6,6 @@ import { AppContext } from '../store/AppContext';
 
 const useHttp = () => {
   const appCtx = useContext(AppContext);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState('');
 
   const fetchData = () => {
     sendRequest(appCtx.setConfig, 'get', '/shared/config');
@@ -20,7 +18,6 @@ const useHttp = () => {
   }
 
   const sendRequest = useCallback((setStoreFunction: any, method: string, url: string, reqBody: any = null) => {
-    setIsLoading(true);
     try {
       axios({
         method: method,
@@ -28,29 +25,23 @@ const useHttp = () => {
         data: reqBody
       }).then((response: any) => {
         logger.info(response);
-        if (response.statusText !== 'OK') {
-          setError('Unknown Error from Axios Response!');
+        if (url === '/cln/call') {
+          setStoreFunction({...response.data, ...{ isLoading: false, error: null }});
+        } else {
+          setStoreFunction(response.data);
         }
-        setIsLoading(false);
-        setStoreFunction(response.data);
       })
       .catch(err => {
         logger.error(err);
-        setStoreFunction({error: err.response.data});
-        setIsLoading(false);
-        setError((err.message && typeof err.message === 'string') ? err.message : (err.message && typeof err.message === 'object') ? JSON.stringify(err.message) : 'Unknown Error from Axios Call!');
+        setStoreFunction({ isLoading: false, error: err.response.data });
       });
     } catch (err: any) {
       logger.error(err);
-      setStoreFunction({error: err});
-      setIsLoading(false);
-      setError(JSON.stringify(err) || 'Unknown Error from Axios!');
+      setStoreFunction({ isLoading: false, error: err });
     }
   }, []);
 
   return {
-    isLoading,
-    error,
     fetchData
   };
 };

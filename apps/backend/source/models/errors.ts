@@ -1,65 +1,63 @@
 import { HttpStatusCode } from '../shared/consts.js';
 
 export class BaseError extends Error {
+  public readonly message: string;
+  public readonly error: string;
   public readonly statusCode: HttpStatusCode;
   public readonly name: string;
-  public readonly message: string;
 
-  constructor(statusCode: HttpStatusCode, name: string, message: string) {
+  constructor(message: string, error: string, statusCode: HttpStatusCode, name: string) {
     super(message);
     Object.setPrototypeOf(this, new.target.prototype);
 
+    this.message = message;
+    this.error = error;
     this.statusCode = statusCode;
     this.name = name;
-    this.message = message;
     Error.captureStackTrace(this);
   }
 }
 
 export class APIError extends BaseError {
   constructor(
-    statusCode: HttpStatusCode = HttpStatusCode.INTERNAL_SERVER,
     message: string = 'Unknown API Server Error',
+    error: string = 'Unknown API Server Error',
+    statusCode: HttpStatusCode = HttpStatusCode.INTERNAL_SERVER,
     name: string = 'API Error',
   ) {
-    super(statusCode, name, message);
+    super(message, error, statusCode, name);
   }
 }
 
 export class BitcoindError extends BaseError {
-  public readonly error?: any;
-
   constructor(
+    message: string = 'Unknown Bitcoin API Error',
     error: any = 'Unknown Bitcoin API Error',
     statusCode: HttpStatusCode = HttpStatusCode.BITCOIN_SERVER,
-    message: string = 'Unknown Bitcoin API Error',
     name: string = 'Bitcoin API Error',
   ) {
-    super(statusCode, name, message);
-    this.error = error;
+    super(message, error, statusCode, name);
   }
 }
 
 export class LightningError extends BaseError {
-  public readonly error?: any;
-
   constructor(
+    message: string = 'Unknown Core Lightning API Error',
     error: any = 'Unkwown Core Lightning API Error',
     statusCode: HttpStatusCode = HttpStatusCode.CLN_SERVER,
-    message: string = 'Unknown Core Lightning API Error',
     name: string = 'Core Lightning API Error',
   ) {
-    super(statusCode, name, message);
-    this.error = error;
+    super(message, error, statusCode, name);
   }
 }
 
 export class ValidationError extends BaseError {
   constructor(
-    statusCode: HttpStatusCode = HttpStatusCode.INVALID_DATA,
     message: string = 'Unknown Validation Error',
+    error: string = 'Unknown Validation Error',
+    statusCode: HttpStatusCode = HttpStatusCode.INVALID_DATA,
     name: string = 'Validation Error',
   ) {
-    super(statusCode, name, message);
+    super(message, error, statusCode, name);
   }
 }
