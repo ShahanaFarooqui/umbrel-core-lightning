@@ -2,7 +2,11 @@
 
 @include color-mode(dark) {
   
-  .text-light, .text-dark {
+  .text-light {
+    color: $light-dark !important;
+  }
+
+  .text-light-white, .text-dark {
     color: $white !important;
   }
 

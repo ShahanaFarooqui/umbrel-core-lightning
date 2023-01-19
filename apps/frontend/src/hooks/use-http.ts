@@ -1,11 +1,22 @@
 import axios from 'axios';
-import { useCallback, useContext, useState } from 'react';
+import { useCallback, useContext } from 'react';
 import { API_BASE_URL, API_VERSION } from '../utilities/constants';
 import logger from '../services/logger.service';
 import { AppContext } from '../store/AppContext';
+import { ApplicationConfiguration } from '../types/app-config.type';
 
 const useHttp = () => {
   const appCtx = useContext(AppContext);
+
+  const updateConfig = (updatedConfig: ApplicationConfiguration) => {
+    axios.post(API_BASE_URL + API_VERSION + '/shared/config', updatedConfig)
+    .then((response: any) => {
+      appCtx.setConfig(updatedConfig);
+    }).catch(err => {
+      logger.error(err);
+    });
+
+  }
 
   const fetchData = () => {
     sendRequest(appCtx.setConfig, 'get', '/shared/config');
@@ -20,6 +31,7 @@ const useHttp = () => {
   const sendRequest = useCallback((setStoreFunction: any, method: string, url: string, reqBody: any = null) => {
     try {
       axios({
+        timeout: 10000,
         method: method,
         url: API_BASE_URL + API_VERSION + url,
         data: reqBody
@@ -33,7 +45,11 @@ const useHttp = () => {
       })
       .catch(err => {
         logger.error(err);
-        setStoreFunction({ isLoading: false, error: err.response.data });
+        (err.code === 'ECONNABORTED') ?
+          setStoreFunction({ isLoading: false, error: 'Request timedout! Verify that CLN node is working!' }) :
+        (err.response && err.response.data) ?
+          setStoreFunction({ isLoading: false, error: err.response.data }) :
+          setStoreFunction({ isLoading: false, error: JSON.stringify(err) })
       });
     } catch (err: any) {
       logger.error(err);
@@ -42,7 +58,8 @@ const useHttp = () => {
   }, []);
 
   return {
-    fetchData
+    fetchData,
+    updateConfig
   };
 };
 

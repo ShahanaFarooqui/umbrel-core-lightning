@@ -45,7 +45,7 @@ const Overview = () => {
                 <div className='d-flex align-items-center justify-content-start'>
                   <ChannelsSVG className='me-4' />
                   <div>
-                    <div className='fs-6 text-light'>Active Channels</div>
+                    <div className='fs-6 text-light-white'>Active Channels</div>
                     <div className='fs-4 fw-bold text-dark-primary'>
                       { appCtx.listPeers.isLoading ? 
                         <Spinner animation='grow' variant='primary' /> : 
@@ -61,7 +61,7 @@ const Overview = () => {
                 <div className='d-flex align-items-center justify-content-start'>
                   <PeersSVG className='me-4' />
                   <div>
-                    <div className='fs-6 text-light'>Peers</div>
+                    <div className='fs-6 text-light-white'>Peers</div>
                     <div className='fs-4 fw-bold text-dark-primary'>
                     { appCtx.listPeers.isLoading ? 
                       <Spinner animation='grow' variant='primary' /> : 
@@ -78,11 +78,11 @@ const Overview = () => {
                   <CapacitySVG className='me-4' />
                   <Col>
                     <div className='d-flex align-items-center justify-content-between'>
-                      <div className='fs-6 text-light'>Maximum Send</div>
+                      <div className='fs-6 text-light-white'>Maximum Send</div>
                       <CurrencyBox value='15060' shorten='true' rootClasses='d-inline-flex flex-row align-items-center' currencyClasses='fs-6 fw-bold text-dark-primary' unitClasses='fs-6 fw-bold ms-2 text-dark-primary'></CurrencyBox>
                     </div>
                     <div className='d-flex align-items-center justify-content-between'>
-                      <div className='fs-6 text-light'>Maximum Receive</div>
+                      <div className='fs-6 text-light-white'>Maximum Receive</div>
                       <CurrencyBox value='5354' shorten='true' rootClasses='d-inline-flex flex-row align-items-center' currencyClasses='fs-6 fw-bold text-dark-primary' unitClasses='fs-6 fw-bold ms-2 text-dark-primary'></CurrencyBox>
                     </div>
                   </Col>

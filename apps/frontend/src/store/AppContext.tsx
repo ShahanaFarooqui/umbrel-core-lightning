@@ -12,7 +12,7 @@ import logger from '../services/logger.service';
 
 
 const AppContext = React.createContext<AppContextType>({
-  appConfig: { unit: Units.SATS, currencyUnit: 'USD', appMode: ApplicationModes.DARK },
+  appConfig: { unit: Units.SATS, fiatUnit: 'USD', appMode: ApplicationModes.DARK },
   nodeInfo: {isLoading: true},
   listFunds: {isLoading: true, channels: [], outputs: []},
   listPeers: {isLoading: true, peers: []},
@@ -30,7 +30,7 @@ const AppContext = React.createContext<AppContextType>({
 });
 
 const defaultAppState = {
-  appConfig: { unit: Units.SATS, currencyUnit: 'USD', appMode: ApplicationModes.DARK },
+  appConfig: { unit: Units.SATS, fiatUnit: 'USD', appMode: ApplicationModes.DARK },
   nodeInfo: {isLoading: true},
   listFunds: {isLoading: true, channels: [], outputs: []},
   listPeers: {isLoading: true, peers: []},

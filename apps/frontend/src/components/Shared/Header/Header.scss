@@ -4,13 +4,4 @@
   & .header-info-logo {
     height: 5.5rem;
   }
-
-  & .settings-dropdown {
-    & .dropdown-toggle::after {
-      display: none;
-    }
-    & .dropdown-item {
-      color: $primary;
-    }
-  }
 }

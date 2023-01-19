@@ -27,13 +27,13 @@ const ToggleSwitch = (props) => {
   };
 
   return (
-    <div className='toggle me-2' onClick={changeValueHandler}>
-      <div className='toggle-bg-text px-2 d-flex align-items-center'>
+    <div className={'toggle ' + (props.className ? props.className : '')} onClick={changeValueHandler}>
+      <div className='toggle-bg-text px-2 d-flex flex-fill align-items-center justify-content-between'>
         <span className='fs-7 text-center me-2'>{props.values[0]}</span>
         <span className='fs-7 text-center ms-2'>{props.values[1]}</span>
       </div>
       <div className={'fs-7 toggle-switch justify-content-center d-flex align-items-center ' + switchClass}>
-        <span className=''>{props.selValue}</span>
+        <span>{props.selValue}</span>
       </div>
     </div>
   );

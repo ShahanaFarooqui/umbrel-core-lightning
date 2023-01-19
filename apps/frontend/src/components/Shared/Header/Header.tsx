@@ -11,9 +11,11 @@ import { useContext, useState } from 'react';
 import { AppContext } from '../../../store/AppContext';
 import ModalComponent from '../NodeInfo/NodeInfo';
 import { SettingsSVG } from '../../../svgs/settings';
+import FiatSelection from '../FiatSelection/FiatSelection';
 
 const Header = () => {
-  const [show, setShow] = useState(false);
+  const [showNodeInfoModal, setShowNodeInfoModal] = useState(false);
+  const [showDropdownMenu, setShowDropdownMenu] = useState(false);
   const appCtx = useContext(AppContext);
 
   return (
@@ -29,17 +31,21 @@ const Header = () => {
         </Row>
       </Col>
       <Col xs={12} md={4} className='d-flex align-items-center justify-content-end' data-testid='header-context'>
-        <ToggleSwitch values={CURRENCY_UNITS} selValue={appCtx.appConfig.unit} storeSelector='appConfig' storeKey='unit' />
-        <ToggleSwitch values={APPLICATION_MODES} selValue={appCtx.appConfig.appMode} storeSelector='appConfig' storeKey='appMode' />
-        <Dropdown className={'settings-dropdown ' + ((!!appCtx.nodeInfo.error) ? 'dropdown-disabled' : '')} >
-          <Dropdown.Toggle variant='primary' disabled={!!appCtx.nodeInfo.error} className='btn-rounded'>
-            <strong>Settings</strong>
-            <SettingsSVG className={'ms-2' + ((!!appCtx.nodeInfo.error) ? ' svg-fill-disabled' : '')} />
+        {/* <FiatSelection className='me-2' /> */}
+        <ToggleSwitch className='me-2' values={CURRENCY_UNITS} selValue={appCtx.appConfig.unit} storeSelector='appConfig' storeKey='unit' />
+        <Dropdown autoClose={'outside'} className={(!!appCtx.nodeInfo.error || appCtx.nodeInfo.isLoading) ? 'dropdown-disabled' : ''} >
+          <Dropdown.Toggle variant='primary' disabled={!!appCtx.nodeInfo.error || appCtx.nodeInfo.isLoading} className='btn-rounded'>
+            Settings
+            <SettingsSVG className={'ms-2' + ((!!appCtx.nodeInfo.error || appCtx.nodeInfo.isLoading) ? ' svg-fill-disabled' : '')} />
           </Dropdown.Toggle>
           <Dropdown.Menu>
-            <Dropdown.Item data-bs-toggle='modal' data-bs-target='#staticBackdrop' onClick={() => setShow(true)}>Show Node ID</Dropdown.Item>
-            <Dropdown.Item href='#/action-2'>Connect Wallet</Dropdown.Item>
-            <ModalComponent show={show} onHide={() => setShow(false)}/>
+            <Dropdown.Item data-bs-toggle='modal' data-bs-target='#staticBackdrop' onClick={() => setShowNodeInfoModal(true)}>Show node ID</Dropdown.Item>
+            <Dropdown.Item>Connect wallet</Dropdown.Item>
+            <Dropdown.Divider />
+            {/* <Dropdown.Item><ToggleSwitch values={CURRENCY_UNITS} selValue={appCtx.appConfig.unit} storeSelector='appConfig' storeKey='unit' /></Dropdown.Item> */}
+            <Dropdown.Item><ToggleSwitch values={APPLICATION_MODES} selValue={appCtx.appConfig.appMode} storeSelector='appConfig' storeKey='appMode' /></Dropdown.Item>
+            <Dropdown.Item className='d-flex align-items-center justify-content-between'>Fiat: <FiatSelection className='ms-2' /></Dropdown.Item>
+            <ModalComponent show={showNodeInfoModal} onHide={() => setShowNodeInfoModal(false)}/>
           </Dropdown.Menu>
         </Dropdown>
       </Col>

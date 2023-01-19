@@ -1,5 +1,9 @@
 @import 'constants';
 
+.text-light-white {
+  color: $light !important;
+}
+
 .text-dark-primary {
   color: $dark;
 }

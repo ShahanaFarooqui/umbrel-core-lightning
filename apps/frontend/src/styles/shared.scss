@@ -40,12 +40,18 @@
 }
 
 .dropdown {
+  & .dropdown-toggle::after {
+    display: none;
+  }
+  & .dropdown-item {
+    color: $primary;
+    &.active, &:active {
+      color: $primary;
+      background-color: unset;
+    }
+  }
   &.dropdown-disabled {
     cursor: not-allowed;
     color: $gray-600;
-  }
-  & .dropdown-item.active, & .dropdown-item:active {
-    color: $primary;
-    background-color: unset;
   }
 }
