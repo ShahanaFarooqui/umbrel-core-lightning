@@ -44,9 +44,9 @@
     display: none;
   }
   & .dropdown-item {
-    color: $primary;
+    color: $light-dark;
     &.active, &:active {
-      color: $primary;
+      color: $light-dark;
       background-color: unset;
     }
   }

@@ -1,9 +1,11 @@
 import './FiatSelection.scss';
 
-import Dropdown from 'react-bootstrap/Dropdown';
 import { useContext } from 'react';
 import { AppContext } from '../../../store/AppContext';
 import useHttp from '../../../hooks/use-http';
+import Form from 'react-bootstrap/Form';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 const FIAT_OPTIONS = [
   'USD', 'AUD', 'BRL', 'CAD', 'CHF', 'CLP', 'CNY', 
@@ -15,19 +17,30 @@ const FiatSelection = (props) => {
   const appCtx = useContext(AppContext);
   const { updateConfig } = useHttp();
 
-  const fiatChangeHandler = (eventKey: any, event: any) => {
-    updateConfig({...appCtx.appConfig, fiatUnit: eventKey});
+  const fiatChangeHandler = (event: any) => {
+    updateConfig({...appCtx.appConfig, fiatUnit: event.target.id});
   };
 
   return (
-    <Dropdown className={props.className} onSelect={fiatChangeHandler}>
-      <Dropdown.Toggle variant='primary' className='btn-rounded'>{appCtx.appConfig.fiatUnit || 'Currency'}</Dropdown.Toggle>
-      <Dropdown.Menu>
-        {FIAT_OPTIONS.map((fiat, i) => 
-          <Dropdown.Item as='div' eventKey={fiat} key={i}>{fiat}</Dropdown.Item>
+    <Col xs={12}>
+      Select Fiat:
+      <Row>
+        {FIAT_OPTIONS.map((fiat, i) =>
+          <Col key={i} xs={6}>
+            <Form.Check 
+              inline
+              label={fiat}
+              name='fiatSelection'
+              type='radio'
+              id={fiat} 
+              aria-label='Fiat Selection'
+              checked={fiat === appCtx.appConfig.fiatUnit}
+              onChange={fiatChangeHandler}
+            />
+          </Col>
         )}
-      </Dropdown.Menu>
-    </Dropdown>
+      </Row>
+    </Col>
   );
 }
 

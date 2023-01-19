@@ -34,7 +34,10 @@ $body-color: $white;
 $body-color-dark: $gray-910;
 
 $border-radius: 1.25rem;
-$dropdown-min-width: 4rem;
+$form-check-input-checked-bg-color: $primary;
+$form-check-input-checked-border-color: $primary;
+$form-check-input-focus-border: lighten($primary, 10%);
+$form-check-input-focus-box-shadow: 0 0 0 0.25rem rgba(lighten($primary, 10%), 0.25);
 
 $card-border-width: 0.5px;
 $card-border-color: rgba($light, 0.1);

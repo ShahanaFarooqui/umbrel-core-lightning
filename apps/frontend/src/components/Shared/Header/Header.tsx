@@ -33,7 +33,7 @@ const Header = () => {
       <Col xs={12} md={4} className='d-flex align-items-center justify-content-end' data-testid='header-context'>
         {/* <FiatSelection className='me-2' /> */}
         <ToggleSwitch className='me-2' values={CURRENCY_UNITS} selValue={appCtx.appConfig.unit} storeSelector='appConfig' storeKey='unit' />
-        <Dropdown autoClose={'outside'} className={(!!appCtx.nodeInfo.error || appCtx.nodeInfo.isLoading) ? 'dropdown-disabled' : ''} >
+        <Dropdown autoClose={'outside'} className={(!!appCtx.nodeInfo.error || appCtx.nodeInfo.isLoading) ? 'settings-menu dropdown-disabled' : 'settings-menu'} >
           <Dropdown.Toggle variant='primary' disabled={!!appCtx.nodeInfo.error || appCtx.nodeInfo.isLoading} className='btn-rounded'>
             Settings
             <SettingsSVG className={'ms-2' + ((!!appCtx.nodeInfo.error || appCtx.nodeInfo.isLoading) ? ' svg-fill-disabled' : '')} />
@@ -44,7 +44,8 @@ const Header = () => {
             <Dropdown.Divider />
             {/* <Dropdown.Item><ToggleSwitch values={CURRENCY_UNITS} selValue={appCtx.appConfig.unit} storeSelector='appConfig' storeKey='unit' /></Dropdown.Item> */}
             <Dropdown.Item><ToggleSwitch values={APPLICATION_MODES} selValue={appCtx.appConfig.appMode} storeSelector='appConfig' storeKey='appMode' /></Dropdown.Item>
-            <Dropdown.Item className='d-flex align-items-center justify-content-between'>Fiat: <FiatSelection className='ms-2' /></Dropdown.Item>
+            <Dropdown.Divider />
+            <Dropdown.Item className='d-flex align-items-center justify-content-between'><FiatSelection /></Dropdown.Item>
             <ModalComponent show={showNodeInfoModal} onHide={() => setShowNodeInfoModal(false)}/>
           </Dropdown.Menu>
         </Dropdown>
