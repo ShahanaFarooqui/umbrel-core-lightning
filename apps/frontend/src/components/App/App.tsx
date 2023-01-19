@@ -17,7 +17,7 @@ import { ApplicationModes } from '../../utilities/constants';
 
 const App = () => {
   const appCtx = useContext(AppContext);
-  const { isLoading, error, sendRequest: fetchData } = useHttp();
+  const { isLoading, error, fetchData } = useHttp();
 
   const bodyHTML = document.getElementsByTagName('body')[0];
   const htmlAttributes = bodyHTML.attributes;
@@ -27,9 +27,8 @@ const App = () => {
   htmlAttributes.setNamedItem(theme);
 
   useEffect(() => {
-    fetchData(appCtx.setConfig, 'get', '/shared/config');
-    fetchData(appCtx.setNodeInfo, 'post', '/cln/call', { 'method': 'getinfo', 'params': [] });
-  }, [fetchData]);
+    fetchData();
+  }, []);
 
   if (isLoading) {
     return (

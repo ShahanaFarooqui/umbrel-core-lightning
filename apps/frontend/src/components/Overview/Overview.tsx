@@ -21,7 +21,7 @@ const Overview = () => {
             <Row>
               <Col xs={6}>
                 <div className='fs-6'>Total Balance</div>
-                <CurrencyBox value='1804943' rootClasses='d-inline-flex flex-column' currencyClasses='fs-4 fw-bold' unitClasses='fs-7 fw-bold'></CurrencyBox>
+                <CurrencyBox value='1804943' rootClasses='d-inline-flex flex-column' currencyClasses='fs-4 fw-bold' unitClasses='fs-8 fw-bold'></CurrencyBox>
               </Col>
               <Col xs={6} className='d-flex align-items-center justify-content-end'>
                 <BalanceSVG />

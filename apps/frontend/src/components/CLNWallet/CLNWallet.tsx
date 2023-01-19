@@ -41,7 +41,7 @@ const CLNWallet = () => {
                   <LightningWalletSVG className='me-4' />
                   <div>
                     <div className='fs-6'>Lightning Wallet</div>
-                    <CurrencyBox value='32943' rootClasses='d-inline-flex flex-column' currencyClasses='fs-4 fw-bold' unitClasses='fs-7 fw-bold'></CurrencyBox>
+                    <CurrencyBox value='32943' rootClasses='d-inline-flex flex-column' currencyClasses='fs-4 fw-bold' unitClasses='fs-8 fw-bold'></CurrencyBox>
                   </div>
                 </Col>
               </Row>
