@@ -1,3 +1,6 @@
+@import './mode-dark.scss';
+@import './mode-light.scss';
+
 .fs-7 {
   font-size: 85% !important;
 }
@@ -39,15 +42,65 @@
   height: 2rem;
 }
 
+.btn-group {
+  & .btn:not(:last-child):not(.dropdown-toggle), .btn.dropdown-toggle-split:first-child, .btn-group:not(:last-child) > .btn {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: $border-radius;
+  }
+
+  & .btn:nth-child(n + 3), :not(.btn-check) + .btn, .btn-group:not(:first-child) > .btn {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: $border-radius;
+  }
+  
+  &.btn-group-action .btn {
+    font-weight: 700;
+    background-color: darken($primary, 10%);
+    border-color: darken($primary, 12%);
+    &:hover {
+      font-weight: 700;
+      background-color: darken($primary, 5%);
+      border-color: darken($primary, 7%);
+    }
+  }
+}
+
+.btn.btn-primary {
+  color: var(--bs-body-color);
+  &.disabled, &:disabled {
+    color: $gray-600;
+  }
+  &.active, &:active {
+    color: var(--bs-body-color);
+    text-decoration: none;
+  }
+}
+
+.svg-fill-disabled path.fill-contrast {
+  fill: $gray-600;
+}
+
+.form-switch {
+  & .form-check-input {
+    background-image: url( "data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%27-4 -4 8 8%27%3e%3ccircle r=%273%27 fill=%27rgba(255,255,255,1)%27/%3e%3c/svg%3e");
+  }
+  & .form-check-input:focus {
+    background-image: url( "data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%27-4 -4 8 8%27%3e%3ccircle r=%273%27 fill=%27rgba(223, 179, 22, 0.5)%27/%3e%3c/svg%3e");
+  }
+  & .form-check-input:checked {
+    background-color: $dark;
+    border-color: lighten($primary, 10%);
+  }
+}
+
 .dropdown {
   & .dropdown-toggle::after {
     display: none;
   }
   & .dropdown-item {
-    color: $light-dark;
-    &.active, &:active {
-      color: $light-dark;
+    &.active, &:active, &:focus, &:hover {
       background-color: unset;
+      background-image: unset;
     }
   }
   &.dropdown-disabled {

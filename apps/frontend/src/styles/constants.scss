@@ -1,3 +1,4 @@
+@import './fonts.scss';
 @import '~bootstrap/scss/functions';
 @import '~bootstrap/scss/variables';
 @import '~bootstrap/scss/mixins';
@@ -7,8 +8,9 @@ $enable-shadows: true;
 $enable-gradients: true;
 $enable-responsive-font-sizes: true;
 
-// $font-family-base: -apple-system, BlinkMacSystemFont, '', 'Helvetica Neue', 'Segoe UI', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+// $font-family-base: -apple-system, BlinkMacSystemFont, 'DM Sans', 'Helvetica Neue', 'Segoe UI', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 $font-family-base: 'DM Sans';
+
 $font-weight-base: 500;
 
 $white: #ffffff;

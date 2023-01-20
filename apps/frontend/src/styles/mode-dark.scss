@@ -14,32 +14,6 @@
     color: $primary;
   }
   
-  .btn-group {
-    &.btn-group-dark .btn {
-      color: $gray-910;
-      font-weight: 700;
-      background-color: darken($primary, 10%);
-      border-color: darken($primary, 12%);
-      &:hover {
-        color: $gray-910;
-        font-weight: 700;
-        background-color: darken($primary, 5%);
-        border-color: darken($primary, 7%);
-      }
-    }
-    
-  }
-  
-  .btn.btn-primary {
-    color: var(--bs-body-color);
-    &.disabled, &:disabled {
-      color: $gray-600;
-    }
-    &.active, &:active {
-      color: var(--bs-body-color);
-    }
-  }
-
   .card, .list-group-item {
     background-color: $gray-920;
   }
@@ -49,7 +23,7 @@
     fill: $gray-910;
   }
 
-  .fill-2 {
+  .fill-primary, .fill-2 {
     fill: $primary;
   }
 
@@ -57,4 +31,19 @@
     fill: $gray-920;
     stop-color: $gray-920;
   }
-}
+
+  .dropdown {
+    & .dropdown-item {
+      color: $light;
+      &.active, &:active, &:focus, &:hover {
+        color: $primary !important;
+      }
+      &.no-focus {
+        &.active, &:active, &:focus, &:hover {
+          color: $light !important;
+        }
+      }
+    }
+  }
+
+} // CLOSE FOR DARK MODE

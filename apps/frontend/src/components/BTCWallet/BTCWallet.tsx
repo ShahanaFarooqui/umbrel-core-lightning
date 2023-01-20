@@ -46,7 +46,7 @@ const BTCWallet = () => {
                 </Col>
               </Row>
             </Card.Body>
-            <ButtonGroup className='sticky-bottom btn-group-dark'>
+            <ButtonGroup className='sticky-bottom btn-group-action'>
               <Button>
                 <WithdrawSVG className='me-2' />Withdraw
               </Button>

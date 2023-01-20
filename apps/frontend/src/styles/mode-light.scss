@@ -1,63 +1,39 @@
 @import 'constants';
 
-.text-light-white {
-  color: $light !important;
-}
-
-.text-dark-primary {
-  color: $dark;
-}
-
-.btn-group {
-  & .btn:not(:last-child):not(.dropdown-toggle), .btn.dropdown-toggle-split:first-child, .btn-group:not(:last-child) > .btn {
-    border-top-left-radius: 0;
-    border-bottom-left-radius: $border-radius;
+@include color-mode(light) {
+  .text-light-white {
+    color: $light !important;
   }
 
-  & .btn:nth-child(n + 3), :not(.btn-check) + .btn, .btn-group:not(:first-child) > .btn {
-    border-top-right-radius: 0;
-    border-bottom-right-radius: $border-radius;
+  .text-dark-primary {
+    color: $dark;
   }
 
-  &.btn-group-dark .btn {
-    color: $white;
-    font-weight: 700;
-    background-color: darken($primary, 10%);
-    border-color: darken($primary, 12%);
-    &:hover {
-      color: $white;
-      font-weight: 700;
-      background-color: darken($primary, 5%);
-      border-color: darken($primary, 7%);
+  .fill-primary, .fill-1 {
+    fill: $primary;
+  }
+
+  .fill-strong-contrast, .fill-2 {
+    fill: $white;
+    stop-color: $white;
+  }
+
+  .fill-contrast {
+    fill: $gray-150;
+  }
+
+  .dropdown {
+    & .dropdown-item {
+      color: $light;
+      &.no-focus {
+        &.active, &:active, &:focus, &:hover {
+          color: $light;
+        }
+      }
+      &.active, &:active, &:focus, &:hover {
+        color: $primary;
+      }
     }
   }
   
-}
-
-.btn.btn-primary {
-  color: var(--bs-body-color);
-  &.disabled, &:disabled {
-    color: $gray-600;
-  }
-  &.active, &:active {
-    color: var(--bs-body-color);
-    text-decoration: none;
-  }
-}
-
-.svg-fill-disabled path.fill-contrast {
-  fill: $gray-600;
-}
-
-.fill-primary, .fill-1 {
-  fill: $primary;
-}
-
-.fill-strong-contrast, .fill-2 {
-  fill: $white;
-  stop-color: $white;
-}
-
-.fill-contrast {
-  fill: $gray-150;
-}
+} // CLOSE FOR LIGHT MODE
