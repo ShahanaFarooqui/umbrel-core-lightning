@@ -23,7 +23,7 @@ const channels = [
 
 const Channels = () => {
   return (
-    <Row className='h-100 mb-4 mx-1'>
+    <Row className='h-100 mx-1'>
       <Card className='d-flex align-items-stretch'>
         <Card.Body className='d-flex align-items-stretch flex-column pt-4'>
           <Card.Header className='fs-5 fw-bold text-dark'>Payment Channels</Card.Header>

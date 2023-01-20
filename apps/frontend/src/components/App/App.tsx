@@ -62,13 +62,13 @@ const App = () => {
   return (
     <Container className='py-4' data-testid='container'>
       <Header />
-      <Row className='mb-4'>
+      <Row>
         <Col className='mx-1'><Overview /></Col>
       </Row>
       <Row className='node-info px-3'>
-        <Col xs={12} md={4}><BTCWallet /></Col>
-        <Col xs={12} md={4}><CLNWallet /></Col>
-        <Col xs={12} md={4}><Channels /></Col>
+        <Col xs={12} lg={4} className='mb-4'><BTCWallet /></Col>
+        <Col xs={12} lg={4} className='mb-4'><CLNWallet /></Col>
+        <Col xs={12} lg={4} className='mb-4'><Channels /></Col>
       </Row>
     </Container>
   );

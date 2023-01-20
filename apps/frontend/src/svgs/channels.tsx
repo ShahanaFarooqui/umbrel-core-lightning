@@ -2,7 +2,7 @@ export const ChannelsSVG = props => {
   return (
     <svg
       className={props.className}
-      width='38'
+      width='56'
       height='42'
       viewBox='0 0 38 42'
       fill='none'

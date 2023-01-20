@@ -31,10 +31,10 @@ const NodeInfo = (props) => {
           <h4 className='text-dark fw-bold'>Node ID</h4>
         </Col>
         <Row className='d-flex align-items-start justify-content-start pt-2'>
-          <Col xs={12} md={4} className='d-flex justify-content-center'>
+          <Col xs={12} lg={4} className='d-flex justify-content-center'>
             <QRCodeCanvas value={appCtx.nodeInfo.id || ''} size={240} includeMargin={false} />
           </Col>
-          <Col xs={12} md={8}>
+          <Col xs={12} lg={8}>
             <p className='text-break text-dark'>{appCtx.nodeInfo.id}</p>
           </Col>
         </Row>

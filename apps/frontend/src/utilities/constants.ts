@@ -47,3 +47,12 @@ export enum ApplicationActions {
   SET_LIST_TRANSACTIONS = 'SET_LIST_TRANSACTIONS',
   CLEAR_CONTEXT = 'CLEAR_CONTEXT'
 }
+
+export enum Breakpoints {
+  XS = 'XS',
+  SM = 'SM',
+  MD = 'MD',
+  LG = 'LG',
+  XL = 'XL',
+  XXL = 'XXL'
+}

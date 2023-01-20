@@ -12,9 +12,12 @@ import { AppContext } from '../../store/AppContext';
 import { useContext } from 'react';
 import Spinner from 'react-bootstrap/Spinner';
 import Alert from 'react-bootstrap/Alert';
+import useBreakpoint from '../../hooks/use-breakpoint';
+import { Breakpoints } from '../../utilities/constants';
 
 const Overview = () => {
   const appCtx = useContext(AppContext);
+  const currentScreenSize = useBreakpoint();
 
   const calcNumChannels = () => {
     return appCtx.listPeers.peers?.reduce((numActiveChannels, peer) => numActiveChannels + ((peer.channels && peer.channels.length && peer.channels.length > 0 && peer.connected && peer.channels?.reduce((count, channel) => ((channel.state === 'CHANNELD_NORMAL') ? (count + 1) : count), 0)) || 0), 0);
@@ -22,13 +25,13 @@ const Overview = () => {
 
   return (
     <Row className='mx-1'>
-      <Col xs={12} md={3}>
-        <Card className='bg-primary bg-gradient'>
-          <Card.Body>
+      <Col xs={12} lg={4} className='d-lg-flex d-xl-flex mb-4'>
+        <Card className='bg-primary bg-gradient flex-grow-1'>
+          <Card.Body className='d-flex align-items-center'>
             <Row>
               <Col xs={6}>
                 <div className='fs-6'>Total Balance</div>
-                <CurrencyBox value='1804943' rootClasses='d-inline-flex flex-column' currencyClasses='fs-4 fw-bold' unitClasses='fs-8 fw-bold'></CurrencyBox>
+                <CurrencyBox value='1804943' rootClasses='d-inline-flex flex-column' currencyClasses='lh-1 fs-4 fw-bold' unitClasses='fs-8 fw-bold'></CurrencyBox>
               </Col>
               <Col xs={6} className='d-flex align-items-center justify-content-end'>
                 <BalanceSVG />
@@ -37,7 +40,7 @@ const Overview = () => {
           </Card.Body>
         </Card>
       </Col>
-      <Col xs={12} md={9}>
+      <Col xs={12} lg={8} className='mb-4'>
         <Card>
           <Card.Body>
             <Row>
@@ -73,7 +76,7 @@ const Overview = () => {
                   </div>
                 </div>
               </Col>
-              <Col xs={12} md={5}>
+              <Col xs={12} xxl={5}>
                 <div className='d-flex align-items-center justify-content-start'>
                   <CapacitySVG className='me-4' />
                   <Col>

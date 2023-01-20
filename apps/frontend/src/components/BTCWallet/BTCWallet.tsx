@@ -3,7 +3,6 @@ import 'react-perfect-scrollbar/dist/css/styles.css';
 
 import Transactions from '../Transactions/Transactions';
 import CurrencyBox from '../Shared/CurrencyBox/CurrencyBox';
-import logger from '../../services/logger.service';
 
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import Card from 'react-bootstrap/Card';
@@ -31,7 +30,7 @@ const btcTransactions = [
 
 const BTCWallet = () => {
   return (
-    <Row className='h-100 mb-4 mx-1'>
+    <Row className='h-100 mx-1'>
       <Card className='d-flex align-items-stretch'>
         <Card.Body className='d-flex align-items-stretch flex-column pt-4'>
           <Card className='bg-primary bg-gradient'>
@@ -41,7 +40,7 @@ const BTCWallet = () => {
                   <BitcoinWalletSVG className='me-4' />
                   <div>
                     <div className='fs-6'>Bitcoin Wallet</div>
-                      <CurrencyBox value='1384943' rootClasses='d-inline-flex flex-column' currencyClasses='fs-4 fw-bold' unitClasses='fs-8 fw-bold'></CurrencyBox>
+                      <CurrencyBox value='1384943' rootClasses='d-inline-flex flex-column' currencyClasses='lh-1 fs-4 fw-bold' unitClasses='fs-8 fw-bold'></CurrencyBox>
                     </div>
                 </Col>
               </Row>
@@ -56,8 +55,7 @@ const BTCWallet = () => {
             </ButtonGroup>
           </Card>
           <Card.Body className='px-0 transaction-list'>
-            <PerfectScrollbar
-              onScrollY={container => logger.info(`scrolled to: ${container.scrollTop}.`)}>
+            <PerfectScrollbar>
               <Transactions transactions={btcTransactions} />
             </PerfectScrollbar>
           </Card.Body>

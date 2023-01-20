@@ -31,7 +31,7 @@ const clnTransactions = [
 
 const CLNWallet = () => {
   return (
-    <Row className='h-100 mb-4 mx-1'>
+    <Row className='h-100 mx-1'>
       <Card className='d-flex align-items-stretch'>
         <Card.Body className='d-flex align-items-stretch flex-column pt-4'>
           <Card className='bg-primary bg-gradient'>
@@ -41,7 +41,7 @@ const CLNWallet = () => {
                   <LightningWalletSVG className='me-4' />
                   <div>
                     <div className='fs-6'>Lightning Wallet</div>
-                    <CurrencyBox value='32943' rootClasses='d-inline-flex flex-column' currencyClasses='fs-4 fw-bold' unitClasses='fs-8 fw-bold'></CurrencyBox>
+                    <CurrencyBox value='32943' rootClasses='d-inline-flex flex-column' currencyClasses='lh-1 fs-4 fw-bold' unitClasses='fs-8 fw-bold'></CurrencyBox>
                   </div>
                 </Col>
               </Row>
@@ -56,8 +56,7 @@ const CLNWallet = () => {
             </ButtonGroup>
           </Card>
           <Card.Body className='px-0 transaction-list'>
-            <PerfectScrollbar
-              onScrollY={container => logger.info(`scrolled to: ${container.scrollTop}.`)}>
+            <PerfectScrollbar>
               <Transactions transactions={clnTransactions} />
             </PerfectScrollbar>
           </Card.Body>
