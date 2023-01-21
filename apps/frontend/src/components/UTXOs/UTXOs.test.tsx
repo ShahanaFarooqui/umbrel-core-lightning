@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react';
-import Transactions from './Transactions';
+import UTXOs from './UTXOs';
 
-describe('Transactions component ', () => {
-  beforeEach(() => render(<Transactions invoices={[]} payments={[]} />));
+describe('UTXOs component ', () => {
+  beforeEach(() => render(<UTXOs />));
 
   it('should be in the document', () => {
     // expect(screen.getByTestId('header-context')).toBeInTheDocument();

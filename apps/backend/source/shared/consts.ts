@@ -10,6 +10,24 @@ export const API_VERSION = '/v1';
 export const NODE_ENV: Environment = Environment.DEVELOPMENT;
 export const LOG_FILE = './dist/logs/cln-backend-' + new Date().toISOString() + '.log';
 
+// // Local REGTEST 1
+// export const COMMANDO_RUNE = 'Am3W_wI0PRn4qVNEsJ2iInHyFPQK8wfdqEXztm8-icQ9MA==';
+// export const COMMANDO_PUBKEY = '0233263e392b38d0d905e8b35cead00063e8a6b7601d2d2bc3b97348e39026178c';
+// export const COMMANDO_WS_PROXY = 'ws://0.0.0.0:5001';
+// export const COMMANDO_IP = '0.0.0.0';
+// export const COMMANDO_PORT = 5001;
+// export const COMMANDO_PRIVATE_KEY = crypto.randomBytes(32).toString('hex');
+
+// Remote TESTNET from Box
+export const COMMANDO_RUNE =
+  'WOASqFe8d5BFprpQ9KzWFdG22J2z2wlm8CJwxnKGJA89MiZtZXRob2RebGlzdHxtZXRob2ReZ2V0fG1ldGhvZD1zdW1tYXJ5Jm1ldGhvZC9nZXRzaGFyZWRzZWNyZXQmbWV0aG9kL2xpc3RkYXRhc3RvcmU=';
+// export const COMMANDO_RUNE = 'zIhp8zW8jGx6OOfBiN8dg0zRnVb9Hw2AWhVwEDAx6bM9MQ=='; //Full access
+export const COMMANDO_PUBKEY = '031844beb16bf8dd8c7bc30588b8c37b36e62b71c6e812e9b6d976c0a57e151be2';
+export const COMMANDO_WS_PROXY = 'ws://192.168.1.89:5050';
+export const COMMANDO_IP = '192.168.1.89';
+export const COMMANDO_PORT = 5050;
+export const COMMANDO_PRIVATE_KEY = crypto.randomBytes(32).toString('hex');
+
 export enum HttpStatusCode {
   GET_OK = 200,
   POST_OK = 201,

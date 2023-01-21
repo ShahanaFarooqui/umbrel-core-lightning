@@ -5,5 +5,5 @@ export const ConvertSatsToBTC = (num: number) => {
 };
 
 export const formatCurrency = (num: number, selUnit: Units = Units.SATS, shorten: boolean = false) => {
-  return (selUnit === Units.BTC) ? ConvertSatsToBTC(num) : (shorten ? (parseFloat((num / 1000).toString()).toLocaleString('en-us') + 'K') : parseFloat(num.toString()).toLocaleString('en-us'));
+  return (selUnit === Units.BTC) ? ConvertSatsToBTC(num) : (shorten ? (Math.floor((num / 1000)).toLocaleString('en-us') + 'K') : parseFloat(num.toString()).toLocaleString('en-us'));
 };

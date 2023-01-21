@@ -124,16 +124,19 @@ export type ListPeers = {
 
 export type Invoice = {
   bolt11?: string;
+  bolt12?: string;
   description?: string;
   expires_at?: number;
   label?: string;
+  msatoshi?: number;
   msatoshi_received?: number;
+  local_offer_id?: string;
+  invreq_payer_note?: string;
   paid_at?: number;
   pay_index?: number;
   payment_hash?: string;
   payment_preimage?: string;
   status?: string;
-  error?: any;
 };
 
 export type ListInvoices = {
@@ -148,8 +151,8 @@ export type Payment = {
   payment_hash?: string;
   status?: string;
   created_at?: number;
-  amount_sent_msat?: string;
-  amount_msat?: string;
+  msatoshi?: number;
+  msatoshi_sent?: number;
   destination?: string;
   label?: string;
   bolt11?: string;
@@ -203,6 +206,7 @@ export type ListTransactions = {
 export type FundOutput = {
   txid?: string;
   output?: string;
+  value?: number;
   amount_msat?: string;
   scriptpubkey?: string;
   status?: string;
@@ -222,11 +226,26 @@ export type FundChannel = {
   connected?: boolean;
   state?: string;
   short_channel_id?: string;
+  channel_sat?: number;
+  channel_total_sat?: number;
+
 }
 
 export type Fund = {
   isLoading: boolean;
   channels?: FundChannel[];
   outputs?: FundOutput[];
+  error?: any;
+}
+
+export type WalletBalances = {
+  isLoading: boolean;
+  clnLocalBalance?: number;
+  clnRemoteBalance?: number;
+  clnPendingBalance?: number;
+  clnInactiveBalance?: number;
+  btcConfBalance?: number;
+  btcUnconfBalance?: number;
+  btcTotalBalance?: number;
   error?: any;
 }

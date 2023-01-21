@@ -1,5 +1,5 @@
 import { ApplicationConfiguration } from './app-config.type';
-import { Fund, ListInvoices, ListPayments, ListPeers, ListTransactions, NodeInfo } from './lightning-wallet.type';
+import { Fund, ListInvoices, ListPayments, ListPeers, ListTransactions, NodeInfo, WalletBalances } from './lightning-wallet.type';
 
 export type AppContextType = {
   appConfig: ApplicationConfiguration;
@@ -9,6 +9,7 @@ export type AppContextType = {
   listInvoices: ListInvoices;
   listPayments: ListPayments;
   listTransactions: ListTransactions;
+  walletBalances: WalletBalances;
   setConfig: (newAppConfig: ApplicationConfiguration) => void;
   setNodeInfo: (newNodeInfo: NodeInfo) => void;
   setListFunds: (fundsList: Fund) => void;
