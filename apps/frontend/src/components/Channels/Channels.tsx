@@ -20,9 +20,12 @@ const Channels = () => {
       <Card className='d-flex align-items-stretch'>
         <Card.Body className='d-flex align-items-stretch flex-column pt-4'>
           <Card.Header className='fs-5 fw-bold text-dark'>Payment Channels</Card.Header>
-          <Card.Body className='px-0 transaction-list d-flex align-items-center justify-content-center'>
+          <Card.Body className='px-0 transaction-list'>
             { appCtx.listChannels.isLoading ? 
-              <Spinner animation='grow' variant='primary' /> : 
+                <span className='h-100 d-flex justify-content-center align-items-center'>
+                  <Spinner animation='grow' variant='primary' />
+                </span> 
+              :
               appCtx.listChannels.error ? 
                 <Alert className='py-0 px-1 fs-11' variant='danger'>{appCtx.listChannels.error}</Alert> : 
                 <PerfectScrollbar>

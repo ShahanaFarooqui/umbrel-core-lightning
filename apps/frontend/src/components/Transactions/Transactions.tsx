@@ -17,34 +17,36 @@ const Transactions = () => {
   // status?: string;
 
   return (
-    <ListGroup as='ul' variant='flush'>
-      { appCtx.listLightningTransactions.isLoading ? 
-          <Spinner animation='grow' variant='primary' /> : 
-        appCtx.listLightningTransactions.error ? 
-          <Alert className='py-0 px-1 fs-11' variant='danger'>{appCtx.listLightningTransactions.error}</Alert> : 
-          appCtx.listLightningTransactions?.transactions?.map((transaction, i) => 
-            <ListGroup.Item key={i} as='li' className='d-flex justify-content-between align-items-start'>
-              <div className='ms-2 me-auto text-dark'>
-                { (transaction.expires_at) ?
-                  <>
-                    <h4>Invoice</h4>
-                    <div className='fw-bold'>{transaction.expires_at}</div>
-                    {transaction.status}
-                    {formatCurrency(transaction.msatoshi_received || 0)}
-                  </>
-                :
-                  <>
-                    <h4>Payment</h4>
-                    <div className='fw-bold'>{transaction.created_at}</div>
-                    {transaction.status}
-                    {formatCurrency( transaction.msatoshi_sent || 0)}
-                  </>
-                }
-              </div>
-            </ListGroup.Item>
-          )
-      }
-    </ListGroup>
+    appCtx.listLightningTransactions.isLoading ? 
+      <span className='h-100 d-flex justify-content-center align-items-center'>
+        <Spinner animation='grow' variant='primary' />
+      </span> 
+    : 
+    appCtx.listLightningTransactions.error ? 
+      <Alert className='py-0 px-1 fs-11' variant='danger'>{appCtx.listLightningTransactions.error}</Alert> : 
+      <ListGroup as='ul' variant='flush'>
+        { appCtx.listLightningTransactions?.transactions?.map((transaction, i) => 
+          <ListGroup.Item key={i} as='li'>
+            <div className='ms-2 me-auto text-dark'>
+              { (transaction.expires_at) ?
+                <>
+                  <h4>Invoice</h4>
+                  <div className='fw-bold'>{transaction.expires_at}</div>
+                  {transaction.status}
+                  {formatCurrency(transaction.msatoshi_received || 0)}
+                </>
+              :
+                <>
+                  <h4>Payment</h4>
+                  <div className='fw-bold'>{transaction.created_at}</div>
+                  {transaction.status}
+                  {formatCurrency( transaction.msatoshi_sent || 0)}
+                </>
+              }
+            </div>
+          </ListGroup.Item>
+        )}
+      </ListGroup>
   );
 };
 

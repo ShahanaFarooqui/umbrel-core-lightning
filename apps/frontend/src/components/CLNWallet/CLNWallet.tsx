@@ -33,7 +33,7 @@ const CLNWallet = () => {
                   <div>
                     <div className='fs-6'>Lightning Wallet</div>
                     { appCtx.walletBalances.isLoading ? 
-                        <Spinner animation='grow' variant='primary' /> : 
+                        <Spinner animation='grow' variant='secondary' /> : 
                       appCtx.walletBalances.error ? 
                         <Alert className='py-0 px-1 fs-11' variant='danger'>{appCtx.walletBalances.error}</Alert> : 
                         <CurrencyBox value={appCtx.walletBalances.clnLocalBalance} rootClasses='d-inline-flex flex-column' currencyClasses='lh-1 fs-4 fw-bold' unitClasses='fs-8 fw-bold'></CurrencyBox>

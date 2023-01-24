@@ -1,7 +1,6 @@
 import './BTCWallet.scss';
 import 'react-perfect-scrollbar/dist/css/styles.css';
 
-import Transactions from '../Transactions/Transactions';
 import CurrencyBox from '../Shared/CurrencyBox/CurrencyBox';
 
 import PerfectScrollbar from 'react-perfect-scrollbar';
@@ -34,7 +33,7 @@ const BTCWallet = () => {
                   <div>
                     <div className='fs-6'>Bitcoin Wallet</div>
                     { appCtx.walletBalances.isLoading ? 
-                        <Spinner animation='grow' variant='primary' /> : 
+                        <Spinner animation='grow' variant='secondary' /> : 
                       appCtx.walletBalances.error ? 
                         <Alert className='py-0 px-1 fs-11' variant='danger'>{appCtx.walletBalances.error}</Alert> : 
                         <CurrencyBox value={appCtx.walletBalances.btcTotalBalance} rootClasses='d-inline-flex flex-column' currencyClasses='lh-1 fs-4 fw-bold' unitClasses='fs-8 fw-bold'></CurrencyBox>

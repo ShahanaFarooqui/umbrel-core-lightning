@@ -26,6 +26,7 @@ const aggregateChannels = (peers: Peer[]) => {
         } else {
           aggregatedChannels.pendingChannels.push(channel);
         }
+        return aggregatedChannels;
       });
     }
   });

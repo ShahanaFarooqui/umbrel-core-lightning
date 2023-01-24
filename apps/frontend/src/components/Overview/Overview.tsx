@@ -28,7 +28,7 @@ const Overview = () => {
               <Col xs={6}>
                 <div className='fs-6'>Total Balance</div>
                 { appCtx.walletBalances.isLoading ? 
-                  <Spinner animation='grow' variant='primary' /> : 
+                  <Spinner animation='grow' variant='secondary' /> : 
                   appCtx.walletBalances.error ? 
                     <Alert className='py-0 px-1 fs-11' variant='danger'>{appCtx.walletBalances.error}</Alert> : 
                     <CurrencyBox value={(appCtx.walletBalances.btcTotalBalance || 0) + (appCtx.walletBalances.clnLocalBalance || 0)} rootClasses='d-inline-flex flex-column' currencyClasses='lh-1 fs-4 fw-bold' unitClasses='fs-8 fw-bold'></CurrencyBox>

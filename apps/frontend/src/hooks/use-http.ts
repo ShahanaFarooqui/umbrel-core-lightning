@@ -21,20 +21,17 @@ const useHttp = () => {
   const fetchData = () => {
     sendRequest(appCtx.setConfig, 'get', '/shared/config');
     sendRequest(appCtx.setNodeInfo, 'post', '/cln/call', { 'method': 'getinfo', 'params': [] });
-
+    sendRequest(appCtx.setListPeers, 'post', '/cln/call', { 'method': 'listpeers', 'params': [], 'nextAction': 'getNodesInfo' });
     sendRequest(appCtx.setListInvoices, 'post', '/cln/call', { 'method': 'listinvoices', 'params': [] });
     sendRequest(appCtx.setListPayments, 'post', '/cln/call', { 'method': 'listsendpays', 'params': [] });
     sendRequest(appCtx.setListFunds, 'post', '/cln/call', { 'method': 'listfunds', 'params': [] });
     sendRequest(appCtx.setListBitcoinTransactions, 'post', '/cln/call', { 'method': 'listtransactions', 'params': [] });
-    setTimeout(() => {
-      sendRequest(appCtx.setListPeers, 'post', '/cln/call', { 'method': 'listpeers', 'params': [], 'nextAction': 'getNodesInfo' });
-    }, 50000);
   }
 
   const sendRequest = useCallback((setStoreFunction: any, method: string, url: string, reqBody: any = null) => {
     try {
       axios({
-        timeout: 60000,
+        timeout: 15000,
         method: method,
         url: API_BASE_URL + API_VERSION + url,
         data: reqBody
