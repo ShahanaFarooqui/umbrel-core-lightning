@@ -10,6 +10,7 @@
     "backend:dev": "npm run start -w umbrel-cln-backend",
     "backend:build": "npm run build -w umbrel-cln-backend",
     "backend:serve": "npm run serve -w umbrel-cln-backend",
+    "backend:watch": "npm run watch -w umbrel-cln-backend",
     "dev": "npm run backend:dev & npm run frontend:dev",
     "build": "npm run backend:build & npm run frontend:build",
     "start": "npm run serve -w umbrel-cln-backend"

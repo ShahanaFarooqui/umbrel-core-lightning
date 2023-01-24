@@ -3,7 +3,6 @@ import 'react-perfect-scrollbar/dist/css/styles.css';
 
 import Transactions from '../Transactions/Transactions';
 import CurrencyBox from '../Shared/CurrencyBox/CurrencyBox';
-import logger from '../../services/logger.service';
 
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import Card from 'react-bootstrap/Card';
@@ -16,6 +15,8 @@ import { WithdrawSVG } from '../../svgs/withdraw';
 import { DepositSVG } from '../../svgs/deposit';
 import { AppContext } from '../../store/AppContext';
 import { useContext } from 'react';
+import Spinner from 'react-bootstrap/Spinner';
+import Alert from 'react-bootstrap/Alert';
 
 const CLNWallet = () => {
   const appCtx = useContext(AppContext);
@@ -31,7 +32,12 @@ const CLNWallet = () => {
                   <LightningWalletSVG className='me-4' />
                   <div>
                     <div className='fs-6'>Lightning Wallet</div>
-                    <CurrencyBox value={appCtx.walletBalances.clnLocalBalance} rootClasses='d-inline-flex flex-column' currencyClasses='lh-1 fs-4 fw-bold' unitClasses='fs-8 fw-bold'></CurrencyBox>
+                    { appCtx.walletBalances.isLoading ? 
+                        <Spinner animation='grow' variant='primary' /> : 
+                      appCtx.walletBalances.error ? 
+                        <Alert className='py-0 px-1 fs-11' variant='danger'>{appCtx.walletBalances.error}</Alert> : 
+                        <CurrencyBox value={appCtx.walletBalances.clnLocalBalance} rootClasses='d-inline-flex flex-column' currencyClasses='lh-1 fs-4 fw-bold' unitClasses='fs-8 fw-bold'></CurrencyBox>
+                    }
                   </div>
                 </Col>
               </Row>
@@ -47,7 +53,7 @@ const CLNWallet = () => {
           </Card>
           <Card.Body className='px-0 transaction-list'>
             <PerfectScrollbar>
-              <Transactions invoices={appCtx.listInvoices.invoices} payments={appCtx.listPayments.payments} />
+              <Transactions />
             </PerfectScrollbar>
           </Card.Body>
         </Card.Body>

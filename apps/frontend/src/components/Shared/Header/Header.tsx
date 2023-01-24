@@ -24,16 +24,16 @@ const Header = () => {
           </Col>
           <Row className='header-info-text my-2'>
             <Col xs={12} className='d-flex align-items-center text-light'>
-              <span className={'d-inline-block mx-2 dot ' + ((appCtx.nodeInfo.id) ? 'bg-success' : (appCtx.nodeInfo.error) ? 'bg-danger' : 'bg-warning')}></span>
-              { (appCtx.nodeInfo.id) ? 
-                ((appCtx.nodeInfo.alias ? appCtx.nodeInfo.alias : appCtx.nodeInfo.id.substring(0,20)) + ' (' + appCtx.nodeInfo.version + ')')
-              : 
-                (appCtx.nodeInfo.error) ? 
-                  ('Error: ' + appCtx.nodeInfo.error)
-                : 
-                  'Loading...'
-              }
-              <span className='d-inline-block square ms-2' style={{ backgroundColor: '#009001' }}></span>
+            { appCtx.nodeInfo.isLoading ? 
+                <><span className='d-inline-block mx-2 dot bg-warning'></span><span>Loading...</span></> : 
+              appCtx.nodeInfo.error ? 
+                <><span className='d-inline-block mx-2 dot bg-danger'></span><span>('Error: ' + appCtx.nodeInfo.error)</span></> : 
+                <>
+                  <span className='d-inline-block mx-2 dot bg-success'></span>
+                  <span>{appCtx.nodeInfo.alias + ' (' + appCtx.nodeInfo.version + ')'}</span> 
+                  <span className='d-inline-block square ms-2' style={{ backgroundColor: appCtx.nodeInfo.color ? ('#' + appCtx.nodeInfo.color) : 'none' }}></span>
+                </>
+            }
             </Col>
           </Row>
         </Col>
@@ -55,16 +55,16 @@ const Header = () => {
             </Col>
           }
           <Col xs={12} className='d-flex align-items-center text-light'>
-            <span className={'d-inline-block me-2 dot ' + ((appCtx.nodeInfo.id) ? 'bg-success' : (appCtx.nodeInfo.error) ? 'bg-danger' : 'bg-warning')}></span>
-              { (appCtx.nodeInfo.id) ? 
-                ((appCtx.nodeInfo.alias ? appCtx.nodeInfo.alias : appCtx.nodeInfo.id.substring(0,20)) + ' (' + appCtx.nodeInfo.version + ')')
-              : 
-                (appCtx.nodeInfo.error) ? 
-                  ('Error: ' + appCtx.nodeInfo.error)
-                : 
-                  'Loading...'
-              }
-            <span className='d-inline-block square ms-2' style={{ backgroundColor: '#009001' }}></span>
+            { appCtx.nodeInfo.isLoading ? 
+                <><span className='d-inline-block me-2 dot bg-warning'></span><span>Loading...</span></> : 
+              appCtx.nodeInfo.error ? 
+                <><span className='d-inline-block me-2 dot bg-danger'></span><span>('Error: ' + appCtx.nodeInfo.error)</span></> : 
+                <>
+                  <span className='d-inline-block me-2 dot bg-success'></span>
+                  <span>{appCtx.nodeInfo.alias + ' (' + appCtx.nodeInfo.version + ')'}</span> 
+                  <span className='d-inline-block square ms-2' style={{ backgroundColor: appCtx.nodeInfo.color ? ('#' + appCtx.nodeInfo.color) : 'none' }}></span>
+                </>
+            }
           </Col>
         </Row>
       </Col>

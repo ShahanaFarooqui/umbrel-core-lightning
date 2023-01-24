@@ -16,6 +16,8 @@ import { DepositSVG } from '../../svgs/deposit';
 import { AppContext } from '../../store/AppContext';
 import { useContext } from 'react';
 import UTXOs from '../UTXOs/UTXOs';
+import Spinner from 'react-bootstrap/Spinner';
+import Alert from 'react-bootstrap/Alert';
 
 const BTCWallet = () => {
   const appCtx = useContext(AppContext);
@@ -31,7 +33,12 @@ const BTCWallet = () => {
                   <BitcoinWalletSVG className='me-4' />
                   <div>
                     <div className='fs-6'>Bitcoin Wallet</div>
-                      <CurrencyBox value={appCtx.walletBalances.btcTotalBalance} rootClasses='d-inline-flex flex-column' currencyClasses='lh-1 fs-4 fw-bold' unitClasses='fs-8 fw-bold'></CurrencyBox>
+                    { appCtx.walletBalances.isLoading ? 
+                        <Spinner animation='grow' variant='primary' /> : 
+                      appCtx.walletBalances.error ? 
+                        <Alert className='py-0 px-1 fs-11' variant='danger'>{appCtx.walletBalances.error}</Alert> : 
+                        <CurrencyBox value={appCtx.walletBalances.btcTotalBalance} rootClasses='d-inline-flex flex-column' currencyClasses='lh-1 fs-4 fw-bold' unitClasses='fs-8 fw-bold'></CurrencyBox>
+                    }
                     </div>
                 </Col>
               </Row>
@@ -48,7 +55,6 @@ const BTCWallet = () => {
           <Card.Body className='px-0 transaction-list'>
             <PerfectScrollbar>
               <UTXOs />
-              {/* <Transactions transactions={appCtx.listTransactions.transactions} /> */}
             </PerfectScrollbar>
           </Card.Body>
         </Card.Body>

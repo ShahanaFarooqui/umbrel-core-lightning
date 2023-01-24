@@ -63,6 +63,7 @@ export type Alias = {
 };
 
 export type Channel = {
+  node_alias?: string;
   state?: string;
   connected?: boolean;
   scratch_txid?: string;
@@ -108,11 +109,33 @@ export type Channel = {
   htlcs?: HTLC[];
 };
 
+export type ListChannels = {
+  isLoading: boolean;
+  activeChannels?: Channel[];
+  pendingChannels?: Channel[];
+  inactiveChannels?: Channel[];
+  error?: any;
+}
+
+export type LiquidityAd = {
+  lease_fee_base_msat?: string;
+  lease_fee_basis?: number;
+  funding_weight?: number;
+  channel_fee_max_base_msat?: string;
+  channel_fee_max_proportional_thousandths?: number;
+  compact_lease?: string;
+}
+
 export type Peer = {
   id?: string;
   connected?: boolean;
   netaddr?: string[];
+  last_timestamp?: string;
+  alias?: string;
+  color?: string;
   features?: string;
+  addresses?: Address[];
+  option_will_fund?: LiquidityAd;
   channels?: Channel[];
 };
 
@@ -168,6 +191,12 @@ export type ListPayments = {
   error?: any;
 }
 
+export type ListLightningTransactions = {
+  isLoading: boolean;
+  transactions?: Payment[] | Invoice[];
+  error?: any;
+}
+
 export type TxInput = {
   txid?: string;
   index?: string;
@@ -197,7 +226,7 @@ export type Transaction = {
   channel?: string;
 }
 
-export type ListTransactions = {
+export type ListBitcoinTransactions = {
   isLoading: boolean;
   transactions?: Transaction[];
   error?: any;
