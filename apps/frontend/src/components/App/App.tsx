@@ -1,7 +1,7 @@
 import { useContext, useEffect } from 'react';
 import './App.scss';
 
-import Header from '../Shared/Header/Header';
+import Header from '../Header/Header';
 import BTCWallet from '../BTCWallet/BTCWallet';
 import CLNWallet from '../CLNWallet/CLNWallet';
 import Channels from '../Channels/Channels';

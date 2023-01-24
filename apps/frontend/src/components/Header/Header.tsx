@@ -3,11 +3,11 @@ import './Header.scss';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Image from 'react-bootstrap/Image';
-import { Breakpoints } from '../../../utilities/constants';
+import { Breakpoints } from '../../utilities/constants';
 import { useContext } from 'react';
-import { AppContext } from '../../../store/AppContext';
-import useBreakpoint from '../../../hooks/use-breakpoint';
-import Settings from '../Settings/Settings';
+import { AppContext } from '../../store/AppContext';
+import useBreakpoint from '../../hooks/use-breakpoint';
+import Settings from '../Shared/Settings/Settings';
 
 const Header = () => {
   const appCtx = useContext(AppContext);
@@ -27,7 +27,7 @@ const Header = () => {
             { appCtx.nodeInfo.isLoading ? 
                 <><span className='d-inline-block mx-2 dot bg-warning'></span><span>Loading...</span></> : 
               appCtx.nodeInfo.error ? 
-                <><span className='d-inline-block mx-2 dot bg-danger'></span><span>('Error: ' + appCtx.nodeInfo.error)</span></> : 
+                <><span className='d-inline-block mx-2 dot bg-danger'></span><span>{('Error: ' + appCtx.nodeInfo.error)}</span></> : 
                 <>
                   <span className='d-inline-block mx-2 dot bg-success'></span>
                   <span>{appCtx.nodeInfo.alias + ' (' + appCtx.nodeInfo.version + ')'}</span> 
@@ -58,7 +58,7 @@ const Header = () => {
             { appCtx.nodeInfo.isLoading ? 
                 <><span className='d-inline-block me-2 dot bg-warning'></span><span>Loading...</span></> : 
               appCtx.nodeInfo.error ? 
-                <><span className='d-inline-block me-2 dot bg-danger'></span><span>('Error: ' + appCtx.nodeInfo.error)</span></> : 
+                <><span className='d-inline-block me-2 dot bg-danger'></span><span>{('Error: ' + appCtx.nodeInfo.error)}</span></> : 
                 <>
                   <span className='d-inline-block me-2 dot bg-success'></span>
                   <span>{appCtx.nodeInfo.alias + ' (' + appCtx.nodeInfo.version + ')'}</span> 

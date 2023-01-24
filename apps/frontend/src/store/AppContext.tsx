@@ -35,7 +35,7 @@ const aggregateChannels = (peers: Peer[]) => {
 
 const mergeLightningTransactions = (invoices: Invoice[], payments: Payment[]) => {
   let mergedTransactions: any[] = [];
-  let totalTransactionsLength = invoices.length + payments.length;
+  let totalTransactionsLength = (invoices?.length || 0) + (payments?.length || 0);
   for (let i = 0, v = 0, p = 0; i < totalTransactionsLength; i++) {
     if (v === invoices.length) {
       mergedTransactions.concat(payments.slice(p));
