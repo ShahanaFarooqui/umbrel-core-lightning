@@ -6,7 +6,7 @@
 import React, { useReducer } from 'react';
 import { AppContextType } from '../types/app-context.type';
 import { ApplicationActions, ApplicationModes, Units } from '../utilities/constants';
-import { ApplicationConfiguration } from '../types/app-config.type';
+import { ApplicationConfiguration, FiatRate } from '../types/app-config.type';
 import { Fund, FundChannel, FundOutput, Invoice, ListBitcoinTransactions, ListInvoices, ListPayments, ListPeers, NodeInfo, Payment, Peer } from '../types/lightning-wallet.type';
 import logger from '../services/logger.service';
 
@@ -93,6 +93,7 @@ const calculateBalances = (listFunds: Fund) => {
 }
 
 const AppContext = React.createContext<AppContextType>({
+  fiatRate: {isLoading: true, rate: 0},
   appConfig: { unit: Units.SATS, fiatUnit: 'USD', appMode: ApplicationModes.DARK },
   nodeInfo: {isLoading: true},
   listFunds: {isLoading: true, channels: [], outputs: []},
@@ -103,6 +104,7 @@ const AppContext = React.createContext<AppContextType>({
   listLightningTransactions: {isLoading: true, transactions: []},
   listBitcoinTransactions: {isLoading: true, transactions: []},
   walletBalances: {isLoading: true, clnLocalBalance: 0, clnRemoteBalance: 0, clnPendingBalance: 0, clnInactiveBalance: 0, btcConfBalance: 0, btcUnconfBalance: 0, btcTotalBalance: 0},
+  setFiatRate: (fiatRate: FiatRate) => {},
   setConfig: (config: ApplicationConfiguration) => {},
   setNodeInfo: (info: NodeInfo) => {},
   setListFunds: (fundsList: Fund) => {},
@@ -114,6 +116,7 @@ const AppContext = React.createContext<AppContextType>({
 });
 
 const defaultAppState = {
+  fiatRate: {isLoading: true},
   appConfig: { unit: Units.SATS, fiatUnit: 'USD', appMode: ApplicationModes.DARK },
   nodeInfo: {isLoading: true},
   listFunds: {isLoading: true, channels: [], outputs: []},
@@ -130,6 +133,12 @@ const appReducer = (state, action) => {
   logger.info(action);
   logger.info(state);
   switch (action.type) {
+    case ApplicationActions.SET_FIAT_RATE:
+      return {
+        ...state,
+        fiatRate: action.payload
+      };
+
     case ApplicationActions.SET_CONFIG:
       return {
         ...state,
@@ -207,6 +216,10 @@ const appReducer = (state, action) => {
 const AppProvider: React.PropsWithChildren<any> = (props) => {
   const [applicationState, dispatchApplicationAction] = useReducer(appReducer, defaultAppState);
 
+  const setFiatRateHandler = (fiatRate: FiatRate) => {
+    dispatchApplicationAction({ type: ApplicationActions.SET_FIAT_RATE, payload: fiatRate });
+  };
+
   const setConfigurationHandler = (config: ApplicationConfiguration) => {
     dispatchApplicationAction({ type: ApplicationActions.SET_CONFIG, payload: config });
   };
@@ -240,6 +253,7 @@ const AppProvider: React.PropsWithChildren<any> = (props) => {
   };
 
   const appContext: AppContextType = {
+    fiatRate: applicationState.fiatRate,
     appConfig: applicationState.appConfig,
     nodeInfo: applicationState.nodeInfo,
     listFunds: applicationState.listFunds,
@@ -250,6 +264,7 @@ const AppProvider: React.PropsWithChildren<any> = (props) => {
     listLightningTransactions: applicationState.listLightningTransactions,
     listBitcoinTransactions: applicationState.listBitcoinTransactions,
     walletBalances: applicationState.walletBalances,
+    setFiatRate: setFiatRateHandler,
     setConfig: setConfigurationHandler,
     setNodeInfo: setNodeInfoHandler,
     setListFunds: setListFundsHandler,

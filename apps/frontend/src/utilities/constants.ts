@@ -9,6 +9,8 @@ export const COMMANDO_PORT = 5001;
 export const COMMANDO_PRIVATE_KEY =
   'ea8d3091934f2c86c216370f0206acaaa2ee12462387743c358ca5f0245bf561';
 
+export const BTC_SATS = 100000000;
+
 export type LogLevel = 'info' | 'warn' | 'error';
 
 export enum NumberTypes {
@@ -38,6 +40,7 @@ export const FIAT_CURRENCY_UNITS = [
 ];
 
 export enum ApplicationActions {
+  SET_FIAT_RATE = 'SET_FIAT_RATE',
   SET_CONFIG = 'SET_CONFIG',
   SET_NODE_INFO = 'SET_NODE_INFO',
   SET_LIST_FUNDS = 'SET_LIST_FUNDS',

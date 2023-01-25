@@ -12,8 +12,21 @@ const useHttp = () => {
     axios.post(API_BASE_URL + API_VERSION + '/shared/config', updatedConfig)
     .then((response: any) => {
       appCtx.setConfig(updatedConfig);
+      if(appCtx.appConfig.fiatUnit !== updatedConfig.fiatUnit) {
+        getFiatRate(updatedConfig.fiatUnit);
+      }
     }).catch(err => {
       logger.error(err);
+    });
+
+  }
+
+  const getFiatRate = (fiatUnit: string) => {
+    axios.get(API_BASE_URL + API_VERSION + '/shared/rate/' + fiatUnit)
+    .then((response: any) => {
+      appCtx.setFiatRate({...response.data, ...{ isLoading: false, error: null }});
+    }).catch(err => {
+      appCtx.setFiatRate({ isLoading: false, error: err.response.data });
     });
 
   }
@@ -40,6 +53,9 @@ const useHttp = () => {
         if (url === '/cln/call') {
           setStoreFunction({...response.data, ...{ isLoading: false, error: null }});
         } else {
+          if(url.includes('/shared/config')) {
+            getFiatRate(response.data.fiatUnit);
+          }
           setStoreFunction(response.data);
         }
       })
@@ -59,6 +75,7 @@ const useHttp = () => {
 
   return {
     fetchData,
+    getFiatRate,
     updateConfig
   };
 };

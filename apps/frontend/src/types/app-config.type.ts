@@ -5,3 +5,9 @@ export type ApplicationConfiguration = {
   fiatUnit: string;
   appMode: ApplicationModes
 }
+
+export type FiatRate = {
+  isLoading: boolean;
+  rate?: number;
+  error?: any;
+}

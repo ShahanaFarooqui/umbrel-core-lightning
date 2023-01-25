@@ -1,7 +1,7 @@
 import './UTXOs.scss';
 
 import ListGroup from 'react-bootstrap/ListGroup';
-import { formatCurrency } from '../../utilities/data-formatters';
+import { formatCurrency, formatFiatValue } from '../../utilities/data-formatters';
 import { AppContext } from '../../store/AppContext';
 import { useContext } from 'react';
 import Spinner from 'react-bootstrap/Spinner';
@@ -32,13 +32,13 @@ const UTXOs = () => {
                 <span className='fw-bold overflow-x-ellipsis'>{utxo.txid}</span>
               </Col>
               <Col xs={3}>
-                {formatCurrency(utxo.value || 0)}
+                {formatCurrency((utxo.value || 0), appCtx.appConfig.unit)}
               </Col>
               <Col xs={8} className='fs-8 text-light'>
-                {'Today, 02:36pm'}
+                {utxo.blockheight ? ((utxo.blockheight || 0).toLocaleString('en-us')) : ''}
               </Col>
               <Col xs={3} className='fs-8 text-light'>
-                {formatCurrency(utxo.value || 0)}
+                {formatFiatValue((utxo.value || 0), appCtx.fiatRate.rate)}
               </Col>
             </Row>
           </ListGroup.Item>

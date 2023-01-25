@@ -17,6 +17,9 @@ export class SharedRoutes extends CommonRoutesConfig {
     this.app
       .route(API_VERSION + SHARED_ROUTE + '/config/')
       .post(SharedController.setApplicationSettings);
+    this.app
+      .route(API_VERSION + SHARED_ROUTE + '/rate/:fiatCurrency')
+      .get(SharedController.getFiatRate);
     return this.app;
   }
 }
