@@ -5,3 +5,37 @@
     height: 5.5rem;
   }
 }
+
+.svg-night {
+  opacity: 0.8;
+  &:hover {
+    cursor: pointer;
+    opacity: 1;
+    transition-duration: .5s;
+    transition-property: opacity;
+    transition-timing-function: cubic-bezier(.4,0,.2,1);  
+    & path {
+      transition-duration: .5s;
+      transition-property: fill;
+      transition-timing-function: cubic-bezier(.4,0,.2,1);  
+      fill: $light-dark;
+    }
+  }
+}
+
+.svg-day {
+  opacity: 0.8;
+  &:hover {
+    cursor: pointer;
+    opacity: 1;
+    transition-duration: .5s;
+    transition-property: opacity;
+    transition-timing-function: cubic-bezier(.4,0,.2,1);
+    & path {
+      transition-duration: .5s;
+      transition-property: fill;
+      transition-timing-function: cubic-bezier(.4,0,.2,1);  
+      fill: $primary;
+    }
+  }
+}

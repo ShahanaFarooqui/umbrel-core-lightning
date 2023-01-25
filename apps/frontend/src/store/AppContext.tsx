@@ -37,10 +37,10 @@ const mergeLightningTransactions = (invoices: Invoice[], payments: Payment[]) =>
   let mergedTransactions: any[] = [];
   let totalTransactionsLength = (invoices?.length || 0) + (payments?.length || 0);
   for (let i = 0, v = 0, p = 0; i < totalTransactionsLength; i++) {
-    if (v === invoices.length) {
+    if (v === (invoices.length || 0)) {
       mergedTransactions.concat(payments.slice(p));
       i = totalTransactionsLength;
-    } else if (p === payments.length) {
+    } else if (p === (payments.length || 0)) {
       mergedTransactions.concat(invoices.slice(v));
       i = totalTransactionsLength;
     } else if((payments[p].created_at || 0) >= (invoices[v].expires_at || invoices[v].paid_at || 0)) {

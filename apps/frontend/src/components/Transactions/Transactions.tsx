@@ -6,6 +6,8 @@ import { AppContext } from '../../store/AppContext';
 import { useContext } from 'react';
 import Spinner from 'react-bootstrap/Spinner';
 import Alert from 'react-bootstrap/Alert';
+import { IncomingArrowSVG } from '../../svgs/IncomingArrow';
+import { OutgoingArrowSVG } from '../../svgs/OutgoingArrow';
 
 const Transactions = () => {
   const appCtx = useContext(AppContext);
@@ -23,13 +25,14 @@ const Transactions = () => {
       </span> 
     : 
     appCtx.listLightningTransactions.error ? 
-      <Alert className='py-0 px-1 fs-11' variant='danger'>{appCtx.listLightningTransactions.error}</Alert> : 
+      <Alert className='py-0 px-1 fs-9' variant='danger'>{appCtx.listLightningTransactions.error}</Alert> : 
       <ListGroup as='ul' variant='flush'>
         { appCtx.listLightningTransactions?.transactions?.map((transaction, i) => 
           <ListGroup.Item key={i} as='li'>
             <div className='ms-2 me-auto text-dark'>
               { (transaction.expires_at) ?
                 <>
+                  <IncomingArrowSVG className='me-4' />
                   <h4>Invoice</h4>
                   <div className='fw-bold'>{transaction.expires_at}</div>
                   {transaction.status}
@@ -37,6 +40,7 @@ const Transactions = () => {
                 </>
               :
                 <>
+                  <OutgoingArrowSVG className='me-4' />
                   <h4>Payment</h4>
                   <div className='fw-bold'>{transaction.created_at}</div>
                   {transaction.status}

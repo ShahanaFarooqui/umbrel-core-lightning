@@ -22,14 +22,13 @@
     fill: $gray-150;
   }
 
+  .fill-dark {
+    fill: $dark;
+  }
+  
   .dropdown {
     & .dropdown-item {
-      color: $light;
-      &.no-focus {
-        &.active, &:active, &:focus, &:hover {
-          color: $light;
-        }
-      }
+      color: $dark;
       &.active, &:active, &:focus, &:hover {
         color: $primary;
       }

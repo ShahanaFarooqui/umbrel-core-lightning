@@ -3,11 +3,11 @@ import './Settings.scss';
 import ToggleSwitch from '../ToggleSwitch/ToggleSwitch';
 
 import Dropdown from 'react-bootstrap/Dropdown';
-import { CURRENCY_UNITS, APPLICATION_MODES } from '../../../utilities/constants';
+import { CURRENCY_UNITS } from '../../../utilities/constants';
 import { useContext, useState } from 'react';
 import { AppContext } from '../../../store/AppContext';
 import ModalComponent from '../NodeInfo/NodeInfo';
-import { SettingsSVG } from '../../../svgs/settings';
+import { SettingsSVG } from '../../../svgs/Settings';
 import FiatSelection from '../FiatSelection/FiatSelection';
 import useBreakpoint from '../../../hooks/use-breakpoint';
 import logger from '../../../services/logger.service';
@@ -25,19 +25,14 @@ const Settings = () => {
         Settings
         <SettingsSVG className={'ms-2' + ((!!appCtx.nodeInfo.error || appCtx.nodeInfo.isLoading) ? ' svg-fill-disabled' : '')} />
       </Dropdown.Toggle>
-      <Dropdown.Menu>
+      <Dropdown.Menu className='fs-7'>
         <Dropdown.Item data-bs-toggle='modal' data-bs-target='#staticBackdrop' onClick={() => setShowNodeInfoModal(true)}>Show node ID</Dropdown.Item>
         <Dropdown.Item>Connect wallet</Dropdown.Item>
         <Dropdown.Divider />
-        <Dropdown.Item><ToggleSwitch values={CURRENCY_UNITS} selValue={appCtx.appConfig.unit} storeSelector='appConfig' storeKey='unit' /></Dropdown.Item>
-        <Dropdown.Divider />
-        <Dropdown.Item>
-          <ToggleSwitch values={APPLICATION_MODES} selValue={appCtx.appConfig.appMode} storeSelector='appConfig' storeKey='appMode' />
-        </Dropdown.Item>
-        <Dropdown.Divider />
-        <Dropdown.Item className='d-flex align-items-center justify-content-between no-focus'><FiatSelection /></Dropdown.Item>
-        <ModalComponent show={showNodeInfoModal} onHide={() => setShowNodeInfoModal(false)}/>
+        <Dropdown.Item as='div' className='d-flex align-items-center justify-content-between'>Fiat Currency <FiatSelection className='ms-4 fiat-dropdown' /></Dropdown.Item>
+        <Dropdown.Item as='div' className='d-flex align-items-center justify-content-between'>Currency <ToggleSwitch values={CURRENCY_UNITS} selValue={appCtx.appConfig.unit} storeSelector='appConfig' storeKey='unit' /></Dropdown.Item>
       </Dropdown.Menu>
+      <ModalComponent show={showNodeInfoModal} onHide={() => setShowNodeInfoModal(false)}/>
     </Dropdown>
   );
 }

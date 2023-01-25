@@ -33,16 +33,19 @@
   }
 
   .dropdown {
-    & .dropdown-item {
-      color: $light;
+    & a.dropdown-item {
+      color: $white;
       &.active, &:active, &:focus, &:hover {
         color: $primary !important;
       }
       &.no-focus {
         &.active, &:active, &:focus, &:hover {
-          color: $light !important;
+          color: $white !important;
         }
       }
+    }
+    & div.dropdown-item {
+      color: $white;
     }
   }
 

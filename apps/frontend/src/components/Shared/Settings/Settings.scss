@@ -1,0 +1,27 @@
+@import '../../../styles/constants.scss';
+
+.settings-menu.dropdown {
+  & .dropdown-toggle::after {
+    display: none;
+  }
+  & .dropdown-menu {
+    & a.dropdown-item {
+        &.active, &:active, &:focus, &:hover {
+          color: $primary;
+        }
+      }
+    & div.dropdown-item {
+        color: $dark;
+    }
+  }
+}
+
+@include color-mode(dark) {
+  .settings-menu.dropdown {
+    & .dropdown-menu {
+      & div.dropdown-item {
+          color: $white;
+      }
+    }
+  }
+}

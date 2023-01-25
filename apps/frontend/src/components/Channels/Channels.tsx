@@ -6,7 +6,7 @@ import PerfectScrollbar from 'react-perfect-scrollbar';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
-import { ActionSVG } from '../../svgs/action';
+import { ActionSVG } from '../../svgs/Action';
 import { AppContext } from '../../store/AppContext';
 import { useContext } from 'react';
 import Spinner from 'react-bootstrap/Spinner';
@@ -27,7 +27,7 @@ const Channels = () => {
                 </span> 
               :
               appCtx.listChannels.error ? 
-                <Alert className='py-0 px-1 fs-11' variant='danger'>{appCtx.listChannels.error}</Alert> : 
+                <Alert className='py-0 px-1 fs-9' variant='danger'>{appCtx.listChannels.error}</Alert> : 
                 <PerfectScrollbar>
                   <ListGroup as='ul' variant='flush'>
                     {appCtx.listChannels.activeChannels?.map(channel => (

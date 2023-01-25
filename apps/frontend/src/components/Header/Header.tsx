@@ -3,15 +3,23 @@ import './Header.scss';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Image from 'react-bootstrap/Image';
-import { Breakpoints } from '../../utilities/constants';
+import { ApplicationModes, Breakpoints } from '../../utilities/constants';
 import { useContext } from 'react';
 import { AppContext } from '../../store/AppContext';
 import useBreakpoint from '../../hooks/use-breakpoint';
 import Settings from '../Shared/Settings/Settings';
+import { DayModeSVG } from '../../svgs/DayMode';
+import { NightModeSVG } from '../../svgs/NightMode';
+import useHttp from '../../hooks/use-http';
 
 const Header = () => {
   const appCtx = useContext(AppContext);
   const currentScreenSize = useBreakpoint();
+  const { updateConfig } = useHttp();
+
+  const modeChangeHandler = (event: any) => {
+    updateConfig({...appCtx.appConfig, appMode: (appCtx.appConfig.appMode === ApplicationModes.DARK ? ApplicationModes.LIGHT : ApplicationModes.DARK)});
+  };
 
   if (currentScreenSize === Breakpoints.XS) {
     return (
@@ -21,6 +29,7 @@ const Header = () => {
           <Col className='h-100 d-flex align-items-center justify-content-between'>
             <h4 className='m-0 text-dark'><strong>CLN</strong></h4>
             <Settings />
+            {(appCtx.appConfig.appMode === ApplicationModes.DARK) ? <NightModeSVG className='svg-night ms-3 me-2' /> : <DayModeSVG className='svg-day ms-3 me-2' />}
           </Col>
           <Row className='header-info-text my-2'>
             <Col xs={12} className='d-flex align-items-center text-light'>
@@ -52,6 +61,7 @@ const Header = () => {
             <Col xs={12} lg={4} className='d-flex align-items-center justify-content-between' data-testid='header-context'>
               <h4 className='m-0 text-dark'><strong>Core Lightning Node</strong></h4>
               <Settings />
+              {(appCtx.appConfig.appMode === ApplicationModes.DARK) ? <NightModeSVG className='svg-night ms-3 me-2' /> : <DayModeSVG className='svg-day ms-3 me-2' />}
             </Col>
           }
           <Col xs={12} className='d-flex align-items-center text-light'>
@@ -71,6 +81,9 @@ const Header = () => {
       {(currentScreenSize !== Breakpoints.SM && currentScreenSize !== Breakpoints.MD) ?
         <Col xs={12} lg={4} className='d-flex align-items-center justify-content-end' data-testid='header-context'>
           <Settings />
+          <div onClick={modeChangeHandler}>
+            {(appCtx.appConfig.appMode === ApplicationModes.DARK) ? <NightModeSVG className='svg-night ms-3 me-2' /> : <DayModeSVG className='svg-day ms-3 me-2'/>}
+          </div>
         </Col>
       :
         <></>

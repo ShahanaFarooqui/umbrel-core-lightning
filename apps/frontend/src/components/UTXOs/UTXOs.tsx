@@ -6,6 +6,10 @@ import { AppContext } from '../../store/AppContext';
 import { useContext } from 'react';
 import Spinner from 'react-bootstrap/Spinner';
 import Alert from 'react-bootstrap/Alert';
+import { ReservedSVG } from '../../svgs/Reserved';
+import Col from 'react-bootstrap/Col';
+import { UnReservedSVG } from '../../svgs/UnReserved';
+import Row from 'react-bootstrap/Row';
 
 const UTXOs = () => {
   const appCtx = useContext(AppContext);
@@ -17,18 +21,26 @@ const UTXOs = () => {
       </span> 
     : 
     appCtx.listFunds.error ? 
-      <Alert className='py-0 px-1 fs-11' variant='danger'>{appCtx.listFunds.error}</Alert> : 
+      <Alert className='py-0 px-1 fs-9' variant='danger'>{appCtx.listFunds.error}</Alert> : 
       <ListGroup as='ul' variant='flush'>
         { appCtx.listFunds.outputs?.map(utxo => 
-          <ListGroup.Item key={utxo.txid} as='li' className='d-flex justify-content-between align-items-start'>
-            <div className='ms-2 me-auto text-dark'>
-              <div className='fw-bold'>{utxo.txid}</div>
-              <div >{utxo.output}</div>
+          <ListGroup.Item key={utxo.txid} as='li' className='px-0 text-dark'>
+            <Row className='flex-fill d-flex justify-content-between align-items-center'>
+              <Col xs={8} className='d-flex align-items-center'>
+                {utxo.reserved ? <ReservedSVG className='minw-12px' /> : <UnReservedSVG className='minw-12px' />}
+                <div className={'d-inline-block mx-1 dot ' + (utxo.status === 'confirmed' ? 'bg-success' : 'bg-warning')}></div>
+                <span className='fw-bold overflow-x-ellipsis'>{utxo.txid}</span>
+              </Col>
+              <Col xs={3}>
                 {formatCurrency(utxo.value || 0)}
-                <div>{utxo.blockheight}</div>
-                <div>{utxo.reserved}</div>
-                <div>{utxo.status}</div>
-            </div>
+              </Col>
+              <Col xs={8} className='fs-8 text-light'>
+                {'Today, 02:36pm'}
+              </Col>
+              <Col xs={3} className='fs-8 text-light'>
+                {formatCurrency(utxo.value || 0)}
+              </Col>
+            </Row>
           </ListGroup.Item>
         )}
       </ListGroup>

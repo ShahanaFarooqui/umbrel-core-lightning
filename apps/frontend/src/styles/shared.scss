@@ -2,31 +2,23 @@
 @import './mode-light.scss';
 
 .fs-7 {
-  font-size: 85% !important;
+  font-size: .75rem !important;
 }
 
 .fs-8 {
-  font-size: 75% !important;
+  font-size: .7rem !important;
 }
 
 .fs-9 {
-  font-size: 65% !important;
-}
-
-.fs-10 {
-  font-size: 65% !important;
-}
-
-.fs-11 {
-  font-size: 55% !important;
-}
-
-.fs-12 {
-  font-size: 45% !important;
+  font-size: .4rem !important;
 }
 
 .mt-10 {
   margin-top: $spacer * 10;
+}
+
+.border-gray-300 {
+  border: 1px solid $gray-300;
 }
 
 .square {
@@ -35,10 +27,15 @@
 }
 
 .dot {
+  min-width: 10px;
   width: 10px;
   height: 10px;
   border-radius: 50%;
   padding: 0;
+}
+
+.minw-12px {
+  min-width: 12px;
 }
 
 .btn-rounded {
@@ -81,6 +78,14 @@
   }
 }
 
+.fill-success {
+  fill: $success;
+}
+
+.fill-warning {
+  fill: $warning;
+}
+
 .svg-fill-disabled path.fill-contrast {
   fill: $gray-600;
 }
@@ -99,10 +104,8 @@
 }
 
 .dropdown {
-  & .dropdown-toggle::after {
-    display: none;
-  }
   & .dropdown-item {
+    font-weight: 500;
     &.active, &:active, &:focus, &:hover {
       background-color: unset;
       background-image: unset;
@@ -112,4 +115,16 @@
     cursor: not-allowed;
     color: $gray-600;
   }
+  & .btn:first-child:active, & .btn.show {
+    box-shadow: none;
+  }
+  & .dropdown-toggle::after {
+    vertical-align: 0.105em;
+  }  
+}
+
+.overflow-x-ellipsis {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
