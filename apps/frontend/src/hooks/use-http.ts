@@ -1,9 +1,10 @@
 import axios from 'axios';
 import { useCallback, useContext } from 'react';
-import { API_BASE_URL, API_VERSION } from '../utilities/constants';
+import { API_BASE_URL, API_VERSION, FIAT_CURRENCIES } from '../utilities/constants';
 import logger from '../services/logger.service';
 import { AppContext } from '../store/AppContext';
 import { ApplicationConfiguration } from '../types/app-config.type';
+import { faDollarSign } from '@fortawesome/free-solid-svg-icons';
 
 const useHttp = () => {
   const appCtx = useContext(AppContext);
@@ -11,35 +12,25 @@ const useHttp = () => {
   const updateConfig = (updatedConfig: ApplicationConfiguration) => {
     axios.post(API_BASE_URL + API_VERSION + '/shared/config', updatedConfig)
     .then((response: any) => {
-      appCtx.setConfig(updatedConfig);
       if(appCtx.appConfig.fiatUnit !== updatedConfig.fiatUnit) {
         getFiatRate(updatedConfig.fiatUnit);
       }
+      appCtx.setConfig(updatedConfig);
     }).catch(err => {
       logger.error(err);
     });
 
   }
 
-  const getFiatRate = (fiatUnit: string) => {
+  const getFiatRate = useCallback((fiatUnit: string) => {
     axios.get(API_BASE_URL + API_VERSION + '/shared/rate/' + fiatUnit)
     .then((response: any) => {
-      appCtx.setFiatRate({...response.data, ...{ isLoading: false, error: null }});
+      const foundCurrency = FIAT_CURRENCIES.find(curr => curr.currency === fiatUnit);
+      appCtx.setFiatConfig({ isLoading: false, symbol: (foundCurrency ? foundCurrency.symbol : faDollarSign), rate: response.data, error: null });
     }).catch(err => {
-      appCtx.setFiatRate({ isLoading: false, error: err.response.data });
+      appCtx.setFiatConfig({ isLoading: false, symbol: faDollarSign, error: err.response.data });
     });
-
-  }
-
-  const fetchData = () => {
-    sendRequest(appCtx.setConfig, 'get', '/shared/config');
-    sendRequest(appCtx.setNodeInfo, 'post', '/cln/call', { 'method': 'getinfo', 'params': [] });
-    sendRequest(appCtx.setListPeers, 'post', '/cln/call', { 'method': 'listpeers', 'params': [], 'nextAction': 'getNodesInfo' });
-    sendRequest(appCtx.setListInvoices, 'post', '/cln/call', { 'method': 'listinvoices', 'params': [] });
-    sendRequest(appCtx.setListPayments, 'post', '/cln/call', { 'method': 'listsendpays', 'params': [] });
-    sendRequest(appCtx.setListFunds, 'post', '/cln/call', { 'method': 'listfunds', 'params': [] });
-    sendRequest(appCtx.setListBitcoinTransactions, 'post', '/cln/call', { 'method': 'listtransactions', 'params': [] });
-  }
+  }, [appCtx]);
 
   const sendRequest = useCallback((setStoreFunction: any, method: string, url: string, reqBody: any = null) => {
     try {
@@ -50,14 +41,10 @@ const useHttp = () => {
         data: reqBody
       }).then((response: any) => {
         logger.info(response);
-        if (url === '/cln/call') {
-          setStoreFunction({...response.data, ...{ isLoading: false, error: null }});
-        } else {
-          if(url.includes('/shared/config')) {
-            getFiatRate(response.data.fiatUnit);
-          }
-          setStoreFunction(response.data);
+        if(url === '/shared/config') {
+          getFiatRate(response.data.fiatUnit);
         }
+        setStoreFunction({...response.data, ...{ isLoading: false, error: null }});
       })
       .catch(err => {
         logger.error(err);
@@ -71,7 +58,17 @@ const useHttp = () => {
       logger.error(err);
       setStoreFunction({ isLoading: false, error: err });
     }
-  }, []);
+  }, [getFiatRate]);
+
+  const fetchData = useCallback(() => {
+    sendRequest(appCtx.setConfig, 'get', '/shared/config');
+    sendRequest(appCtx.setNodeInfo, 'post', '/cln/call', { 'method': 'getinfo', 'params': [] });
+    sendRequest(appCtx.setListPeers, 'post', '/cln/call', { 'method': 'listpeers', 'params': [], 'nextAction': 'getNodesInfo' });
+    sendRequest(appCtx.setListInvoices, 'post', '/cln/call', { 'method': 'listinvoices', 'params': [] });
+    sendRequest(appCtx.setListPayments, 'post', '/cln/call', { 'method': 'listsendpays', 'params': [] });
+    sendRequest(appCtx.setListFunds, 'post', '/cln/call', { 'method': 'listfunds', 'params': [] });
+    sendRequest(appCtx.setListBitcoinTransactions, 'post', '/cln/call', { 'method': 'listtransactions', 'params': [] });
+  }, [appCtx, sendRequest]);
 
   return {
     fetchData,

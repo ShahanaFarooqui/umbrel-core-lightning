@@ -30,8 +30,8 @@ const Overview = () => {
                 { appCtx.walletBalances.isLoading ? 
                   <Spinner animation='grow' variant='secondary' /> : 
                   appCtx.walletBalances.error ? 
-                    <Alert className='py-0 px-1 fs-9' variant='danger'>{appCtx.walletBalances.error}</Alert> : 
-                    <CurrencyBox value={(appCtx.walletBalances.btcTotalBalance || 0) + (appCtx.walletBalances.clnLocalBalance || 0)} rootClasses='d-inline-flex flex-column' currencyClasses='lh-1 fs-4 fw-bold' unitClasses='fs-8 fw-bold'></CurrencyBox>
+                    <Alert className='py-0 px-1 fs-8' variant='danger'>{appCtx.walletBalances.error}</Alert> : 
+                    <CurrencyBox value={(appCtx.walletBalances.btcTotalBalance || 0) + (appCtx.walletBalances.clnLocalBalance || 0)} rootClasses='d-inline-flex flex-column' currencyClasses='lh-1 fs-4 fw-bold' unitClasses='fs-7 fw-bold'></CurrencyBox>
                 }
               </Col>
               <Col xs={6} className='d-flex align-items-center justify-content-end'>
@@ -49,12 +49,12 @@ const Overview = () => {
                 <div className='d-flex align-items-center justify-content-start'>
                   <ChannelsSVG className='me-4' />
                   <div>
-                    <div className='fs-6 text-light-white'>Active Channels</div>
+                    <div className='text-light-white'>Active Channels</div>
                     <div className='fs-4 fw-bold text-dark-primary'>
                       { appCtx.listChannels.isLoading ? 
                         <Spinner animation='grow' variant='primary' /> : 
                         appCtx.listChannels.error ? 
-                          <Alert className='py-0 px-1 fs-9' variant='danger'>{appCtx.listChannels.error}</Alert> : 
+                          <Alert className='py-0 px-1 fs-8' variant='danger'>{appCtx.listChannels.error}</Alert> : 
                           (appCtx.listChannels.activeChannels?.length || 0).toLocaleString('en-us')
                       }
                     </div>
@@ -65,12 +65,12 @@ const Overview = () => {
                 <div className='d-flex align-items-center justify-content-start'>
                   <PeersSVG className='me-4' />
                   <div>
-                    <div className='fs-6 text-light-white'>Peers</div>
+                    <div className='text-light-white'>Peers</div>
                     <div className='fs-4 fw-bold text-dark-primary'>
                     { appCtx.listPeers.isLoading ? 
                       <Spinner animation='grow' variant='primary' /> : 
                       appCtx.listPeers.error ? 
-                        <Alert className='py-0 px-1 fs-9' variant='danger'>{appCtx.listPeers.error}</Alert> : 
+                        <Alert className='py-0 px-1 fs-8' variant='danger'>{appCtx.listPeers.error}</Alert> : 
                         (appCtx.listPeers.peers?.length || 0).toLocaleString('en-us')
                     }
                     </div>
@@ -82,21 +82,21 @@ const Overview = () => {
                   <CapacitySVG className='me-4' />
                   <Col>
                     <div className='d-flex align-items-center justify-content-between'>
-                      <div className='fs-6 text-light-white'>{currentScreenSize === Breakpoints.XS ? 'Max Send' : 'Maximum Send'}</div>
+                      <div className='text-light-white'>{currentScreenSize === Breakpoints.XS ? 'Max Send' : 'Maximum Send'}</div>
                       { appCtx.walletBalances.isLoading ? 
                           <Spinner animation='grow' variant='primary' /> : 
                         appCtx.walletBalances.error ? 
-                          <Alert className='py-0 px-1 fs-9' variant='danger'>{appCtx.walletBalances.error}</Alert> : 
-                          <CurrencyBox value={appCtx.walletBalances.clnLocalBalance} shorten='true' rootClasses='d-inline-flex flex-row align-items-center' currencyClasses='fs-6 fw-bold text-dark-primary' unitClasses='fs-6 fw-bold ms-2 text-dark-primary'></CurrencyBox>
+                          <Alert className='py-0 px-1 fs-8' variant='danger'>{appCtx.walletBalances.error}</Alert> : 
+                          <CurrencyBox value={appCtx.walletBalances.clnLocalBalance} shorten='true' rootClasses='d-inline-flex flex-row align-items-center' currencyClasses='fw-bold text-dark-primary' unitClasses='fw-bold ms-2 text-dark-primary'></CurrencyBox>
                       }
                     </div>
                     <div className='d-flex align-items-center justify-content-between'>
-                      <div className='fs-6 text-light-white'>{currentScreenSize === Breakpoints.XS ? 'Max Receive' : 'Maximum Receive'}</div>
+                      <div className='text-light-white'>{currentScreenSize === Breakpoints.XS ? 'Max Receive' : 'Maximum Receive'}</div>
                       { appCtx.walletBalances.isLoading ? 
                           <Spinner animation='grow' variant='primary' /> : 
                         appCtx.walletBalances.error ? 
-                          <Alert className='py-0 px-1 fs-9' variant='danger'>{appCtx.walletBalances.error}</Alert> : 
-                          <CurrencyBox value={appCtx.walletBalances.clnRemoteBalance} shorten='true' rootClasses='d-inline-flex flex-row align-items-center' currencyClasses='fs-6 fw-bold text-dark-primary' unitClasses='fs-6 fw-bold ms-2 text-dark-primary'></CurrencyBox>
+                          <Alert className='py-0 px-1 fs-8' variant='danger'>{appCtx.walletBalances.error}</Alert> : 
+                          <CurrencyBox value={appCtx.walletBalances.clnRemoteBalance} shorten='true' rootClasses='d-inline-flex flex-row align-items-center' currencyClasses='fw-bold text-dark-primary' unitClasses='fw-bold ms-2 text-dark-primary'></CurrencyBox>
                       }
                     </div>
                   </Col>

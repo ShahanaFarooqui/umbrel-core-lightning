@@ -30,12 +30,12 @@ const CLNWallet = () => {
               <Col xs={12} className='d-flex align-items-center justify-content-start'>
                 <LightningWalletSVG className='me-4' />
                 <div>
-                  <div className='fs-6'>Lightning Wallet</div>
+                  <div>Lightning Wallet</div>
                   { appCtx.walletBalances.isLoading ? 
                       <Spinner animation='grow' variant='secondary' /> : 
                     appCtx.walletBalances.error ? 
-                      <Alert className='py-0 px-1 fs-9' variant='danger'>{appCtx.walletBalances.error}</Alert> : 
-                      <CurrencyBox value={appCtx.walletBalances.clnLocalBalance} rootClasses='d-inline-flex flex-column' currencyClasses='lh-1 fs-4 fw-bold' unitClasses='fs-8 fw-bold'></CurrencyBox>
+                      <Alert className='py-0 px-1 fs-8' variant='danger'>{appCtx.walletBalances.error}</Alert> : 
+                      <CurrencyBox value={appCtx.walletBalances.clnLocalBalance} rootClasses='d-inline-flex flex-column' currencyClasses='lh-1 fs-4 fw-bold' unitClasses='fs-7 fw-bold'></CurrencyBox>
                   }
                 </div>
               </Col>
@@ -50,7 +50,7 @@ const CLNWallet = () => {
             </ButtonGroup>
           </Card>
           <Card.Body className='px-0 transaction-list'>
-            <div className='fs-8 text-dark'>Transactions</div>
+            <div className='fs-7 text-dark'>Transactions</div>
             <PerfectScrollbar>
               <Transactions />
             </PerfectScrollbar>

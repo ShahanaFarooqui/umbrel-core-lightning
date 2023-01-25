@@ -19,15 +19,15 @@ const Channels = () => {
     <Row className='h-100 mx-1'>
       <Card className='d-flex align-items-stretch'>
         <Card.Body className='d-flex align-items-stretch flex-column pt-4'>
-          <Card.Header className='fs-5 fw-bold text-dark'>Payment Channels</Card.Header>
-          <Card.Body className='px-0 transaction-list'>
+          <Card.Header className='fs-6 py-0 fw-bold text-dark'>Payment Channels</Card.Header>
+          <Card.Body className='p-0 transaction-list'>
             { appCtx.listChannels.isLoading ? 
                 <span className='h-100 d-flex justify-content-center align-items-center'>
                   <Spinner animation='grow' variant='primary' />
                 </span> 
               :
               appCtx.listChannels.error ? 
-                <Alert className='py-0 px-1 fs-9' variant='danger'>{appCtx.listChannels.error}</Alert> : 
+                <Alert className='py-0 px-1 fs-8' variant='danger'>{appCtx.listChannels.error}</Alert> : 
                 <PerfectScrollbar>
                   <ListGroup as='ul' variant='flush'>
                     {appCtx.listChannels.activeChannels?.map(channel => (
@@ -38,8 +38,8 @@ const Channels = () => {
                       >
                         <div className='ms-2 me-auto text-dark'>
                           <div className='fw-bold'>{channel.node_alias}</div>
-                          {formatCurrency(channel.msatoshi_to_us || 0)} &{' '}
-                          {formatCurrency((channel.msatoshi_total || 0) - (channel.msatoshi_to_us || 0))}
+                          {formatCurrency((channel.msatoshi_to_us || 0), appCtx.appConfig.unit)} & {' '}
+                          {formatCurrency(((channel.msatoshi_total || 0) - (channel.msatoshi_to_us || 0)), appCtx.appConfig.unit)}
                         </div>
                       </ListGroup.Item>
                     ))}

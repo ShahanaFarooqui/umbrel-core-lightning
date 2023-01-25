@@ -5,6 +5,7 @@ import { AppProvider } from './store/AppContext';
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+
 root.render(
   <AppProvider>
     <App />

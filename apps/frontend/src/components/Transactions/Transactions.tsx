@@ -25,7 +25,7 @@ const Transactions = () => {
       </span> 
     : 
     appCtx.listLightningTransactions.error ? 
-      <Alert className='py-0 px-1 fs-9' variant='danger'>{appCtx.listLightningTransactions.error}</Alert> : 
+      <Alert className='py-0 px-1 fs-8' variant='danger'>{appCtx.listLightningTransactions.error}</Alert> : 
       <ListGroup as='ul' variant='flush'>
         { appCtx.listLightningTransactions?.transactions?.map((transaction, i) => 
           <ListGroup.Item key={i} as='li'>
@@ -36,7 +36,7 @@ const Transactions = () => {
                   <h4>Invoice</h4>
                   <div className='fw-bold'>{transaction.expires_at}</div>
                   {transaction.status}
-                  {formatCurrency(transaction.msatoshi_received || 0)}
+                  {formatCurrency((transaction.msatoshi_received || 0), appCtx.appConfig.unit)}
                 </>
               :
                 <>
@@ -44,7 +44,7 @@ const Transactions = () => {
                   <h4>Payment</h4>
                   <div className='fw-bold'>{transaction.created_at}</div>
                   {transaction.status}
-                  {formatCurrency( transaction.msatoshi_sent || 0)}
+                  {formatCurrency((transaction.msatoshi_sent || 0), appCtx.appConfig.unit)}
                 </>
               }
             </div>

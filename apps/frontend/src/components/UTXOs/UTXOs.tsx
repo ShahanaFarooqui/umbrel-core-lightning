@@ -10,6 +10,7 @@ import { ReservedSVG } from '../../svgs/Reserved';
 import Col from 'react-bootstrap/Col';
 import { UnReservedSVG } from '../../svgs/UnReserved';
 import Row from 'react-bootstrap/Row';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const UTXOs = () => {
   const appCtx = useContext(AppContext);
@@ -21,7 +22,7 @@ const UTXOs = () => {
       </span> 
     : 
     appCtx.listFunds.error ? 
-      <Alert className='py-0 px-1 fs-9' variant='danger'>{appCtx.listFunds.error}</Alert> : 
+      <Alert className='py-0 px-1 fs-8' variant='danger'>{appCtx.listFunds.error}</Alert> : 
       <ListGroup as='ul' variant='flush'>
         { appCtx.listFunds.outputs?.map(utxo => 
           <ListGroup.Item key={utxo.txid} as='li' className='px-0 text-dark'>
@@ -34,11 +35,12 @@ const UTXOs = () => {
               <Col xs={3}>
                 {formatCurrency((utxo.value || 0), appCtx.appConfig.unit)}
               </Col>
-              <Col xs={8} className='fs-8 text-light'>
+              <Col xs={8} className='fs-7 text-light'>
                 {utxo.blockheight ? ((utxo.blockheight || 0).toLocaleString('en-us')) : ''}
               </Col>
-              <Col xs={3} className='fs-8 text-light'>
-                {formatFiatValue((utxo.value || 0), appCtx.fiatRate.rate)}
+              <Col xs={3} className='fs-7 text-light'>
+                { appCtx.fiatConfig ? <FontAwesomeIcon className='me-1' icon={appCtx.fiatConfig.symbol} /> : <></> }
+                {formatFiatValue((utxo.value || 0), appCtx.fiatConfig.rate)}
               </Col>
             </Row>
           </ListGroup.Item>

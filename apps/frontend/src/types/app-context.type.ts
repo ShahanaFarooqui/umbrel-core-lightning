@@ -1,9 +1,9 @@
-import { ApplicationConfiguration, FiatRate } from './app-config.type';
+import { ApplicationConfiguration, FiatConfig } from './app-config.type';
 import { Fund, ListInvoices, ListPayments, ListPeers, ListBitcoinTransactions, NodeInfo, WalletBalances, ListLightningTransactions, ListChannels } from './lightning-wallet.type';
 
 export type AppContextType = {
-  fiatRate: FiatRate;
   appConfig: ApplicationConfiguration;
+  fiatConfig: FiatConfig;
   nodeInfo: NodeInfo;
   listFunds: Fund;
   listPeers: ListPeers;
@@ -13,8 +13,8 @@ export type AppContextType = {
   listLightningTransactions: ListLightningTransactions;
   listBitcoinTransactions: ListBitcoinTransactions;
   walletBalances: WalletBalances;
-  setFiatRate: (fiatRate: FiatRate) => void;
   setConfig: (newAppConfig: ApplicationConfiguration) => void;
+  setFiatConfig: (newFiatConfig: FiatConfig) => void;
   setNodeInfo: (newNodeInfo: NodeInfo) => void;
   setListFunds: (fundsList: Fund) => void;
   setListPeers: (peersList: ListPeers) => void;

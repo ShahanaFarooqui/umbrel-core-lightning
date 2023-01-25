@@ -5,12 +5,8 @@ import { useContext } from 'react';
 import { AppContext } from '../../../store/AppContext';
 import useHttp from '../../../hooks/use-http';
 import Dropdown from 'react-bootstrap/Dropdown';
-
-const FIAT_OPTIONS = [
-  'USD', 'AUD', 'BRL', 'CAD', 'CHF', 'CLP', 'CNY', 
-  'DKK', 'EUR', 'GBP', 'HKD', 'INR', 'ISK', 'JPY', 
-  'KRW', 'NZD', 'PLN', 'RUB', 'SEK', 'SGD', 'THB', 'TWD'
-];
+import { FIAT_CURRENCIES } from '../../../utilities/constants';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const FiatSelection = (props) => {
   const appCtx = useContext(AppContext);
@@ -23,12 +19,20 @@ const FiatSelection = (props) => {
   return (
     <>
     <Dropdown className={props.className} onSelect={fiatChangeHandler}>
-      <Dropdown.Toggle variant='outline border-gray-300'><div className='dropdown-toggle-text'>{appCtx.appConfig.fiatUnit || 'Currency'}</div></Dropdown.Toggle>
+      <Dropdown.Toggle variant='outline border-gray-300'>
+        <div className='dropdown-toggle-text'>
+          <FontAwesomeIcon className='svg-curr-symbol me-1' icon={appCtx.fiatConfig.symbol} />
+          {appCtx.appConfig.fiatUnit || 'Currency'}
+        </div>
+      </Dropdown.Toggle>
       <Dropdown.Menu>
         <PerfectScrollbar>
           <div className='fiat-dropdown-scroller fs-7'>
-          {FIAT_OPTIONS.map((fiat, i) => 
-            <Dropdown.Item as='div' eventKey={fiat} key={i}>{fiat}</Dropdown.Item>
+          {FIAT_CURRENCIES.map((fiat, i) => 
+            <Dropdown.Item as='div' eventKey={fiat.currency} key={i}>
+              <FontAwesomeIcon icon={fiat.symbol} />{' '}
+              {fiat.currency}
+            </Dropdown.Item>
           )}
           </div>
         </PerfectScrollbar>

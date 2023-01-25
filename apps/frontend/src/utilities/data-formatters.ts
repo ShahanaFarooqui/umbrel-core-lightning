@@ -9,5 +9,7 @@ export const formatCurrency = (num: number, selUnit: Units = Units.SATS, shorten
 };
 
 export const formatFiatValue = (num: number = 0, rate: number = 1) => {
+  console.warn(num);
+  console.warn(rate);
   return Number.parseFloat(((num / BTC_SATS) * rate).toString()).toFixed(2);
 };

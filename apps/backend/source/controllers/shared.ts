@@ -5,6 +5,7 @@ import { Request, Response, NextFunction } from 'express';
 import { SETTINGS_FILE_PATH } from '../shared/consts.js';
 import { logger } from '../shared/logger.js';
 import handleError from '../shared/error-handler.js';
+import { APIError } from '../models/errors.js';
 
 class SharedController {
   getApplicationSettings(req: Request, res: Response, next: NextFunction) {
@@ -35,7 +36,11 @@ class SharedController {
         )
         .then((response: any) => {
           logger.info('Fiat Rate Response: ' + JSON.stringify(response.data));
-          return res.status(200).json({rate: response.data[req.params.fiatCurrency]});
+          if (response.data[req.params.fiatCurrency]) {
+            return res.status(200).json(response.data[req.params.fiatCurrency]);
+          } else {
+            return handleError(new APIError('Price Not Found', 'Price Not Found'), req, res, next);
+          }
         })
         .catch(err => {
           return handleError(err, req, res, next);

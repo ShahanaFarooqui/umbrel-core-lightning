@@ -1,6 +1,9 @@
 @import '../../../styles/constants.scss';
 
 .fiat-dropdown.dropdown {
+    & .svg-curr-symbol {
+        margin-top: 3px;
+    }
     & .dropdown-menu {
         & .dropdown-item {
             &:hover {
@@ -13,13 +16,12 @@
         }
     }
     & button.dropdown-toggle {
-        width: 4rem;
+        width: 5rem;
         border-radius: .5rem;
         &::after {
             color: $gray-300;
             display: inline-block;
             margin-left: 0.255em;
-            vertical-align: 0.105em;
             content: "";
             border-top: 0.3em solid;
             border-right: 0.3em solid transparent;
@@ -27,7 +29,7 @@
             border-left: 0.3em solid transparent;
         }
         & .dropdown-toggle-text {
-            width: 1.6rem;
+            width: 2.2rem;
             font-size: 12px;
             display: inline-flex;
             color: $dark;

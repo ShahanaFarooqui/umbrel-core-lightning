@@ -34,12 +34,12 @@ const Header = () => {
           <Row className='header-info-text my-2'>
             <Col xs={12} className='d-flex align-items-center text-light'>
             { appCtx.nodeInfo.isLoading ? 
-                <><span className='d-inline-block mx-2 dot bg-warning'></span><span>Loading...</span></> : 
+                <><span className='d-inline-block mx-2 dot bg-warning'></span><span className='fs-7'>Loading...</span></> : 
               appCtx.nodeInfo.error ? 
-                <><span className='d-inline-block mx-2 dot bg-danger'></span><span>{('Error: ' + appCtx.nodeInfo.error)}</span></> : 
+                <><span className='d-inline-block mx-2 dot bg-danger'></span><span className='fs-7'>{('Error: ' + appCtx.nodeInfo.error)}</span></> : 
                 <>
                   <span className='d-inline-block mx-2 dot bg-success'></span>
-                  <span>{appCtx.nodeInfo.alias + ' (' + appCtx.nodeInfo.version + ')'}</span> 
+                  <span className='fs-7'>{appCtx.nodeInfo.alias + ' (' + appCtx.nodeInfo.version + ')'}</span> 
                   <span className='d-inline-block square ms-2' style={{ backgroundColor: appCtx.nodeInfo.color ? ('#' + appCtx.nodeInfo.color) : 'none' }}></span>
                 </>
             }
@@ -66,12 +66,12 @@ const Header = () => {
           }
           <Col xs={12} className='d-flex align-items-center text-light'>
             { appCtx.nodeInfo.isLoading ? 
-                <><span className='d-inline-block me-2 dot bg-warning'></span><span>Loading...</span></> : 
+                <><span className='d-inline-block me-2 dot bg-warning'></span><span className='fs-7'>Loading...</span></> : 
               appCtx.nodeInfo.error ? 
-                <><span className='d-inline-block me-2 dot bg-danger'></span><span>{('Error: ' + appCtx.nodeInfo.error)}</span></> : 
+                <><span className='d-inline-block me-2 dot bg-danger'></span><span className='fs-7'>{('Error: ' + appCtx.nodeInfo.error)}</span></> : 
                 <>
                   <span className='d-inline-block me-2 dot bg-success'></span>
-                  <span>{appCtx.nodeInfo.alias + ' (' + appCtx.nodeInfo.version + ')'}</span> 
+                  <span className='fs-7'>{appCtx.nodeInfo.alias + ' (' + appCtx.nodeInfo.version + ')'}</span> 
                   <span className='d-inline-block square ms-2' style={{ backgroundColor: appCtx.nodeInfo.color ? ('#' + appCtx.nodeInfo.color) : 'none' }}></span>
                 </>
             }
