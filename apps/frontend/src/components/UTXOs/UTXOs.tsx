@@ -27,18 +27,18 @@ const UTXOs = () => {
         { appCtx.listFunds.outputs?.map(utxo => 
           <ListGroup.Item key={utxo.txid} as='li' className='px-0 text-dark'>
             <Row className='flex-fill d-flex justify-content-between align-items-center'>
-              <Col xs={8} className='d-flex align-items-center'>
+              <Col xs={7} className='d-flex align-items-center'>
                 {utxo.reserved ? <ReservedSVG className='minw-12px' /> : <UnReservedSVG className='minw-12px' />}
                 <div className={'d-inline-block mx-1 dot ' + (utxo.status === 'confirmed' ? 'bg-success' : 'bg-warning')}></div>
                 <span className='fw-bold overflow-x-ellipsis'>{utxo.txid}</span>
               </Col>
-              <Col xs={3}>
+              <Col xs={4} className='d-flex align-items-center justify-content-end'>
                 {formatCurrency((utxo.value || 0), appCtx.appConfig.unit)}
               </Col>
-              <Col xs={8} className='fs-7 text-light'>
+              <Col xs={7} className='fs-7 text-light'>
                 {utxo.blockheight ? ((utxo.blockheight || 0).toLocaleString('en-us')) : ''}
               </Col>
-              <Col xs={3} className='fs-7 text-light'>
+              <Col xs={4} className='fs-7 text-light d-flex align-items-center justify-content-end'>
                 { appCtx.fiatConfig ? <FontAwesomeIcon className='me-1' icon={appCtx.fiatConfig.symbol} /> : <></> }
                 {formatFiatValue((utxo.value || 0), appCtx.fiatConfig.rate)}
               </Col>

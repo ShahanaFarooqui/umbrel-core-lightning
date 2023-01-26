@@ -50,7 +50,7 @@ const BTCWallet = () => {
             </ButtonGroup>
           </Card>
           <Card.Body className='px-0 transaction-list'>
-            <div className='fs-7 text-dark'>UTXOs</div>
+            <div className='fs-7 text-light'>UTXOs</div>
             <PerfectScrollbar>
               <UTXOs />
             </PerfectScrollbar>

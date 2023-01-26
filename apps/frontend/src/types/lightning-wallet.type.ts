@@ -169,6 +169,9 @@ export type ListInvoices = {
 }
 
 export type Payment = {
+  is_group: boolean;
+  is_expanded: boolean;
+  total_parts: number;
   id?: number;
   groupid?: number;
   payment_hash?: string;
@@ -191,9 +194,30 @@ export type ListPayments = {
   error?: any;
 }
 
+export type LightningTransaction = {
+  type: string; //INVOICE/PAYMENT
+  // Both
+  payment_hash?: string;
+  status?: string;
+  msatoshi?: number;
+  label?: string;
+  bolt11?: string;
+  description?: string;
+  bolt12?: string;
+  payment_preimage?: string;
+  // Payment
+  created_at?: number;
+  msatoshi_sent?: number;
+  destination?: string;
+  // Invoice
+  expires_at?: number;
+  msatoshi_received?: number;
+  paid_at?: number;
+}
+
 export type ListLightningTransactions = {
   isLoading: boolean;
-  transactions?: Payment[] | Invoice[];
+  transactions?: LightningTransaction[];
   error?: any;
 }
 

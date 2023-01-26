@@ -28,6 +28,7 @@ const App = () => {
 
   useEffect(() => {
     fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (appCtx.nodeInfo.isLoading) {
