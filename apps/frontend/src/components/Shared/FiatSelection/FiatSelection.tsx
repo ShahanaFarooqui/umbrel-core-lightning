@@ -21,7 +21,7 @@ const FiatSelection = (props) => {
     <Dropdown className={props.className} onSelect={fiatChangeHandler}>
       <Dropdown.Toggle variant='outline border-gray-300'>
         <div className='dropdown-toggle-text'>
-          <FontAwesomeIcon className='svg-curr-symbol me-1' icon={appCtx.fiatConfig.symbol} />
+          <FontAwesomeIcon className='svg-curr-symbol' icon={appCtx.fiatConfig.symbol} />
           {appCtx.appConfig.fiatUnit || 'Currency'}
         </div>
       </Dropdown.Toggle>
@@ -30,7 +30,7 @@ const FiatSelection = (props) => {
           <div className='fiat-dropdown-scroller fs-7'>
           {FIAT_CURRENCIES.map((fiat, i) => 
             <Dropdown.Item as='div' eventKey={fiat.currency} key={i}>
-              <FontAwesomeIcon icon={fiat.symbol} />{' '}
+              <FontAwesomeIcon icon={fiat.symbol} />
               {fiat.currency}
             </Dropdown.Item>
           )}

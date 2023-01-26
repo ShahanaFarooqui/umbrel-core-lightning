@@ -26,6 +26,10 @@
     fill: $dark;
   }
   
+  .stroke-light {
+    stroke: $light;
+  }
+
   .dropdown {
     & .dropdown-item {
       color: $dark;
@@ -34,5 +38,13 @@
       }
     }
   }
-  
+
+  .input-group {
+    & .form-control {
+      &:focus {
+        border-color: $gray-300;
+      }
+    }
+  }  
+
 } // CLOSE FOR LIGHT MODE

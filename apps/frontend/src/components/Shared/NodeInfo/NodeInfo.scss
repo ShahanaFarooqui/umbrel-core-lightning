@@ -13,6 +13,13 @@
   }
 }
 
+.input-group {
+  cursor: pointer;
+  & .form-control {
+    cursor: pointer;
+  }
+}
+
 @include color-mode(dark) {
   
   .fa-circle-xmark {

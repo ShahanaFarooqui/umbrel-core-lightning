@@ -39,7 +39,7 @@ const UTXOs = () => {
                 {utxo.blockheight ? ((utxo.blockheight || 0).toLocaleString('en-us')) : ''}
               </Col>
               <Col xs={4} className='fs-7 text-light d-flex align-items-center justify-content-end'>
-                { appCtx.fiatConfig ? <FontAwesomeIcon className='me-1' icon={appCtx.fiatConfig.symbol} /> : <></> }
+                { appCtx.fiatConfig ? <FontAwesomeIcon icon={appCtx.fiatConfig.symbol} /> : <></> }
                 {formatFiatValue((utxo.value || 0), appCtx.fiatConfig.rate)}
               </Col>
             </Row>

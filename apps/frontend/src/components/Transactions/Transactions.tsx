@@ -52,7 +52,7 @@ const Transactions = () => {
                     <DateBox dataValue={(transaction.created_at || transaction.paid_at || transaction.expires_at)} />
                   </Col>
                   <Col xs={4} className='ps-0 fs-7 text-light d-flex align-items-center justify-content-end'>
-                    { appCtx.fiatConfig ? <FontAwesomeIcon className='me-1' icon={appCtx.fiatConfig.symbol} /> : <></> }
+                    { appCtx.fiatConfig ? <FontAwesomeIcon icon={appCtx.fiatConfig.symbol} /> : <></> }
                     {formatFiatValue((transaction.msatoshi_sent || transaction.msatoshi_received || 0), appCtx.fiatConfig.rate)}
                   </Col>
                 </Row>

@@ -32,6 +32,10 @@
     stop-color: $gray-920;
   }
 
+  .stroke-light {
+    stroke: $dark;
+  }
+
   .dropdown {
     & a.dropdown-item {
       color: $white;
@@ -49,4 +53,11 @@
     }
   }
 
+  .input-group {
+    & .form-control {
+      &:focus {
+        border-color: transparent;
+      }
+    }
+  }
 } // CLOSE FOR DARK MODE

@@ -124,5 +124,37 @@
 
 .scrollbar-container.ps-show-always.ps.ps--active-y > .ps__rail-y {
   opacity: 0.6;
-  z-index: 99999;
+  z-index: 99;
+}
+
+
+.modal.modal-md, .modal.modal-lg, .modal.modal-xl, .modal.modal-xxl {
+  & .modal-dialog {
+    max-width: 450px;
+  }
+}
+
+.input-group {
+  & .form-control {
+    border-right: 0;
+    padding-right: 0;
+    &:focus {
+      box-shadow: none;
+    }
+  }
+  & .form-control-addon {
+    background-color: $white;
+    border-left: 0;
+    &:hover {
+      transform: scale(1.01);
+      svg path {
+        stroke: darken($primary, 10%);
+        // stroke: $dark;
+      }
+    }
+    &:focus {
+      border-color: transparent;
+      box-shadow: none;
+    }
+  }
 }
