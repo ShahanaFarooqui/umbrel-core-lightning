@@ -1,18 +1,18 @@
 import './Channels.scss';
-import { formatCurrency } from '../../utilities/data-formatters';
-
-import ListGroup from 'react-bootstrap/ListGroup';
+import { useContext } from 'react';
 import PerfectScrollbar from 'react-perfect-scrollbar';
+import ListGroup from 'react-bootstrap/ListGroup';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
-import { ActionSVG } from '../../svgs/Action';
-import { AppContext } from '../../store/AppContext';
-import { useContext } from 'react';
 import Spinner from 'react-bootstrap/Spinner';
 import Alert from 'react-bootstrap/Alert';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import Col from 'react-bootstrap/Col';
+
+import { AppContext } from '../../../store/AppContext';
+import { formatCurrency } from '../../../utilities/data-formatters';
+import { ActionSVG } from '../../../svgs/Action';
 
 const Channels = () => {
   const appCtx = useContext(AppContext);

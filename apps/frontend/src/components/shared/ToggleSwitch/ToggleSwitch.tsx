@@ -1,7 +1,8 @@
 import './ToggleSwitch.scss';
 import { useContext } from 'react';
-import { AppContext } from '../../../store/AppContext';
+
 import useHttp from '../../../hooks/use-http';
+import { AppContext } from '../../../store/AppContext';
 
 const ToggleSwitch = (props) => {
   let switchClass = props.selValue === props.values[1] ? 'toggle-right' : 'toggle-left';

@@ -1,12 +1,12 @@
 import './FiatSelection.scss';
-
-import PerfectScrollbar from 'react-perfect-scrollbar';
 import { useContext } from 'react';
-import { AppContext } from '../../../store/AppContext';
-import useHttp from '../../../hooks/use-http';
-import Dropdown from 'react-bootstrap/Dropdown';
-import { FIAT_CURRENCIES } from '../../../utilities/constants';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import PerfectScrollbar from 'react-perfect-scrollbar';
+import Dropdown from 'react-bootstrap/Dropdown';
+
+import useHttp from '../../../hooks/use-http';
+import { AppContext } from '../../../store/AppContext';
+import { FIAT_CURRENCIES } from '../../../utilities/constants';
 
 const FiatSelection = (props) => {
   const appCtx = useContext(AppContext);

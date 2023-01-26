@@ -1,19 +1,19 @@
 import './Overview.scss';
-
-import Card from 'react-bootstrap/Card';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import CurrencyBox from '../Shared/CurrencyBox/CurrencyBox';
-import { BalanceSVG } from '../../svgs/Balance';
-import { PeersSVG } from '../../svgs/Peers';
-import { CapacitySVG } from '../../svgs/Capacity';
-import { ChannelsSVG } from '../../svgs/Channels';
-import { AppContext } from '../../store/AppContext';
 import { useContext } from 'react';
 import Spinner from 'react-bootstrap/Spinner';
 import Alert from 'react-bootstrap/Alert';
-import useBreakpoint from '../../hooks/use-breakpoint';
-import { Breakpoints } from '../../utilities/constants';
+import Card from 'react-bootstrap/Card';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+
+import useBreakpoint from '../../../hooks/use-breakpoint';
+import { Breakpoints } from '../../../utilities/constants';
+import { BalanceSVG } from '../../../svgs/Balance';
+import { PeersSVG } from '../../../svgs/Peers';
+import { CapacitySVG } from '../../../svgs/Capacity';
+import { ChannelsSVG } from '../../../svgs/Channels';
+import { AppContext } from '../../../store/AppContext';
+import CurrencyBox from '../../shared/CurrencyBox/CurrencyBox';
 
 const Overview = () => {
   const appCtx = useContext(AppContext);

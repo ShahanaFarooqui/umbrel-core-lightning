@@ -1,17 +1,17 @@
 import './Transactions.scss';
-
-import ListGroup from 'react-bootstrap/ListGroup';
-import { formatCurrency, formatFiatValue } from '../../utilities/data-formatters';
-import { AppContext } from '../../store/AppContext';
 import { useContext } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Spinner from 'react-bootstrap/Spinner';
 import Alert from 'react-bootstrap/Alert';
-import { IncomingArrowSVG } from '../../svgs/IncomingArrow';
-import { OutgoingArrowSVG } from '../../svgs/OutgoingArrow';
 import Row from 'react-bootstrap/esm/Row';
 import Col from 'react-bootstrap/esm/Col';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import DateBox from '../Shared/DateBox/DateBox';
+import ListGroup from 'react-bootstrap/ListGroup';
+
+import { AppContext } from '../../../store/AppContext';
+import { formatCurrency, formatFiatValue } from '../../../utilities/data-formatters';
+import { IncomingArrowSVG } from '../../../svgs/IncomingArrow';
+import { OutgoingArrowSVG } from '../../../svgs/OutgoingArrow';
+import DateBox from '../../shared/DateBox/DateBox';
 
 const Transactions = () => {
   const appCtx = useContext(AppContext);

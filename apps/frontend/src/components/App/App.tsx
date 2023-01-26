@@ -1,22 +1,27 @@
-import { useContext, useEffect } from 'react';
 import './App.scss';
-
-import Header from '../Header/Header';
-import BTCWallet from '../BTCWallet/BTCWallet';
-import CLNWallet from '../CLNWallet/CLNWallet';
-import Channels from '../Channels/Channels';
-import Overview from '../Overview/Overview';
-
+import { useContext, useEffect, useState } from 'react';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import { AppContext } from '../../store/AppContext';
-import useHttp from '../../hooks/use-http';
 import { Spinner } from 'react-bootstrap';
+
+import useHttp from '../../hooks/use-http';
+import { AppContext } from '../../store/AppContext';
 import { ApplicationModes } from '../../utilities/constants';
+import ToastMessage from '../shared/ToastMessage/ToastMessage';
+import Header from '../ui/Header/Header';
+import NodeInfo from '../modals/NodeInfo/NodeInfo';
+import BTCWallet from '../cln/BTCWallet/BTCWallet';
+import CLNWallet from '../cln/CLNWallet/CLNWallet';
+import Channels from '../cln/Channels/Channels';
+import Overview from '../cln/Overview/Overview';
 
 const App = () => {
   const appCtx = useContext(AppContext);
+  const [showNodeInfoModal, setShowNodeInfoModal] = useState(false);
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState('');
+  
   const { fetchData } = useHttp();
 
   const bodyHTML = document.getElementsByTagName('body')[0];
@@ -61,17 +66,21 @@ const App = () => {
   }
 
   return (
-    <Container className='py-4' data-testid='container'>
-      <Header />
-      <Row>
-        <Col className='mx-1'><Overview /></Col>
-      </Row>
-      <Row className='node-info px-3'>
-        <Col xs={12} lg={4} className='mb-4'><BTCWallet /></Col>
-        <Col xs={12} lg={4} className='mb-4'><CLNWallet /></Col>
-        <Col xs={12} lg={4} className='mb-4'><Channels /></Col>
-      </Row>
-    </Container>
+    <>
+      <Container className='py-4' data-testid='container'>
+        <Header onShowModal={() => setShowNodeInfoModal(true)} />
+        <Row>
+          <Col className='mx-1'><Overview /></Col>
+        </Row>
+        <Row className='node-info px-3'>
+          <Col xs={12} lg={4} className='mb-4'><BTCWallet /></Col>
+          <Col xs={12} lg={4} className='mb-4'><CLNWallet /></Col>
+          <Col xs={12} lg={4} className='mb-4'><Channels /></Col>
+        </Row>
+      </Container>
+      <NodeInfo show={showNodeInfoModal} onHide={() => setShowNodeInfoModal(false)} onShowToast={(message) => { setToastMessage(message); setShowToast(true); }} />
+      <ToastMessage message={toastMessage} position='top-center' bg='primary' show={showToast} onClose={() => setShowToast(false)} />
+    </>
   );
 }
 

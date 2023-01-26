@@ -1,26 +1,22 @@
 import './NodeInfo.scss';
-
-import {QRCodeCanvas} from 'qrcode.react';
-import Modal from 'react-bootstrap/Modal';
+import { useContext } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleXmark } from '@fortawesome/free-solid-svg-icons'
+import {QRCodeCanvas} from 'qrcode.react';
+import Modal from 'react-bootstrap/Modal';
 import Row from 'react-bootstrap/Row';
-import { useContext, useState } from 'react';
-import { AppContext } from '../../../store/AppContext';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Form from 'react-bootstrap/Form';
+
+import { AppContext } from '../../../store/AppContext';
 import { CopySVG } from '../../../svgs/Copy';
-import ToastMessage from '../ToastMessage/ToastMessage';
-import Toast from 'react-bootstrap/Toast';
-import ToastContainer from 'react-bootstrap/ToastContainer';
 
 const NodeInfo = (props) => {
-  const [showToast, setShowToast] = useState(false);
   const appCtx = useContext(AppContext);
 
   const copyHandler = () => {
     navigator.clipboard.writeText(appCtx.nodeInfo.id || '');
-    setShowToast(true);
+    props.onShowToast('Copied');
   }
   
   return (
@@ -31,9 +27,9 @@ const NodeInfo = (props) => {
         </Modal.Header>
         <Modal.Body className='py-0'>
           <Row className='d-flex align-items-start justify-content-center pt-2'>
-            <QRCodeCanvas value={appCtx.nodeInfo.id || ''} size={190} includeMargin={true} />
+            <QRCodeCanvas value={appCtx.nodeInfo.id || ''} size={220} includeMargin={true} />
             <h4 className='text-dark fw-bold d-flex justify-content-center pt-4'>Node ID</h4>
-            <p className='w-75 text-break text-dark d-flex justify-content-center'>
+            <p className='py-3 w-75 text-break text-dark d-flex justify-content-center'>
               Other Lightning nodes can open payment channels to your node following this Node ID.            
             </p>
             <div className='mb-4 text-break text-dark d-flex justify-content-center'>
@@ -52,7 +48,6 @@ const NodeInfo = (props) => {
             </div>
           </Row>
         </Modal.Body>
-        <ToastMessage message='Copied' position='top-center' bg='primary' show={showToast} onClose={() => setShowToast(false)} />
       </Modal>
     </>
   );

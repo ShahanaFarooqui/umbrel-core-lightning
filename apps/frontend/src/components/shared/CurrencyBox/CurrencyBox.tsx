@@ -1,8 +1,8 @@
 import './CurrencyBox.scss';
-
-import { formatCurrency } from '../../../utilities/data-formatters';
 import { useContext } from 'react';
+
 import { AppContext } from '../../../store/AppContext';
+import { formatCurrency } from '../../../utilities/data-formatters';
 
 const CurrencyBox = props => {
   const appCtx = useContext(AppContext);

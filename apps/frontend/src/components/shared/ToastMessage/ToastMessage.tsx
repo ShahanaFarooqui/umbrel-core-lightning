@@ -1,8 +1,6 @@
 import './ToastMessage.scss';
-import Col from 'react-bootstrap/Col';
-import Row from 'react-bootstrap/Row';
-import Toast from 'react-bootstrap/Toast';
 import ToastContainer from 'react-bootstrap/ToastContainer';
+import Toast from 'react-bootstrap/Toast';
 
 const ToastMessage = (props) => {
   return (

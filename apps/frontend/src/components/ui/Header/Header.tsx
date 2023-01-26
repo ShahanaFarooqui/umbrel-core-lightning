@@ -1,18 +1,18 @@
 import './Header.scss';
-
+import { useContext } from 'react';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Image from 'react-bootstrap/Image';
-import { ApplicationModes, Breakpoints } from '../../utilities/constants';
-import { useContext } from 'react';
-import { AppContext } from '../../store/AppContext';
-import useBreakpoint from '../../hooks/use-breakpoint';
-import Settings from '../Shared/Settings/Settings';
-import { DayModeSVG } from '../../svgs/DayMode';
-import { NightModeSVG } from '../../svgs/NightMode';
-import useHttp from '../../hooks/use-http';
 
-const Header = () => {
+import useHttp from '../../../hooks/use-http';
+import useBreakpoint from '../../../hooks/use-breakpoint';
+import { AppContext } from '../../../store/AppContext';
+import { ApplicationModes, Breakpoints } from '../../../utilities/constants';
+import { DayModeSVG } from '../../../svgs/DayMode';
+import { NightModeSVG } from '../../../svgs/NightMode';
+import Settings from '../Settings/Settings';
+
+const Header = (props) => {
   const appCtx = useContext(AppContext);
   const currentScreenSize = useBreakpoint();
   const { updateConfig } = useHttp();
@@ -28,7 +28,7 @@ const Header = () => {
           <Image src='images/cln-logo.png' className='header-info-logo me-3 rounded float-start' alt='Core Lightning Logo' />
           <Col className='h-100 d-flex align-items-center justify-content-between'>
             <h4 className='m-0 text-dark'><strong>CLN</strong></h4>
-            <Settings />
+            <Settings onShowModal={props.onShowModal} />
             {(appCtx.appConfig.appMode === ApplicationModes.DARK) ? <NightModeSVG className='svg-night ms-3 me-2' /> : <DayModeSVG className='svg-day ms-3 me-2' />}
           </Col>
           <Row className='header-info-text my-2'>
@@ -60,7 +60,7 @@ const Header = () => {
           : 
             <Col xs={12} lg={4} className='d-flex align-items-center justify-content-between' data-testid='header-context'>
               <h4 className='m-0 text-dark'><strong>Core Lightning Node</strong></h4>
-              <Settings />
+              <Settings onShowModal={props.onShowModal} />
               {(appCtx.appConfig.appMode === ApplicationModes.DARK) ? <NightModeSVG className='svg-night ms-3 me-2' /> : <DayModeSVG className='svg-day ms-3 me-2' />}
             </Col>
           }
@@ -80,7 +80,7 @@ const Header = () => {
       </Col>
       {(currentScreenSize !== Breakpoints.SM && currentScreenSize !== Breakpoints.MD) ?
         <Col xs={12} lg={4} className='d-flex align-items-center justify-content-end' data-testid='header-context'>
-          <Settings />
+          <Settings onShowModal={props.onShowModal} />
           <div onClick={modeChangeHandler}>
             {(appCtx.appConfig.appMode === ApplicationModes.DARK) ? <NightModeSVG className='svg-night ms-3 me-2' /> : <DayModeSVG className='svg-day ms-3 me-2'/>}
           </div>
