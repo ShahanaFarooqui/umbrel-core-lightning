@@ -5,7 +5,7 @@
 
 import React, { useReducer } from 'react';
 import { AppContextType } from '../types/app-context.type';
-import { ApplicationActions, ApplicationModes, Units } from '../utilities/constants';
+import { ApplicationActions, ApplicationModes, SATS_MSAT, Units } from '../utilities/constants';
 import { ApplicationConfiguration, FiatConfig } from '../types/app-config.type';
 import { Fund, FundChannel, FundOutput, Invoice, ListBitcoinTransactions, ListInvoices, ListPayments, ListPeers, NodeInfo, Payment, Peer } from '../types/lightning-wallet.type';
 import logger from '../services/logger.service';
@@ -17,15 +17,21 @@ const aggregateChannels = (peers: Peer[]) => {
   peers?.forEach((peer: Peer) => {
     if (peer.channels && peer.channels.length > 0) {
       peer.channels.map(channel => {
-        channel.connected = peer.connected;
-        channel.node_alias = peer.alias;
+        channel.connected = peer.connected || false;
+        channel.node_alias = peer.alias || peer.id?.substring(0,20) || '';
+        channel.satoshi_to_us = Math.floor((channel.msatoshi_to_us || 0) / SATS_MSAT);
+        channel.satoshi_total = Math.floor((channel.msatoshi_total || 0) / SATS_MSAT);
+        channel.satoshi_to_them = Math.floor(((channel.msatoshi_total || 0) - (channel.msatoshi_to_us || 0)) / SATS_MSAT);
         if (channel.state === 'CHANNELD_NORMAL') {
           if (channel.connected) {
+            channel.current_state = 'ACTIVE';
             aggregatedChannels.activeChannels.push(channel);
           } else {
+            channel.current_state = 'INACTIVE';
             aggregatedChannels.inactiveChannels.push(channel);
           }
         } else {
+          channel.current_state = 'PENDING';
           aggregatedChannels.pendingChannels.push(channel);
         }
         return aggregatedChannels;

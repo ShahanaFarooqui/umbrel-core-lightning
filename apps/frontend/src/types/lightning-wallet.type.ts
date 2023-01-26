@@ -63,13 +63,18 @@ export type Alias = {
 };
 
 export type Channel = {
-  node_alias?: string;
-  state?: string;
-  connected?: boolean;
+  current_state: string;
+  short_channel_id: string;
+  node_alias: string;
+  alias: Alias;
+  satoshi_to_us: number;
+  satoshi_to_them: number;
+  satoshi_total: number;
+  state: string;
+  connected: boolean;
   scratch_txid?: string;
   feerate?: FeeRate;
   owner?: string;
-  short_channel_id?: string;
   direction?: number;
   channel_id?: string;
   funding_txid?: string;
@@ -78,7 +83,6 @@ export type Channel = {
   close_to?: string;
   private?: boolean;
   opener?: string;
-  alias?: Alias;
   features?: string[];
   funding?: Funding;
   msatoshi_to_us?: number;

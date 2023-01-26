@@ -121,3 +121,8 @@
   text-overflow: ellipsis;
   overflow: hidden;
 }
+
+.scrollbar-container.ps-show-always.ps.ps--active-y > .ps__rail-y {
+  opacity: 0.6;
+  z-index: 99999;
+}

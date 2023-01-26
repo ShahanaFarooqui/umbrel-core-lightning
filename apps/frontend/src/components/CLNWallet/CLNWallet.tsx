@@ -51,7 +51,7 @@ const CLNWallet = () => {
           </Card>
           <Card.Body className='px-0 transaction-list'>
             <div className='fs-7 text-light'>Transactions</div>
-            <PerfectScrollbar>
+            <PerfectScrollbar className='ps-show-always'>
               <Transactions />
             </PerfectScrollbar>
           </Card.Body>

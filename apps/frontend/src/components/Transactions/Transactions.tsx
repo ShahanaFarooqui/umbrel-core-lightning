@@ -32,13 +32,13 @@ const Transactions = () => {
       <Alert className='py-0 px-1 fs-8' variant='danger'>{appCtx.listLightningTransactions.error}</Alert> : 
       <ListGroup as='ul' variant='flush'>
         { appCtx.listLightningTransactions?.transactions?.map((transaction, i) => 
-          <ListGroup.Item key={i} as='li' className='px-0 text-dark'>
-            <Row className='flex-fill d-flex justify-content-between align-items-center'>
+          <ListGroup.Item key={i} as='li' className='ps-0 text-dark'>
+            <Row className='d-flex justify-content-between align-items-center'>
               <Col xs={2}>
                 {transaction.type === 'PAYMENT' ? <OutgoingArrowSVG className='me-1' /> : <IncomingArrowSVG className='me-1' />}
               </Col>
               <Col xs={10}>
-                <Row className='flex-fill d-flex justify-content-between align-items-center'>
+                <Row className='d-flex justify-content-between align-items-center'>
                   <Col xs={7} className='px-0 d-flex align-items-center'>
                     <div className={'d-inline-block mx-1 dot ' + ((transaction.status === 'complete' || transaction.status === 'paid') ? 'bg-success' : transaction.status === 'failed' ? 'bg-danger' : 'bg-warning')}></div>
                     <span className='fw-bold overflow-x-ellipsis'>{transaction.payment_hash}</span>                    
@@ -47,7 +47,7 @@ const Transactions = () => {
                     {(transaction.type === 'PAYMENT' ? '-' : '+') + (formatCurrency((transaction.msatoshi_sent || transaction.msatoshi_received || 0), appCtx.appConfig.unit))}
                   </Col>
                 </Row>
-                <Row className='flex-fill d-flex justify-content-between align-items-center'>
+                <Row className='d-flex justify-content-between align-items-center'>
                   <Col xs={7} className='px-0 fs-7 text-light'>
                     <DateBox dataValue={(transaction.created_at || transaction.paid_at || transaction.expires_at)} />
                   </Col>

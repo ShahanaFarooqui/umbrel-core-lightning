@@ -25,8 +25,8 @@ const UTXOs = () => {
       <Alert className='py-0 px-1 fs-8' variant='danger'>{appCtx.listFunds.error}</Alert> : 
       <ListGroup as='ul' variant='flush'>
         { appCtx.listFunds.outputs?.map(utxo => 
-          <ListGroup.Item key={utxo.txid} as='li' className='px-0 text-dark'>
-            <Row className='flex-fill d-flex justify-content-between align-items-center'>
+          <ListGroup.Item key={utxo.txid} as='li' className='ps-0 text-dark'>
+            <Row className='d-flex justify-content-between align-items-center'>
               <Col xs={7} className='d-flex align-items-center'>
                 {utxo.reserved ? <ReservedSVG className='minw-12px' /> : <UnReservedSVG className='minw-12px' />}
                 <div className={'d-inline-block mx-1 dot ' + (utxo.status === 'confirmed' ? 'bg-success' : 'bg-warning')}></div>

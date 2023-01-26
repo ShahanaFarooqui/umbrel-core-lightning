@@ -26,7 +26,7 @@ const FiatSelection = (props) => {
         </div>
       </Dropdown.Toggle>
       <Dropdown.Menu>
-        <PerfectScrollbar>
+        <PerfectScrollbar className='ps-show-always'>
           <div className='fiat-dropdown-scroller fs-7'>
           {FIAT_CURRENCIES.map((fiat, i) => 
             <Dropdown.Item as='div' eventKey={fiat.currency} key={i}>
