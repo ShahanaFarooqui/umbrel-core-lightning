@@ -45,9 +45,10 @@ const NodeInfo = (props) => {
                 placeholder={appCtx.nodeInfo.id}
                 aria-label={appCtx.nodeInfo.id}
                 aria-describedby='copy-addon'
+                className='form-control-left'
                 readOnly
               />
-              <InputGroup.Text className='form-control-addon' onClick={copyHandler}>
+              <InputGroup.Text className='form-control-addon form-control-addon-right' onClick={copyHandler}>
                 <CopySVG id={appCtx.nodeInfo.id} />              
               </InputGroup.Text>
             </InputGroup>

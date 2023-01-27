@@ -18,9 +18,9 @@ const Settings = (props) => {
 
   return (
     <Dropdown autoClose={'outside'} className={(!!appCtx.nodeInfo.error || appCtx.nodeInfo.isLoading) ? 'settings-menu dropdown-disabled' : 'settings-menu'} >
-      <Dropdown.Toggle variant='primary' disabled={!!appCtx.nodeInfo.error || appCtx.nodeInfo.isLoading} className='btn-rounded'>
-        Settings
-        <SettingsSVG className={'ms-2' + ((!!appCtx.nodeInfo.error || appCtx.nodeInfo.isLoading) ? ' svg-fill-disabled' : '')} />
+      <Dropdown.Toggle variant={props.compact ? '' : 'primary'} disabled={!!appCtx.nodeInfo.error || appCtx.nodeInfo.isLoading} className={props.compact ? 'd-flex align-items-center btn-rounded btn-compact' : 'd-flex align-items-center btn-rounded'}>
+        <span className={props.compact ? '' : 'me-2'}>{props.compact ? '' : 'Settings'}</span>
+        <SettingsSVG className={((!!appCtx.nodeInfo.error || appCtx.nodeInfo.isLoading) ? 'mt-1 svg-fill-disabled' : 'mt-1')} />
       </Dropdown.Toggle>
       <Dropdown.Menu className='fs-7'>
         <Dropdown.Item data-bs-toggle='modal' data-bs-target='#staticBackdrop' onClick={props.onShowNodeInfo}>Show node ID</Dropdown.Item>

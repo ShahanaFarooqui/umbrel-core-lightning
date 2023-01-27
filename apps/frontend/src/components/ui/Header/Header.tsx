@@ -28,8 +28,10 @@ const Header = (props) => {
           <Image src='images/cln-logo.png' className='header-info-logo me-3 rounded float-start' alt='Core Lightning Logo' />
           <Col className='h-100 d-flex align-items-center justify-content-between'>
             <h4 className='m-0 text-dark'><strong>CLN</strong></h4>
-            <Settings onShowNodeInfo={props.onShowNodeInfo} onShowConnectWallet={props.onShowConnectWallet} />
-            {(appCtx.appConfig.appMode === ApplicationModes.DARK) ? <NightModeSVG className='svg-night ms-3 me-2' /> : <DayModeSVG className='svg-day ms-3 me-2' />}
+            <div className='d-flex'>
+              <Settings compact={true} onShowNodeInfo={props.onShowNodeInfo} onShowConnectWallet={props.onShowConnectWallet} />
+              {(appCtx.appConfig.appMode === ApplicationModes.DARK) ? <NightModeSVG className='svg-night ms-3 me-2' /> : <DayModeSVG className='svg-day ms-3 me-2' />}
+            </div>
           </Col>
           <Row className='header-info-text my-2'>
             <Col xs={12} className='d-flex align-items-center text-light'>
@@ -60,8 +62,10 @@ const Header = (props) => {
           : 
             <Col xs={12} lg={4} className='d-flex align-items-center justify-content-between' data-testid='header-context'>
               <h4 className='m-0 text-dark'><strong>Core Lightning Node</strong></h4>
-              <Settings onShowNodeInfo={props.onShowNodeInfo} onShowConnectWallet={props.onShowConnectWallet} />
-              {(appCtx.appConfig.appMode === ApplicationModes.DARK) ? <NightModeSVG className='svg-night ms-3 me-2' /> : <DayModeSVG className='svg-day ms-3 me-2' />}
+              <div className='d-flex'>
+                <Settings onShowNodeInfo={props.onShowNodeInfo} onShowConnectWallet={props.onShowConnectWallet} />
+                {(appCtx.appConfig.appMode === ApplicationModes.DARK) ? <NightModeSVG className='svg-night ms-3 me-2' /> : <DayModeSVG className='svg-day ms-3 me-2' />}
+              </div>
             </Col>
           }
           <Col xs={12} className='d-flex align-items-center text-light'>
@@ -80,9 +84,11 @@ const Header = (props) => {
       </Col>
       {(currentScreenSize !== Breakpoints.SM && currentScreenSize !== Breakpoints.MD) ?
         <Col xs={12} lg={4} className='d-flex align-items-center justify-content-end' data-testid='header-context'>
-          <Settings onShowNodeInfo={props.onShowNodeInfo} onShowConnectWallet={props.onShowConnectWallet} />
-          <div onClick={modeChangeHandler}>
-            {(appCtx.appConfig.appMode === ApplicationModes.DARK) ? <NightModeSVG className='svg-night ms-3 me-2' /> : <DayModeSVG className='svg-day ms-3 me-2'/>}
+          <div className='d-flex'>
+            <Settings onShowNodeInfo={props.onShowNodeInfo} onShowConnectWallet={props.onShowConnectWallet} />
+            <div onClick={modeChangeHandler}>
+              {(appCtx.appConfig.appMode === ApplicationModes.DARK) ? <NightModeSVG className='svg-night ms-3 me-2' /> : <DayModeSVG className='svg-day ms-3 me-2'/>}
+            </div>
           </div>
         </Col>
       :

@@ -90,9 +90,10 @@ const ConnectWallet = (props) => {
                   value={PORT}
                   aria-label={PORT}
                   aria-describedby='copy-addon-port'
+                  className='form-control-left'
                   readOnly
                 />
-                <InputGroup.Text className='form-control-addon' onClick={copyHandler}>
+                <InputGroup.Text className='form-control-addon form-control-addon-right' onClick={copyHandler}>
                   <CopySVG id='REST Port' />
                 </InputGroup.Text>
               </InputGroup>
@@ -108,9 +109,10 @@ const ConnectWallet = (props) => {
                   value={selNetwork === 0 ? LOCAL_HOST : TOR_HOST}
                   aria-label={selNetwork === 0 ? LOCAL_HOST : TOR_HOST}
                   aria-describedby='copy-addon-host'
+                  className='form-control-left'
                   readOnly
                 />
-                <InputGroup.Text className='form-control-addon' onClick={copyHandler}>
+                <InputGroup.Text className='form-control-addon form-control-addon-right' onClick={copyHandler}>
                   <CopySVG id='Host' />
                 </InputGroup.Text>
               </InputGroup>
@@ -126,9 +128,10 @@ const ConnectWallet = (props) => {
                   value={MACAROON}
                   aria-label={MACAROON}
                   aria-describedby='copy-addon-macaroon'
+                  className='form-control-left'
                   readOnly
                 />
-                <InputGroup.Text className='form-control-addon' onClick={copyHandler}>
+                <InputGroup.Text className='form-control-addon form-control-addon-right' onClick={copyHandler}>
                   <CopySVG id='Macaroon' />
                 </InputGroup.Text>
               </InputGroup>
@@ -144,9 +147,10 @@ const ConnectWallet = (props) => {
                   value={clnConnectUrl}
                   aria-label={clnConnectUrl}
                   aria-describedby='copy-addon-macaroon'
+                  className='form-control-left'
                   readOnly
                 />
-                <InputGroup.Text className='form-control-addon' onClick={copyHandler}>
+                <InputGroup.Text className='form-control-addon form-control-addon-right' onClick={copyHandler}>
                   <CopySVG id='REST Connect URL' />
                 </InputGroup.Text>
               </InputGroup>

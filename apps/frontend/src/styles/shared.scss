@@ -43,6 +43,8 @@ body #root {
 }
 
 .btn-rounded {
+  display: flex;
+  align-items: center;
   border-radius: $border-radius;
   padding-top: 3px;
   height: 2rem;
@@ -88,6 +90,14 @@ body #root {
 
 .fill-warning {
   fill: $warning;
+}
+
+.fill-danger {
+  fill: $danger;
+}
+
+.fill-dark {
+  fill: $dark;
 }
 
 .svg-fill-disabled path.fill-contrast {
@@ -165,24 +175,54 @@ body #root {
 
 .input-group {
   & .form-control {
-    border-right: 0;
-    padding-right: 0;
+    color: $dark;
     &:focus {
       box-shadow: none;
     }
   }
+  & .form-control.form-control-left {
+    cursor: pointer;
+    border-right: 0;
+    padding-right: 0;
+  }
+  & .form-control.form-control-right {
+    border-left: 0;
+    padding-left: 0;
+  }
   & .form-control-addon {
     background-color: $white;
-    border-left: 0;
-    &:hover {
-      transform: scale(1.01);
-      svg path {
-        stroke: darken($primary, 10%);
-      }
-    }
     &:focus {
       border-color: transparent;
       box-shadow: none;
+    }
+    &.form-control-addon-right {
+      cursor: pointer;
+      border-left: 0;
+      &:hover {
+        transform: scale(1.01);
+        svg path {
+          stroke: darken($primary, 10%);
+        }
+      }
+    }
+    &.form-control-addon-left {
+      border-right: 0;
+    }
+  }
+  &.invalid {
+    & .form-control {
+      border-color: $danger;
+      &:focus {
+        border-color: $danger;
+        box-shadow: none;
+      }
+    }
+    & .form-control-addon {
+      border-color: $danger;
+      &:focus {
+        border-color: $danger;
+        box-shadow: none;
+      }  
     }
   }
 }
@@ -197,4 +237,14 @@ body #root {
     height: 4rem;
     transform: translate3d(-50%, -50%, 0) scale(1);
   }
+}
+
+.invalid-message {
+  display: flex;
+  align-items: center;
+  min-height: 1.5rem;
+  height: 1.5rem;
+  color: $danger;
+  font-size: 12px;
+  font-weight: 600;
 }

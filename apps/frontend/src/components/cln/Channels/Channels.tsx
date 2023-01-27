@@ -14,7 +14,7 @@ import { AppContext } from '../../../store/AppContext';
 import { formatCurrency } from '../../../utilities/data-formatters';
 import { ActionSVG } from '../../../svgs/Action';
 
-const Channels = () => {
+const Channels = (props) => {
   const appCtx = useContext(AppContext);
   
   const mergeChannelsList = () => {
@@ -69,7 +69,7 @@ const Channels = () => {
             }
           </Card.Body>
           <Card.Footer className='d-flex justify-content-center'>
-            <Button variant='primary' className='btn-rounded fw-bold'>
+            <Button variant='primary' className='btn-rounded fw-bold' onClick={props.onOpenChannel}>
               Open Channel
               <ActionSVG className='ms-2' />
             </Button>

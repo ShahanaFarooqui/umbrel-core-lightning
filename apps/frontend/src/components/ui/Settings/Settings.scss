@@ -16,12 +16,28 @@
   }
 }
 
+@include color-mode(light) {
+  .btn-compact {
+    background-color: $white;
+    border-color: $gray-300;
+    & svg > path {
+      fill: $dark;
+    }
+  }
+}
+
 @include color-mode(dark) {
   .settings-menu.dropdown {
     & .dropdown-menu {
       & div.dropdown-item {
           color: $white;
       }
+    }
+  }
+  .btn-compact {
+    background-color: $primary;
+    & svg > path {
+      fill: $dark;
     }
   }
 }

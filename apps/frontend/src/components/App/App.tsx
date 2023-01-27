@@ -16,9 +16,11 @@ import CLNWallet from '../cln/CLNWallet/CLNWallet';
 import Channels from '../cln/Channels/Channels';
 import Overview from '../cln/Overview/Overview';
 import ConnectWallet from '../modals/ConnectWallet/ConnectWallet';
+import OpenChannel from '../cln/OpenChannel/OpenChannel';
 
 const App = () => {
   const appCtx = useContext(AppContext);
+  const [showOpenChannel, setShowOpenChannel] = useState(false);
   const [showNodeInfoModal, setShowNodeInfoModal] = useState(false);
   const [showConnectWalletModal, setShowConnectWalletModal] = useState(false);
   const [showToast, setShowToast] = useState(false);
@@ -78,7 +80,13 @@ const App = () => {
         <Row className='node-info px-3'>
           <Col xs={12} lg={4} className='mb-4'><BTCWallet /></Col>
           <Col xs={12} lg={4} className='mb-4'><CLNWallet /></Col>
-          <Col xs={12} lg={4} className='mb-4'><Channels /></Col>
+          <Col xs={12} lg={4} className='mb-4'>
+            {(showOpenChannel) ?
+              <OpenChannel onClose={() => setShowOpenChannel(false)} />
+            :
+              <Channels onOpenChannel={() => setShowOpenChannel(true)} />
+            }
+          </Col>
         </Row>
       </Container>
       <ToastMessage message={toastMessage} position='top-center' bg='primary' show={showToast} onClose={() => setShowToast(false)} />
