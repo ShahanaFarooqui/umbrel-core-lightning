@@ -7,6 +7,7 @@ import Modal from 'react-bootstrap/Modal';
 import Row from 'react-bootstrap/Row';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Form from 'react-bootstrap/Form';
+import Image from 'react-bootstrap/Image'
 
 import { AppContext } from '../../../store/AppContext';
 import { CopySVG } from '../../../svgs/Copy';
@@ -20,7 +21,7 @@ const NodeInfo = (props) => {
     navigator.clipboard.writeText(appCtx.nodeInfo.id || '');
     setShowToast(true);
   }
-  
+
   return (
     <>
       <Modal show={props.show} onHide={props.onHide} centered className='modal-lg'>
@@ -28,14 +29,17 @@ const NodeInfo = (props) => {
           <FontAwesomeIcon icon={faCircleXmark} onClick={props.onHide} size='lg' />
         </Modal.Header>
         <Modal.Body className='py-0'>
-          <Row className='d-flex align-items-start justify-content-center pt-2'>
+          <Row className='qr-container d-flex align-items-start justify-content-center pt-2'>
+            <Image className='qr-cln-logo' rounded={true} src='/images/cln-logo.svg' />
             <QRCodeCanvas value={appCtx.nodeInfo.id || ''} size={220} includeMargin={true} />
+          </Row>
+          <Row className='qr-container d-flex align-items-start justify-content-center pt-2'>
             <h4 className='text-dark fw-bold d-flex justify-content-center pt-4'>Node ID</h4>
             <p className='py-3 w-75 text-break text-dark d-flex justify-content-center'>
               Other Lightning nodes can open payment channels to your node following this Node ID.            
             </p>
             <div className='mb-4 text-break text-dark d-flex justify-content-center'>
-            <InputGroup className="mb-3">
+            <InputGroup className='mb-3'>
               <Form.Control 
                 onClick={copyHandler}
                 placeholder={appCtx.nodeInfo.id}

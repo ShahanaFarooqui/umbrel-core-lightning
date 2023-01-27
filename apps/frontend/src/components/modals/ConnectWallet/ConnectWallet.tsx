@@ -9,6 +9,7 @@ import Col from 'react-bootstrap/Col';
 import Dropdown from 'react-bootstrap/esm/Dropdown';
 import InputGroup from 'react-bootstrap/esm/InputGroup';
 import Form from 'react-bootstrap/esm/Form';
+import Image from 'react-bootstrap/Image'
 
 import { LOCAL_HOST, TOR_HOST, MACAROON, PORT } from '../../../utilities/constants';
 import { CopySVG } from '../../../svgs/Copy';
@@ -57,10 +58,13 @@ const ConnectWallet = (props) => {
           <FontAwesomeIcon icon={faCircleXmark} onClick={props.onHide} size='lg' />
         </Modal.Header>
         <Modal.Body className='py-0 px-5'>
-          <Row className='d-flex align-items-start justify-content-center pt-2'>
+          <Row className='qr-container d-flex align-items-start justify-content-center pt-2'>
+            <Image className='qr-cln-logo' rounded={true} src='/images/cln-logo.svg' />
             <QRCodeCanvas value={clnConnectUrl || ''} size={200} includeMargin={true} />
+          </Row>
+          <Row className='d-flex align-items-start justify-content-center pt-2'>
             <h4 className='w-75 text-dark fw-bold d-flex justify-content-center py-3 text-center'>
-            Connect your lightning wallet to your node
+              Connect your lightning wallet to your node
             </h4>
           </Row>
           <Row className='d-flex align-items-start justify-content-center'>
