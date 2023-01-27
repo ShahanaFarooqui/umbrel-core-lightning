@@ -1,5 +1,5 @@
 import './NodeInfo.scss';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleXmark } from '@fortawesome/free-solid-svg-icons'
 import {QRCodeCanvas} from 'qrcode.react';
@@ -10,13 +10,15 @@ import Form from 'react-bootstrap/Form';
 
 import { AppContext } from '../../../store/AppContext';
 import { CopySVG } from '../../../svgs/Copy';
+import ToastMessage from '../../shared/ToastMessage/ToastMessage';
 
 const NodeInfo = (props) => {
   const appCtx = useContext(AppContext);
+  const [showToast, setShowToast] = useState(false);
 
   const copyHandler = () => {
     navigator.clipboard.writeText(appCtx.nodeInfo.id || '');
-    props.onShowToast('Copied');
+    setShowToast(true);
   }
   
   return (
@@ -42,12 +44,13 @@ const NodeInfo = (props) => {
                 readOnly
               />
               <InputGroup.Text className='form-control-addon' onClick={copyHandler}>
-                <CopySVG />              
+                <CopySVG id={appCtx.nodeInfo.id} />              
               </InputGroup.Text>
             </InputGroup>
             </div>
           </Row>
         </Modal.Body>
+        <ToastMessage message='Node ID Copied!' position='top-center' bg='primary' show={showToast} onClose={() => setShowToast(false)} />
       </Modal>
     </>
   );

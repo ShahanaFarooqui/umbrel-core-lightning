@@ -28,7 +28,7 @@ const Header = (props) => {
           <Image src='images/cln-logo.png' className='header-info-logo me-3 rounded float-start' alt='Core Lightning Logo' />
           <Col className='h-100 d-flex align-items-center justify-content-between'>
             <h4 className='m-0 text-dark'><strong>CLN</strong></h4>
-            <Settings onShowModal={props.onShowModal} />
+            <Settings onShowNodeInfo={props.onShowNodeInfo} onShowConnectWallet={props.onShowConnectWallet} />
             {(appCtx.appConfig.appMode === ApplicationModes.DARK) ? <NightModeSVG className='svg-night ms-3 me-2' /> : <DayModeSVG className='svg-day ms-3 me-2' />}
           </Col>
           <Row className='header-info-text my-2'>
@@ -60,7 +60,7 @@ const Header = (props) => {
           : 
             <Col xs={12} lg={4} className='d-flex align-items-center justify-content-between' data-testid='header-context'>
               <h4 className='m-0 text-dark'><strong>Core Lightning Node</strong></h4>
-              <Settings onShowModal={props.onShowModal} />
+              <Settings onShowNodeInfo={props.onShowNodeInfo} onShowConnectWallet={props.onShowConnectWallet} />
               {(appCtx.appConfig.appMode === ApplicationModes.DARK) ? <NightModeSVG className='svg-night ms-3 me-2' /> : <DayModeSVG className='svg-day ms-3 me-2' />}
             </Col>
           }
@@ -80,7 +80,7 @@ const Header = (props) => {
       </Col>
       {(currentScreenSize !== Breakpoints.SM && currentScreenSize !== Breakpoints.MD) ?
         <Col xs={12} lg={4} className='d-flex align-items-center justify-content-end' data-testid='header-context'>
-          <Settings onShowModal={props.onShowModal} />
+          <Settings onShowNodeInfo={props.onShowNodeInfo} onShowConnectWallet={props.onShowConnectWallet} />
           <div onClick={modeChangeHandler}>
             {(appCtx.appConfig.appMode === ApplicationModes.DARK) ? <NightModeSVG className='svg-night ms-3 me-2' /> : <DayModeSVG className='svg-day ms-3 me-2'/>}
           </div>

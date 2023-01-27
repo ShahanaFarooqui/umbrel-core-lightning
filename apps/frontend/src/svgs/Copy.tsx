@@ -1,6 +1,7 @@
 export const CopySVG = props => {
   return (
     <svg
+      id={props.id}
       className={props.className}
       width='17'
       height='17'

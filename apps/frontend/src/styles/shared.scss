@@ -1,6 +1,14 @@
 @import './mode-dark.scss';
 @import './mode-light.scss';
 
+body.modal-open #root {
+  filter: blur(5px);
+}
+
+body #root {
+  transition: filter .2s ease;
+}
+
 .fs-7 {
   font-size: .75rem !important;
 }
@@ -116,6 +124,27 @@
   }
 }
 
+.dropdown.dropdown-white {
+  & .dropdown-toggle.btn.btn-white {
+    background-color: $white;
+    color: $dark;
+    border-color: $gray-300;
+    &::after {
+      color: $dark;
+      vertical-align: 0.105em;
+    }
+  }
+  & .dropdown-menu {
+    width: 100%;
+    background: $white;
+    font-size: .875rem;
+    & .dropdown-item {
+      color: $dark;
+    }
+  }
+}
+
+
 .overflow-x-ellipsis {
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -149,7 +178,6 @@
       transform: scale(1.01);
       svg path {
         stroke: darken($primary, 10%);
-        // stroke: $dark;
       }
     }
     &:focus {

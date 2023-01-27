@@ -15,10 +15,12 @@ import BTCWallet from '../cln/BTCWallet/BTCWallet';
 import CLNWallet from '../cln/CLNWallet/CLNWallet';
 import Channels from '../cln/Channels/Channels';
 import Overview from '../cln/Overview/Overview';
+import ConnectWallet from '../modals/ConnectWallet/ConnectWallet';
 
 const App = () => {
   const appCtx = useContext(AppContext);
   const [showNodeInfoModal, setShowNodeInfoModal] = useState(false);
+  const [showConnectWalletModal, setShowConnectWalletModal] = useState(false);
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState('');
   
@@ -68,7 +70,7 @@ const App = () => {
   return (
     <>
       <Container className='py-4' data-testid='container'>
-        <Header onShowModal={() => setShowNodeInfoModal(true)} />
+        <Header onShowNodeInfo={() => setShowNodeInfoModal(true)} onShowConnectWallet={() => setShowConnectWalletModal(true)}/>
         <Row>
           <Col className='mx-1'><Overview /></Col>
         </Row>
@@ -78,8 +80,9 @@ const App = () => {
           <Col xs={12} lg={4} className='mb-4'><Channels /></Col>
         </Row>
       </Container>
-      <NodeInfo show={showNodeInfoModal} onHide={() => setShowNodeInfoModal(false)} onShowToast={(message) => { setToastMessage(message); setShowToast(true); }} />
       <ToastMessage message={toastMessage} position='top-center' bg='primary' show={showToast} onClose={() => setShowToast(false)} />
+      <NodeInfo show={showNodeInfoModal} onHide={() => setShowNodeInfoModal(false)} />
+      <ConnectWallet show={showConnectWalletModal} onHide={() => setShowConnectWalletModal(false)} />
     </>
   );
 }
