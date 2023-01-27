@@ -35,6 +35,7 @@ const App = () => {
 
   useEffect(() => {
     fetchData();
+    window.setInterval(() => {fetchData()}, (60 * 60 * 1000)); // one hour
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
