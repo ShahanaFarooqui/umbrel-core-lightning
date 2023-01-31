@@ -3,6 +3,7 @@ import handleError from '../shared/error-handler.js';
 import { LNMessage, LightningService } from '../service/lightning.service.js';
 import { logger } from '../shared/logger.js';
 import { LightningError } from '../models/errors.js';
+import { HttpStatusCode } from '../shared/consts.js';
 
 const lnMessage: LightningService = LNMessage;
 
@@ -33,6 +34,8 @@ export const getNodesInfo = (lightningPeers: any) => {
       throw new LightningError(
         'Controller caught lightning error from list nodes: ' + JSON.stringify(err),
         err,
+        HttpStatusCode.CLN_SERVER,
+        'Get Network Nodes Information',
       );
     });
 };
@@ -69,7 +72,7 @@ class LightningController {
                   ': ' +
                   JSON.stringify(error),
               );
-              handleError(error, req, res, next);
+              return handleError(error, req, res, next);
             }
           } else {
             res.status(200).json(commandRes);
@@ -82,10 +85,10 @@ class LightningController {
               ': ' +
               JSON.stringify(err),
           );
-          handleError(err, req, res, next);
+          return handleError(err, req, res, next);
         });
     } catch (error: any) {
-      handleError(error, req, res, next);
+      return handleError(error, req, res, next);
     }
   }
 }

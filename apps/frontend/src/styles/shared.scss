@@ -117,6 +117,15 @@ body #root {
   }
 }
 
+.card {
+  & .card-header {
+    border-bottom: none;
+  }
+  & .card-footer {
+    border-top: none;
+  }
+}
+
 .dropdown {
   & .dropdown-item {
     font-weight: 500;
@@ -239,12 +248,21 @@ body #root {
   }
 }
 
-.invalid-message {
+.message {
   display: flex;
   align-items: center;
   min-height: 1.5rem;
   height: 1.5rem;
-  color: $danger;
   font-size: 12px;
   font-weight: 600;
+  word-break: break-all;
+  &.invalid {
+    color: $danger;
+  }
+  &.pending {
+    color: $warning;
+  }
+  &.success {
+    color: $success;
+  }  
 }

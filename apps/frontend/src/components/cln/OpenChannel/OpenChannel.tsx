@@ -1,5 +1,5 @@
 import './OpenChannel.scss';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 import Card from 'react-bootstrap/Card';
@@ -7,21 +7,27 @@ import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 import Spinner from 'react-bootstrap/Spinner';
 import Col from 'react-bootstrap/Col';
+import Form from 'react-bootstrap/Form';
+import InputGroup from 'react-bootstrap/InputGroup';
 
+import logger from '../../../services/logger.service';
+import useInput from '../../../hooks/use-input';
+import useHttp from '../../../hooks/use-http';
 import { AppContext } from '../../../store/AppContext';
-import { formatCurrency } from '../../../utilities/data-formatters';
 import { ActionSVG } from '../../../svgs/Action';
-import Form from 'react-bootstrap/esm/Form';
-import InputGroup from 'react-bootstrap/esm/InputGroup';
 import { AmountSVG } from '../../../svgs/Amount';
 import { AddressSVG } from '../../../svgs/Address';
-import useInput from '../../../hooks/use-input';
-import { ErrorSVG } from '../../../svgs/Error';
+import { CallStatus } from '../../../utilities/constants';
+import { InformationSVG } from '../../../svgs/Information';
 
 const isNotEmpty = (value) => value.trim() !== '';
 const isPubkey = (value) => value.includes('@') && value.includes(':');
 
 const OpenChannel = (props) => {
+  const { openChannel } = useHttp();
+  const [responseStatus, setResponseStatus] = useState('');
+  const [responseMessage, setResponseMessage] = useState('');
+
   const appCtx = useContext(AppContext);
   const {
     value: pubkeyValue,
@@ -46,19 +52,27 @@ const OpenChannel = (props) => {
     formIsValid = true;
   }
   
-  const submitHandler = (event) => {
-    console.warn(event);
-    console.warn(pubkeyValue);
+  const openChannelHandler = (event) => {
     event.preventDefault();
     if (!formIsValid) { return; }
-    console.log('Submitted!');
-    console.log(pubkeyValue, amountValue);
-    resetPubkey();
-    resetAmount();
+    setResponseStatus(CallStatus.PENDING);
+    openChannel(pubkeyValue, +amountValue, 'opening', true)
+    .then((response: any) => {
+      logger.info(response);
+      setResponseStatus(CallStatus.SUCCESS);
+      setResponseMessage(response.data);
+      resetPubkey();
+      resetAmount();
+    })
+    .catch(err => {
+      logger.error(err.response.data);
+      setResponseStatus(CallStatus.ERROR);
+      setResponseMessage(err.response.data);
+    });
   };
 
   return (
-    <form onSubmit={submitHandler} className='h-100 mx-1'>
+    <form onSubmit={openChannelHandler} className='h-100 mx-1'>
       <Row className='h-100 mx-1'>
         <Card className='d-flex align-items-stretch'>
           <Card.Body className='d-flex align-items-stretch flex-column pt-4'>
@@ -68,7 +82,7 @@ const OpenChannel = (props) => {
                 </div>
                 <FontAwesomeIcon icon={faCircleXmark} onClick={props.onClose} size='lg' />
               </Card.Header>
-              <Card.Body className='py-0 px-1'>
+              <Card.Body className='py-0 px-1 d-flex flex-column align-items-start justify-content-between'>
                 <Row className='d-flex align-items-start justify-content-center'>
                   <Col xs={12}>
                     <Form.Label className='mb-1 pt-3 text-dark'>Node ID</Form.Label>
@@ -90,13 +104,11 @@ const OpenChannel = (props) => {
                         onBlur={pubkeyBlurHandler}
                       />
                     </InputGroup>
-                    <p className='invalid-message'>
-                      {pubkeyHasError ? <ErrorSVG className='me-1' /> : ''}
+                    <p className='message invalid'>
+                      {pubkeyHasError ? <InformationSVG svgClassName='me-1' className='fill-danger' /> : ''}
                       {pubkeyHasError ? 'Invalid Node ID' : ''}
                     </p>
                   </Col>
-                </Row>
-                <Row className='d-flex align-items-start justify-content-center'>
                   <Col xs={12}>
                     <Form.Label className='mb-1 text-dark'>Amount</Form.Label>
                     <InputGroup className={(amountHasError ? 'invalid mb-2' : 'mb-2')}>
@@ -116,15 +128,22 @@ const OpenChannel = (props) => {
                         onBlur={amountBlurHandler}
                       />
                     </InputGroup>
-                    <p className='invalid-message'>
-                      {amountHasError ? <ErrorSVG className='me-1' /> : ''}
+                    <p className='message invalid'>
+                      {amountHasError ? <InformationSVG svgClassName='me-1' className='fill-danger' /> : ''}
                       {amountHasError ? 'Invalid Amount' : ''}
                     </p>
                   </Col>
                 </Row>
+                <Row className='d-flex align-items-start justify-content-center mb-2'>
+                  <Col xs={12} className={responseStatus === CallStatus.ERROR ? 'message invalid' : responseStatus === CallStatus.PENDING ? 'message pending' : 'message success'}>
+                    {responseStatus === CallStatus.SUCCESS ? <InformationSVG svgClassName='me-1' className='fill-success' /> : ''}
+                    { responseStatus === CallStatus.PENDING ? 'Opening Channel...' : responseMessage }
+                    {responseStatus === CallStatus.PENDING ? <Spinner animation='grow' variant='primary' /> : ''}
+                  </Col>
+                </Row>
               </Card.Body>
               <Card.Footer className='d-flex justify-content-center'>
-                <Button type='submit' variant='primary' className='btn-rounded fw-bold'>
+                <Button type='submit' variant='primary' className='btn-rounded fw-bold' disabled={responseStatus === CallStatus.PENDING}>
                   Open Channel
                   <ActionSVG className='ms-2' />
                 </Button>

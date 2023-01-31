@@ -1,5 +1,5 @@
 import { ApplicationConfiguration, FiatConfig } from './app-config.type';
-import { Fund, ListInvoices, ListPayments, ListPeers, ListBitcoinTransactions, NodeInfo, WalletBalances, ListLightningTransactions, ListChannels } from './lightning-wallet.type';
+import { Fund, ListInvoices, ListPayments, ListPeers, ListBitcoinTransactions, NodeInfo, WalletBalances, ListLightningTransactions, ListChannels, Channel } from './lightning-wallet.type';
 
 export type AppContextType = {
   appConfig: ApplicationConfiguration;

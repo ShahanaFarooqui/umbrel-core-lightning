@@ -32,7 +32,25 @@ const useHttp = () => {
     });
   }, [appCtx]);
 
-  const sendRequest = useCallback((setStoreFunction: any, method: string, url: string, reqBody: any = null) => {
+  const openChannel = (pubkey: string, amount: number, feeRate: string, announce: boolean) => {
+    return sendRequest('post', '/cln/call', { 'method': 'openchannel_init', 'params': { 'id': pubkey, 'amount': amount, 'funding_feerate': feeRate, 'announce': announce } });
+  };
+
+  const sendRequest = (method: string, url: string, reqBody: any = null) => {
+    try {
+      return axios({
+        timeout: 15000,
+        method: method,
+        url: API_BASE_URL + API_VERSION + url,
+        data: reqBody
+      });
+    } catch (err: any) {
+      logger.error(err);
+      return err;
+    }
+  };
+
+  const sendRequestToSetStore = useCallback((setStoreFunction: any, method: string, url: string, reqBody: any = null) => {
     try {
       axios({
         timeout: 15000,
@@ -61,19 +79,20 @@ const useHttp = () => {
   }, [getFiatRate]);
 
   const fetchData = useCallback(() => {
-    sendRequest(appCtx.setConfig, 'get', '/shared/config');
-    sendRequest(appCtx.setNodeInfo, 'post', '/cln/call', { 'method': 'getinfo', 'params': [] });
-    sendRequest(appCtx.setListPeers, 'post', '/cln/call', { 'method': 'listpeers', 'params': [], 'nextAction': 'getNodesInfo' });
-    sendRequest(appCtx.setListInvoices, 'post', '/cln/call', { 'method': 'listinvoices', 'params': [] });
-    sendRequest(appCtx.setListPayments, 'post', '/cln/call', { 'method': 'listsendpays', 'params': [] });
-    sendRequest(appCtx.setListFunds, 'post', '/cln/call', { 'method': 'listfunds', 'params': [] });
-    sendRequest(appCtx.setListBitcoinTransactions, 'post', '/cln/call', { 'method': 'listtransactions', 'params': [] });
-  }, [appCtx, sendRequest]);
+    sendRequestToSetStore(appCtx.setConfig, 'get', '/shared/config');
+    sendRequestToSetStore(appCtx.setNodeInfo, 'post', '/cln/call', { 'method': 'getinfo', 'params': [] });
+    sendRequestToSetStore(appCtx.setListPeers, 'post', '/cln/call', { 'method': 'listpeers', 'params': [], 'nextAction': 'getNodesInfo' });
+    sendRequestToSetStore(appCtx.setListInvoices, 'post', '/cln/call', { 'method': 'listinvoices', 'params': [] });
+    sendRequestToSetStore(appCtx.setListPayments, 'post', '/cln/call', { 'method': 'listsendpays', 'params': [] });
+    sendRequestToSetStore(appCtx.setListFunds, 'post', '/cln/call', { 'method': 'listfunds', 'params': [] });
+    sendRequestToSetStore(appCtx.setListBitcoinTransactions, 'post', '/cln/call', { 'method': 'listtransactions', 'params': [] });
+  }, [appCtx, sendRequestToSetStore]);
 
   return {
     fetchData,
     getFiatRate,
-    updateConfig
+    updateConfig,
+    openChannel
   };
 };
 

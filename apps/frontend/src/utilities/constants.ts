@@ -17,18 +17,18 @@ export type LogLevel = 'info' | 'warn' | 'error';
 export enum NumberTypes {
   COMMON = 'COMMON',
   CURRENCY = 'CURRENCY'
-}
+};
 
 export enum Units {
   MSATS = 'MSATS',
   SATS = 'SATS',
   BTC = 'BTC'
-}
+};
 
 export enum ApplicationModes {
   LIGHT = 'LIGHT',
   DARK = 'DARK'
-}
+};
 
 export const APPLICATION_MODES = ['LIGHT', 'DARK'];
 
@@ -64,7 +64,7 @@ export enum ApplicationActions {
   SET_LIST_SEND_PAYS = 'SET_LIST_SEND_PAYS',
   SET_LIST_BITCOIN_TRANSACTIONS = 'SET_LIST_BITCOIN_TRANSACTIONS',
   CLEAR_CONTEXT = 'CLEAR_CONTEXT'
-}
+};
 
 export enum Breakpoints {
   XS = 'XS',
@@ -73,4 +73,10 @@ export enum Breakpoints {
   LG = 'LG',
   XL = 'XL',
   XXL = 'XXL'
-}
+};
+
+export enum CallStatus {
+  PENDING = 'PENDING',
+  SUCCESS = 'SUCCESS',
+  ERROR = 'ERROR'
+};

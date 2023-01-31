@@ -45,9 +45,9 @@ export class LightningService {
         logger.error('Lightning error from ' + method + ' command');
         logger.error(JSON.stringify(err));
         throw new LightningError(
-          err.error,
-          HttpStatusCode.CLN_SERVER,
           err.message,
+          err.error || err.message,
+          HttpStatusCode.CLN_SERVER,
           'Core Lightning API Error',
         );
       });

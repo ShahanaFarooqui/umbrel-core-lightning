@@ -26,7 +26,7 @@ function handleError(
     ? error
     : 'Unknow Error!';
   logger.error(message, route, error.stack);
-  res.status(error.statusCode || HttpStatusCode.INTERNAL_SERVER).json(message);
+  return res.status(error.statusCode || HttpStatusCode.INTERNAL_SERVER).json(message);
 }
 
 export default handleError;
