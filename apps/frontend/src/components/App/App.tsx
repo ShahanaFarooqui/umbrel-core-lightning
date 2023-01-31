@@ -17,9 +17,15 @@ import Channels from '../cln/Channels/Channels';
 import Overview from '../cln/Overview/Overview';
 import ConnectWallet from '../modals/ConnectWallet/ConnectWallet';
 import OpenChannel from '../cln/OpenChannel/OpenChannel';
+import BTCDeposit from '../cln/BTCDeposit/BTCDeposit';
+import BTCWithdraw from '../cln/BTCWithdraw/BTCWithdraw';
+import CLNDeposit from '../cln/CLNDeposit/CLNDeposit';
+import CLNWithdraw from '../cln/CLNWithdraw/CLNWithdraw';
 
 const App = () => {
   const appCtx = useContext(AppContext);
+  const [showBTCWallet, setShowBTCWallet] = useState('wallet');
+  const [showCLNWallet, setShowCLNWallet] = useState('wallet');
   const [showOpenChannel, setShowOpenChannel] = useState(false);
   const [showNodeInfoModal, setShowNodeInfoModal] = useState(false);
   const [showConnectWalletModal, setShowConnectWalletModal] = useState(false);
@@ -78,8 +84,28 @@ const App = () => {
           <Col className='mx-1'><Overview /></Col>
         </Row>
         <Row className='node-info px-3'>
-          <Col xs={12} lg={4} className='mb-4'><BTCWallet /></Col>
-          <Col xs={12} lg={4} className='mb-4'><CLNWallet /></Col>
+          <Col xs={12} lg={4} className='mb-4'>
+            {
+              showBTCWallet === 'wallet' ?
+                <BTCWallet onDepositClick={() => setShowBTCWallet('deposit')} onWithdrawClick={() => setShowBTCWallet('withdraw')} />
+              :
+                showBTCWallet === 'deposit' ?
+                  <BTCDeposit onClose={() => setShowBTCWallet('wallet')} />
+                :
+                  <BTCWithdraw onClose={() => setShowBTCWallet('wallet')} />
+            }
+          </Col>
+          <Col xs={12} lg={4} className='mb-4'>
+            {
+              showCLNWallet === 'wallet' ?
+                <CLNWallet onDepositClick={() => setShowCLNWallet('deposit')} onWithdrawClick={() => setShowCLNWallet('withdraw')} />
+              :
+                showCLNWallet === 'deposit' ?
+                  <CLNDeposit onClose={() => setShowCLNWallet('wallet')} />
+                :
+                  <CLNWithdraw onClose={() => setShowCLNWallet('wallet')} />
+            }
+          </Col>
           <Col xs={12} lg={4} className='mb-4'>
             {(showOpenChannel) ?
               <OpenChannel onClose={() => setShowOpenChannel(false)} />

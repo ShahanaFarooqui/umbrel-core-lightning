@@ -36,9 +36,9 @@ const Channels = (props) => {
                 <Alert className='fs-8' variant='danger'>{appCtx.listChannels.error}</Alert> : 
                 <PerfectScrollbar className='ps-show-always'>
                   <ListGroup as='ul' variant='flush'>
-                    {mergeChannelsList().map(channel => (
+                    {mergeChannelsList().map((channel, idx) => (
                       <ListGroup.Item
-                        key={channel.short_channel_id}
+                        key={channel.short_channel_id || channel.node_alias || idx}
                         as='li'
                         className='ps-0 d-flex justify-content-between align-items-start'
                       >

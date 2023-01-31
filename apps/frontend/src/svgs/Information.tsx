@@ -2,6 +2,7 @@ export const InformationSVG = props => {
   return (
     <svg
       className={props.svgClassName}
+      style={{minWidth: '17px'}}
       width='17'
       height='17'
       viewBox='0 0 17 17'

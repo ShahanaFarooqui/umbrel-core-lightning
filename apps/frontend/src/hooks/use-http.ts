@@ -33,13 +33,14 @@ const useHttp = () => {
   }, [appCtx]);
 
   const openChannel = (pubkey: string, amount: number, feeRate: string, announce: boolean) => {
-    return sendRequest('post', '/cln/call', { 'method': 'openchannel_init', 'params': { 'id': pubkey, 'amount': amount, 'funding_feerate': feeRate, 'announce': announce } });
+    return sendRequest('post', '/cln/call', { 'method': 'fundchannel', 'params': { 'id': pubkey, 'amount': amount, 'feerate': feeRate, 'announce': announce } });
   };
 
   const sendRequest = (method: string, url: string, reqBody: any = null) => {
     try {
       return axios({
-        timeout: 15000,
+        // timeout: 12 * 60000,
+        timeout: 5000,
         method: method,
         url: API_BASE_URL + API_VERSION + url,
         data: reqBody

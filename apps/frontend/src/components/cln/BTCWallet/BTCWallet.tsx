@@ -17,7 +17,7 @@ import { DepositSVG } from '../../../svgs/Deposit';
 import CurrencyBox from '../../shared/CurrencyBox/CurrencyBox';
 import UTXOs from '../UTXOs/UTXOs';
 
-const BTCWallet = () => {
+const BTCWallet = (props) => {
   const appCtx = useContext(AppContext);
 
   return (
@@ -40,10 +40,10 @@ const BTCWallet = () => {
               </Col>
             </Card.Body>
             <ButtonGroup className='sticky-bottom btn-group-action'>
-              <Button>
+              <Button onClick={props.onWithdrawClick} >
                 <WithdrawSVG className='me-2' />Withdraw
               </Button>
-              <Button>
+              <Button onClick={props.onDepositClick}>
                 <DepositSVG className='me-2' />Deposit
               </Button>
             </ButtonGroup>

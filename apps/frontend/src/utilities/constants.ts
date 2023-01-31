@@ -76,7 +76,16 @@ export enum Breakpoints {
 };
 
 export enum CallStatus {
+  NONE = 'NONE',
   PENDING = 'PENDING',
   SUCCESS = 'SUCCESS',
   ERROR = 'ERROR'
 };
+
+export enum FeeRate {
+  SLOW = 'Slow',
+  NORMAL = 'Normal',
+  URGENT = 'Urgent'
+};
+
+export const FEE_RATES: FeeRate[] = [FeeRate.SLOW, FeeRate.NORMAL, FeeRate.URGENT];

@@ -17,7 +17,7 @@ import { DepositSVG } from '../../../svgs/Deposit';
 import Transactions from '../Transactions/Transactions';
 import CurrencyBox from '../../shared/CurrencyBox/CurrencyBox';
 
-const CLNWallet = () => {
+const CLNWallet = (props) => {
   const appCtx = useContext(AppContext);
   
   return (
@@ -40,10 +40,10 @@ const CLNWallet = () => {
               </Col>
             </Card.Body>
             <ButtonGroup className='sticky-bottom btn-group-action'>
-              <Button>
+              <Button onClick={props.onWithdrawClick} >
                 <WithdrawSVG className='me-2' />Withdraw
               </Button>
-              <Button>
+              <Button onClick={props.onDepositClick} >
                 <DepositSVG className='me-2' />Deposit
               </Button>
             </ButtonGroup>
