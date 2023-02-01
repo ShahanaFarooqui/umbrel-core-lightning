@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useCallback, useContext } from 'react';
-import { API_BASE_URL, API_VERSION, FIAT_CURRENCIES } from '../utilities/constants';
+import { API_BASE_URL, API_VERSION, FIAT_CURRENCIES, SATS_MSAT } from '../utilities/constants';
 import logger from '../services/logger.service';
 import { AppContext } from '../store/AppContext';
 import { ApplicationConfiguration } from '../types/app-config.type';
@@ -34,6 +34,22 @@ const useHttp = () => {
 
   const openChannel = (pubkey: string, amount: number, feeRate: string, announce: boolean) => {
     return sendRequest('post', '/cln/call', { 'method': 'fundchannel', 'params': { 'id': pubkey, 'amount': amount, 'feerate': feeRate, 'announce': announce } });
+  };
+
+  const btcWithdraw = (address: string, amount: string, feeRate: string) => {
+    return sendRequest('post', '/cln/call', { 'method': 'withdraw', 'params': { 'destination': address, 'satoshi': amount, 'feerate': feeRate } });
+  };
+
+  const btcDeposit = () => {
+    return sendRequest('post', '/cln/call', { 'method': 'newaddr', 'params': { 'addresstype': 'bech32' } });
+  };
+
+  const clnSendPayment = (invoice: string) => {
+    return sendRequest('post', '/cln/call', { 'method': 'pay', 'params': { 'bolt11': invoice } });
+  };
+
+  const clnReceiveInvoice = (amount: number, label: string, description: string) => {
+    return sendRequest('post', '/cln/call', { 'method': 'invoice', 'params': { 'amount_msat': (amount * SATS_MSAT), 'label': label, 'description': description } });
   };
 
   const sendRequest = (method: string, url: string, reqBody: any = null) => {
@@ -93,7 +109,11 @@ const useHttp = () => {
     fetchData,
     getFiatRate,
     updateConfig,
-    openChannel
+    openChannel,
+    btcWithdraw,
+    btcDeposit,
+    clnSendPayment,
+    clnReceiveInvoice
   };
 };
 

@@ -1,4 +1,4 @@
-import './CLNDeposit.scss';
+import './CLNSend.scss';
 import { useContext, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
@@ -20,15 +20,15 @@ import { AddressSVG } from '../../../svgs/Address';
 import { CallStatus } from '../../../utilities/constants';
 import { InformationSVG } from '../../../svgs/Information';
 
-const isNotEmpty = (value) => value.trim() !== '';
-const isPubkey = (value) => value.includes('@') && value.includes(':');
-
-const CLNDeposit = (props) => {
+const CLNSend = (props) => {
+  const appCtx = useContext(AppContext);
   const { openChannel } = useHttp();
   const [responseStatus, setResponseStatus] = useState('');
   const [responseMessage, setResponseMessage] = useState('');
 
-  const appCtx = useContext(AppContext);
+  const isNotEmpty = (value) => value.trim() !== '';
+  const isPubkey = (value) => value.includes('@') && value.includes(':');
+
   const {
     value: pubkeyValue,
     isValid: pubkeyIsValid,
@@ -52,7 +52,7 @@ const CLNDeposit = (props) => {
     formIsValid = true;
   }
   
-  const openChannelHandler = (event) => {
+  const CLNWithdrawHandler = (event) => {
     event.preventDefault();
     if (!formIsValid) { return; }
     setResponseStatus(CallStatus.PENDING);
@@ -72,13 +72,13 @@ const CLNDeposit = (props) => {
   };
 
   return (
-    <form onSubmit={openChannelHandler} className='h-100 mx-1'>
+    <form onSubmit={CLNWithdrawHandler} className='h-100 mx-1'>
       <Row className='h-100 mx-1'>
         <Card className='d-flex align-items-stretch'>
           <Card.Body className='d-flex align-items-stretch flex-column pt-4'>
               <Card.Header className='p-0 d-flex align-items-start justify-content-between'>
                 <div className='fs-4 p-0 fw-bold text-dark'>
-                  Lightning Wallet Deposit
+                  Lightning Wallet Withdraw
                 </div>
                 <FontAwesomeIcon icon={faCircleXmark} onClick={props.onClose} size='lg' />
               </Card.Header>
@@ -155,4 +155,4 @@ const CLNDeposit = (props) => {
   );
 };
 
-export default CLNDeposit;
+export default CLNSend;

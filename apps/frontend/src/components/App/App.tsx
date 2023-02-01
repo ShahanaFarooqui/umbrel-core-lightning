@@ -19,8 +19,8 @@ import ConnectWallet from '../modals/ConnectWallet/ConnectWallet';
 import OpenChannel from '../cln/OpenChannel/OpenChannel';
 import BTCDeposit from '../cln/BTCDeposit/BTCDeposit';
 import BTCWithdraw from '../cln/BTCWithdraw/BTCWithdraw';
-import CLNDeposit from '../cln/CLNDeposit/CLNDeposit';
-import CLNWithdraw from '../cln/CLNWithdraw/CLNWithdraw';
+import CLNReceive from '../cln/CLNReceive/CLNReceive';
+import CLNSend from '../cln/CLNSend/CLNSend';
 
 const App = () => {
   const appCtx = useContext(AppContext);
@@ -90,7 +90,7 @@ const App = () => {
                 <BTCWallet onDepositClick={() => setShowBTCWallet('deposit')} onWithdrawClick={() => setShowBTCWallet('withdraw')} />
               :
                 showBTCWallet === 'deposit' ?
-                  <BTCDeposit onClose={() => setShowBTCWallet('wallet')} />
+                  <BTCDeposit address={'Shahana'} onClose={() => setShowBTCWallet('wallet')} />
                 :
                   <BTCWithdraw onClose={() => setShowBTCWallet('wallet')} />
             }
@@ -98,12 +98,12 @@ const App = () => {
           <Col xs={12} lg={4} className='mb-4'>
             {
               showCLNWallet === 'wallet' ?
-                <CLNWallet onDepositClick={() => setShowCLNWallet('deposit')} onWithdrawClick={() => setShowCLNWallet('withdraw')} />
+                <CLNWallet onReceiveClick={() => setShowCLNWallet('receive')} onSendClick={() => setShowCLNWallet('send')} />
               :
-                showCLNWallet === 'deposit' ?
-                  <CLNDeposit onClose={() => setShowCLNWallet('wallet')} />
+                showCLNWallet === 'receive' ?
+                  <CLNReceive onClose={() => setShowCLNWallet('wallet')} />
                 :
-                  <CLNWithdraw onClose={() => setShowCLNWallet('wallet')} />
+                  <CLNSend onClose={() => setShowCLNWallet('wallet')} />
             }
           </Col>
           <Col xs={12} lg={4} className='mb-4'>

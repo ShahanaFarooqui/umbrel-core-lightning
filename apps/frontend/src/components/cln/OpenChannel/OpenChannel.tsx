@@ -31,7 +31,7 @@ const OpenChannel = (props) => {
   const [responseStatus, setResponseStatus] = useState(CallStatus.NONE);
   const [responseMessage, setResponseMessage] = useState('');
 
-  const isValidAmount = (value) => value > 0 && value <= (appCtx.walletBalances.btcTotalBalance || 0);
+  const isValidAmount = (value) => value > 0 && value <= (appCtx.walletBalances.btcConfBalance || 0);
   const isValidPubkey = (value) => value.includes('@') && value.includes(':');
 
   const {
@@ -135,12 +135,12 @@ const OpenChannel = (props) => {
                         tabIndex={2}
                         id='amount'
                         type='number'
-                        placeholder={'Amount (Between 1 - ' + parseFloat((appCtx.walletBalances.btcTotalBalance || 0).toString()).toLocaleString('en-us')  + ' Sats)'}
+                        placeholder={'Amount (Between 1 - ' + parseFloat((appCtx.walletBalances.btcConfBalance || 0).toString()).toLocaleString('en-us')  + ' Sats)'}
                         aria-label='amount'
                         aria-describedby='addon-amount'
                         className='form-control-right'
                         min='1'
-                        max={appCtx.walletBalances.btcTotalBalance}
+                        max={appCtx.walletBalances.btcConfBalance}
                         value={amountValue}
                         onChange={amountChangeHandler}
                         onBlur={amountBlurHandler}
@@ -162,8 +162,8 @@ const OpenChannel = (props) => {
                             amountHasError ?
                               (+amountValue <= 0) ? 
                                 'Amount should be greater than 0'
-                              : (+amountValue > (appCtx.walletBalances.btcTotalBalance || 0)) ? 
-                                'Amount should be lesser then ' + (appCtx.walletBalances.btcTotalBalance || 0)
+                              : (+amountValue > (appCtx.walletBalances.btcConfBalance || 0)) ? 
+                                'Amount should be lesser then ' + (appCtx.walletBalances.btcConfBalance || 0)
                               :
                                 'Invalid Amount'
                             :
@@ -176,6 +176,7 @@ const OpenChannel = (props) => {
                     <Form.Label className='mb-3 me-4 text-dark'>Announce</Form.Label>
                     <Form.Check 
                       inline
+                      tabIndex={3}
                       type='switch'
                       id='announce-switch'
                       onChange={() => setAnnounce(!announce)}
@@ -186,7 +187,7 @@ const OpenChannel = (props) => {
                     <Form.Label className='mb-1 mt-3 text-dark d-flex align-items-center justify-content-between'>
                       Fee Rate
                     </Form.Label>
-                    <Form.Range defaultValue={feeRate} min='0' max='2' onChange={feeRateChangeHandler} />
+                    <Form.Range tabIndex={4} defaultValue={feeRate} min='0' max='2' onChange={feeRateChangeHandler} />
                     <Row className='d-flex align-items-start justify-content-between'>
                       {FEE_RATES.map((rate, i) => 
                         <Col xs={4} className={'fs-7 text-light d-flex ' + (i === 0 ? 'justify-content-start' : i === 1 ? 'justify-content-center' : 'justify-content-end')} key={rate}>{rate}</Col>

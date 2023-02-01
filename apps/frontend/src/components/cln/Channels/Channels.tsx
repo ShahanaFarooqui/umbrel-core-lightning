@@ -54,10 +54,10 @@ const Channels = (props) => {
                             </ProgressBar>
                             <Row className='text-light d-flex align-items-end justify-content-between'>
                               <Col xs={6} className='fs-7 fw-bold d-flex justify-content-start'>
-                                {formatCurrency(channel.satoshi_to_us, appCtx.appConfig.unit)}
+                                {formatCurrency(channel.satoshi_to_us, appCtx.appConfig.unit)} {appCtx.appConfig.unit}
                               </Col>
                               <Col xs={6} className='fs-7 fw-bold d-flex justify-content-end'>
-                                {formatCurrency(channel.satoshi_to_them, appCtx.appConfig.unit)}
+                                {formatCurrency(channel.satoshi_to_them, appCtx.appConfig.unit)} {appCtx.appConfig.unit}
                               </Col>
                             </Row>
                           </>

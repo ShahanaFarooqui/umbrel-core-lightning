@@ -1,4 +1,4 @@
-import { LogLevel, LOG_LEVEL } from "../utilities/constants";
+import { LogLevel, LOG_LEVEL } from '../utilities/constants';
 
 export interface LogFn {
   (message?: any, ...optionalParams: any[]): void;

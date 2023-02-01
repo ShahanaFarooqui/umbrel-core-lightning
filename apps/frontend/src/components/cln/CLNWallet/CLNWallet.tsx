@@ -40,11 +40,11 @@ const CLNWallet = (props) => {
               </Col>
             </Card.Body>
             <ButtonGroup className='sticky-bottom btn-group-action'>
-              <Button onClick={props.onWithdrawClick} >
-                <WithdrawSVG className='me-2' />Withdraw
+              <Button onClick={props.onSendClick} >
+                <WithdrawSVG className='me-2' />Send
               </Button>
-              <Button onClick={props.onDepositClick} >
-                <DepositSVG className='me-2' />Deposit
+              <Button onClick={props.onReceiveClick} >
+                <DepositSVG className='me-2' />Receive
               </Button>
             </ButtonGroup>
           </Card>

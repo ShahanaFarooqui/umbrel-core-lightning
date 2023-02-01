@@ -1,4 +1,4 @@
-import { ApplicationModes, Units } from "../utilities/constants";
+import { ApplicationModes, Units } from '../utilities/constants';
 
 export type ApplicationConfiguration = {
   isLoading: boolean;

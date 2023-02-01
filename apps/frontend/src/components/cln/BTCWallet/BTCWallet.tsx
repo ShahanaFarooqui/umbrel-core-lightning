@@ -27,14 +27,14 @@ const BTCWallet = (props) => {
           <Card className='bg-primary bg-gradient'>
             <Card.Body>
               <Col xs={12} className='d-flex align-items-center justify-content-start'>
-                <BitcoinWalletSVG className='me-4' />
+                <BitcoinWalletSVG svgClassName='me-4' className='fill-contrast' />
                 <div>
                   <div>Bitcoin Wallet</div>
                   { appCtx.walletBalances.isLoading ? 
                       <Spinner animation='grow' variant='secondary' /> : 
                     appCtx.walletBalances.error ? 
                       <Alert className='py-0 px-1 fs-8' variant='danger'>{appCtx.walletBalances.error}</Alert> : 
-                      <CurrencyBox value={appCtx.walletBalances.btcTotalBalance} rootClasses='d-inline-flex flex-column' currencyClasses='lh-1 fs-4 fw-bold' unitClasses='fs-7 fw-bold'></CurrencyBox>
+                      <CurrencyBox value={appCtx.walletBalances.btcConfBalance} rootClasses='d-inline-flex flex-column' currencyClasses='lh-1 fs-4 fw-bold' unitClasses='fs-7 fw-bold'></CurrencyBox>
                   }
                   </div>
               </Col>

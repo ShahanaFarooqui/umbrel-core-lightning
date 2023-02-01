@@ -1,4 +1,4 @@
-import { BTC_SATS, SATS_MSAT, Units } from "./constants";
+import { BTC_SATS, SATS_MSAT, Units } from './constants';
 
 export const ConvertMSatsToSats = (num: number) => {
   return (num / SATS_MSAT);

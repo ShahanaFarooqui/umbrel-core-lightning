@@ -1,157 +1,113 @@
 import './BTCDeposit.scss';
-import { useContext, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
+import { QRCodeCanvas } from 'qrcode.react';
 import Card from 'react-bootstrap/Card';
-import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
-import Spinner from 'react-bootstrap/Spinner';
-import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
+import Image from 'react-bootstrap/Image';
 import InputGroup from 'react-bootstrap/InputGroup';
 
-import logger from '../../../services/logger.service';
-import useInput from '../../../hooks/use-input';
-import useHttp from '../../../hooks/use-http';
-import { AppContext } from '../../../store/AppContext';
-import { ActionSVG } from '../../../svgs/Action';
-import { AmountSVG } from '../../../svgs/Amount';
-import { AddressSVG } from '../../../svgs/Address';
 import { CallStatus } from '../../../utilities/constants';
+import logger from '../../../services/logger.service';
+import useHttp from '../../../hooks/use-http';
+import { CopySVG } from '../../../svgs/Copy';
+import { BitcoinWalletSVG } from '../../../svgs/BitcoinWallet';
+import ToastMessage from '../../shared/ToastMessage/ToastMessage';
+import Alert from 'react-bootstrap/esm/Alert';
+import Spinner from 'react-bootstrap/esm/Spinner';
 import { InformationSVG } from '../../../svgs/Information';
 
-const isNotEmpty = (value) => value.trim() !== '';
-const isPubkey = (value) => value.includes('@') && value.includes(':');
-
 const BTCDeposit = (props) => {
-  const { openChannel } = useHttp();
-  const [responseStatus, setResponseStatus] = useState('');
+  const { btcDeposit } = useHttp();
+  const [responseStatus, setResponseStatus] = useState(CallStatus.NONE);
   const [responseMessage, setResponseMessage] = useState('');
+  const [showToast, setShowToast] = useState(false);
 
-  const appCtx = useContext(AppContext);
-  const {
-    value: pubkeyValue,
-    isValid: pubkeyIsValid,
-    hasError: pubkeyHasError,
-    valueChangeHandler: pubkeyChangeHandler,
-    inputBlurHandler: pubkeyBlurHandler,
-    reset: resetPubkey,
-  } = useInput(isPubkey);
-  const {
-    value: amountValue,
-    isValid: amountIsValid,
-    hasError: amountHasError,
-    valueChangeHandler: amountChangeHandler,
-    inputBlurHandler: amountBlurHandler,
-    reset: resetAmount,
-  } = useInput(isNotEmpty);
-
-  let formIsValid = false;
-
-  if (pubkeyIsValid && amountIsValid) {
-    formIsValid = true;
+  const copyHandler = () => {
+    navigator.clipboard.writeText(responseMessage || '');
+    setShowToast(true);
   }
-  
-  const openChannelHandler = (event) => {
-    event.preventDefault();
-    if (!formIsValid) { return; }
+
+  useEffect(() => {
     setResponseStatus(CallStatus.PENDING);
-    openChannel(pubkeyValue, +amountValue, 'opening', true)
+    setResponseMessage('');
+    btcDeposit()
     .then((response: any) => {
       logger.info(response);
-      setResponseStatus(CallStatus.SUCCESS);
-      setResponseMessage(response.data);
-      resetPubkey();
-      resetAmount();
+      if (response.data && response.data.bech32) {
+        setResponseStatus(CallStatus.SUCCESS);
+        setResponseMessage((response.data.bech32));
+      } else {
+        setResponseStatus(CallStatus.ERROR);
+        setResponseMessage('Unknown Error');
+      }
     })
     .catch(err => {
-      logger.error(err.response.data);
+      logger.error(err.response && err.response.data ? err.response.data : err.message ? err.message : JSON.stringify(err));
       setResponseStatus(CallStatus.ERROR);
-      setResponseMessage(err.response.data);
+      setResponseMessage(err.response && err.response.data ? err.response.data : err.message ? err.message : JSON.stringify(err));
     });
-  };
+  }, []);
 
   return (
-    <form onSubmit={openChannelHandler} className='h-100 mx-1'>
-      <Row className='h-100 mx-1'>
-        <Card className='d-flex align-items-stretch'>
-          <Card.Body className='d-flex align-items-stretch flex-column pt-4'>
-              <Card.Header className='p-0 d-flex align-items-start justify-content-between'>
-                <div className='fs-4 p-0 fw-bold text-dark'>
-                  Bitcoin Wallet Deposit
-                </div>
-                <FontAwesomeIcon icon={faCircleXmark} onClick={props.onClose} size='lg' />
-              </Card.Header>
-              <Card.Body className='py-0 px-1 d-flex flex-column align-items-start justify-content-between'>
-                <Row className='d-flex align-items-start justify-content-center'>
-                  <Col xs={12}>
-                    <Form.Label className='mb-1 pt-3 text-dark'>Node ID</Form.Label>
-                    <InputGroup className={(pubkeyHasError ? 'invalid mb-2' : 'mb-2')}>
-                      <InputGroup.Text className='form-control-addon form-control-addon-left'>
-                        <AddressSVG />
-                      </InputGroup.Text>
-                      <Form.Control
-                        autoFocus
-                        tabIndex={1}
-                        id='pubkey'
-                        type='text'
-                        placeholder='Pubkey@Ip:Port'
-                        aria-label='pubkey'
-                        aria-describedby='addon-pubkey'
-                        className='form-control-right'
-                        value={pubkeyValue}
-                        onChange={pubkeyChangeHandler}
-                        onBlur={pubkeyBlurHandler}
-                      />
-                    </InputGroup>
-                    <p className='message invalid'>
-                      {pubkeyHasError ? <InformationSVG svgClassName='me-1' className='fill-danger' /> : ''}
-                      {pubkeyHasError ? 'Invalid Node ID' : ''}
-                    </p>
-                  </Col>
-                  <Col xs={12}>
-                    <Form.Label className='mb-1 text-dark'>Amount</Form.Label>
-                    <InputGroup className={(amountHasError ? 'invalid mb-2' : 'mb-2')}>
-                      <InputGroup.Text className='form-control-addon form-control-addon-left'>
-                        <AmountSVG />
-                      </InputGroup.Text>
-                      <Form.Control
-                        tabIndex={2}
-                        id='amount'
-                        type='number'
-                        placeholder='Amount (Sats)'
-                        aria-label='amount'
-                        aria-describedby='addon-amount'
-                        className='form-control-right'
-                        value={amountValue}
-                        onChange={amountChangeHandler}
-                        onBlur={amountBlurHandler}
-                      />
-                    </InputGroup>
-                    <p className='message invalid'>
-                      {amountHasError ? <InformationSVG svgClassName='me-1' className='fill-danger' /> : ''}
-                      {amountHasError ? 'Invalid Amount' : ''}
-                    </p>
-                  </Col>
+    <Row className='h-100 mx-1'>
+      <Card className='d-flex align-items-stretch'>
+        <Card.Body className='d-flex align-items-stretch flex-column pt-4'>
+          <Card.Header className='p-0 d-flex align-items-start justify-content-between'>
+            <div className='p-0 fw-bold text-primary d-flex align-items-center'>
+              <BitcoinWalletSVG svgClassName='svg-small me-2' className='fill-primary' />
+              <span>Bitcoin Wallet</span>
+            </div>
+            <FontAwesomeIcon icon={faCircleXmark} onClick={props.onClose} size='lg' />
+          </Card.Header>
+          <h4 className='text-dark fw-bold'>Deposit</h4>
+          <Card.Body className='py-0 px-1'>
+            {responseStatus === CallStatus.SUCCESS ?
+              <div className='py-0 px-1 d-flex flex-column align-items-center justify-content-start'>
+                <Row className='qr-container d-flex align-items-start justify-content-center pt-2'>
+                  <Image className='qr-cln-logo' rounded={true} src='/images/cln-logo.svg' />
+                  <QRCodeCanvas value={responseMessage || ''} size={220} includeMargin={true} />
                 </Row>
-                <Row className='d-flex align-items-start justify-content-center mb-2'>
-                  <Col xs={12} className={responseStatus === CallStatus.ERROR ? 'message invalid' : responseStatus === CallStatus.PENDING ? 'message pending' : 'message success'}>
-                    {responseStatus === CallStatus.SUCCESS ? <InformationSVG svgClassName='me-1' className='fill-success' /> : ''}
-                    { responseStatus === CallStatus.PENDING ? 'Opening Channel...' : responseMessage }
-                    {responseStatus === CallStatus.PENDING ? <Spinner animation='grow' variant='primary' /> : ''}
-                  </Col>
+                <Row className='w-100 d-flex align-items-start justify-content-center pt-2'>
+                  <InputGroup className='mb-3'>
+                    <Form.Control
+                      onClick={copyHandler}
+                      placeholder={responseMessage}
+                      aria-label={responseMessage}
+                      aria-describedby='copy-addon'
+                      className='form-control-left'
+                      readOnly
+                    />
+                    <InputGroup.Text
+                      className='form-control-addon form-control-addon-right'
+                      onClick={copyHandler}
+                    >
+                      <CopySVG id={responseMessage} />
+                    </InputGroup.Text>
+                  </InputGroup>
                 </Row>
-              </Card.Body>
-              <Card.Footer className='d-flex justify-content-center'>
-                <Button type='submit' variant='primary' className='btn-rounded fw-bold' disabled={responseStatus === CallStatus.PENDING}>
-                  Open Channel
-                  <ActionSVG className='ms-2' />
-                </Button>
-              </Card.Footer>
+              </div>
+            :
+              responseStatus === CallStatus.ERROR ?
+                <>
+                  <Alert className='w-100' variant='danger'>
+                    <InformationSVG svgClassName='me-1' className='fill-danger' />
+                    {responseMessage}
+                  </Alert>                
+                </>
+              :
+                <Alert className='w-100' variant='warning'>
+                  <Spinner className='me-2' variant='primary' size='sm' />
+                  Generating New Address...
+                </Alert>
+            }
           </Card.Body>
-        </Card>
-      </Row>
-    </form>
+        </Card.Body>
+        <ToastMessage message='Address Copied!' position='top-center' bg='primary' show={showToast} onClose={() => setShowToast(false)} />
+      </Card>
+    </Row>
   );
 };
 
