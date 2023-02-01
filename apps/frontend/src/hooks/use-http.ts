@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useCallback, useContext } from 'react';
-import { API_BASE_URL, API_VERSION, FIAT_CURRENCIES, SATS_MSAT } from '../utilities/constants';
+import { API_BASE_URL, API_VERSION, FIAT_CURRENCIES, PaymentType, SATS_MSAT } from '../utilities/constants';
 import logger from '../services/logger.service';
 import { AppContext } from '../store/AppContext';
 import { ApplicationConfiguration } from '../types/app-config.type';
@@ -32,7 +32,7 @@ const useHttp = () => {
     });
   }, [appCtx]);
 
-  const sendRequest = (method: string, url: string, reqBody: any = null) => {
+  const sendRequest = useCallback((method: string, url: string, reqBody: any = null) => {
     try {
       return axios({
         timeout: 10 * 60000,
@@ -44,27 +44,31 @@ const useHttp = () => {
       logger.error(err);
       return err;
     }
+  }, []);
+
+  const openChannel = (pubkey: string, amount: number, feeRate: string, announce: boolean) => {
+    return sendRequest('post', '/cln/call', { 'method': 'fundchannel', 'params': { 'id': pubkey, 'amount': amount, 'feerate': feeRate, 'announce': announce } });
   };
 
-  const openChannel = useCallback((pubkey: string, amount: number, feeRate: string, announce: boolean) => {
-    return sendRequest('post', '/cln/call', { 'method': 'fundchannel', 'params': { 'id': pubkey, 'amount': amount, 'feerate': feeRate, 'announce': announce } });
-  }, [sendRequest]);
-
-  const btcWithdraw = useCallback((address: string, amount: string, feeRate: string) => {
+  const btcWithdraw = (address: string, amount: string, feeRate: string) => {
     return sendRequest('post', '/cln/call', { 'method': 'withdraw', 'params': { 'destination': address, 'satoshi': amount, 'feerate': feeRate } });
-  }, [sendRequest]);
+  };
 
-  const btcDeposit = useCallback(() => {
+  const btcDeposit = () => {
     return sendRequest('post', '/cln/call', { 'method': 'newaddr', 'params': { 'addresstype': 'bech32' } });
-  }, [sendRequest]);
+  };
 
-  const clnSendPayment = useCallback((invoice: string) => {
-    return sendRequest('post', '/cln/call', { 'method': 'pay', 'params': { 'bolt11': invoice } });
-  }, [sendRequest]);
+  const clnSendPayment = (paymentType: PaymentType, invoice: string, amount: number = 0) => {
+    if (paymentType === PaymentType.KEYSEND) {
+      return sendRequest('post', '/cln/call', { 'method': 'keysend', 'params': { 'destination': invoice, 'amount_msat': amount * SATS_MSAT } });
+    } else {
+      return sendRequest('post', '/cln/call', { 'method': 'pay', 'params': { 'bolt11': invoice } });
+    }
+  };
 
-  const clnReceiveInvoice = useCallback((amount: number, label: string, description: string) => {
+  const clnReceiveInvoice = (amount: number, label: string, description: string) => {
     return sendRequest('post', '/cln/call', { 'method': 'invoice', 'params': { 'amount_msat': (amount * SATS_MSAT), 'label': label, 'description': description } });
-  }, [sendRequest]);
+  };
 
   const sendRequestToSetStore = useCallback((setStoreFunction: any, method: string, url: string, reqBody: any = null) => {
     try {

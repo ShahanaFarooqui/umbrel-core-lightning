@@ -89,3 +89,9 @@ export enum FeeRate {
 };
 
 export const FEE_RATES: FeeRate[] = [FeeRate.SLOW, FeeRate.NORMAL, FeeRate.URGENT];
+
+export enum PaymentType {
+  INVOICE = 'Invoice',
+  OFFER = 'Offer',
+  KEYSEND = 'Keysend'
+};

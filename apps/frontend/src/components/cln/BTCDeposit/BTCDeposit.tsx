@@ -67,7 +67,7 @@ const BTCDeposit = (props) => {
           <Card.Body className='py-0 px-1'>
             {responseStatus === CallStatus.SUCCESS ?
               <div className='py-0 px-1 d-flex flex-column align-items-center justify-content-start'>
-                <Row className='qr-container d-flex align-items-start justify-content-center pt-2'>
+                <Row className='qr-container d-flex align-items-start justify-content-center pt-3'>
                   <Image className='qr-cln-logo' rounded={true} src='/images/cln-logo.svg' />
                   <QRCodeCanvas value={responseMessage || ''} size={220} includeMargin={true} />
                 </Row>

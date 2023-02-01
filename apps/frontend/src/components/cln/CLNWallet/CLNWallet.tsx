@@ -27,7 +27,7 @@ const CLNWallet = (props) => {
           <Card className='bg-primary bg-gradient'>
             <Card.Body>
               <Col xs={12} className='d-flex align-items-center justify-content-start'>
-                <LightningWalletSVG className='me-4' />
+                <LightningWalletSVG svgClassName='me-4' className='fill-contrast' />
                 <div>
                   <div>Lightning Wallet</div>
                   { appCtx.walletBalances.isLoading ? 

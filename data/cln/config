@@ -2,6 +2,7 @@ log-level=debug
 addr=0.0.0.0:7171
 experimental-websocket-port=5001
 log-file=/data/.lightning/log
+experimental-offers=true
 
 bitcoin-rpcuser=usr
 bitcoin-rpcpassword=usr
