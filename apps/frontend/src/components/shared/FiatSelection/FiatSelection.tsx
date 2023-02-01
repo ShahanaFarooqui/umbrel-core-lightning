@@ -22,7 +22,7 @@ const FiatSelection = (props) => {
       <Dropdown.Toggle variant='outline border-gray-300'>
         <div className='dropdown-toggle-text'>
           <FontAwesomeIcon className='svg-curr-symbol' icon={appCtx.fiatConfig.symbol} />
-          {appCtx.appConfig.fiatUnit || 'Currency'}
+          {appCtx.appConfig.fiatUnit || 'USD'}
         </div>
       </Dropdown.Toggle>
       <Dropdown.Menu>

@@ -43,13 +43,18 @@ export class LightningService {
       })
       .catch((err: any) => {
         logger.error('Lightning error from ' + method + ' command');
-        logger.error(JSON.stringify(err));
-        throw new LightningError(
-          err.message,
-          err.error || err.message,
-          HttpStatusCode.CLN_SERVER,
-          'Core Lightning API Error',
-        );
+        if (typeof err === 'string') {
+          logger.error(err);
+          throw new LightningError(err, err, HttpStatusCode.CLN_SERVER, 'Core Lightning API Error');
+        } else {
+          logger.error(JSON.stringify(err));
+          throw new LightningError(
+            err.message || err.error,
+            err.error || err.message,
+            HttpStatusCode.CLN_SERVER,
+            'Core Lightning API Error',
+          );
+        }
       });
   };
 }

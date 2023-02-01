@@ -76,9 +76,14 @@ const OpenChannel = (props) => {
     openChannel(pubkeyValue, +amountValue, feeRate.toLowerCase(), announce)
     .then((response: any) => {
       logger.info(response);
-      setResponseStatus(CallStatus.SUCCESS);
-      setResponseMessage('Channel opened with ' + (response.data.channel_id ? ('channel id ' + response.data.channel_id) : ('transaction id ' + response.data.txid)));
-      resetFormValues();
+      if (response.data && (response.data.channel_id || response.data.txid)) {
+        setResponseStatus(CallStatus.SUCCESS);
+        setResponseMessage('Channel opened with ' + (response.data.channel_id ? ('channel id ' + response.data.channel_id) : ('transaction id ' + response.data.txid)));
+        resetFormValues();
+      } else {
+        setResponseStatus(CallStatus.ERROR);
+        setResponseMessage('Unknown Error');
+      }
     })
     .catch(err => {
       logger.error(err.response && err.response.data ? err.response.data : err.message ? err.message : JSON.stringify(err));

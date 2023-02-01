@@ -21,10 +21,9 @@ import { AddressSVG } from '../../../svgs/Address';
 import { InformationSVG } from '../../../svgs/Information';
 import { LightningWalletSVG } from '../../../svgs/LightningWallet';
 
-
 const CLNSend = (props) => {
   const appCtx = useContext(AppContext);
-  const { clnSendPayment } = useHttp();
+  const { clnSendPayment, decodeInvoice, fetchInvoice } = useHttp();
   const [paymentType, setPaymentType] = useState(PaymentType.INVOICE);
   const [responseStatus, setResponseStatus] = useState('');
   const [responseMessage, setResponseMessage] = useState('');
@@ -66,23 +65,62 @@ const CLNSend = (props) => {
     resetInvoice();
     resetAmount();
   }
-  
-  const CLNSendHandler = (event) => {
-    event.preventDefault();
-    if (!formIsValid) { return; }
+
+  const sendInvoice = (type: PaymentType, invoice: string, amount: number) => {
     setResponseStatus(CallStatus.PENDING);
-    clnSendPayment(paymentType, invoiceValue, (+amountValue || 0))
+    clnSendPayment(type, invoice, amount)
     .then((response: any) => {
       logger.info(response);
-      setResponseStatus(CallStatus.SUCCESS);
-      setResponseMessage(response.data);
-      resetFormValues();
+      if (response.data && response.data.payment_hash) {
+        setResponseStatus(CallStatus.SUCCESS);
+        setResponseMessage('Payment sent with payment hash ' + response.data.payment_hash);
+        resetFormValues();
+      } else {
+        setResponseStatus(CallStatus.ERROR);
+        setResponseMessage('Unknown Error');
+      }
     })
     .catch(err => {
       logger.error(err.response.data);
       setResponseStatus(CallStatus.ERROR);
       setResponseMessage(err.response.data);
     });
+  };
+
+  const CLNSendHandler = (event) => {
+    event.preventDefault();
+    if (!formIsValid) { return; }
+    if (paymentType === PaymentType.OFFER) {
+      setResponseStatus(CallStatus.PENDING);
+      decodeInvoice(invoiceValue)
+      .then((decodeRes: any) => {
+        logger.info(decodeRes);
+        if (!decodeRes.data.valid || !decodeRes.data.offer_amount_msat) {
+          logger.error('Offer Invalid');
+          setResponseStatus(CallStatus.ERROR);
+          setResponseMessage('Invalid or Open Offer');
+        } else {
+          const amountSats = +(decodeRes.data.offer_amount_msat.substring(0, (decodeRes.data.offer_amount_msat.length - 4))) / 1000 || 0;
+          fetchInvoice(invoiceValue, amountSats)
+          .then((fetchInvoiceRes: any) => {
+            logger.info(fetchInvoiceRes);
+            sendInvoice(PaymentType.INVOICE, fetchInvoiceRes.data.invoice, amountSats);
+          })
+          .catch(err => {
+            logger.error(err.response.data);
+            setResponseStatus(CallStatus.ERROR);
+            setResponseMessage(err.response.data);
+          });
+        }
+      })
+      .catch(err => {
+        logger.error(err.response.data);
+        setResponseStatus(CallStatus.ERROR);
+        setResponseMessage(err.response.data);
+      });
+    } else {
+      sendInvoice(PaymentType.INVOICE, invoiceValue, (+amountValue || 0));
+    }
   };
 
   return (

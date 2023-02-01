@@ -9,38 +9,40 @@ import Spinner from 'react-bootstrap/Spinner';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
-import Alert from 'react-bootstrap/Alert';
 
 import logger from '../../../services/logger.service';
 import useInput from '../../../hooks/use-input';
 import useHttp from '../../../hooks/use-http';
 import { formatFiatValue } from '../../../utilities/data-formatters';
-import { CallStatus, FeeRate, FEE_RATES } from '../../../utilities/constants';
+import { CallStatus } from '../../../utilities/constants';
 import { AppContext } from '../../../store/AppContext';
 import { ActionSVG } from '../../../svgs/Action';
 import { AmountSVG } from '../../../svgs/Amount';
-import { AddressSVG } from '../../../svgs/Address';
+import { DescriptionSVG } from '../../../svgs/Description';
 import { InformationSVG } from '../../../svgs/Information';
+import { LightningWalletSVG } from '../../../svgs/LightningWallet';
+import QRCodeComponent from '../../shared/QRCode/QRCode';
+import ToastMessage from '../../shared/ToastMessage/ToastMessage';
 
 const CLNReceive = (props) => {
   const appCtx = useContext(AppContext);
-  const { openChannel } = useHttp();
-  const [feeRate, setFeeRate] = useState(FeeRate.NORMAL);
-  const [announce, setAnnounce] = useState(true);
-  const [responseStatus, setResponseStatus] = useState(CallStatus.NONE);
+  const { clnReceiveInvoice } = useHttp();
+  const [showInvoice, setShowInvoice] = useState(false);
+  const [showToast, setShowToast] = useState(false);
+  const [responseStatus, setResponseStatus] = useState('');
   const [responseMessage, setResponseMessage] = useState('');
 
-  const isValidAmount = (value) => value > 0 && value <= (appCtx.walletBalances.btcConfBalance || 0);
-  const isValidPubkey = (value) => value.includes('@') && value.includes(':');
+  const isValidAmount = (value) => value >= 0;
+  const isValidDescription = (value) => value.trim() !== '';
 
   const {
-    value: pubkeyValue,
-    isValid: pubkeyIsValid,
-    hasError: pubkeyHasError,
-    valueChangeHandler: pubkeyChangeHandler,
-    inputBlurHandler: pubkeyBlurHandler,
-    reset: resetPubkey,
-  } = useInput(isValidPubkey);
+    value: descriptionValue,
+    isValid: descriptionIsValid,
+    hasError: descriptionHasError,
+    valueChangeHandler: descriptionChangeHandler,
+    inputBlurHandler: descriptionBlurHandler,
+    reset: resetDescription,
+  } = useInput(isValidDescription);
   const {
     value: amountValue,
     isValid: amountIsValid,
@@ -52,76 +54,102 @@ const CLNReceive = (props) => {
 
   let formIsValid = false;
 
-  if (pubkeyIsValid && amountIsValid) {
+  if (descriptionIsValid && amountIsValid) {
     formIsValid = true;
   };
   
-  const feeRateChangeHandler = (event) => {
-    setFeeRate(FEE_RATES[+event.target.value]);
-  };
-
   const resetFormValues = () => {
-    resetPubkey();
+    resetDescription();
     resetAmount();
-    setAnnounce(true);
-    setFeeRate(FeeRate.NORMAL);
   };
 
-  const openChannelHandler = (event) => {
+  const CLNReceiveHandler = (event) => {
     event.preventDefault();
     if (!formIsValid) { return; }
     setResponseStatus(CallStatus.PENDING);
-    setResponseMessage('');
-    openChannel(pubkeyValue, +amountValue, feeRate.toLowerCase(), announce)
+    clnReceiveInvoice(+amountValue, descriptionValue, ('umbrellbl' + Math.random().toString(36).slice(2) + Date.now()))
     .then((response: any) => {
       logger.info(response);
-      setResponseStatus(CallStatus.SUCCESS);
-      setResponseMessage('Channel opened with ' + (response.data.channel_id ? ('channel id ' + response.data.channel_id) : ('transaction id ' + response.data.txid)));
-      resetFormValues();
+      if (response.data && response.data.bolt11) {
+        setResponseStatus(CallStatus.SUCCESS);
+        setResponseMessage(response.data.bolt11);
+        setShowInvoice(true);
+        resetFormValues();
+        } else {
+        setResponseStatus(CallStatus.ERROR);
+        setResponseMessage('Unknown Error');
+      }
     })
     .catch(err => {
-      logger.error(err.response && err.response.data ? err.response.data : err.message ? err.message : JSON.stringify(err));
+      logger.error(err.response.data);
       setResponseStatus(CallStatus.ERROR);
-      setResponseMessage(err.response && err.response.data ? err.response.data : err.message ? err.message : JSON.stringify(err));
+      setResponseMessage(err.response.data);
     });
   };
 
-  return (
-    <form onSubmit={openChannelHandler} className='h-100 mx-1'>
+  if (showInvoice) {
+    return (
       <Row className='h-100 mx-1'>
         <Card className='d-flex align-items-stretch'>
           <Card.Body className='d-flex align-items-stretch flex-column pt-4'>
               <Card.Header className='p-0 d-flex align-items-start justify-content-between'>
-                <div className='fs-4 p-0 fw-bold text-dark'>
-                  Open Channel
+                <div className='p-0 fw-bold text-primary d-flex align-items-center'>
+                  <LightningWalletSVG svgClassName='svg-small me-2' className='fill-primary' />
+                  <span>Lightning Wallet</span>
                 </div>
                 <FontAwesomeIcon icon={faCircleXmark} onClick={props.onClose} size='lg' />
               </Card.Header>
+              <h4 className='text-blue fw-bold'>Invoice</h4>
+              <Card.Body className='py-0 px-1 d-flex flex-column align-items-start justify-content-between'>
+                <Row className='w-100 d-flex align-items-start justify-content-center'>
+                  <QRCodeComponent message={responseMessage} onCopy={() => setShowToast(true)} className='py-0 px-1 d-flex flex-column align-items-center justify-content-start' />
+                </Row>
+              </Card.Body>
+          </Card.Body>
+          <ToastMessage message='Invoice Copied!' position='top-center' bg='primary' show={showToast} onClose={() => setShowToast(false)} />
+        </Card>
+      </Row>
+    );
+  }
+
+  return (
+    <form onSubmit={CLNReceiveHandler} className='h-100 mx-1'>
+      <Row className='h-100 mx-1'>
+        <Card className='d-flex align-items-stretch'>
+          <Card.Body className='d-flex align-items-stretch flex-column pt-4'>
+              <Card.Header className='p-0 d-flex align-items-start justify-content-between'>
+                <div className='p-0 fw-bold text-primary d-flex align-items-center'>
+                  <LightningWalletSVG svgClassName='svg-small me-2' className='fill-primary' />
+                  <span>Lightning Wallet</span>
+                </div>
+                <FontAwesomeIcon icon={faCircleXmark} onClick={props.onClose} size='lg' />
+              </Card.Header>
+              <h4 className='text-blue fw-bold'>Generate Invoice</h4>
               <Card.Body className='py-0 px-1 d-flex flex-column align-items-start justify-content-between'>
                 <Row className='d-flex align-items-start justify-content-center'>
                   <Col xs={12}>
-                    <Form.Label className='mb-1 pt-3 text-dark'>Node ID</Form.Label>
-                    <InputGroup className={(pubkeyHasError ? 'invalid mb-2' : 'mb-2')}>
+                    <Form.Label className='mb-1 pt-3 text-dark'>Description</Form.Label>
+                    <InputGroup className={(descriptionHasError ? 'invalid mb-2' : 'mb-2')}>
                       <InputGroup.Text className='form-control-addon form-control-addon-left'>
-                        <AddressSVG />
+                        <DescriptionSVG />
                       </InputGroup.Text>
                       <Form.Control
                         autoFocus
                         tabIndex={1}
-                        id='pubkey'
+                        id='description'
                         type='text'
-                        placeholder='Pubkey@Ip:Port'
-                        aria-label='pubkey'
-                        aria-describedby='addon-pubkey'
+                        placeholder='Description'
+                        aria-label='description'
+                        aria-describedby='addon-description'
                         className='form-control-right'
-                        value={pubkeyValue}
-                        onChange={pubkeyChangeHandler}
-                        onBlur={pubkeyBlurHandler}
+                        value={descriptionValue}
+                        onChange={descriptionChangeHandler}
+                        onBlur={descriptionBlurHandler}
                       />
                     </InputGroup>
                     <p className='message invalid'>
-                      {pubkeyHasError ? <InformationSVG svgClassName='me-1' className='fill-danger' /> : ''}
-                      {pubkeyHasError ? 'Invalid Node ID' : ''}
+                      {descriptionHasError ? <InformationSVG svgClassName='me-1' className='fill-danger' /> : ''}
+                      {descriptionHasError ? 'Invalid Description' : ''}
                     </p>
                   </Col>
                   <Col xs={12}>
@@ -134,12 +162,10 @@ const CLNReceive = (props) => {
                         tabIndex={2}
                         id='amount'
                         type='number'
-                        placeholder={'Amount (Between 1 - ' + parseFloat((appCtx.walletBalances.btcConfBalance || 0).toString()).toLocaleString('en-us')  + ' Sats)'}
+                        placeholder='Amount (Sats)'
                         aria-label='amount'
                         aria-describedby='addon-amount'
                         className='form-control-right'
-                        min='1'
-                        max={appCtx.walletBalances.btcConfBalance}
                         value={amountValue}
                         onChange={amountChangeHandler}
                         onBlur={amountBlurHandler}
@@ -147,7 +173,7 @@ const CLNReceive = (props) => {
                     </InputGroup>
                     {
                       !amountHasError ?
-                        amountValue ?
+                        amountValue && amountValue !== 'All' ?
                           <p className='fs-7 text-light d-flex align-items-center justify-content-end'>
                             ~ {appCtx.fiatConfig ? <FontAwesomeIcon icon={appCtx.fiatConfig.symbol} /> : <></>}
                             {formatFiatValue((+amountValue || 0), appCtx.fiatConfig.rate)}
@@ -159,10 +185,8 @@ const CLNReceive = (props) => {
                           {amountHasError ? <InformationSVG svgClassName='me-1' className='fill-danger' /> : ''}
                           {
                             amountHasError ?
-                              (+amountValue <= 0) ? 
+                              (+amountValue < 0) ? 
                                 'Amount should be greater than 0'
-                              : (+amountValue > (appCtx.walletBalances.btcConfBalance || 0)) ? 
-                                'Amount should be lesser then ' + (appCtx.walletBalances.btcConfBalance || 0)
                               :
                                 'Invalid Amount'
                             :
@@ -171,43 +195,18 @@ const CLNReceive = (props) => {
                         </p>
                     }
                   </Col>
-                  <Col xs={12}>
-                    <Form.Label className='mb-3 me-4 text-dark'>Announce</Form.Label>
-                    <Form.Check 
-                      inline
-                      tabIndex={3}
-                      type='switch'
-                      id='announce-switch'
-                      onChange={() => setAnnounce(!announce)}
-                      checked={announce}
-                    />
-                  </Col>
-                  <Col xs={12}>
-                    <Form.Label className='mb-1 mt-3 text-dark d-flex align-items-center justify-content-between'>
-                      Fee Rate
-                    </Form.Label>
-                    <Form.Range tabIndex={4} defaultValue={feeRate} min='0' max='2' onChange={feeRateChangeHandler} />
-                    <Row className='d-flex align-items-start justify-content-between'>
-                      {FEE_RATES.map((rate, i) => 
-                        <Col xs={4} className={'fs-7 text-light d-flex ' + (i === 0 ? 'justify-content-start' : i === 1 ? 'justify-content-center' : 'justify-content-end')} key={rate}>{rate}</Col>
-                      )}
-                    </Row>
+                </Row>
+                <Row className='d-flex align-items-start justify-content-center mb-2'>
+                  <Col xs={12} className={responseStatus === CallStatus.ERROR ? 'message invalid' : responseStatus === CallStatus.PENDING ? 'message pending' : 'message success'}>
+                    {responseStatus === CallStatus.SUCCESS ? <InformationSVG svgClassName='me-1' className='fill-success' /> : ''}
+                    {responseStatus === CallStatus.PENDING ? 'Generating Invoice...' : responseMessage }
+                    {responseStatus === CallStatus.PENDING ? <Spinner className='me-2' variant='primary' size='sm' /> : ''}
                   </Col>
                 </Row>
-                {/* <Row className='d-flex align-items-start justify-content-center mb-3'>
-                  <Col xs={12} className={responseStatus === CallStatus.ERROR ? 'message invalid' : responseStatus === CallStatus.PENDING ? 'message pending' : 'message success'}>
-                    {responseStatus === CallStatus.SUCCESS ? <InformationSVG svgClassName='me-1' className='fill-success' /> : responseStatus === CallStatus.ERROR ? <InformationSVG svgClassName='me-1' className='fill-danger' /> : responseStatus === CallStatus.PENDING ? <Spinner variant='primary' size='sm' /> : ''}
-                    {responseStatus === CallStatus.PENDING ? 'Opening Channel...' : responseMessage}
-                  </Col>
-                </Row> */}
-                <Alert className='w-100' variant={responseStatus === CallStatus.ERROR ? 'danger' : responseStatus === CallStatus.PENDING ? 'warning' : responseStatus === CallStatus.SUCCESS ? 'success' : ''}>
-                  {responseStatus === CallStatus.SUCCESS ? <InformationSVG svgClassName='me-1' className='fill-success' /> : responseStatus === CallStatus.ERROR ? <InformationSVG svgClassName='me-1' className='fill-danger' /> : responseStatus === CallStatus.PENDING ? <Spinner className='me-2' variant='primary' size='sm' /> : ''}
-                  {responseStatus === CallStatus.PENDING ? 'Opening Channel...' : responseMessage}
-                </Alert>
               </Card.Body>
               <Card.Footer className='d-flex justify-content-center'>
-                <Button tabIndex={5} type='submit' variant='primary' className='btn-rounded fw-bold' disabled={responseStatus === CallStatus.PENDING}>
-                  Open Channel
+                <Button tabIndex={3} type='submit' variant='primary' className='btn-rounded fw-bold' disabled={responseStatus === CallStatus.PENDING}>
+                  Generate Invoice
                   <ActionSVG className='ms-2' />
                 </Button>
               </Card.Footer>

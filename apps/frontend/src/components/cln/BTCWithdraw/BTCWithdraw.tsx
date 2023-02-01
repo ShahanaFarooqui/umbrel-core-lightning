@@ -74,9 +74,14 @@ const BTCWithdraw = (props) => {
     btcWithdraw(addressValue, amountValue.toLowerCase(), feeRate.toLowerCase())
     .then((response: any) => {
       logger.info(response);
-      setResponseStatus(CallStatus.SUCCESS);
-      setResponseMessage('Transaction sent' + (response.data.txid ? (' with transaction id ' + response.data.txid) : ''));
-      resetFormValues();
+      if (response.data && response.data.txid) {
+        setResponseStatus(CallStatus.SUCCESS);
+        setResponseMessage('Transaction sent with transaction id ' + response.data.txid);
+        resetFormValues();
+      } else {
+        setResponseStatus(CallStatus.ERROR);
+        setResponseMessage('Unknown Error');
+      }
     })
     .catch(err => {
       logger.error(err.response && err.response.data ? err.response.data : err.message ? err.message : JSON.stringify(err));

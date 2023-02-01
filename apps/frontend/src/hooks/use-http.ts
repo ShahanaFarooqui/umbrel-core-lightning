@@ -68,6 +68,16 @@ const useHttp = () => {
 
   const clnReceiveInvoice = (amount: number, label: string, description: string) => {
     return sendRequest('post', '/cln/call', { 'method': 'invoice', 'params': { 'amount_msat': (amount * SATS_MSAT), 'label': label, 'description': description } });
+    // REMOVE AFTER TESTING on v0.11.0
+    // return sendRequest('post', '/cln/call', { 'method': 'invoice', 'params': { 'msatoshi': (amount * SATS_MSAT), 'label': label, 'description': description } });
+  };
+
+  const decodeInvoice = (invoice: string) => {
+    return sendRequest('post', '/cln/call', { 'method': 'decode', 'params': [ invoice ] });
+  };
+
+  const fetchInvoice = (offer: string, amount: number) => {
+    return sendRequest('post', '/cln/call', { 'method': 'fetchinvoice', 'params': { 'offer': offer, 'amount_msat': amount * SATS_MSAT } });
   };
 
   const sendRequestToSetStore = useCallback((setStoreFunction: any, method: string, url: string, reqBody: any = null) => {
@@ -86,11 +96,15 @@ const useHttp = () => {
       })
       .catch(err => {
         logger.error(err);
-        (err.code === 'ECONNABORTED') ?
-          setStoreFunction({ isLoading: false, error: 'Request timedout! Verify that CLN node is working!' }) :
-        (err.response && err.response.data) ?
-          setStoreFunction({ isLoading: false, error: err.response.data }) :
-          setStoreFunction({ isLoading: false, error: JSON.stringify(err) })
+        if(url === '/shared/config') {
+          getFiatRate('USD');
+        } else {
+          (err.code === 'ECONNABORTED') ?
+            setStoreFunction({ isLoading: false, error: 'Request timedout! Verify that CLN node is working!' }) :
+          (err.response && err.response.data) ?
+            setStoreFunction({ isLoading: false, error: err.response.data }) :
+            setStoreFunction({ isLoading: false, error: JSON.stringify(err) })
+        }
       });
     } catch (err: any) {
       logger.error(err);
@@ -116,7 +130,9 @@ const useHttp = () => {
     btcWithdraw,
     btcDeposit,
     clnSendPayment,
-    clnReceiveInvoice
+    clnReceiveInvoice,
+    decodeInvoice,
+    fetchInvoice
   };
 };
 

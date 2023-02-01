@@ -2,33 +2,24 @@ import './BTCDeposit.scss';
 import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
-import { QRCodeCanvas } from 'qrcode.react';
 import Card from 'react-bootstrap/Card';
 import Row from 'react-bootstrap/Row';
-import Form from 'react-bootstrap/Form';
-import Image from 'react-bootstrap/Image';
-import InputGroup from 'react-bootstrap/InputGroup';
 
 import { CallStatus } from '../../../utilities/constants';
 import logger from '../../../services/logger.service';
 import useHttp from '../../../hooks/use-http';
-import { CopySVG } from '../../../svgs/Copy';
 import { BitcoinWalletSVG } from '../../../svgs/BitcoinWallet';
 import ToastMessage from '../../shared/ToastMessage/ToastMessage';
 import Alert from 'react-bootstrap/esm/Alert';
 import Spinner from 'react-bootstrap/esm/Spinner';
 import { InformationSVG } from '../../../svgs/Information';
+import QRCodeComponent from '../../shared/QRCode/QRCode';
 
 const BTCDeposit = (props) => {
   const { btcDeposit } = useHttp();
   const [responseStatus, setResponseStatus] = useState(CallStatus.NONE);
   const [responseMessage, setResponseMessage] = useState('');
   const [showToast, setShowToast] = useState(false);
-
-  const copyHandler = () => {
-    navigator.clipboard.writeText(responseMessage || '');
-    setShowToast(true);
-  }
 
   useEffect(() => {
     setResponseStatus(CallStatus.PENDING);
@@ -66,30 +57,7 @@ const BTCDeposit = (props) => {
           <h4 className='text-blue fw-bold'>Deposit</h4>
           <Card.Body className='py-0 px-1'>
             {responseStatus === CallStatus.SUCCESS ?
-              <div className='py-0 px-1 d-flex flex-column align-items-center justify-content-start'>
-                <Row className='qr-container d-flex align-items-start justify-content-center pt-3'>
-                  <Image className='qr-cln-logo' rounded={true} src='/images/cln-logo.svg' />
-                  <QRCodeCanvas value={responseMessage || ''} size={220} includeMargin={true} />
-                </Row>
-                <Row className='w-100 mt-5 d-flex align-items-start justify-content-center'>
-                  <InputGroup className='mb-3'>
-                    <Form.Control
-                      onClick={copyHandler}
-                      placeholder={responseMessage}
-                      aria-label={responseMessage}
-                      aria-describedby='copy-addon'
-                      className='form-control-left'
-                      readOnly
-                    />
-                    <InputGroup.Text
-                      className='form-control-addon form-control-addon-right'
-                      onClick={copyHandler}
-                    >
-                      <CopySVG id={responseMessage} />
-                    </InputGroup.Text>
-                  </InputGroup>
-                </Row>
-              </div>
+              <QRCodeComponent message={responseMessage} onCopy={() => setShowToast(true)} className='py-0 px-1 d-flex flex-column align-items-center justify-content-start' />
             :
               responseStatus === CallStatus.ERROR ?
                 <>
