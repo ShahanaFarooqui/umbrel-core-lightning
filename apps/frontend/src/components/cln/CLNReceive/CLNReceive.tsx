@@ -1,5 +1,5 @@
 import './CLNReceive.scss';
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 import Card from 'react-bootstrap/Card';
@@ -13,7 +13,6 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import logger from '../../../services/logger.service';
 import useInput from '../../../hooks/use-input';
 import useHttp from '../../../hooks/use-http';
-import { AppContext } from '../../../store/AppContext';
 import { ActionSVG } from '../../../svgs/Action';
 import { AmountSVG } from '../../../svgs/Amount';
 import { AddressSVG } from '../../../svgs/Address';
@@ -28,7 +27,6 @@ const CLNReceive = (props) => {
   const [responseStatus, setResponseStatus] = useState('');
   const [responseMessage, setResponseMessage] = useState('');
 
-  const appCtx = useContext(AppContext);
   const {
     value: pubkeyValue,
     isValid: pubkeyIsValid,

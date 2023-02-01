@@ -32,31 +32,10 @@ const useHttp = () => {
     });
   }, [appCtx]);
 
-  const openChannel = (pubkey: string, amount: number, feeRate: string, announce: boolean) => {
-    return sendRequest('post', '/cln/call', { 'method': 'fundchannel', 'params': { 'id': pubkey, 'amount': amount, 'feerate': feeRate, 'announce': announce } });
-  };
-
-  const btcWithdraw = (address: string, amount: string, feeRate: string) => {
-    return sendRequest('post', '/cln/call', { 'method': 'withdraw', 'params': { 'destination': address, 'satoshi': amount, 'feerate': feeRate } });
-  };
-
-  const btcDeposit = () => {
-    return sendRequest('post', '/cln/call', { 'method': 'newaddr', 'params': { 'addresstype': 'bech32' } });
-  };
-
-  const clnSendPayment = (invoice: string) => {
-    return sendRequest('post', '/cln/call', { 'method': 'pay', 'params': { 'bolt11': invoice } });
-  };
-
-  const clnReceiveInvoice = (amount: number, label: string, description: string) => {
-    return sendRequest('post', '/cln/call', { 'method': 'invoice', 'params': { 'amount_msat': (amount * SATS_MSAT), 'label': label, 'description': description } });
-  };
-
   const sendRequest = (method: string, url: string, reqBody: any = null) => {
     try {
       return axios({
-        // timeout: 12 * 60000,
-        timeout: 5000,
+        timeout: 10 * 60000,
         method: method,
         url: API_BASE_URL + API_VERSION + url,
         data: reqBody
@@ -66,6 +45,26 @@ const useHttp = () => {
       return err;
     }
   };
+
+  const openChannel = useCallback((pubkey: string, amount: number, feeRate: string, announce: boolean) => {
+    return sendRequest('post', '/cln/call', { 'method': 'fundchannel', 'params': { 'id': pubkey, 'amount': amount, 'feerate': feeRate, 'announce': announce } });
+  }, [sendRequest]);
+
+  const btcWithdraw = useCallback((address: string, amount: string, feeRate: string) => {
+    return sendRequest('post', '/cln/call', { 'method': 'withdraw', 'params': { 'destination': address, 'satoshi': amount, 'feerate': feeRate } });
+  }, [sendRequest]);
+
+  const btcDeposit = useCallback(() => {
+    return sendRequest('post', '/cln/call', { 'method': 'newaddr', 'params': { 'addresstype': 'bech32' } });
+  }, [sendRequest]);
+
+  const clnSendPayment = useCallback((invoice: string) => {
+    return sendRequest('post', '/cln/call', { 'method': 'pay', 'params': { 'bolt11': invoice } });
+  }, [sendRequest]);
+
+  const clnReceiveInvoice = useCallback((amount: number, label: string, description: string) => {
+    return sendRequest('post', '/cln/call', { 'method': 'invoice', 'params': { 'amount_msat': (amount * SATS_MSAT), 'label': label, 'description': description } });
+  }, [sendRequest]);
 
   const sendRequestToSetStore = useCallback((setStoreFunction: any, method: string, url: string, reqBody: any = null) => {
     try {

@@ -30,7 +30,7 @@ const App = () => {
   const [showNodeInfoModal, setShowNodeInfoModal] = useState(false);
   const [showConnectWalletModal, setShowConnectWalletModal] = useState(false);
   const [showToast, setShowToast] = useState(false);
-  const [toastMessage, setToastMessage] = useState('');
+  const [toastMessage] = useState('');
   
   const { fetchData } = useHttp();
 

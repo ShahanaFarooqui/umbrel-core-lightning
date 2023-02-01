@@ -49,6 +49,7 @@ const BTCDeposit = (props) => {
       setResponseStatus(CallStatus.ERROR);
       setResponseMessage(err.response && err.response.data ? err.response.data : err.message ? err.message : JSON.stringify(err));
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -70,7 +71,7 @@ const BTCDeposit = (props) => {
                   <Image className='qr-cln-logo' rounded={true} src='/images/cln-logo.svg' />
                   <QRCodeCanvas value={responseMessage || ''} size={220} includeMargin={true} />
                 </Row>
-                <Row className='w-100 d-flex align-items-start justify-content-center pt-2'>
+                <Row className='w-100 mt-5 d-flex align-items-start justify-content-center'>
                   <InputGroup className='mb-3'>
                     <Form.Control
                       onClick={copyHandler}

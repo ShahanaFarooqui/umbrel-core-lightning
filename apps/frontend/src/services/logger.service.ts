@@ -41,4 +41,6 @@ export class ConsoleLogger implements Logger {
   }
 }
 
-export default new ConsoleLogger({ level: LOG_LEVEL });
+const logger = new ConsoleLogger({ level: LOG_LEVEL });
+
+export default logger;

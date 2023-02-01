@@ -36,6 +36,12 @@
     stroke: $light-dark;
   }
 
+  .btn-link {
+    &:hover, &:active {
+      color: lighten($primary, 20%);
+    }
+  }
+  
   .dropdown {
     & a.dropdown-item {
       color: $white;
