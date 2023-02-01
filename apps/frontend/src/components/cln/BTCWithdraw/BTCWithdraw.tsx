@@ -112,11 +112,11 @@ const BTCWithdraw = (props) => {
               <Card.Body className='py-0 px-1 d-flex flex-column align-items-start justify-content-between'>
                 <Row className='d-flex align-items-start justify-content-center'>
                 <Col xs={12}>
-                    <Form.Label className='mb-1 pt-3 text-dark d-flex align-items-center justify-content-between'>
+                    <Form.Label className='text-dark d-flex align-items-center justify-content-between'>
                       <span>Amount</span>
                       <Button variant='link' onClick={() => amountValue === 'All' ?  amountChangeHandler({target: {value: null}}) : amountChangeHandler({target: {value: 'All'}})}>{amountValue === 'All' ? 'Custom Amount' : 'Send All'}</Button>
                     </Form.Label>
-                    <InputGroup className={(amountHasError ? 'invalid mb-2' : 'mb-2')}>
+                    <InputGroup className={(amountHasError ? 'invalid ' : '')}>
                       <InputGroup.Text className={'form-control-addon form-control-addon-left ' + (amountValue === 'All' ? 'form-control-addon-disabled' : '')}>
                         <AmountSVG />
                       </InputGroup.Text>
@@ -164,8 +164,8 @@ const BTCWithdraw = (props) => {
                     }
                   </Col>
                   <Col xs={12}>
-                    <Form.Label className='mb-1 text-dark'>Address</Form.Label>
-                    <InputGroup className={(addressHasError ? 'invalid mb-2' : 'mb-2')}>
+                    <Form.Label className=' text-dark'>Address</Form.Label>
+                    <InputGroup className={(addressHasError ? 'invalid ' : '')}>
                       <InputGroup.Text className='form-control-addon form-control-addon-left'>
                         <AddressSVG />
                       </InputGroup.Text>
@@ -188,7 +188,7 @@ const BTCWithdraw = (props) => {
                     </p>
                   </Col>
                   <Col xs={12}>
-                    <Form.Label className='mb-1 text-dark d-flex align-items-center justify-content-between'>
+                    <Form.Label className=' text-dark d-flex align-items-center justify-content-between'>
                       Fee Rate
                     </Form.Label>
                     <Form.Range tabIndex={3} defaultValue={feeRate} min='0' max='2' onChange={feeRateChangeHandler} />

@@ -203,6 +203,10 @@ body #root {
   }
 }
 
+label.form-label {
+  margin-bottom: 0;
+}
+
 .input-group {
   & .form-control {
     font-size: 14px;
@@ -285,6 +289,7 @@ body #root {
   font-size: 12px;
   font-weight: 600;
   word-break: break-all;
+  margin-bottom: 0.5rem;
   &.invalid {
     color: $danger;
   }

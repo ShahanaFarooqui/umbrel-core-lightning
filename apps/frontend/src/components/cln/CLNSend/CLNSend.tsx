@@ -142,16 +142,16 @@ const CLNSend = (props) => {
                 <FontAwesomeIcon icon={faCircleXmark} onClick={props.onClose} size='lg' />
               </Card.Header>
               <h4 className='text-blue fw-bold'>Send Payment</h4>
-              <Card.Body className='py-0 px-1 d-flex flex-column align-items-start justify-content-between'>
+              <Card.Body className='pb-0 px-1 d-flex flex-column align-items-start justify-content-between'>
                 <Row className='d-flex align-items-start justify-content-center'>
-                  <Col xs={12} className='pt-3 d-flex align-items-start justify-content-between'>
+                  <Col xs={12} className='mb-1 d-flex align-items-start justify-content-between'>
                     <Form.Check tabIndex={1} onChange={paymentTypeChangeHandler} checked={paymentType === PaymentType.INVOICE} inline className='text-dark' label='Invoice' name='payType' type='radio' id='Invoice' />
                     <Form.Check tabIndex={2} onChange={paymentTypeChangeHandler} checked={paymentType === PaymentType.OFFER} inline className='text-dark' label='Offer' name='payType' type='radio' id='Offer' />
                     <Form.Check tabIndex={3} onChange={paymentTypeChangeHandler} checked={paymentType === PaymentType.KEYSEND} inline className='text-dark' label='Keysend' name='payType' type='radio' id='Keysend' />
                   </Col>
                   <Col xs={12}>
-                    <Form.Label className='mb-1 pt-3 text-dark'>{paymentType === PaymentType.KEYSEND ? 'Pubkey' : paymentType === PaymentType.OFFER ? 'Offer' : 'Invoice'}</Form.Label>
-                    <InputGroup className={(invoiceHasError ? 'invalid mb-2' : 'mb-2')}>
+                    <Form.Label className='text-dark'>{paymentType === PaymentType.KEYSEND ? 'Pubkey' : paymentType === PaymentType.OFFER ? 'Offer' : 'Invoice'}</Form.Label>
+                    <InputGroup className={(invoiceHasError ? 'invalid' : '')}>
                       <InputGroup.Text className='form-control-addon form-control-addon-left'>
                         <AddressSVG />
                       </InputGroup.Text>
@@ -176,8 +176,8 @@ const CLNSend = (props) => {
                   </Col>
                   {paymentType === PaymentType.KEYSEND ? 
                     <Col xs={12}>
-                      <Form.Label className='mb-1 text-dark'>Amount</Form.Label>
-                      <InputGroup className={(amountHasError ? 'invalid mb-2' : 'mb-2')}>
+                      <Form.Label className='text-dark'>Amount</Form.Label>
+                      <InputGroup className={(amountHasError ? 'invalid' : '')}>
                         <InputGroup.Text className='form-control-addon form-control-addon-left'>
                           <AmountSVG />
                         </InputGroup.Text>
@@ -203,7 +203,7 @@ const CLNSend = (props) => {
                     <></>
                   }
                 </Row>
-                <Row className='d-flex align-items-start justify-content-center mb-2'>
+                <Row className='d-flex align-items-start justify-content-center'>
                   <Col xs={12} className={responseStatus === CallStatus.ERROR ? 'message invalid' : responseStatus === CallStatus.PENDING ? 'message pending' : 'message success'}>
                     {responseStatus === CallStatus.SUCCESS ? <InformationSVG svgClassName='me-1' className='fill-success' /> : ''}
                     {responseStatus === CallStatus.PENDING ? 'Sending Payment...' : responseMessage }

@@ -109,11 +109,11 @@ const OpenChannel = (props) => {
                 </div>
                 <FontAwesomeIcon icon={faCircleXmark} onClick={props.onClose} size='lg' />
               </Card.Header>
-              <Card.Body className='py-0 px-1 d-flex flex-column align-items-start justify-content-between'>
+              <Card.Body className='pb-0 px-1 d-flex flex-column align-items-start justify-content-between'>
                 <Row className='d-flex align-items-start justify-content-center'>
                   <Col xs={12}>
-                    <Form.Label className='mb-1 pt-3 text-dark'>Node ID</Form.Label>
-                    <InputGroup className={(pubkeyHasError ? 'invalid mb-2' : 'mb-2')}>
+                    <Form.Label className='text-dark'>Node ID</Form.Label>
+                    <InputGroup className={(pubkeyHasError ? 'invalid' : '')}>
                       <InputGroup.Text className='form-control-addon form-control-addon-left'>
                         <AddressSVG />
                       </InputGroup.Text>
@@ -137,8 +137,8 @@ const OpenChannel = (props) => {
                     </p>
                   </Col>
                   <Col xs={12}>
-                    <Form.Label className='mb-1 text-dark'>Amount</Form.Label>
-                    <InputGroup className={(amountHasError ? 'invalid mb-2' : 'mb-2')}>
+                    <Form.Label className='text-dark'>Amount</Form.Label>
+                    <InputGroup className={(amountHasError ? 'invalid ' : '')}>
                       <InputGroup.Text className='form-control-addon form-control-addon-left'>
                         <AmountSVG />
                       </InputGroup.Text>
@@ -195,7 +195,7 @@ const OpenChannel = (props) => {
                     />
                   </Col>
                   <Col xs={12}>
-                    <Form.Label className='mb-1 mt-3 text-dark d-flex align-items-center justify-content-between'>
+                    <Form.Label className='text-dark d-flex align-items-center justify-content-between'>
                       Fee Rate
                     </Form.Label>
                     <Form.Range tabIndex={4} defaultValue={feeRate} min='0' max='2' onChange={feeRateChangeHandler} />

@@ -140,15 +140,15 @@ const CLNReceive = (props) => {
                 <FontAwesomeIcon icon={faCircleXmark} onClick={props.onClose} size='lg' />
               </Card.Header>
               <h4 className='text-blue fw-bold'>Generate {paymentType === PaymentType.OFFER ? 'Offer' : 'Invoice'}</h4>
-              <Card.Body className='py-0 px-1 d-flex flex-column align-items-start justify-content-between'>
+              <Card.Body className='pb-0 px-1 d-flex flex-column align-items-start justify-content-between'>
                 <Row className='d-flex align-items-start justify-content-center'>
-                  <Col xs={12} className='pt-3 d-flex align-items-start justify-content-start'>
+                  <Col xs={12} className='mb-1 d-flex align-items-start justify-content-start'>
                     <Form.Check tabIndex={1} onChange={paymentTypeChangeHandler} checked={paymentType === PaymentType.INVOICE} inline className='text-dark' label='Invoice' name='payType' type='radio' id='Invoice' />
                     <Form.Check tabIndex={2} onChange={paymentTypeChangeHandler} checked={paymentType === PaymentType.OFFER} inline className='ms-3 text-dark' label='Offer' name='payType' type='radio' id='Offer' />
                   </Col>
                   <Col xs={12}>
-                    <Form.Label className='mb-1 pt-3 text-dark'>Description</Form.Label>
-                    <InputGroup className={(descriptionHasError ? 'invalid mb-2' : 'mb-2')}>
+                    <Form.Label className='text-dark'>Description</Form.Label>
+                    <InputGroup className={(descriptionHasError ? 'invalid' : '')}>
                       <InputGroup.Text className='form-control-addon form-control-addon-left'>
                         <DescriptionSVG />
                       </InputGroup.Text>
@@ -172,8 +172,8 @@ const CLNReceive = (props) => {
                     </p>
                   </Col>
                   <Col xs={12}>
-                    <Form.Label className='mb-1 text-dark'>Amount</Form.Label>
-                    <InputGroup className={(amountHasError ? 'invalid mb-2' : 'mb-2')}>
+                    <Form.Label className='text-dark'>Amount</Form.Label>
+                    <InputGroup className={(amountHasError ? 'invalid' : '')}>
                       <InputGroup.Text className='form-control-addon form-control-addon-left'>
                         <AmountSVG />
                       </InputGroup.Text>
