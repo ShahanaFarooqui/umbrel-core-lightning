@@ -142,7 +142,7 @@ const CLNReceive = (props) => {
               </Card.Body>
               <Card.Footer className='d-flex justify-content-center'>
                 <Button type='submit' variant='primary' className='btn-rounded fw-bold' disabled={responseStatus === CallStatus.PENDING}>
-                  Open Channel
+                  Generate Invoice
                   <ActionSVG className='ms-2' />
                 </Button>
               </Card.Footer>

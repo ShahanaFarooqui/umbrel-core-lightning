@@ -97,7 +97,7 @@ const BTCWithdraw = (props) => {
                 </div>
                 <FontAwesomeIcon icon={faCircleXmark} onClick={props.onClose} size='lg' />
               </Card.Header>
-              <h4 className='text-dark fw-bold'>Withdraw</h4>
+              <h4 className='text-blue fw-bold'>Withdraw</h4>
               <Card.Body className='py-0 px-1 d-flex flex-column align-items-start justify-content-between'>
                 <Row className='d-flex align-items-start justify-content-center'>
                 <Col xs={12}>

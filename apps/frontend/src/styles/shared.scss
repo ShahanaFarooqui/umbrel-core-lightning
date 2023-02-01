@@ -9,6 +9,10 @@ body #root {
   transition: filter .2s ease;
 }
 
+.text-blue {
+  color: $blue;
+}
+
 .fs-7 {
   font-size: .75rem !important;
 }

@@ -63,7 +63,7 @@ const ConnectWallet = (props) => {
             <QRCodeCanvas value={clnConnectUrl || ''} size={200} includeMargin={true} />
           </Row>
           <Row className='d-flex align-items-start justify-content-center pt-2'>
-            <h4 className='w-75 text-dark fw-bold d-flex justify-content-center py-3 text-center'>
+            <h4 className='w-75 text-blue fw-bold d-flex justify-content-center py-3 text-center'>
               Connect your lightning wallet to your node
             </h4>
           </Row>

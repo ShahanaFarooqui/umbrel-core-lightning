@@ -63,7 +63,7 @@ const BTCDeposit = (props) => {
             </div>
             <FontAwesomeIcon icon={faCircleXmark} onClick={props.onClose} size='lg' />
           </Card.Header>
-          <h4 className='text-dark fw-bold'>Deposit</h4>
+          <h4 className='text-blue fw-bold'>Deposit</h4>
           <Card.Body className='py-0 px-1'>
             {responseStatus === CallStatus.SUCCESS ?
               <div className='py-0 px-1 d-flex flex-column align-items-center justify-content-start'>
