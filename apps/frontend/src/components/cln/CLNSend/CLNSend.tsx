@@ -9,6 +9,7 @@ import Spinner from 'react-bootstrap/Spinner';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
+import Alert from 'react-bootstrap/Alert';
 
 import logger from '../../../services/logger.service';
 import useInput from '../../../hooks/use-input';
@@ -72,7 +73,6 @@ const CLNSend = (props) => {
   }
 
   const sendInvoice = (type: PaymentType, invoice: string, amount: number) => {
-    setResponseStatus(CallStatus.PENDING);
     clnSendPayment(type, invoice, amount)
     .then((response: any) => {
       logger.info(response);
@@ -96,8 +96,9 @@ const CLNSend = (props) => {
     event.preventDefault();
     touchFormControls();
     if (!formIsValid) { return; }
+    setResponseStatus(CallStatus.PENDING);
+    setResponseMessage('Sending Payment...');
     if (paymentType === PaymentType.OFFER) {
-      setResponseStatus(CallStatus.PENDING);
       decodeInvoice(invoiceValue)
       .then((decodeRes: any) => {
         logger.info(decodeRes);
@@ -203,13 +204,14 @@ const CLNSend = (props) => {
                     <></>
                   }
                 </Row>
-                <Row className='d-flex align-items-start justify-content-center'>
-                  <Col xs={12} className={responseStatus === CallStatus.ERROR ? 'message invalid' : responseStatus === CallStatus.PENDING ? 'message pending' : 'message success'}>
-                    {responseStatus === CallStatus.SUCCESS ? <InformationSVG svgClassName='me-1' className='fill-success' /> : ''}
-                    {responseStatus === CallStatus.PENDING ? 'Sending Payment...' : responseMessage }
-                    {responseStatus === CallStatus.PENDING ? <Spinner className='me-2' variant='primary' size='sm' /> : ''}
-                  </Col>
-                </Row>
+                { (responseStatus !== CallStatus.NONE) ?
+                  <Alert className='w-100' variant={responseStatus === CallStatus.ERROR ? 'danger' : responseStatus === CallStatus.PENDING ? 'warning' : responseStatus === CallStatus.SUCCESS ? 'success' : ''}>
+                    {responseStatus === CallStatus.PENDING ? <Spinner className='me-2' variant='primary' size='sm' /> : <InformationSVG svgClassName='me-1' className={responseStatus === CallStatus.ERROR ? 'fill-danger' : 'fill-success'} />}
+                    {responseMessage}
+                  </Alert>
+               :
+                  <></>
+                }
               </Card.Body>
               <Card.Footer className='d-flex justify-content-center'>
                 <Button tabIndex={6} type='submit' variant='primary' className='btn-rounded fw-bold' disabled={responseStatus === CallStatus.PENDING}>

@@ -78,7 +78,7 @@ const OpenChannel = (props) => {
     touchFormControls();
     if (!formIsValid) { return; }
     setResponseStatus(CallStatus.PENDING);
-    setResponseMessage('');
+    setResponseMessage('Opening Channel...');
     openChannel(pubkeyValue, +amountValue, feeRate.toLowerCase(), announce)
     .then((response: any) => {
       logger.info(response);
@@ -206,11 +206,15 @@ const OpenChannel = (props) => {
                     </Row>
                   </Col>
                 </Row>
-                <Alert className='w-100' variant={responseStatus === CallStatus.ERROR ? 'danger' : responseStatus === CallStatus.PENDING ? 'warning' : responseStatus === CallStatus.SUCCESS ? 'success' : ''}>
-                  {responseStatus === CallStatus.SUCCESS ? <InformationSVG svgClassName='me-1' className='fill-success' /> : responseStatus === CallStatus.ERROR ? <InformationSVG svgClassName='me-1' className='fill-danger' /> : responseStatus === CallStatus.PENDING ? <Spinner className='me-2' variant='primary' size='sm' /> : ''}
-                  {responseStatus === CallStatus.PENDING ? 'Opening Channel...' : responseMessage}
-                </Alert>
-              </Card.Body>
+                { (responseStatus !== CallStatus.NONE) ?
+                  <Alert className='w-100' variant={responseStatus === CallStatus.ERROR ? 'danger' : responseStatus === CallStatus.PENDING ? 'warning' : responseStatus === CallStatus.SUCCESS ? 'success' : ''}>
+                    {responseStatus === CallStatus.PENDING ? <Spinner className='me-2' variant='primary' size='sm' /> : <InformationSVG svgClassName='me-1' className={responseStatus === CallStatus.ERROR ? 'fill-danger' : 'fill-success'} />}
+                    {responseMessage}
+                  </Alert>
+                :
+                  <></>
+                }
+             </Card.Body>
               <Card.Footer className='d-flex justify-content-center'>
                 <Button tabIndex={5} type='submit' variant='primary' className='btn-rounded fw-bold' disabled={responseStatus === CallStatus.PENDING}>
                   Open Channel

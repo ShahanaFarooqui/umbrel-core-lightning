@@ -23,7 +23,7 @@ const BTCDeposit = (props) => {
 
   useEffect(() => {
     setResponseStatus(CallStatus.PENDING);
-    setResponseMessage('');
+    setResponseMessage('Generating New Address...');
     btcDeposit()
     .then((response: any) => {
       logger.info(response);
@@ -60,16 +60,14 @@ const BTCDeposit = (props) => {
               <QRCodeComponent message={responseMessage} onCopy={() => setShowToast(true)} className='py-0 px-1 d-flex flex-column align-items-center justify-content-start' />
             :
               responseStatus === CallStatus.ERROR ?
-                <>
-                  <Alert className='w-100' variant='danger'>
-                    <InformationSVG svgClassName='me-1' className='fill-danger' />
-                    {responseMessage}
-                  </Alert>                
-                </>
+                <Alert className='w-100' variant='danger'>
+                  <InformationSVG svgClassName='me-1' className='fill-danger' />
+                  {responseMessage}
+                </Alert>
               :
                 <Alert className='w-100' variant='warning'>
                   <Spinner className='me-2' variant='primary' size='sm' />
-                  Generating New Address...
+                  {responseMessage}
                 </Alert>
             }
           </Card.Body>

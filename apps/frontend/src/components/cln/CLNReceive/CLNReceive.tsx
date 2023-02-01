@@ -81,7 +81,7 @@ const CLNReceive = (props) => {
     touchFormControls();
     if (!formIsValid) { return; }
     setResponseStatus(CallStatus.PENDING);
-    setResponseMessage('Generating ' + (paymentType === PaymentType.OFFER ? 'Offer' : 'Invoice'));
+    setResponseMessage('Generating ' + (paymentType === PaymentType.OFFER ? 'Offer' : 'Invoice') + '...');
     clnReceiveInvoice(paymentType, +amountValue, descriptionValue, ('umbrellbl' + Math.random().toString(36).slice(2) + Date.now()))
     .then((response: any) => {
       logger.info(response);
