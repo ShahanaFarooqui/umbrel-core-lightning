@@ -50,7 +50,7 @@ const Channels = (props) => {
                             </div>
                             <ProgressBar>
                               <ProgressBar variant='primary' now={(channel.satoshi_to_us > 1000000 || channel.satoshi_to_them > 1000000) ? (channel.satoshi_to_us / 1000) : channel.satoshi_to_us} key={1} />
-                              <ProgressBar variant='success' now={(channel.satoshi_to_us > 1000000 || channel.satoshi_to_them > 1000000) ? (channel.satoshi_to_them / 1000) : channel.satoshi_to_them} key={2} />
+                              <ProgressBar variant='light' now={(channel.satoshi_to_us > 1000000 || channel.satoshi_to_them > 1000000) ? (channel.satoshi_to_them / 1000) : channel.satoshi_to_them} key={2} />
                             </ProgressBar>
                             <Row className='text-light d-flex align-items-end justify-content-between'>
                               <Col xs={6} className='fs-7 fw-bold d-flex justify-content-start'>

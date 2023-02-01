@@ -66,10 +66,12 @@ const useHttp = () => {
     }
   };
 
-  const clnReceiveInvoice = (amount: number, label: string, description: string) => {
-    return sendRequest('post', '/cln/call', { 'method': 'invoice', 'params': { 'amount_msat': (amount * SATS_MSAT), 'label': label, 'description': description } });
-    // REMOVE AFTER TESTING on v0.11.0
-    // return sendRequest('post', '/cln/call', { 'method': 'invoice', 'params': { 'msatoshi': (amount * SATS_MSAT), 'label': label, 'description': description } });
+  const clnReceiveInvoice = (invoiceType: PaymentType, amount: number, description: string, label: string) => {
+    if (invoiceType === PaymentType.OFFER) {
+      return sendRequest('post', '/cln/call', { 'method': 'offer', 'params': { 'amount': (amount * SATS_MSAT), 'description': description } });
+    } else {
+      return sendRequest('post', '/cln/call', { 'method': 'invoice', 'params': { 'amount_msat': (amount * SATS_MSAT), 'label': label, 'description': description } });
+    }
   };
 
   const decodeInvoice = (invoice: string) => {

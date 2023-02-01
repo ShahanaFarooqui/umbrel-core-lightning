@@ -9,12 +9,13 @@ import Spinner from 'react-bootstrap/Spinner';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
+import Alert from 'react-bootstrap/Alert';
 
 import logger from '../../../services/logger.service';
 import useInput from '../../../hooks/use-input';
 import useHttp from '../../../hooks/use-http';
 import { formatFiatValue } from '../../../utilities/data-formatters';
-import { CallStatus } from '../../../utilities/constants';
+import { CallStatus, PaymentType } from '../../../utilities/constants';
 import { AppContext } from '../../../store/AppContext';
 import { ActionSVG } from '../../../svgs/Action';
 import { AmountSVG } from '../../../svgs/Amount';
@@ -27,12 +28,13 @@ import ToastMessage from '../../shared/ToastMessage/ToastMessage';
 const CLNReceive = (props) => {
   const appCtx = useContext(AppContext);
   const { clnReceiveInvoice } = useHttp();
+  const [paymentType, setPaymentType] = useState(PaymentType.INVOICE);
   const [showInvoice, setShowInvoice] = useState(false);
   const [showToast, setShowToast] = useState(false);
-  const [responseStatus, setResponseStatus] = useState('');
+  const [responseStatus, setResponseStatus] = useState(CallStatus.NONE);
   const [responseMessage, setResponseMessage] = useState('');
 
-  const isValidAmount = (value) => value >= 0;
+  const isValidAmount = (value) => value.trim() !== '' && value >= 0;
   const isValidDescription = (value) => value.trim() !== '';
 
   const {
@@ -57,7 +59,18 @@ const CLNReceive = (props) => {
   if (descriptionIsValid && amountIsValid) {
     formIsValid = true;
   };
-  
+
+  const paymentTypeChangeHandler = (event) => {
+    setPaymentType(event.target.id);
+    resetDescription();
+    resetAmount();
+  }
+
+  const touchFormControls = () => {
+    descriptionBlurHandler(null);
+    amountBlurHandler(null);
+  };
+
   const resetFormValues = () => {
     resetDescription();
     resetAmount();
@@ -65,17 +78,19 @@ const CLNReceive = (props) => {
 
   const CLNReceiveHandler = (event) => {
     event.preventDefault();
+    touchFormControls();
     if (!formIsValid) { return; }
     setResponseStatus(CallStatus.PENDING);
-    clnReceiveInvoice(+amountValue, descriptionValue, ('umbrellbl' + Math.random().toString(36).slice(2) + Date.now()))
+    setResponseMessage('Generating ' + (paymentType === PaymentType.OFFER ? 'Offer' : 'Invoice'));
+    clnReceiveInvoice(paymentType, +amountValue, descriptionValue, ('umbrellbl' + Math.random().toString(36).slice(2) + Date.now()))
     .then((response: any) => {
       logger.info(response);
-      if (response.data && response.data.bolt11) {
+      if (response.data && (response.data.bolt11 || response.data.bolt12)) {
         setResponseStatus(CallStatus.SUCCESS);
-        setResponseMessage(response.data.bolt11);
+        setResponseMessage(response.data.bolt11 || response.data.bolt12);
         setShowInvoice(true);
         resetFormValues();
-        } else {
+      } else {
         setResponseStatus(CallStatus.ERROR);
         setResponseMessage('Unknown Error');
       }
@@ -99,14 +114,14 @@ const CLNReceive = (props) => {
                 </div>
                 <FontAwesomeIcon icon={faCircleXmark} onClick={props.onClose} size='lg' />
               </Card.Header>
-              <h4 className='text-blue fw-bold'>Invoice</h4>
+              <h4 className='text-blue fw-bold'>{paymentType === PaymentType.OFFER ? 'Offer' : 'Invoice'}</h4>
               <Card.Body className='py-0 px-1 d-flex flex-column align-items-start justify-content-between'>
                 <Row className='w-100 d-flex align-items-start justify-content-center'>
                   <QRCodeComponent message={responseMessage} onCopy={() => setShowToast(true)} className='py-0 px-1 d-flex flex-column align-items-center justify-content-start' />
                 </Row>
               </Card.Body>
           </Card.Body>
-          <ToastMessage message='Invoice Copied!' position='top-center' bg='primary' show={showToast} onClose={() => setShowToast(false)} />
+          <ToastMessage message={(paymentType === PaymentType.OFFER ? 'Offer' : 'Invoice') + ' Copied!'} position='top-center' bg='primary' show={showToast} onClose={() => setShowToast(false)} />
         </Card>
       </Row>
     );
@@ -124,9 +139,13 @@ const CLNReceive = (props) => {
                 </div>
                 <FontAwesomeIcon icon={faCircleXmark} onClick={props.onClose} size='lg' />
               </Card.Header>
-              <h4 className='text-blue fw-bold'>Generate Invoice</h4>
+              <h4 className='text-blue fw-bold'>Generate {paymentType === PaymentType.OFFER ? 'Offer' : 'Invoice'}</h4>
               <Card.Body className='py-0 px-1 d-flex flex-column align-items-start justify-content-between'>
                 <Row className='d-flex align-items-start justify-content-center'>
+                  <Col xs={12} className='pt-3 d-flex align-items-start justify-content-start'>
+                    <Form.Check tabIndex={1} onChange={paymentTypeChangeHandler} checked={paymentType === PaymentType.INVOICE} inline className='text-dark' label='Invoice' name='payType' type='radio' id='Invoice' />
+                    <Form.Check tabIndex={2} onChange={paymentTypeChangeHandler} checked={paymentType === PaymentType.OFFER} inline className='ms-3 text-dark' label='Offer' name='payType' type='radio' id='Offer' />
+                  </Col>
                   <Col xs={12}>
                     <Form.Label className='mb-1 pt-3 text-dark'>Description</Form.Label>
                     <InputGroup className={(descriptionHasError ? 'invalid mb-2' : 'mb-2')}>
@@ -135,7 +154,7 @@ const CLNReceive = (props) => {
                       </InputGroup.Text>
                       <Form.Control
                         autoFocus
-                        tabIndex={1}
+                        tabIndex={3}
                         id='description'
                         type='text'
                         placeholder='Description'
@@ -159,7 +178,7 @@ const CLNReceive = (props) => {
                         <AmountSVG />
                       </InputGroup.Text>
                       <Form.Control
-                        tabIndex={2}
+                        tabIndex={4}
                         id='amount'
                         type='number'
                         placeholder='Amount (Sats)'
@@ -196,17 +215,18 @@ const CLNReceive = (props) => {
                     }
                   </Col>
                 </Row>
-                <Row className='d-flex align-items-start justify-content-center mb-2'>
-                  <Col xs={12} className={responseStatus === CallStatus.ERROR ? 'message invalid' : responseStatus === CallStatus.PENDING ? 'message pending' : 'message success'}>
-                    {responseStatus === CallStatus.SUCCESS ? <InformationSVG svgClassName='me-1' className='fill-success' /> : ''}
-                    {responseStatus === CallStatus.PENDING ? 'Generating Invoice...' : responseMessage }
-                    {responseStatus === CallStatus.PENDING ? <Spinner className='me-2' variant='primary' size='sm' /> : ''}
-                  </Col>
-                </Row>
+                { (responseStatus !== CallStatus.NONE) ?
+                  <Alert className='w-100' variant={responseStatus === CallStatus.ERROR ? 'danger' : responseStatus === CallStatus.PENDING ? 'warning' : responseStatus === CallStatus.SUCCESS ? 'success' : ''}>
+                    {responseStatus === CallStatus.PENDING ? <Spinner className='me-2' variant='primary' size='sm' /> : <InformationSVG svgClassName='me-1' className={responseStatus === CallStatus.ERROR ? 'fill-danger' : 'fill-success'} />}
+                    {responseMessage}
+                  </Alert>
+               :
+                  <></>
+                }
               </Card.Body>
               <Card.Footer className='d-flex justify-content-center'>
-                <Button tabIndex={3} type='submit' variant='primary' className='btn-rounded fw-bold' disabled={responseStatus === CallStatus.PENDING}>
-                  Generate Invoice
+                <Button tabIndex={5} type='submit' variant='primary' className='btn-rounded fw-bold' disabled={responseStatus === CallStatus.PENDING}>
+                  Generate {paymentType === PaymentType.OFFER ? 'Offer' : 'Invoice'}
                   <ActionSVG className='ms-2' />
                 </Button>
               </Card.Footer>

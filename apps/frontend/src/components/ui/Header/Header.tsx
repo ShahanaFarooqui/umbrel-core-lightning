@@ -21,7 +21,7 @@ const Header = (props) => {
     updateConfig({...appCtx.appConfig, appMode: (appCtx.appConfig.appMode === ApplicationModes.DARK ? ApplicationModes.LIGHT : ApplicationModes.DARK)});
   };
 
-  if (currentScreenSize === Breakpoints.XS) {
+  if (currentScreenSize === Breakpoints.XS || currentScreenSize === Breakpoints.SM) {
     return (
       <Row className='header mb-5 mx-1' data-testid='header'>
         <Col xs={12} data-testid='header-info'>
@@ -57,7 +57,7 @@ const Header = (props) => {
       <Col xs={12} lg={8} data-testid='header-info'>
         <Image src='images/cln-logo.png' className='header-info-logo me-3 rounded float-start' alt='Core Lightning Logo' />
         <Row className='header-info-text mt-3'>
-          {(currentScreenSize !== Breakpoints.SM && currentScreenSize !== Breakpoints.MD) ?
+          {(currentScreenSize !== Breakpoints.MD) ?
             <h4 className='m-0 text-dark'><strong>Core Lightning Node</strong></h4>
           : 
             <Col xs={12} lg={4} className='d-flex align-items-center justify-content-between' data-testid='header-context'>
@@ -82,7 +82,7 @@ const Header = (props) => {
           </Col>
         </Row>
       </Col>
-      {(currentScreenSize !== Breakpoints.SM && currentScreenSize !== Breakpoints.MD) ?
+      {(currentScreenSize !== Breakpoints.MD) ?
         <Col xs={12} lg={4} className='d-flex align-items-center justify-content-end' data-testid='header-context'>
           <div className='d-flex'>
             <Settings onShowNodeInfo={props.onShowNodeInfo} onShowConnectWallet={props.onShowConnectWallet} />

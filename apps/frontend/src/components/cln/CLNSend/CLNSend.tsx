@@ -25,10 +25,10 @@ const CLNSend = (props) => {
   const appCtx = useContext(AppContext);
   const { clnSendPayment, decodeInvoice, fetchInvoice } = useHttp();
   const [paymentType, setPaymentType] = useState(PaymentType.INVOICE);
-  const [responseStatus, setResponseStatus] = useState('');
+  const [responseStatus, setResponseStatus] = useState(CallStatus.NONE);
   const [responseMessage, setResponseMessage] = useState('');
 
-  const isValidAmount = (value) => value > 0 && value <= (appCtx.walletBalances.clnLocalBalance || 0);
+  const isValidAmount = (value) => value.trim() !== '' && value > 0 && value <= (appCtx.walletBalances.clnLocalBalance || 0);
   const isValidInvoice = (value) => value.trim() !== '';
 
   const {
@@ -53,7 +53,12 @@ const CLNSend = (props) => {
   if ((paymentType !== PaymentType.KEYSEND && invoiceIsValid) || (paymentType === PaymentType.KEYSEND && invoiceIsValid && amountIsValid)) {
     formIsValid = true;
   };
-  
+
+  const touchFormControls = () => {
+    invoiceBlurHandler(null);
+    amountBlurHandler(null);
+  };
+
   const resetFormValues = () => {
     setPaymentType(PaymentType.INVOICE);
     resetInvoice();
@@ -89,6 +94,7 @@ const CLNSend = (props) => {
 
   const CLNSendHandler = (event) => {
     event.preventDefault();
+    touchFormControls();
     if (!formIsValid) { return; }
     if (paymentType === PaymentType.OFFER) {
       setResponseStatus(CallStatus.PENDING);

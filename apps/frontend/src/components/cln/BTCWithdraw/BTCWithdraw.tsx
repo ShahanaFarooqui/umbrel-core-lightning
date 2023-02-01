@@ -30,7 +30,7 @@ const BTCWithdraw = (props) => {
   const [responseStatus, setResponseStatus] = useState(CallStatus.NONE);
   const [responseMessage, setResponseMessage] = useState('');
 
-  const isValidAmount = (value) => value === 'All' || (value > 0 && value <= (appCtx.walletBalances.btcConfBalance || 0));
+  const isValidAmount = (value) => value === 'All' || (value.trim() !== '' && value > 0 && value <= (appCtx.walletBalances.btcConfBalance || 0));
   const isValidAddress = (value) => value.trim() !== '';
 
   const {
@@ -60,6 +60,11 @@ const BTCWithdraw = (props) => {
     setFeeRate(FEE_RATES[+event.target.value]);
   };
 
+  const touchFormControls = () => {
+    addressBlurHandler(null);
+    amountBlurHandler(null);
+  };
+
   const resetFormValues = () => {
     resetAddress();
     resetAmount();
@@ -68,6 +73,7 @@ const BTCWithdraw = (props) => {
 
   const withdrawHandler = (event) => {
     event.preventDefault();
+    touchFormControls();
     if (!formIsValid) { return; }
     setResponseStatus(CallStatus.PENDING);
     setResponseMessage('');

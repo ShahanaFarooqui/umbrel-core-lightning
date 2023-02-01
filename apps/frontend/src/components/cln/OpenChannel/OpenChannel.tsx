@@ -31,7 +31,7 @@ const OpenChannel = (props) => {
   const [responseStatus, setResponseStatus] = useState(CallStatus.NONE);
   const [responseMessage, setResponseMessage] = useState('');
 
-  const isValidAmount = (value) => value > 0 && value <= (appCtx.walletBalances.btcConfBalance || 0);
+  const isValidAmount = (value) => value.trim() !== '' && value > 0 && value <= (appCtx.walletBalances.btcConfBalance || 0);
   const isValidPubkey = (value) => value.includes('@') && value.includes(':');
 
   const {
@@ -61,6 +61,11 @@ const OpenChannel = (props) => {
     setFeeRate(FEE_RATES[+event.target.value]);
   };
 
+  const touchFormControls = () => {
+    pubkeyBlurHandler(null);
+    amountBlurHandler(null);
+  };
+
   const resetFormValues = () => {
     resetPubkey();
     resetAmount();
@@ -70,6 +75,7 @@ const OpenChannel = (props) => {
 
   const openChannelHandler = (event) => {
     event.preventDefault();
+    touchFormControls();
     if (!formIsValid) { return; }
     setResponseStatus(CallStatus.PENDING);
     setResponseMessage('');
@@ -200,12 +206,6 @@ const OpenChannel = (props) => {
                     </Row>
                   </Col>
                 </Row>
-                {/* <Row className='d-flex align-items-start justify-content-center mb-3'>
-                  <Col xs={12} className={responseStatus === CallStatus.ERROR ? 'message invalid' : responseStatus === CallStatus.PENDING ? 'message pending' : 'message success'}>
-                    {responseStatus === CallStatus.SUCCESS ? <InformationSVG svgClassName='me-1' className='fill-success' /> : responseStatus === CallStatus.ERROR ? <InformationSVG svgClassName='me-1' className='fill-danger' /> : responseStatus === CallStatus.PENDING ? <Spinner variant='primary' size='sm' /> : ''}
-                    {responseStatus === CallStatus.PENDING ? 'Opening Channel...' : responseMessage}
-                  </Col>
-                </Row> */}
                 <Alert className='w-100' variant={responseStatus === CallStatus.ERROR ? 'danger' : responseStatus === CallStatus.PENDING ? 'warning' : responseStatus === CallStatus.SUCCESS ? 'success' : ''}>
                   {responseStatus === CallStatus.SUCCESS ? <InformationSVG svgClassName='me-1' className='fill-success' /> : responseStatus === CallStatus.ERROR ? <InformationSVG svgClassName='me-1' className='fill-danger' /> : responseStatus === CallStatus.PENDING ? <Spinner className='me-2' variant='primary' size='sm' /> : ''}
                   {responseStatus === CallStatus.PENDING ? 'Opening Channel...' : responseMessage}

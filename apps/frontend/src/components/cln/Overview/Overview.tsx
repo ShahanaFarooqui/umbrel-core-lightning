@@ -25,7 +25,7 @@ const Overview = () => {
         <Card className='bg-primary bg-gradient flex-grow-1'>
           <Card.Body className='d-flex align-items-center'>
             <Row className='flex-fill'>
-              <Col xs={6}>
+              <Col xs={6} lg={8} xxl={6}>
                 <div className='fs-6'>Total Balance</div>
                 { appCtx.walletBalances.isLoading ? 
                   <Spinner animation='grow' variant='secondary' /> : 
@@ -34,7 +34,7 @@ const Overview = () => {
                     <CurrencyBox value={(appCtx.walletBalances.btcConfBalance || 0) + (appCtx.walletBalances.clnLocalBalance || 0)} rootClasses='d-inline-flex flex-column' currencyClasses='lh-1 fs-4 fw-bold' unitClasses='fs-7 fw-bold'></CurrencyBox>
                 }
               </Col>
-              <Col xs={6} className='d-flex align-items-center justify-content-end'>
+              <Col xs={6} lg={4} xxl={6} className='d-flex align-items-center justify-content-end'>
                 <BalanceSVG />
               </Col>
             </Row>
@@ -45,7 +45,7 @@ const Overview = () => {
         <Card>
           <Card.Body>
             <Row>
-              <Col>
+              <Col xs={12} md={4} lg={4}>
                 <div className='d-flex align-items-center justify-content-start'>
                   <ChannelsSVG className='me-4' />
                   <div>
@@ -61,7 +61,7 @@ const Overview = () => {
                   </div>
                 </div>
               </Col>
-              <Col>
+              <Col xs={12} md={3} lg={3} className={(currentScreenSize === Breakpoints.XS || currentScreenSize === Breakpoints.SM) ? 'my-5' : ''}>
                 <div className='d-flex align-items-center justify-content-start'>
                   <PeersSVG className='me-4' />
                   <div>
@@ -77,12 +77,12 @@ const Overview = () => {
                   </div>
                 </div>
               </Col>
-              <Col xs={12} md={8} xl={6} xxl={5}>
+              <Col xs={12} md={5} lg={5} xxl={5}>
                 <div className='d-flex align-items-center justify-content-start'>
                   <CapacitySVG className='me-4' />
                   <Col>
                     <div className='d-flex align-items-center justify-content-between'>
-                      <div className='text-light-white'>{currentScreenSize === Breakpoints.XS ? 'Max Send' : 'Maximum Send'}</div>
+                      <div className='text-light-white'>{(currentScreenSize === Breakpoints.MD || currentScreenSize === Breakpoints.LG) ? 'Max Send' : 'Maximum Send'}</div>
                       { appCtx.walletBalances.isLoading ? 
                           <Spinner animation='grow' variant='primary' /> : 
                         appCtx.walletBalances.error ? 
@@ -91,7 +91,7 @@ const Overview = () => {
                       }
                     </div>
                     <div className='d-flex align-items-center justify-content-between'>
-                      <div className='text-light-white'>{currentScreenSize === Breakpoints.XS ? 'Max Receive' : 'Maximum Receive'}</div>
+                      <div className='text-light-white'>{(currentScreenSize === Breakpoints.MD || currentScreenSize === Breakpoints.LG) ? 'Max Receive' : 'Maximum Receive'}</div>
                       { appCtx.walletBalances.isLoading ? 
                           <Spinner animation='grow' variant='primary' /> : 
                         appCtx.walletBalances.error ? 

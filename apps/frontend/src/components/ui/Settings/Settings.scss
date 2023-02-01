@@ -18,8 +18,7 @@
 
 @include color-mode(light) {
   .btn-compact {
-    background-color: $white;
-    border-color: $gray-300;
+    background-color: $primary;
     & svg > path {
       fill: $dark;
     }
