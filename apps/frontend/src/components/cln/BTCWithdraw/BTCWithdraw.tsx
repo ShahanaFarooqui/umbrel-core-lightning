@@ -1,7 +1,7 @@
 import './BTCWithdraw.scss';
 import { useContext, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
+import { faCircleXmark, faXmark } from '@fortawesome/free-solid-svg-icons';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
@@ -30,7 +30,7 @@ const BTCWithdraw = (props) => {
   const [responseStatus, setResponseStatus] = useState(CallStatus.NONE);
   const [responseMessage, setResponseMessage] = useState('');
 
-  const isValidAmount = (value) => value === 'All' || (value.trim() !== '' && value > 0 && value <= (appCtx.walletBalances.btcConfBalance || 0));
+  const isValidAmount = (value) => value === 'All' || (value > 0 && value <= (appCtx.walletBalances.btcConfBalance || 0));
   const isValidAddress = (value) => value.trim() !== '';
 
   const {
@@ -114,7 +114,11 @@ const BTCWithdraw = (props) => {
                 <Col xs={12}>
                     <Form.Label className='text-dark d-flex align-items-center justify-content-between'>
                       <span>Amount</span>
-                      <Button variant='link' onClick={() => amountValue === 'All' ?  amountChangeHandler({target: {value: null}}) : amountChangeHandler({target: {value: 'All'}})}>{amountValue === 'All' ? 'Custom Amount' : 'Send All'}</Button>
+                      {amountValue !== 'All' ? 
+                        <Button variant='link' onClick={() => amountChangeHandler({target: {value: 'All'}})}>Send All</Button>
+                      :
+                        <></>
+                      }
                     </Form.Label>
                     <InputGroup className={(amountHasError ? 'invalid ' : '')}>
                       <InputGroup.Text className={'form-control-addon form-control-addon-left ' + (amountValue === 'All' ? 'form-control-addon-disabled' : '')}>
@@ -128,7 +132,7 @@ const BTCWithdraw = (props) => {
                         placeholder={'Amount (Between 1 - ' + parseFloat((appCtx.walletBalances.btcConfBalance || 0).toString()).toLocaleString('en-us')  + ' Sats)'}
                         aria-label='amount'
                         aria-describedby='addon-amount'
-                        className='form-control-right'
+                        className={amountValue === 'All' ? 'form-control-middle' : 'form-control-right'}
                         min='1'
                         max={appCtx.walletBalances.btcConfBalance}
                         value={amountValue}
@@ -136,6 +140,13 @@ const BTCWithdraw = (props) => {
                         onBlur={amountBlurHandler}
                         disabled={amountValue === 'All'}
                       />
+                      { amountValue === 'All' ? 
+                          <InputGroup.Text className={'form-control-addon form-control-addon-right'}>
+                            <FontAwesomeIcon icon={faXmark} size='sm' className='btn-addon-close' onClick={() => resetAmount()} />
+                          </InputGroup.Text>
+                        :
+                          <></>
+                      }
                     </InputGroup>
                     {
                       !amountHasError ?

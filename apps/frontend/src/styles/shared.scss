@@ -47,6 +47,7 @@ body #root {
 }
 
 .btn-link {
+  padding: 0 12px;
   font-size: .75rem;
   font-weight: 700;
   text-decoration: none;
@@ -215,6 +216,12 @@ label.form-label {
       box-shadow: none;
     }
   }
+  & .form-control-middle {
+    border-left: 0;
+    padding-left: 0;
+    border-right: 0;
+    padding-right: 0;
+  }
   & .form-control.form-control-left {
     cursor: pointer;
     border-right: 0;
@@ -237,9 +244,15 @@ label.form-label {
       cursor: pointer;
       border-left: 0;
       &:hover {
-        transform: scale(1.01);
         svg path {
           stroke: darken($primary, 10%);
+        }
+      }
+      & .btn-addon-close {
+        &:hover {
+          & path {
+            fill: darken($primary, 10%);
+          }
         }
       }
     }

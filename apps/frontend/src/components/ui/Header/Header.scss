@@ -7,16 +7,18 @@
 }
 
 .svg-night {
-  opacity: 0.8;
+  opacity: 0.5;
+
   &:hover {
     cursor: pointer;
     opacity: 1;
+    scale: 1.1;
     transition-duration: .5s;
-    transition-property: opacity;
+    transition-property: all;
     transition-timing-function: cubic-bezier(.4,0,.2,1);  
     & path {
       transition-duration: .5s;
-      transition-property: fill;
+      transition-property: all;
       transition-timing-function: cubic-bezier(.4,0,.2,1);  
       fill: $light-dark;
     }
@@ -24,16 +26,17 @@
 }
 
 .svg-day {
-  opacity: 0.8;
+  opacity: 0.5;
   &:hover {
     cursor: pointer;
     opacity: 1;
+    scale: 1.1;
     transition-duration: .5s;
-    transition-property: opacity;
+    transition-property: all;
     transition-timing-function: cubic-bezier(.4,0,.2,1);
     & path {
       transition-duration: .5s;
-      transition-property: fill;
+      transition-property: all;
       transition-timing-function: cubic-bezier(.4,0,.2,1);  
       fill: $primary;
     }
