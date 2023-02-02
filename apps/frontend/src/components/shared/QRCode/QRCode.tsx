@@ -1,5 +1,4 @@
 import './QRCode.scss';
-import { useState } from 'react';
 import { QRCodeCanvas } from 'qrcode.react';
 import Row from 'react-bootstrap/Row';
 import Form from 'react-bootstrap/Form';

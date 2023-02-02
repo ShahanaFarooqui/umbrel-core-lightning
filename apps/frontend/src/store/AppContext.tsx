@@ -103,11 +103,13 @@ const mergeLightningTransactions = (invoices: Invoice[], payments: Payment[]) =>
     if (v === (invoices.length || 0)) {
       payments.slice(p)?.map(payment => {
         mergedTransactions.push({type: 'PAYMENT', payment_hash: payment.payment_hash, status: payment.status, msatoshi: payment.msatoshi, label: payment.label, bolt11: payment.bolt11, description: payment.description, bolt12: payment.bolt12, payment_preimage: payment.payment_preimage, created_at: payment.created_at, msatoshi_sent: payment.msatoshi_sent, destination: payment.destination, expires_at: null, msatoshi_received: null, paid_at: null});
+        return payment;
       })
       i = totalTransactionsLength;
     } else if (p === (payments.length || 0)) {
       invoices.slice(v)?.map(invoice => {
         mergedTransactions.push({type: 'INVOICE', payment_hash: invoice.payment_hash, status: invoice.status, msatoshi: invoice.msatoshi, label: invoice.label, bolt11: invoice.bolt11, description: invoice.description, bolt12: invoice.bolt12, payment_preimage: invoice.payment_preimage, created_at: null, msatoshi_sent: null, destination: null, expires_at: invoice.expires_at, msatoshi_received: invoice.msatoshi_received, paid_at: invoice.paid_at});
+        return invoice;
       });
       i = totalTransactionsLength;
     } else if((payments[p].created_at || 0) >= (invoices[v].paid_at || invoices[v].expires_at || 0)) {
