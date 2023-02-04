@@ -48,7 +48,7 @@ const CLNWallet = (props) => {
               </Button>
             </ButtonGroup>
           </Card>
-          <Card.Body className='px-0 transaction-list'>
+          <Card.Body className='px-0 list-scroll-container'>
             <div className='fs-7 text-light'>Transactions</div>
             <PerfectScrollbar className='ps-show-always'>
               <Transactions />

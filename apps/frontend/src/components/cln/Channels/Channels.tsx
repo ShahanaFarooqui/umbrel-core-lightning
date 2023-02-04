@@ -26,7 +26,7 @@ const Channels = (props) => {
       <Card className='d-flex align-items-stretch'>
         <Card.Body className='d-flex align-items-stretch flex-column pt-4'>
           <Card.Header className='fs-6 p-0 fw-bold text-dark'>Payment Channels</Card.Header>
-          <Card.Body className='py-0 px-1 transaction-list'>
+          <Card.Body className='py-0 px-1 list-scroll-container'>
             { appCtx.listChannels.isLoading ? 
                 <span className='h-100 d-flex justify-content-center align-items-center'>
                   <Spinner animation='grow' variant='primary' />

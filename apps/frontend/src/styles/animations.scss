@@ -1,0 +1,24 @@
+.slide-component-enter {
+  opacity: 0;
+  transform: translateX(-100%);
+}
+
+.slide-component-enter-active {
+  opacity: 1;
+  transform: translateX(0%);
+}
+
+.slide-component-exit {
+  opacity: 1;
+  transform: translateX(0%);
+}
+
+.slide-component-exit-active {
+  opacity: 0;
+  transform: translateX(100%);
+}
+
+.slide-component-enter-active,
+.slide-component-exit-active {
+  transition: opacity 1000ms, transform 1000ms;
+}
