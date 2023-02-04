@@ -21,42 +21,40 @@ const BTCWallet = (props) => {
   const appCtx = useContext(AppContext);
 
   return (
-    <Row className='h-100 mx-1'>
-      <Card className='d-flex align-items-stretch px-2'>
-        <Card.Body className='d-flex align-items-stretch flex-column pt-4'>
-          <Card className='bg-primary bg-gradient'>
-            <Card.Body>
-              <Col xs={12} className='d-flex align-items-center justify-content-start'>
-                <BitcoinWalletSVG svgClassName='me-4' className='fill-contrast' />
-                <div>
-                  <div>Bitcoin Wallet</div>
-                  { appCtx.walletBalances.isLoading ? 
-                      <Spinner animation='grow' variant='secondary' /> : 
-                    appCtx.walletBalances.error ? 
-                      <Alert className='py-0 px-1 fs-8' variant='danger'>{appCtx.walletBalances.error}</Alert> : 
-                      <CurrencyBox value={appCtx.walletBalances.btcConfBalance} rootClasses='d-inline-flex flex-column' currencyClasses='lh-1 fs-4 fw-bold' unitClasses='fs-7 fw-bold'></CurrencyBox>
-                  }
-                  </div>
-              </Col>
-            </Card.Body>
-            <ButtonGroup className='sticky-bottom btn-group-action'>
-              <Button onClick={props.onWithdrawClick} >
-                <WithdrawSVG className='me-2' />Withdraw
-              </Button>
-              <Button onClick={props.onDepositClick}>
-                <DepositSVG className='me-2' />Deposit
-              </Button>
-            </ButtonGroup>
-          </Card>
-          <Card.Body className='px-0 list-scroll-container'>
-            <div className='fs-7 text-light'>UTXOs</div>
-            <PerfectScrollbar className='ps-show-always'>
-              <UTXOs />
-            </PerfectScrollbar>
+    <Card className='h-100 d-flex align-items-stretch'>
+      <Card.Body className='d-flex align-items-stretch flex-column pt-4'>
+        <Card className='bg-primary bg-gradient'>
+          <Card.Body>
+            <Col xs={12} className='d-flex align-items-center justify-content-start'>
+              <BitcoinWalletSVG svgClassName='me-4' className='fill-contrast' />
+              <div>
+                <div>Bitcoin Wallet</div>
+                { appCtx.walletBalances.isLoading ? 
+                    <Spinner animation='grow' variant='secondary' /> : 
+                  appCtx.walletBalances.error ? 
+                    <Alert className='py-0 px-1 fs-8' variant='danger'>{appCtx.walletBalances.error}</Alert> : 
+                    <CurrencyBox value={appCtx.walletBalances.btcConfBalance} rootClasses='d-inline-flex flex-column' currencyClasses='lh-1 fs-4 fw-bold' unitClasses='fs-7 fw-bold'></CurrencyBox>
+                }
+                </div>
+            </Col>
           </Card.Body>
+          <ButtonGroup className='sticky-bottom btn-group-action'>
+            <Button onClick={props.onWithdrawClick} >
+              <WithdrawSVG className='me-2' />Withdraw
+            </Button>
+            <Button onClick={props.onDepositClick}>
+              <DepositSVG className='me-2' />Deposit
+            </Button>
+          </ButtonGroup>
+        </Card>
+        <Card.Body className='px-0 list-scroll-container'>
+          <div className='fs-7 text-light'>UTXOs</div>
+          <PerfectScrollbar className='ps-show-always'>
+            <UTXOs />
+          </PerfectScrollbar>
         </Card.Body>
-      </Card>
-    </Row>
+      </Card.Body>
+    </Card>
   );
 };
 

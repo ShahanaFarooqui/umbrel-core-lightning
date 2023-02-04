@@ -131,97 +131,95 @@ const CLNSend = (props) => {
   };
 
   return (
-    <form onSubmit={CLNSendHandler} className='h-100 mx-1'>
-      <Row className='h-100 mx-1'>
-        <Card className='d-flex align-items-stretch'>
-          <Card.Body className='d-flex align-items-stretch flex-column pt-4'>
-              <Card.Header className='p-0 d-flex align-items-start justify-content-between'>
-                <div className='p-0 fw-bold text-primary d-flex align-items-center'>
-                  <LightningWalletSVG svgClassName='svg-small me-2' className='fill-primary' />
-                  <span>Lightning Wallet</span>
-                </div>
-                <FontAwesomeIcon icon={faCircleXmark} onClick={props.onClose} size='lg' />
-              </Card.Header>
-              <h4 className='text-blue fw-bold'>Send Payment</h4>
-              <Card.Body className='pb-0 px-1 d-flex flex-column align-items-start justify-content-between'>
-                <Row className='d-flex align-items-start justify-content-center'>
-                  <Col xs={12} className='mb-1 d-flex align-items-start justify-content-between'>
-                    <Form.Check tabIndex={1} onChange={paymentTypeChangeHandler} checked={paymentType === PaymentType.INVOICE} inline className='text-dark' label='Invoice' name='payType' type='radio' id='Invoice' />
-                    <Form.Check tabIndex={2} onChange={paymentTypeChangeHandler} checked={paymentType === PaymentType.OFFER} inline className='text-dark' label='Offer' name='payType' type='radio' id='Offer' />
-                    <Form.Check tabIndex={3} onChange={paymentTypeChangeHandler} checked={paymentType === PaymentType.KEYSEND} inline className='text-dark' label='Keysend' name='payType' type='radio' id='Keysend' />
-                  </Col>
+    <form onSubmit={CLNSendHandler} className='h-100'>
+      <Card className='h-100 d-flex align-items-stretch'>
+        <Card.Body className='d-flex align-items-stretch flex-column pt-4'>
+            <Card.Header className='p-0 d-flex align-items-start justify-content-between'>
+              <div className='p-0 fw-bold text-primary d-flex align-items-center'>
+                <LightningWalletSVG svgClassName='svg-small me-2' className='fill-primary' />
+                <span>Lightning Wallet</span>
+              </div>
+              <FontAwesomeIcon icon={faCircleXmark} onClick={props.onClose} size='lg' />
+            </Card.Header>
+            <h4 className='text-blue fw-bold'>Send Payment</h4>
+            <Card.Body className='pb-0 px-1 d-flex flex-column align-items-start justify-content-between'>
+              <Row className='d-flex align-items-start justify-content-center'>
+                <Col xs={12} className='mb-1 d-flex align-items-start justify-content-between'>
+                  <Form.Check tabIndex={1} onChange={paymentTypeChangeHandler} checked={paymentType === PaymentType.INVOICE} inline className='text-dark' label='Invoice' name='payType' type='radio' id='Invoice' />
+                  <Form.Check tabIndex={2} onChange={paymentTypeChangeHandler} checked={paymentType === PaymentType.OFFER} inline className='text-dark' label='Offer' name='payType' type='radio' id='Offer' />
+                  <Form.Check tabIndex={3} onChange={paymentTypeChangeHandler} checked={paymentType === PaymentType.KEYSEND} inline className='text-dark' label='Keysend' name='payType' type='radio' id='Keysend' />
+                </Col>
+                <Col xs={12}>
+                  <Form.Label className='text-dark'>{paymentType === PaymentType.KEYSEND ? 'Pubkey' : paymentType === PaymentType.OFFER ? 'Offer' : 'Invoice'}</Form.Label>
+                  <InputGroup className={(invoiceHasError ? 'invalid' : '')}>
+                    <InputGroup.Text className='form-control-addon form-control-addon-left'>
+                      <AddressSVG />
+                    </InputGroup.Text>
+                    <Form.Control
+                      autoFocus
+                      tabIndex={4}
+                      id='invoice'
+                      type='text'
+                      placeholder={paymentType === PaymentType.KEYSEND ? 'Pubkey' : paymentType === PaymentType.OFFER ? 'Offer' : 'Invoice'}
+                      aria-label='invoice'
+                      aria-describedby='addon-invoice'
+                      className='form-control-right'
+                      value={invoiceValue}
+                      onChange={invoiceChangeHandler}
+                      onBlur={invoiceBlurHandler}
+                    />
+                  </InputGroup>
+                  <p className='message invalid'>
+                    {invoiceHasError ? <InformationSVG svgClassName='me-1' className='fill-danger' /> : ''}
+                    {invoiceHasError ? ('Invalid ' + (paymentType === PaymentType.KEYSEND ? 'Pubkey' : paymentType === PaymentType.OFFER ? 'Offer' : 'Invoice')) : ''}
+                  </p>
+                </Col>
+                {paymentType === PaymentType.KEYSEND ? 
                   <Col xs={12}>
-                    <Form.Label className='text-dark'>{paymentType === PaymentType.KEYSEND ? 'Pubkey' : paymentType === PaymentType.OFFER ? 'Offer' : 'Invoice'}</Form.Label>
-                    <InputGroup className={(invoiceHasError ? 'invalid' : '')}>
+                    <Form.Label className='text-dark'>Amount</Form.Label>
+                    <InputGroup className={(amountHasError ? 'invalid' : '')}>
                       <InputGroup.Text className='form-control-addon form-control-addon-left'>
-                        <AddressSVG />
+                        <AmountSVG />
                       </InputGroup.Text>
                       <Form.Control
-                        autoFocus
-                        tabIndex={4}
-                        id='invoice'
-                        type='text'
-                        placeholder={paymentType === PaymentType.KEYSEND ? 'Pubkey' : paymentType === PaymentType.OFFER ? 'Offer' : 'Invoice'}
-                        aria-label='invoice'
-                        aria-describedby='addon-invoice'
+                        tabIndex={5}
+                        id='amount'
+                        type='number'
+                        placeholder='Amount (Sats)'
+                        aria-label='amount'
+                        aria-describedby='addon-amount'
                         className='form-control-right'
-                        value={invoiceValue}
-                        onChange={invoiceChangeHandler}
-                        onBlur={invoiceBlurHandler}
+                        value={amountValue}
+                        onChange={amountChangeHandler}
+                        onBlur={amountBlurHandler}
                       />
                     </InputGroup>
                     <p className='message invalid'>
-                      {invoiceHasError ? <InformationSVG svgClassName='me-1' className='fill-danger' /> : ''}
-                      {invoiceHasError ? ('Invalid ' + (paymentType === PaymentType.KEYSEND ? 'Pubkey' : paymentType === PaymentType.OFFER ? 'Offer' : 'Invoice')) : ''}
+                      {amountHasError ? <InformationSVG svgClassName='me-1' className='fill-danger' /> : ''}
+                      {amountHasError ? 'Invalid Amount' : ''}
                     </p>
                   </Col>
-                  {paymentType === PaymentType.KEYSEND ? 
-                    <Col xs={12}>
-                      <Form.Label className='text-dark'>Amount</Form.Label>
-                      <InputGroup className={(amountHasError ? 'invalid' : '')}>
-                        <InputGroup.Text className='form-control-addon form-control-addon-left'>
-                          <AmountSVG />
-                        </InputGroup.Text>
-                        <Form.Control
-                          tabIndex={5}
-                          id='amount'
-                          type='number'
-                          placeholder='Amount (Sats)'
-                          aria-label='amount'
-                          aria-describedby='addon-amount'
-                          className='form-control-right'
-                          value={amountValue}
-                          onChange={amountChangeHandler}
-                          onBlur={amountBlurHandler}
-                        />
-                      </InputGroup>
-                      <p className='message invalid'>
-                        {amountHasError ? <InformationSVG svgClassName='me-1' className='fill-danger' /> : ''}
-                        {amountHasError ? 'Invalid Amount' : ''}
-                      </p>
-                    </Col>
-                  :
-                    <></>
-                  }
-                </Row>
-                { (responseStatus !== CallStatus.NONE) ?
-                  <Alert className='w-100' variant={responseStatus === CallStatus.ERROR ? 'danger' : responseStatus === CallStatus.PENDING ? 'warning' : responseStatus === CallStatus.SUCCESS ? 'success' : ''}>
-                    {responseStatus === CallStatus.PENDING ? <Spinner className='me-2' variant='primary' size='sm' /> : <InformationSVG svgClassName='me-1' className={responseStatus === CallStatus.ERROR ? 'fill-danger' : 'fill-success'} />}
-                    {responseMessage}
-                  </Alert>
-               :
+                :
                   <></>
                 }
-              </Card.Body>
-              <Card.Footer className='d-flex justify-content-center'>
-                <Button tabIndex={6} type='submit' variant='primary' className='btn-rounded fw-bold' disabled={responseStatus === CallStatus.PENDING}>
-                  Send Payment
-                  <ActionSVG className='ms-2' />
-                </Button>
-              </Card.Footer>
-          </Card.Body>
-        </Card>
-      </Row>
+              </Row>
+              { (responseStatus !== CallStatus.NONE) ?
+                <Alert className='w-100' variant={responseStatus === CallStatus.ERROR ? 'danger' : responseStatus === CallStatus.PENDING ? 'warning' : responseStatus === CallStatus.SUCCESS ? 'success' : ''}>
+                  {responseStatus === CallStatus.PENDING ? <Spinner className='me-2' variant='primary' size='sm' /> : <InformationSVG svgClassName='me-1' className={responseStatus === CallStatus.ERROR ? 'fill-danger' : 'fill-success'} />}
+                  {responseMessage}
+                </Alert>
+              :
+                <></>
+              }
+            </Card.Body>
+            <Card.Footer className='d-flex justify-content-center'>
+              <Button tabIndex={6} type='submit' variant='primary' className='btn-rounded fw-bold' disabled={responseStatus === CallStatus.PENDING}>
+                Send Payment
+                <ActionSVG className='ms-2' />
+              </Button>
+            </Card.Footer>
+        </Card.Body>
+      </Card>
     </form>
   );
 };

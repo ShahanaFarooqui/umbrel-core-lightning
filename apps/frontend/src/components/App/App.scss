@@ -2,3 +2,12 @@
 @import '../../styles/constants';
 @import '../../styles/shared';
 @import '../../styles/animations';
+
+.cards-container {
+  height: 40rem;
+  margin-bottom: 1.5rem;
+}
+
+.list-scroll-container {
+  max-height: 28.5rem;
+}
