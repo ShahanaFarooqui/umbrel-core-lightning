@@ -24,7 +24,7 @@ const App = () => {
   const [showToast, setShowToast] = useState(false);
   const [toastMessage] = useState('');
 
-  const { fetchData } = useHttp();
+  const { getAppConfigurations } = useHttp();
 
   const bodyHTML = document.getElementsByTagName('body')[0];
   const htmlAttributes = bodyHTML.attributes;
@@ -35,9 +35,9 @@ const App = () => {
   htmlAttributes.setNamedItem(theme);
 
   useEffect(() => {
-    fetchData();
+    getAppConfigurations();
     window.setInterval(() => {
-      fetchData();
+      getAppConfigurations();
     }, 60 * 60 * 1000); // one hour
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

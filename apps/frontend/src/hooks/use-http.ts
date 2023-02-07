@@ -5,6 +5,7 @@ import logger from '../services/logger.service';
 import { AppContext } from '../store/AppContext';
 import { ApplicationConfiguration } from '../types/app-config.type';
 import { faDollarSign } from '@fortawesome/free-solid-svg-icons';
+import dummyDataFromJSON from '../z-dummy-data/dummy.data.json';
 
 const useHttp = () => {
   const appCtx = useContext(AppContext);
@@ -93,6 +94,11 @@ const useHttp = () => {
         logger.info(response);
         if(url === '/shared/config') {
           getFiatRate(response.data.fiatUnit);
+          if (response.data.useDummyData) {
+            appCtx.setStore(dummyDataFromJSON);
+          } else {
+            fetchData();
+          }
         }
         setStoreFunction({...response.data, ...{ isLoading: false, error: null }});
       })
@@ -115,7 +121,6 @@ const useHttp = () => {
   }, [getFiatRate]);
 
   const fetchData = useCallback(() => {
-    sendRequestToSetStore(appCtx.setConfig, 'get', '/shared/config');
     sendRequestToSetStore(appCtx.setNodeInfo, 'post', '/cln/call', { 'method': 'getinfo', 'params': [] });
     sendRequestToSetStore(appCtx.setListPeers, 'post', '/cln/call', { 'method': 'listpeers', 'params': [], 'nextAction': 'getNodesInfo' });
     sendRequestToSetStore(appCtx.setListInvoices, 'post', '/cln/call', { 'method': 'listinvoices', 'params': [] });
@@ -124,7 +129,12 @@ const useHttp = () => {
     sendRequestToSetStore(appCtx.setListBitcoinTransactions, 'post', '/cln/call', { 'method': 'listtransactions', 'params': [] });
   }, [appCtx, sendRequestToSetStore]);
 
+  const getAppConfigurations = useCallback(() => {
+    sendRequestToSetStore(appCtx.setConfig, 'get', '/shared/config');
+  }, [appCtx, sendRequestToSetStore]);
+
   return {
+    getAppConfigurations,
     fetchData,
     getFiatRate,
     updateConfig,

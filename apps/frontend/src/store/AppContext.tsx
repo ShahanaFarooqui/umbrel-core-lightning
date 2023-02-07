@@ -7,7 +7,7 @@ import React, { useReducer } from 'react';
 import { AppContextType } from '../types/app-context.type';
 import { ApplicationActions, ApplicationModes, SATS_MSAT, Units } from '../utilities/constants';
 import { ApplicationConfiguration, FiatConfig } from '../types/app-config.type';
-import { Channel, Fund, FundChannel, FundOutput, Invoice, ListBitcoinTransactions, ListInvoices, ListPayments, ListPeers, NodeInfo, Payment, Peer } from '../types/lightning-wallet.type';
+import { Fund, FundChannel, FundOutput, Invoice, ListBitcoinTransactions, ListInvoices, ListPayments, ListPeers, NodeInfo, Payment, Peer } from '../types/lightning-wallet.type';
 import logger from '../services/logger.service';
 import { faDollarSign } from '@fortawesome/free-solid-svg-icons';
 import { sortDescByKey } from '../utilities/data-formatters';
@@ -163,7 +163,7 @@ const calculateBalances = (listFunds: Fund) => {
 }
 
 const AppContext = React.createContext<AppContextType>({
-  appConfig: {isLoading: true, unit: Units.SATS, fiatUnit: 'USD', appMode: ApplicationModes.DARK},
+  appConfig: {isLoading: true, unit: Units.SATS, fiatUnit: 'USD', appMode: ApplicationModes.DARK, useDummyData: false},
   fiatConfig: {isLoading: true, symbol: faDollarSign, rate: 1},
   nodeInfo: {isLoading: true},
   listFunds: {isLoading: true, channels: [], outputs: []},
@@ -182,6 +182,7 @@ const AppContext = React.createContext<AppContextType>({
   setListInvoices: (invoicesList: ListInvoices) => {},
   setListPayments: (paymentsList: ListPayments) => {},
   setListBitcoinTransactions: (transactionsList: ListBitcoinTransactions) => {},
+  setStore: (storeData) => {},
   clearStore: () => {}
 });
 
@@ -276,6 +277,9 @@ const appReducer = (state, action) => {
         listBitcoinTransactions: action.payload
       };
 
+    case ApplicationActions.SET_CONTEXT:
+      return action.payload;
+  
     case ApplicationActions.CLEAR_CONTEXT:
       return defaultAppState;
 
@@ -319,6 +323,10 @@ const AppProvider: React.PropsWithChildren<any> = (props) => {
     dispatchApplicationAction({ type: ApplicationActions.SET_LIST_BITCOIN_TRANSACTIONS, payload: list });
   };
 
+  const setContextStore = (storeData: any) => {
+    dispatchApplicationAction({ type: ApplicationActions.SET_CONTEXT, payload: storeData });
+  };
+
   const clearContextHandler = () => {
     dispatchApplicationAction({ type: ApplicationActions.CLEAR_CONTEXT });
   };
@@ -343,6 +351,7 @@ const AppProvider: React.PropsWithChildren<any> = (props) => {
     setListInvoices: setListInvoicesHandler,
     setListPayments: setListPaymentsHandler,
     setListBitcoinTransactions: setListBitcoinTransactionsHandler,
+    setStore: setContextStore,
     clearStore: clearContextHandler
   };
 

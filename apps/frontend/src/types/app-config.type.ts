@@ -5,6 +5,7 @@ export type ApplicationConfiguration = {
   unit: Units;
   fiatUnit: string;
   appMode: ApplicationModes;
+  useDummyData: boolean;
   error?: any;
 }
 

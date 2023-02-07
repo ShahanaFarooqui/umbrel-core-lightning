@@ -21,5 +21,6 @@ export type AppContextType = {
   setListInvoices: (invoicesList: ListInvoices) => void;
   setListPayments: (paymentsList: ListPayments) => void;
   setListBitcoinTransactions: (transactionsList: ListBitcoinTransactions) => void;
+  setStore: (storeData: any) => void;
   clearStore: () => void;
 };
