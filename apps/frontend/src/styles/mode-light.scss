@@ -26,6 +26,17 @@
     stroke: $light;
   }
 
+  .btn-rounded {
+    color: white;
+  }
+
+  .btn-group {
+    & button.btn-actions {
+      color: $white;
+      border-color: darken($primary, 10%);
+    }
+  }
+
   .dropdown {
     & .dropdown-item {
       color: $dark;
@@ -41,6 +52,6 @@
         border-color: $gray-300;
       }
     }
-  }  
+  }
 
 } // CLOSE FOR LIGHT MODE

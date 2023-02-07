@@ -3,8 +3,6 @@ import 'react-perfect-scrollbar/dist/css/styles.css';
 import { useContext } from 'react';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import Card from 'react-bootstrap/Card';
-import Button from 'react-bootstrap/Button';
-import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Spinner from 'react-bootstrap/Spinner';
@@ -39,12 +37,14 @@ const CLNWallet = (props) => {
             </Col>
           </Card.Body>
           <ButtonGroup className='sticky-bottom btn-group-action'>
-            <Button onClick={() => props.onActionClick('send')} >
-              <WithdrawSVG className='me-2' />Send
-            </Button>
-            <Button onClick={() => props.onActionClick('receive')} >
-              <DepositSVG className='me-2' />Receive
-            </Button>
+            <button className='btn-actions btn-primary' onClick={() => props.onActionClick('send')}>
+              <WithdrawSVG className='me-2' />
+              Send
+            </button>
+            <button className='btn-actions btn-primary' onClick={() => props.onActionClick('receive')}>
+              <DepositSVG className='me-2' />
+              Receive
+            </button>
           </ButtonGroup>
         </Card>
         <Card.Body className='px-0 list-scroll-container'>

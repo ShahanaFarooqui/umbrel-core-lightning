@@ -1,7 +1,6 @@
 import './BTCCard.scss';
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import { CSSTransition, SwitchTransition } from 'react-transition-group';
-import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
 
 import BTCWallet from '../BTCWallet/BTCWallet';
@@ -9,34 +8,27 @@ import BTCDeposit from '../BTCDeposit/BTCDeposit';
 import BTCWithdraw from '../BTCWithdraw/BTCWithdraw';
 
 const BTCCard = () => {
-  const [showBTCWallet, setShowBTCWallet] = useState('wallet');
-  const btcRef = useRef<any>(null);
+  const [selBTCCard, setSelBTCCard] = useState('wallet');
 
   return (
     <Card className='h-100'>
       <SwitchTransition mode='out-in'>
         <CSSTransition
-          nodeRef={btcRef}
-          addEndListener={(done: () => void) => {
-            btcRef.current?.addEventListener('transitionend', done, false);
-          }}
-          classNames='slide-component'
-          key={showBTCWallet.toString()}
+          addEndListener={(node, done) =>
+            node.addEventListener('transitionend', done, false)
+          }
+          key={selBTCCard}
+          classNames={selBTCCard === 'wallet' ? 'slide-right-to-left' : 'slide-left-to-right'}
           mountOnEnter
           unmountOnExit
         >
-          <Col ref={btcRef}>
-            {showBTCWallet === 'wallet' ? (
-              <BTCWallet
-                onDepositClick={() => setShowBTCWallet('deposit')}
-                onWithdrawClick={() => setShowBTCWallet('withdraw')}
-              />
-            ) : showBTCWallet === 'deposit' ? (
-              <BTCDeposit address={'Shahana'} onClose={() => setShowBTCWallet('wallet')} />
-            ) : (
-              <BTCWithdraw onClose={() => setShowBTCWallet('wallet')} />
-            )}
-          </Col>
+          {selBTCCard === 'wallet' ? (
+            <BTCWallet onActionClick={(action) => setSelBTCCard(action)} />
+          ) : selBTCCard === 'deposit' ? (
+            <BTCDeposit onClose={() => setSelBTCCard('wallet')} />
+          ) : (
+            <BTCWithdraw onClose={() => setSelBTCCard('wallet')} />
+          )}
         </CSSTransition>
       </SwitchTransition>
     </Card>

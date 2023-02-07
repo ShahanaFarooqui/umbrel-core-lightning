@@ -3,7 +3,6 @@ import { useContext, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 import Card from 'react-bootstrap/Card';
-import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 import Spinner from 'react-bootstrap/Spinner';
 import Col from 'react-bootstrap/Col';
@@ -101,7 +100,7 @@ const OpenChannel = (props) => {
   return (
     <form onSubmit={openChannelHandler} className='h-100'>
       <Card className='h-100 d-flex align-items-stretch'>
-        <Card.Body className='d-flex align-items-stretch flex-column pt-4'>
+        <Card.Body className='text-dark d-flex align-items-stretch flex-column pt-4'>
             <Card.Header className='p-0 d-flex align-items-start justify-content-between'>
               <div className='fs-4 p-0 fw-bold text-dark'>
                 Open Channel
@@ -117,7 +116,6 @@ const OpenChannel = (props) => {
                       <AddressSVG />
                     </InputGroup.Text>
                     <Form.Control
-                      autoFocus
                       tabIndex={1}
                       id='pubkey'
                       type='text'
@@ -215,10 +213,10 @@ const OpenChannel = (props) => {
               }
             </Card.Body>
             <Card.Footer className='d-flex justify-content-center'>
-              <Button tabIndex={5} type='submit' variant='primary' className='btn-rounded fw-bold' disabled={responseStatus === CallStatus.PENDING}>
+              <button tabIndex={5} type='submit' className='btn-rounded bg-primary fw-bold' disabled={responseStatus === CallStatus.PENDING}>
                 Open Channel
                 <ActionSVG className='ms-2' />
-              </Button>
+              </button>
             </Card.Footer>
         </Card.Body>
       </Card>

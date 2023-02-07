@@ -45,6 +45,10 @@
       color: lighten($primary, 20%);
     }
   }
+
+  .btn-rounded {
+    color: $gray-920;
+  }
   
   .dropdown {
     & a.dropdown-item {

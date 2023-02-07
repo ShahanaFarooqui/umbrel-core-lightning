@@ -5,8 +5,6 @@ import PerfectScrollbar from 'react-perfect-scrollbar';
 import Spinner from 'react-bootstrap/Spinner';
 import Alert from 'react-bootstrap/Alert';
 import Card from 'react-bootstrap/Card';
-import Button from 'react-bootstrap/Button';
-import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 
@@ -39,12 +37,14 @@ const BTCWallet = (props) => {
             </Col>
           </Card.Body>
           <ButtonGroup className='sticky-bottom btn-group-action'>
-            <Button onClick={props.onWithdrawClick} >
-              <WithdrawSVG className='me-2' />Withdraw
-            </Button>
-            <Button onClick={props.onDepositClick}>
-              <DepositSVG className='me-2' />Deposit
-            </Button>
+            <button className='btn-actions btn-primary' onClick={() => props.onActionClick('withdraw')}>
+              <WithdrawSVG className='me-2' />
+              Withdraw
+            </button>
+            <button className='btn-actions btn-primary' onClick={() => props.onActionClick('deposit')}>
+              <DepositSVG className='me-2' />
+              Deposit
+            </button>
           </ButtonGroup>
         </Card>
         <Card.Body className='px-0 list-scroll-container'>

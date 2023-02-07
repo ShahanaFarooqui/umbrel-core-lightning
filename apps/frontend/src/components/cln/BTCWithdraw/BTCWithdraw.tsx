@@ -124,7 +124,6 @@ const BTCWithdraw = (props) => {
                       <AmountSVG />
                     </InputGroup.Text>
                     <Form.Control
-                      autoFocus
                       tabIndex={1}
                       id='amount'
                       type={amountValue === 'All' ? 'text' : 'number'}

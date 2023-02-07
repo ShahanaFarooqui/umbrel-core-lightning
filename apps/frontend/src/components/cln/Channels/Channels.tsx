@@ -3,7 +3,6 @@ import { useContext } from 'react';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Card from 'react-bootstrap/Card';
-import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 import Spinner from 'react-bootstrap/Spinner';
 import Alert from 'react-bootstrap/Alert';
@@ -67,10 +66,10 @@ const Channels = (props) => {
         }
       </Card.Body>
       <Card.Footer className='d-flex justify-content-center'>
-        <Button variant='primary' className='btn-rounded fw-bold' onClick={props.onOpenChannel}>
+        <button tabIndex={1} className='btn-rounded bg-primary fw-bold' onClick={props.onOpenChannel}>
           Open Channel
           <ActionSVG className='ms-2' />
-        </Button>
+        </button>
       </Card.Footer>
     </Card>
   );

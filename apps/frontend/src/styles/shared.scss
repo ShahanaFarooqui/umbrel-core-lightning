@@ -61,22 +61,33 @@ body #root {
   display: flex;
   align-items: center;
   border-radius: $border-radius;
-  padding-top: 3px;
+  border: none;
+  box-shadow: none;
   height: 2rem;
 }
 
 .btn-group {
-  & .btn:not(:last-child):not(.dropdown-toggle), .btn.dropdown-toggle-split:first-child, .btn-group:not(:last-child) > .btn {
+  & button.btn-actions {
+    flex: 1 1 auto;
+    cursor: pointer;
+    padding: $btn-padding-y $btn-padding-x;
+    text-align: center;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 1px 1px rgba(0, 0, 0, 0.075);
+  }
+
+  & .btn:not(:last-child):not(.dropdown-toggle), .btn.dropdown-toggle-split:first-child, .btn-group:not(:last-child) > .btn,
+  & button.btn-actions:not(:last-child):not(.dropdown-toggle), button.btn-actions.dropdown-toggle-split:first-child, .btn-group:not(:last-child) > button.btn-actions {
     border-top-left-radius: 0;
     border-bottom-left-radius: $border-radius;
   }
 
-  & .btn:nth-child(n + 3), :not(.btn-check) + .btn, .btn-group:not(:first-child) > .btn {
+  & .btn:nth-child(n + 3), :not(.btn-check) + .btn, .btn-group:not(:first-child) > .btn,
+  & button.btn-actions:nth-child(n + 3), :not(.btn-check) + button.btn-actions, .btn-group:not(:first-child) > button.btn-actions {
     border-top-right-radius: 0;
     border-bottom-right-radius: $border-radius;
   }
   
-  &.btn-group-action .btn {
+  &.btn-group-action .btn, &.btn-group-action button.btn-actions {
     font-weight: 700;
     background-color: darken($primary, 10%);
     border-color: darken($primary, 12%);

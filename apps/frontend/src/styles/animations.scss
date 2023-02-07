@@ -1,73 +1,59 @@
-.slide-component-enter {
+.slide-right-to-left-enter {
   opacity: 0;
   transform: translateX(100%);
 }
-
-.slide-component-enter-active {
+.slide-right-to-left-enter-active {
   opacity: 1;
   transform: translateX(0%);
 }
-
-.slide-component-exit {
+.slide-right-to-left-exit {
   opacity: 1;
   transform: translateX(0%);
 }
-
-.slide-component-exit-active {
-  opacity: 0;
-  transform: translateX(100%);
-}
-
-.slide-component-enter-active {
-  transition: opacity 2000ms, transform 2000ms;
-}
-
-.slide-component-exit-active {
-  transition: opacity 20000ms, transform 20000ms;
-}
-
-.fadeRightToLeft-enter .slider-child {
-  opacity: 0;
-  transform: translateX(100%);
-}
-.fadeRightToLeft-enter-active .slider-child {
-  opacity: 1;
-  transform: translateX(0%);
-}
-.fadeRightToLeft-exit .slider-child {
-  opacity: 1;
-  transform: translateX(0%);
-}
-.fadeRightToLeft-exit-active .slider-child {
+.slide-right-to-left-exit-active {
   opacity: 0;
   transform: translateX(-100%);
 }
-
-.fadeRightToLeft-enter-active .slider-child {
-  transition: opacity 1200ms, transform 1000ms;
-}
-
-.fadeRightToLeft-exit-active .slider-child {
-  transition: opacity 1200ms, transform 1000ms;
-}
-
-.fadeLeftToRight-enter .slider-child {
-  opacity: 0;
-  transform: translateX(-100%);
-}
-.fadeLeftToRight-enter-active .slider-child {
-  opacity: 1;
-  transform: translateX(0%);
-}
-.fadeLeftToRight-exit .slider-child {
-  opacity: 1;
-  transform: translateX(0%);
-}
-.fadeLeftToRight-exit-active .slider-child {
-  opacity: 0;
-  transform: translateX(100%);
-}
-.fadeLeftToRight-enter-active .slider-child,
-.fadeLeftToRight-exit-active .slider-child {
+.slide-right-to-left-enter-active, 
+.slide-right-to-left-exit-active {
   transition: opacity 1000ms, transform 1000ms;
+}
+
+.slide-left-to-right-enter {
+  opacity: 0;
+  transform: translateX(-100%);
+}
+.slide-left-to-right-enter-active {
+  opacity: 1;
+  transform: translateX(0%);
+}
+.slide-left-to-right-exit {
+  opacity: 1;
+  transform: translateX(0%);
+}
+.slide-left-to-right-exit-active {
+  opacity: 0;
+  transform: translateX(100%);
+}
+.slide-left-to-right-enter-active,
+.slide-left-to-right-exit-active {
+  transition: opacity 1000ms, transform 1000ms;
+}
+
+.fade-component-enter {
+  opacity: 0;
+}
+.fade-component-enter-active {
+  opacity: 1;
+}
+.fade-component-exit {
+  opacity: 1;
+}
+.fade-component-exit-active {
+  opacity: 0;
+}
+
+.fade-component-enter-active,
+.fade-component-exit-active {
+  transition: opacity 1000ms;
 }

@@ -1,24 +1,36 @@
 import './CLNCard.scss';
-import { useRef, useState } from 'react';
-import Col from 'react-bootstrap/Col';
+import { useState } from 'react';
+import { CSSTransition, SwitchTransition } from 'react-transition-group';
 import Card from 'react-bootstrap/Card';
 
 import CLNWallet from '../CLNWallet/CLNWallet';
 import CLNReceive from '../CLNReceive/CLNReceive';
 import CLNSend from '../CLNSend/CLNSend';
 
-const CLNCard = (props) => {
+const CLNCard = () => {
+  const [selCLNCard, setSelCLNCard] = useState('wallet');
 
   return (
-    <Col className='slider-child'>
-      {props.selCLNCard === 'wallet' ? (
-        <CLNWallet onActionClick={(action) => props.onCardChange(action)} />
-      ) : props.selCLNCard === 'receive' ? (
-        <CLNReceive onClose={() => props.onCardChange('wallet')} />
-      ) : (
-        <CLNSend onClose={() => props.onCardChange('wallet')} />
-      )}
-    </Col>
+    <Card className='h-100'>
+      <SwitchTransition mode='out-in'>
+        <CSSTransition
+          key={selCLNCard}
+          addEndListener={(node, done) =>
+            node.addEventListener('transitionend', done, false)
+          }
+          classNames='fade-component'
+          // classNames={selCLNCard === 'wallet' ? 'slide-right-to-left' : 'slide-left-to-right'}
+        >
+          {selCLNCard === 'wallet' ? (
+            <CLNWallet onActionClick={(action) => setSelCLNCard(action)} />
+          ) : selCLNCard === 'receive' ? (
+            <CLNReceive onClose={() => setSelCLNCard('wallet')} />
+          ) : (
+            <CLNSend onClose={() => setSelCLNCard('wallet')} />
+          )}
+        </CSSTransition>
+      </SwitchTransition>
+    </Card>
   );
 };
 
