@@ -11,7 +11,7 @@ const BTCCard = () => {
   const [selBTCCard, setSelBTCCard] = useState('wallet');
 
   return (
-    <Card className='h-100'>
+    <Card className='h-100 overflow-hidden'>
       <SwitchTransition mode='out-in'>
         <CSSTransition
           addEndListener={(node, done) =>

@@ -7,7 +7,7 @@ import React, { useReducer } from 'react';
 import { AppContextType } from '../types/app-context.type';
 import { ApplicationActions, ApplicationModes, SATS_MSAT, Units } from '../utilities/constants';
 import { ApplicationConfiguration, FiatConfig } from '../types/app-config.type';
-import { Fund, FundChannel, FundOutput, Invoice, ListBitcoinTransactions, ListInvoices, ListPayments, ListPeers, NodeInfo, Payment, Peer } from '../types/lightning-wallet.type';
+import { Channel, Fund, FundChannel, FundOutput, Invoice, ListBitcoinTransactions, ListInvoices, ListPayments, ListPeers, NodeInfo, Payment, Peer } from '../types/lightning-wallet.type';
 import logger from '../services/logger.service';
 import { faDollarSign } from '@fortawesome/free-solid-svg-icons';
 import { sortDescByKey } from '../utilities/data-formatters';
@@ -38,6 +38,7 @@ const aggregateChannels = (peers: Peer[]) => {
       });
     }
   });
+  aggregatedChannels.activeChannels = sortDescByKey(aggregatedChannels.activeChannels, 'satoshi_total')
   return aggregatedChannels;
 }
 

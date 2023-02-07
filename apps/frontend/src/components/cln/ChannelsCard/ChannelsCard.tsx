@@ -10,13 +10,13 @@ const ChannelsCard = () => {
   const [showOpenChannel, setShowOpenChannel] = useState(false);
 
   return (
-    <Card className='h-100'>
+    <Card className='h-100 overflow-hidden'>
       <SwitchTransition mode='out-in'>
         <CSSTransition
           addEndListener={(node, done) => {
             node.addEventListener('transitionend', done, false);
           }}
-          classNames='fade-component'
+          classNames={showOpenChannel ? 'slide-left-to-right' : 'slide-left-to-right'}
           key={showOpenChannel.toString()}
           mountOnEnter
           unmountOnExit
