@@ -152,7 +152,6 @@ const CLNReceive = (props) => {
                       <DescriptionSVG />
                     </InputGroup.Text>
                     <Form.Control
-                      autoFocus
                       tabIndex={3}
                       id='description'
                       type='text'

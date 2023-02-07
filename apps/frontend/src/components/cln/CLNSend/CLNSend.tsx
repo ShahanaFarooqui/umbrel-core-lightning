@@ -156,7 +156,6 @@ const CLNSend = (props) => {
                       <AddressSVG />
                     </InputGroup.Text>
                     <Form.Control
-                      autoFocus
                       tabIndex={4}
                       id='invoice'
                       type='text'

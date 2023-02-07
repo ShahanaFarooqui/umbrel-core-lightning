@@ -1,8 +1,10 @@
 import './App.scss';
 import { useContext, useEffect, useState } from 'react';
+import { CSSTransition, SwitchTransition } from 'react-transition-group';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Card from 'react-bootstrap/Card';
 import { Spinner } from 'react-bootstrap';
 
 import useHttp from '../../hooks/use-http';
@@ -19,6 +21,7 @@ import ChannelsCard from '../cln/ChannelsCard/ChannelsCard';
 
 const App = () => {
   const appCtx = useContext(AppContext);
+  const [selCLNCard, setSelCLNCard] = useState('wallet');
   const [showNodeInfoModal, setShowNodeInfoModal] = useState(false);
   const [showConnectWalletModal, setShowConnectWalletModal] = useState(false);
   const [showToast, setShowToast] = useState(false);
@@ -88,7 +91,20 @@ const App = () => {
             <BTCCard />
           </Col>
           <Col xs={12} lg={4} className='cards-container'>
-            <CLNCard />
+          <SwitchTransition mode='out-in'>
+            <CSSTransition
+              key={selCLNCard}
+              addEndListener={(node, done) =>
+                node.addEventListener('transitionend', done, false)
+              }
+              timeout={{enter: 1200, exit: 1200}}
+              classNames={selCLNCard === 'wallet' ? 'fadeLeftToRight' : 'fadeRightToLeft'}
+            >
+              <Card className='h-100'>
+                <CLNCard selCLNCard={selCLNCard} onCardChange={setSelCLNCard} />
+              </Card>
+            </CSSTransition>
+          </SwitchTransition>
           </Col>
           <Col xs={12} lg={4} className='cards-container'>
             <ChannelsCard />
