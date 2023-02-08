@@ -2,7 +2,6 @@
 node_modules
 dist
 build
-data/app
 data/bitcoin/regtest
 data/cln/regtest
 data/cln/lightningd-regtest.pid
