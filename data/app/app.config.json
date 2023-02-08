@@ -1,0 +1,8 @@
+{
+  "unit": "SATS",
+  "fiatUnit": "CAD",
+  "appMode": "DARK",
+  "isLoading": false,
+  "error": null,
+  "useDummyData": true
+}
