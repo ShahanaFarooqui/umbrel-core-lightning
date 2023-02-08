@@ -1,6 +1,5 @@
 import './UTXOs.scss';
 import { useContext } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import ListGroup from 'react-bootstrap/ListGroup';
@@ -8,9 +7,10 @@ import Spinner from 'react-bootstrap/Spinner';
 import Alert from 'react-bootstrap/Alert';
 
 import { AppContext } from '../../../store/AppContext';
-import { formatCurrency, formatFiatValue } from '../../../utilities/data-formatters';
+import { formatCurrency } from '../../../utilities/data-formatters';
 import { ReservedSVG } from '../../../svgs/Reserved';
 import { UnReservedSVG } from '../../../svgs/UnReserved';
+import FiatBox from '../../shared/FiatBox/FiatBox';
 
 const UTXOs = () => {
   const appCtx = useContext(AppContext);
@@ -39,8 +39,7 @@ const UTXOs = () => {
                 {utxo.blockheight ? ((utxo.blockheight || 0).toLocaleString('en-us')) : ''}
               </Col>
               <Col xs={4} className='fs-7 text-light d-flex align-items-center justify-content-end'>
-                { appCtx.fiatConfig ? <FontAwesomeIcon icon={appCtx.fiatConfig.symbol} /> : <></> }
-                {formatFiatValue((utxo.value || 0), appCtx.fiatConfig.rate)}
+                <FiatBox value={utxo.value} symbol={appCtx.fiatConfig.symbol} rate={appCtx.fiatConfig.rate} />
               </Col>
             </Row>
           </ListGroup.Item>

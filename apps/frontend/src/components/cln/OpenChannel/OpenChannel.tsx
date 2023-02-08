@@ -13,13 +13,13 @@ import Alert from 'react-bootstrap/Alert';
 import logger from '../../../services/logger.service';
 import useInput from '../../../hooks/use-input';
 import useHttp from '../../../hooks/use-http';
-import { formatFiatValue } from '../../../utilities/data-formatters';
 import { CallStatus, FeeRate, FEE_RATES } from '../../../utilities/constants';
 import { AppContext } from '../../../store/AppContext';
 import { ActionSVG } from '../../../svgs/Action';
 import { AmountSVG } from '../../../svgs/Amount';
 import { AddressSVG } from '../../../svgs/Address';
 import { InformationSVG } from '../../../svgs/Information';
+import FiatBox from '../../shared/FiatBox/FiatBox';
 
 
 const OpenChannel = (props) => {
@@ -158,8 +158,7 @@ const OpenChannel = (props) => {
                     !amountHasError ?
                       amountValue ?
                         <p className='fs-7 text-light d-flex align-items-center justify-content-end'>
-                          ~ {appCtx.fiatConfig ? <FontAwesomeIcon icon={appCtx.fiatConfig.symbol} /> : <></>}
-                          {formatFiatValue((+amountValue || 0), appCtx.fiatConfig.rate)}
+                          ~ <FiatBox value={(+amountValue || 0)} symbol={appCtx.fiatConfig.symbol} rate={appCtx.fiatConfig.rate} />
                         </p>
                       :
                         <p className='message'></p>

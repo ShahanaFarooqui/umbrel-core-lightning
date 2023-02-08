@@ -1,6 +1,5 @@
 import './Transactions.scss';
 import { useContext } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Spinner from 'react-bootstrap/Spinner';
 import Alert from 'react-bootstrap/Alert';
 import Row from 'react-bootstrap/esm/Row';
@@ -8,10 +7,11 @@ import Col from 'react-bootstrap/esm/Col';
 import ListGroup from 'react-bootstrap/ListGroup';
 
 import { AppContext } from '../../../store/AppContext';
-import { formatCurrency, formatFiatValue } from '../../../utilities/data-formatters';
+import { formatCurrency } from '../../../utilities/data-formatters';
 import { IncomingArrowSVG } from '../../../svgs/IncomingArrow';
 import { OutgoingArrowSVG } from '../../../svgs/OutgoingArrow';
 import DateBox from '../../shared/DateBox/DateBox';
+import FiatBox from '../../shared/FiatBox/FiatBox';
 
 const Transactions = () => {
   const appCtx = useContext(AppContext);
@@ -52,8 +52,7 @@ const Transactions = () => {
                     <DateBox dataValue={(transaction.created_at || transaction.paid_at || transaction.expires_at)} />
                   </Col>
                   <Col xs={4} className='ps-0 fs-7 text-light d-flex align-items-center justify-content-end'>
-                    { appCtx.fiatConfig ? <FontAwesomeIcon icon={appCtx.fiatConfig.symbol} /> : <></> }
-                    {formatFiatValue((transaction.msatoshi_sent || transaction.msatoshi_received || 0), appCtx.fiatConfig.rate)}
+                    <FiatBox value={(transaction.msatoshi_sent || transaction.msatoshi_received || 0)} symbol={appCtx.fiatConfig.symbol} rate={appCtx.fiatConfig.rate} />
                   </Col>
                 </Row>
               </Col>

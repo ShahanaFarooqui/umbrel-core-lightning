@@ -20,7 +20,6 @@ const useHttp = () => {
     }).catch(err => {
       logger.error(err);
     });
-
   }
 
   const getFiatRate = useCallback((fiatUnit: string) => {
@@ -118,6 +117,7 @@ const useHttp = () => {
       logger.error(err);
       setStoreFunction({ isLoading: false, error: err });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [getFiatRate]);
 
   const fetchData = useCallback(() => {
