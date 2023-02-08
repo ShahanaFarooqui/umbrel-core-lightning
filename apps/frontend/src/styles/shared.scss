@@ -110,6 +110,34 @@ body #root {
   }
 }
 
+.stroke-width-4 {
+  stroke-width: 3.5px;
+}
+
+.stroke-width-5 {
+  stroke-width: 5px;
+}
+
+.stroke-width-28 {
+  stroke-width: 28px;
+}
+
+.stroke-linecap-round {
+  stroke-linecap: round;
+}
+
+.stroke-gray {
+  stroke: $gray-910;
+}
+
+.stroke-dark {
+  stroke: $dark;
+}
+
+.stroke-primary {
+  stroke: $primary;
+}
+
 .fill-success {
   fill: $success;
 }

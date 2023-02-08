@@ -97,7 +97,26 @@ export enum PaymentType {
   KEYSEND = 'Keysend'
 };
 
-export const ANIMATION_CONFIGS = [
+export const ANIMATION_CONFIGS: any[] = [
   { type: 'spring', stiffness: 500, damping: 25 },
-  { type: 'spring', stiffness: 600, damping: 20 }
+  { type: 'spring', stiffness: 600, damping: 20 },
+  {
+    hidden: { pathLength: 0, opacity: 0 },
+    visible: (i) => {
+      const delay = 0 + i * 0.5;
+      return {
+        pathLength: 1,
+        opacity: 1,
+        transition: {
+          pathLength: { delay, type: 'spring', duration: 1, bounce: 0 },
+          opacity: { delay, duration: 0.01 }
+        }
+      };
+    }
+  }  
 ];
+
+export const ANIMATION_INITIAL_STATE = { opacity: 0, scale: 0.1 };
+export const ANIMATION_FINAL_STATE = { opacity: 1, scale: 1 };
+export const ANIMATION_TRANSITION = { duration: 1, delay: 0, ease: [0, 0.71, 0.2, 1.01] };
+export const ANIMATION_DELAYED_TRANSITION = { duration: 1, delay: 0.5, ease: [0, 0.71, 0.2, 1.01] };

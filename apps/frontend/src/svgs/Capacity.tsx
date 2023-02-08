@@ -1,18 +1,30 @@
+import { motion } from 'framer-motion';
+import { ANIMATION_CONFIGS, ANIMATION_FINAL_STATE, ANIMATION_INITIAL_STATE, ANIMATION_TRANSITION } from '../utilities/constants';
+
 export const CapacitySVG = props => {
   return (
-    <svg
+    <motion.svg
       className={props.className}
       width='56'
       height='66'
       viewBox='0 0 56 56'
       fill='none'
       xmlns='http://www.w3.org/2000/svg'
+      initial='hidden'
+      animate='visible'
     >
-      <circle cx='28' cy='28' r='28' className='fill-contrast' />
-      <path
-        d='M20.7578 22.5892H21.0315C22.0852 22.5892 22.9472 23.4513 22.9472 24.505V34.0838C22.9472 35.1375 22.0852 35.9996 21.0315 35.9996H20.7578C19.7041 35.9996 18.842 35.1375 18.842 34.0838V24.505C18.842 23.4513 19.7041 22.5892 20.7578 22.5892ZM28.4209 16.8419C29.4745 16.8419 30.3366 17.704 30.3366 18.7577V34.0838C30.3366 35.1375 29.4745 35.9996 28.4209 35.9996C27.3672 35.9996 26.5051 35.1375 26.5051 34.0838V18.7577C26.5051 17.704 27.3672 16.8419 28.4209 16.8419ZM36.0839 27.7891C37.1376 27.7891 37.9997 28.6512 37.9997 29.7049V34.0838C37.9997 35.1375 37.1376 35.9996 36.0839 35.9996C35.0302 35.9996 34.1682 35.1375 34.1682 34.0838V29.7049C34.1682 28.6512 35.0302 27.7891 36.0839 27.7891Z'
-        className='fill-primary'
+      <motion.circle
+        cx="28"
+        cy="28"
+        r="14"
+        className='stroke-gray stroke-width-28'
+        initial={ANIMATION_INITIAL_STATE}
+        animate={ANIMATION_FINAL_STATE}
+        transition={ANIMATION_TRANSITION}
       />
-    </svg>
+      <motion.line variants={ANIMATION_CONFIGS[2]} custom={0.5} x1='20' x2='20' y1='23' y2='33' className='stroke-primary stroke-linecap-round stroke-width-4' />
+      <motion.line variants={ANIMATION_CONFIGS[2]} custom={0.5} x1='28' x2='28' y1='16' y2='33' className='stroke-primary stroke-linecap-round stroke-width-4' />
+      <motion.line variants={ANIMATION_CONFIGS[2]} custom={0.5} x1='36' x2='36' y1='26' y2='33' className='stroke-primary stroke-linecap-round stroke-width-4' />
+    </motion.svg>
   );
 };
