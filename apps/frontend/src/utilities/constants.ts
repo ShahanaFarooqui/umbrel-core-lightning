@@ -96,3 +96,8 @@ export enum PaymentType {
   OFFER = 'Offer',
   KEYSEND = 'Keysend'
 };
+
+export const ANIMATION_CONFIGS = [
+  { type: 'spring', stiffness: 500, damping: 25 },
+  { type: 'spring', stiffness: 600, damping: 20 }
+];

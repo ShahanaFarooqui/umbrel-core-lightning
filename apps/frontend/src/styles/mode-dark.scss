@@ -74,4 +74,21 @@
       }
     }
   }
+
+  .switch {
+    border: 1px solid lighten($white, 20%);
+  
+    & .handle {
+      background-color: $dark;
+    }
+  
+    &:focus {
+      box-shadow: 0 0 0 0.2rem rgba($white, 0.25);
+    }
+
+    &[data-isswitchon='true'] {
+      border: 1px solid darken($success, 10%);
+    }
+ 
+  }  
 } // CLOSE FOR DARK MODE

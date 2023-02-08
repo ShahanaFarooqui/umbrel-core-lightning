@@ -1,8 +1,8 @@
 {
-  "unit": "SATS",
+  "unit": "BTC",
   "fiatUnit": "CAD",
   "appMode": "DARK",
   "isLoading": false,
   "error": null,
-  "useDummyData": true
+  "useDummyData": false
 }

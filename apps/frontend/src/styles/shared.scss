@@ -130,20 +130,40 @@ body #root {
   fill: $gray-600;
 }
 
-.form-switch {
-  & .form-check-input {
-    background-image: url('data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%27-4 -4 8 8%27%3e%3ccircle r=%273%27 fill=%27rgba%280, 0, 0, 0.25%29%27/%3e%3c/svg%3e');
+.switch {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+  cursor: pointer;
+  width: 2.5rem;
+  height: 1.25rem;
+  border-radius: 1.25rem;
+  padding: 0.25rem;
+  background-color: $white;
+  border: 1px solid lighten($light, 20%);
+
+  & .handle {
+    background-color: $light;
+    width: 0.75rem;
+    height: 0.75rem;
+    border-radius: 0.75rem;
   }
-  & .form-check-input:focus {
-    border-color: lighten($success, 10%);
-    box-shadow: 0 0 0 0.25rem rgba(51, 219, 149, 0.25);
-    background-image: url('data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%27-4 -4 8 8%27%3e%3ccircle r=%273%27 fill=%27rgba(51, 219, 149, 0.5)%27/%3e%3c/svg%3e');
+
+  &:focus {
+    box-shadow: 0 0 0 0.2rem rgba($light, 0.25);
   }
-  & .form-check-input:checked {
+
+  &[data-isswitchon='true'] {
+    justify-content: flex-end;
     background-color: $success;
-    border-color: lighten($success, 10%);
-    background-image: url('data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%27-4 -4 8 8%27%3e%3ccircle r=%273%27 fill=%27rgba(255,255,255,1)%27/%3e%3c/svg%3e');
-  }
+    border: 1px solid lighten($success, 20%);
+    & .handle {
+      background-color: $white;
+    }
+    &:focus {
+        box-shadow: 0 0 0 0.2rem rgba($success, 0.25);
+      }
+    }
 }
 
 .card {

@@ -9,10 +9,11 @@
   width: 5.5rem;
   box-sizing: border-box;
   position: relative;
-  display: flex;
   cursor: pointer;
   background: $white;
-  
+  display: flex;
+  justify-content: flex-start;
+
   & .toggle-bg-text {
     height: 100%;
   }
@@ -20,20 +21,17 @@
   & .toggle-switch {
     margin-top: -1px;
     position: absolute;
-    height: 106%;
-    width: calc(50%);
+    height: 105%;
+    width: calc(55%);
     color: $white;
     font-weight: 700;
     background: $primary;
-    transition: .8s cubic-bezier(.2,.8,.2,1);
     &.toggle-left {
-      transform: translateX(-2%);
       border-color: $primary;
       border-top-left-radius: .5rem;
       border-bottom-left-radius: .5rem;
     }
     &.toggle-right {
-      transform: translateX(102%);
       border-color: $primary;
       border-top-right-radius: .5rem;
       border-bottom-right-radius: .5rem;
@@ -43,7 +41,11 @@
       border-color: lighten($primary, 5%);
     }
   }
+  &[data-isswitchon='true'] {
+    justify-content: flex-end;
+  }
 }
+
 
 @include color-mode(dark) {
   .toggle {

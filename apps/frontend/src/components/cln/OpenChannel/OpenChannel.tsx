@@ -2,6 +2,7 @@ import './OpenChannel.scss';
 import { useContext, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
+import { motion } from 'framer-motion';
 import Card from 'react-bootstrap/Card';
 import Row from 'react-bootstrap/Row';
 import Spinner from 'react-bootstrap/Spinner';
@@ -13,7 +14,7 @@ import Alert from 'react-bootstrap/Alert';
 import logger from '../../../services/logger.service';
 import useInput from '../../../hooks/use-input';
 import useHttp from '../../../hooks/use-http';
-import { CallStatus, FeeRate, FEE_RATES } from '../../../utilities/constants';
+import { CallStatus, FeeRate, FEE_RATES, ANIMATION_CONFIGS } from '../../../utilities/constants';
 import { AppContext } from '../../../store/AppContext';
 import { ActionSVG } from '../../../svgs/Action';
 import { AmountSVG } from '../../../svgs/Amount';
@@ -179,16 +180,11 @@ const OpenChannel = (props) => {
                       </p>
                   }
                 </Col>
-                <Col xs={12}>
-                  <Form.Label className='mb-3 me-4 text-dark'>Announce</Form.Label>
-                  <Form.Check 
-                    inline
-                    tabIndex={3}
-                    type='switch'
-                    id='announce-switch'
-                    onChange={() => setAnnounce(!announce)}
-                    checked={announce}
-                  />
+                <Col xs={12} className='d-flex align-items-center mb-3'>
+                  <Form.Label className='text-dark me-4'>Announce</Form.Label>
+                  <div tabIndex={3} className='switch' data-isswitchon={announce} onClick={() => setAnnounce(!announce)}>
+                    <motion.div className='handle' layout transition={ANIMATION_CONFIGS[1]} />
+                  </div>
                 </Col>
                 <Col xs={12}>
                   <Form.Label className='text-dark d-flex align-items-center justify-content-between'>
