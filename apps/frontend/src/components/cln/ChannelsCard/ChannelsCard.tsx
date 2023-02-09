@@ -1,6 +1,6 @@
 import './ChannelsCard.scss';
 import { useState } from 'react';
-import { CSSTransition, SwitchTransition } from 'react-transition-group';
+import { motion, AnimatePresence } from 'framer-motion';
 import Card from 'react-bootstrap/Card';
 
 import Channels from '../Channels/Channels';
@@ -11,23 +11,22 @@ const ChannelsCard = () => {
 
   return (
     <Card className='h-100 overflow-hidden'>
-      <SwitchTransition mode='out-in'>
-        <CSSTransition
-          addEndListener={(node, done) => {
-            node.addEventListener('transitionend', done, false);
-          }}
-          classNames={showOpenChannel ? 'slide-left-to-right' : 'slide-left-to-right'}
+      <AnimatePresence mode='wait'>
+        <motion.div
           key={showOpenChannel.toString()}
-          mountOnEnter
-          unmountOnExit
+          initial={{ y: 20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          exit={{ y: -20, opacity: 0 }}
+          transition={{ duration: 0.5 }}
+          className='h-100 overflow-hidden'
         >
           {showOpenChannel ? (
             <OpenChannel onClose={() => setShowOpenChannel(false)} />
           ) : (
             <Channels onOpenChannel={() => setShowOpenChannel(true)} />
           )}
-        </CSSTransition>
-      </SwitchTransition>
+        </motion.div>
+      </AnimatePresence>
     </Card>
   );
 };

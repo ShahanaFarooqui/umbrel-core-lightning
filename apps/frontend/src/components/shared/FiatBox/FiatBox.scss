@@ -1,5 +1,7 @@
-.svg-inline--fa {
-  display: inline-block;
-  height: .6rem;
-  vertical-align: -1px;
+.fiat-box-span {
+  & .svg-inline--fa {
+    display: inline-block;
+    height: .6rem;
+    vertical-align: -1px;
+  }
 }

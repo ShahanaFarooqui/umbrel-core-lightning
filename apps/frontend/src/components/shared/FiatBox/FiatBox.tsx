@@ -5,7 +5,7 @@ import { formatFiatValue } from '../../../utilities/data-formatters';
 
 const FiatBox = props => {
   return (
-    <span className={props.className}>
+    <span className={'fiat-box-span ' + props.className}>
       { props.symbol ? <FontAwesomeIcon icon={props.symbol} /> : <></> }
       {formatFiatValue((+props.value || 0), +props.rate)}
     </span>

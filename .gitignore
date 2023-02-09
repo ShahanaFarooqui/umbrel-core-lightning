@@ -10,3 +10,4 @@ data/cln/rune
 
 apps/backend/source/shared/consts.ts
 apps/backend/dist/shared/consts.js
+data/app/app.config.json

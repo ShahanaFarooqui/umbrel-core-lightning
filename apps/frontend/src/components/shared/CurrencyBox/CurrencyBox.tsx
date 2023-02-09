@@ -16,10 +16,10 @@ const CurrencyBox = props => {
     setAnimationFinished(0);
     count.current = 0;
     count.prev = 0;
-    const animation = animate(count, +formatCurrencyNumeric(props.value, appCtx.appConfig.unit, props.shorten), { duration: 5 });
+    const animation = animate(count, +formatCurrencyNumeric(props.value, appCtx.appConfig.unit, props.shorten), { duration: 2 });
     setTimeout(() => {
       setAnimationFinished(1);
-    }, 5000);
+    }, 2000);
     return animation.stop;
   }, [appCtx.appConfig.unit]);
 
