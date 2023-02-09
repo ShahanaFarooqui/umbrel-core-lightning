@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 
 import useHttp from '../../../hooks/use-http';
 import { AppContext } from '../../../store/AppContext';
-import { ANIMATION_CONFIGS } from '../../../utilities/constants';
+import { SPRING_VARIANTS } from '../../../utilities/constants';
 
 const ToggleSwitch = (props) => {
   const [isSwitchOn, setIsSwitchOn] = useState(props.selValue === props.values[1]);
@@ -24,7 +24,7 @@ const ToggleSwitch = (props) => {
         <span className='text-center me-2'>{props.values[0]}</span>
         <span className='text-center ms-2'>{props.values[1]}</span>
       </div>
-      <motion.div layout transition={ANIMATION_CONFIGS[0]} className={'toggle-switch justify-content-center d-flex align-items-center ' + (isSwitchOn ? 'toggle-right' : 'toggle-left')}>
+      <motion.div layout transition={SPRING_VARIANTS} className={'toggle-switch justify-content-center d-flex align-items-center ' + (isSwitchOn ? 'toggle-right' : 'toggle-left')}>
         <span>{props.selValue}</span>
       </motion.div>
     </div>

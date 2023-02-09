@@ -18,6 +18,16 @@ export const formatCurrency = (num: number, selUnit: Units = Units.SATS, shorten
       parseFloat(num.toString()).toLocaleString('en-us'));
 };
 
+export const formatCurrencyNumeric = (num: number, selUnit: Units = Units.SATS, shorten: boolean = false) => {
+  return selUnit === Units.BTC ? 
+      Number.parseFloat((num / BTC_SATS).toString()).toFixed(5)
+    : 
+      shorten ? 
+        Math.floor((num / 1000))
+      : 
+        parseFloat(num.toString());
+};
+
 export const formatFiatValue = (num: number = 0, rate: number = 1) => {
   return Number.parseFloat(((num / BTC_SATS) * rate).toString()).toFixed(2);
 };

@@ -11,20 +11,20 @@ export const NODE_ENV: Environment = Environment.DEVELOPMENT;
 export const LOG_FILE = './dist/logs/cln-backend-' + new Date().toISOString() + '.log';
 
 // // Local TESTNET 1
-// export const COMMANDO_PUBKEY = '037610b58f47e78ea5178e56f4c793656da5cf093d6269a37f5b0709b7d610e627';
-// export const COMMANDO_WS_PROXY = 'ws://0.0.0.0:5001';
-// export const COMMANDO_IP = '0.0.0.0';
-// export const COMMANDO_PORT = 5001;
-// export const COMMANDO_RUNE = 'bfoeiPMx3rZslYvQZq6hjtDXRMmT_JKxEgXDHjLRpyU9MA==';
-// export const COMMANDO_PRIVATE_KEY = crypto.randomBytes(32).toString('hex');
+export const COMMANDO_PUBKEY = '037610b58f47e78ea5178e56f4c793656da5cf093d6269a37f5b0709b7d610e627';
+export const COMMANDO_WS_PROXY = 'ws://0.0.0.0:5001';
+export const COMMANDO_IP = '0.0.0.0';
+export const COMMANDO_PORT = 5001;
+export const COMMANDO_RUNE = 'bfoeiPMx3rZslYvQZq6hjtDXRMmT_JKxEgXDHjLRpyU9MA==';
+export const COMMANDO_PRIVATE_KEY = crypto.randomBytes(32).toString('hex');
 
 // // Local TESTNET 2
-export const COMMANDO_PUBKEY = '027bff0162504153dd48cb92a13d2ea781a7f33a014678beeb43a328c88e21bd7f';
-export const COMMANDO_WS_PROXY = 'ws://0.0.0.0:5002';
-export const COMMANDO_IP = '0.0.0.0';
-export const COMMANDO_PORT = 5002;
-export const COMMANDO_RUNE = 'EnY-PL3S27YClWAuGTQQdjHUutOe-fb1YooiD3jyyuE9MQ==';
-export const COMMANDO_PRIVATE_KEY = crypto.randomBytes(32).toString('hex');
+// export const COMMANDO_PUBKEY = '027bff0162504153dd48cb92a13d2ea781a7f33a014678beeb43a328c88e21bd7f';
+// export const COMMANDO_WS_PROXY = 'ws://0.0.0.0:5002';
+// export const COMMANDO_IP = '0.0.0.0';
+// export const COMMANDO_PORT = 5002;
+// export const COMMANDO_RUNE = 'EnY-PL3S27YClWAuGTQQdjHUutOe-fb1YooiD3jyyuE9MQ==';
+// export const COMMANDO_PRIVATE_KEY = crypto.randomBytes(32).toString('hex');
 
 // // Local REGTEST 1
 // export const COMMANDO_RUNE = 'Am3W_wI0PRn4qVNEsJ2iInHyFPQK8wfdqEXztm8-icQ9MA==';

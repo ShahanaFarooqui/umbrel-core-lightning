@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { ANIMATION_INITIAL_STATE, ANIMATION_TRANSITION, ANIMATION_DELAYED_TRANSITION, ANIMATION_FINAL_STATE } from '../utilities/constants';
+import { OPACITY_VARIANTS, ANIMATION_INITIAL_STATE, ANIMATION_TRANSITION, ANIMATION_DELAYED_TRANSITION, ANIMATION_FINAL_STATE } from '../utilities/constants';
 
 export const PeersSVG = props => {
 
@@ -11,8 +11,7 @@ export const PeersSVG = props => {
       viewBox='0 0 56 56'
       fill='none'
       xmlns='http://www.w3.org/2000/svg'
-      initial='hidden'
-      animate='visible'
+      variants={OPACITY_VARIANTS}
     >
       <motion.circle
         cx="28"

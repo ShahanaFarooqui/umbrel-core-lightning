@@ -14,7 +14,7 @@ import Alert from 'react-bootstrap/Alert';
 import logger from '../../../services/logger.service';
 import useInput from '../../../hooks/use-input';
 import useHttp from '../../../hooks/use-http';
-import { CallStatus, FeeRate, FEE_RATES, ANIMATION_CONFIGS } from '../../../utilities/constants';
+import { CallStatus, FeeRate, FEE_RATES, BOUNCY_SPRING_VARIANTS } from '../../../utilities/constants';
 import { AppContext } from '../../../store/AppContext';
 import { ActionSVG } from '../../../svgs/Action';
 import { AmountSVG } from '../../../svgs/Amount';
@@ -183,7 +183,7 @@ const OpenChannel = (props) => {
                 <Col xs={12} className='d-flex align-items-center mb-3'>
                   <Form.Label className='text-dark me-4'>Announce</Form.Label>
                   <div tabIndex={3} className='switch' data-isswitchon={announce} onClick={() => setAnnounce(!announce)}>
-                    <motion.div className='handle' layout transition={ANIMATION_CONFIGS[1]} />
+                    <motion.div className='handle' layout transition={BOUNCY_SPRING_VARIANTS} />
                   </div>
                 </Col>
                 <Col xs={12}>

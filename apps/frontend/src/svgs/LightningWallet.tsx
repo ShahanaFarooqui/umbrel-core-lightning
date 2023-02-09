@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { ANIMATION_FINAL_STATE, ANIMATION_INITIAL_STATE, ANIMATION_TRANSITION } from '../utilities/constants';
+import { ANIMATION_FINAL_STATE, ANIMATION_INITIAL_STATE, ANIMATION_TRANSITION, OPACITY_VARIANTS } from '../utilities/constants';
 
 export const LightningWalletSVG = props => {
   return (
@@ -10,8 +10,7 @@ export const LightningWalletSVG = props => {
       viewBox='0 0 24 53'
       fill='none'
       xmlns='http://www.w3.org/2000/svg'
-      initial='hidden'
-      animate='visible'
+      variants={OPACITY_VARIANTS}
     >
       <motion.path
         d='M20.8982 0.208008L0.782227 27.374L24.0002 21.264H10.0882L20.8982 0.208008Z'
