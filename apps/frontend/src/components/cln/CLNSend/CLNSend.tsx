@@ -1,6 +1,5 @@
 import './CLNSend.scss';
 import { useContext, useState } from 'react';
-import { motion } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 import Card from 'react-bootstrap/Card';

@@ -21,7 +21,7 @@ const CurrencyBox = props => {
       setAnimationFinished(1);
     }, 2000);
     return animation.stop;
-  }, [appCtx.appConfig.unit]);
+  }, [appCtx.appConfig.unit, count, props]);
 
   return (
     <div className={props.rootClasses}>

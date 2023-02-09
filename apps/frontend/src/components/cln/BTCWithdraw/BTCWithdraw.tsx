@@ -1,6 +1,5 @@
 import './BTCWithdraw.scss';
 import { useContext, useState } from 'react';
-import { motion } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleXmark, faXmark } from '@fortawesome/free-solid-svg-icons';
 import Card from 'react-bootstrap/Card';
@@ -15,7 +14,7 @@ import Alert from 'react-bootstrap/Alert';
 import logger from '../../../services/logger.service';
 import useInput from '../../../hooks/use-input';
 import useHttp from '../../../hooks/use-http';
-import { CallStatus, FeeRate, FEE_RATES, BOUNCY_SPRING_VARIANTS_2, STAGERRED_SPRING_VARIANTS_2 } from '../../../utilities/constants';
+import { CallStatus, FeeRate, FEE_RATES } from '../../../utilities/constants';
 import { AppContext } from '../../../store/AppContext';
 import { ActionSVG } from '../../../svgs/Action';
 import { AmountSVG } from '../../../svgs/Amount';
