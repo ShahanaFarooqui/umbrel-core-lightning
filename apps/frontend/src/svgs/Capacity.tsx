@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { ANIMATION_FINAL_STATE, ANIMATION_INITIAL_STATE, ANIMATION_TRANSITION, STAGERRED_SPRING_VARIANTS } from '../utilities/constants';
+import { ANIMATION_FINAL_STATE, ANIMATION_INITIAL_STATE, ANIMATION_TRANSITION, STAGERRED_SPRING_VARIANTS_1 } from '../utilities/constants';
 
 export const CapacitySVG = props => {
   return (
@@ -22,9 +22,9 @@ export const CapacitySVG = props => {
         animate={ANIMATION_FINAL_STATE}
         transition={ANIMATION_TRANSITION}
       />
-      <motion.line variants={STAGERRED_SPRING_VARIANTS} custom={0.5} x1='20' x2='20' y1='23' y2='33' className='stroke-primary stroke-linecap-round stroke-width-4' />
-      <motion.line variants={STAGERRED_SPRING_VARIANTS} custom={0.5} x1='28' x2='28' y1='16' y2='33' className='stroke-primary stroke-linecap-round stroke-width-4' />
-      <motion.line variants={STAGERRED_SPRING_VARIANTS} custom={0.5} x1='36' x2='36' y1='26' y2='33' className='stroke-primary stroke-linecap-round stroke-width-4' />
+      <motion.line variants={STAGERRED_SPRING_VARIANTS_1} custom={0.5} x1='20' x2='20' y1='23' y2='33' className='stroke-primary stroke-linecap-round stroke-width-4' />
+      <motion.line variants={STAGERRED_SPRING_VARIANTS_1} custom={0.5} x1='28' x2='28' y1='16' y2='33' className='stroke-primary stroke-linecap-round stroke-width-4' />
+      <motion.line variants={STAGERRED_SPRING_VARIANTS_1} custom={0.5} x1='36' x2='36' y1='26' y2='33' className='stroke-primary stroke-linecap-round stroke-width-4' />
     </motion.svg>
   );
 };

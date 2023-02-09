@@ -104,8 +104,9 @@ export const ANIMATION_DELAYED_TRANSITION = { duration: 1.5, delay: 0.5, ease: [
 
 export const OPACITY_VARIANTS = { visible: { opacity: 1 }, hidden: { opacity: 0 }};
 export const SPRING_VARIANTS = { type: 'spring', stiffness: 500, damping: 25 };
-export const BOUNCY_SPRING_VARIANTS = { type: 'spring', stiffness: 600, damping: 20 };
-export const STAGERRED_SPRING_VARIANTS = {
+export const BOUNCY_SPRING_VARIANTS_1 = { type: 'spring', stiffness: 600, damping: 20 };
+export const BOUNCY_SPRING_VARIANTS_2 = { type: 'spring', stiffness: 700, damping: 10 };
+export const STAGERRED_SPRING_VARIANTS_1 = {
   hidden: { pathLength: 0, opacity: 0 },
   visible: (i) => {
     const delay = 0 + i * 0.5;
@@ -115,6 +116,18 @@ export const STAGERRED_SPRING_VARIANTS = {
       transition: {
         pathLength: { delay, type: 'spring', duration: 1, bounce: 0 },
         opacity: { delay, duration: 0.01 }
+      }
+    };
+  }
+};
+export const STAGERRED_SPRING_VARIANTS_2 = {
+  hidden: { x: 15 },
+  visible: (i) => {
+    const delay = 0 + i * 0.5;
+    return {
+      x: 0,
+      transition: {
+        x: { delay, type: 'spring', stiffness: 700, damping: 10 }
       }
     };
   }

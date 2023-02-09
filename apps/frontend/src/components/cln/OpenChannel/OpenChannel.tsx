@@ -1,8 +1,8 @@
 import './OpenChannel.scss';
 import { useContext, useState } from 'react';
+import { motion } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
-import { motion } from 'framer-motion';
 import Card from 'react-bootstrap/Card';
 import Row from 'react-bootstrap/Row';
 import Spinner from 'react-bootstrap/Spinner';
@@ -14,7 +14,7 @@ import Alert from 'react-bootstrap/Alert';
 import logger from '../../../services/logger.service';
 import useInput from '../../../hooks/use-input';
 import useHttp from '../../../hooks/use-http';
-import { CallStatus, FeeRate, FEE_RATES, BOUNCY_SPRING_VARIANTS } from '../../../utilities/constants';
+import { CallStatus, FeeRate, FEE_RATES, BOUNCY_SPRING_VARIANTS_1, STAGERRED_SPRING_VARIANTS_2 } from '../../../utilities/constants';
 import { AppContext } from '../../../store/AppContext';
 import { ActionSVG } from '../../../svgs/Action';
 import { AmountSVG } from '../../../svgs/Amount';
@@ -30,7 +30,6 @@ const OpenChannel = (props) => {
   const [announce, setAnnounce] = useState(true);
   const [responseStatus, setResponseStatus] = useState(CallStatus.NONE);
   const [responseMessage, setResponseMessage] = useState('');
-
   const isValidAmount = (value) => value.trim() !== '' && value > 0 && value <= (appCtx.walletBalances.btcConfBalance || 0);
   const isValidPubkey = (value) => value.includes('@') && value.includes(':');
 
@@ -129,10 +128,10 @@ const OpenChannel = (props) => {
                       onBlur={pubkeyBlurHandler}
                     />
                   </InputGroup>
-                  <p className='message invalid'>
+                  <motion.div className='message invalid' variants={STAGERRED_SPRING_VARIANTS_2} initial='hidden' animate='visible' exit='hidden' custom={0}>
                     {pubkeyHasError ? <InformationSVG svgClassName='me-1' className='fill-danger' /> : ''}
                     {pubkeyHasError ? 'Invalid Node ID' : ''}
-                  </p>
+                  </motion.div>
                 </Col>
                 <Col xs={12}>
                   <Form.Label className='text-dark'>Amount</Form.Label>
@@ -164,7 +163,7 @@ const OpenChannel = (props) => {
                       :
                         <p className='message'></p>
                     :
-                      <p className='message invalid'>
+                      <motion.div className='message invalid' variants={STAGERRED_SPRING_VARIANTS_2} initial='hidden' animate='visible' exit='hidden' custom={0}>
                         {amountHasError ? <InformationSVG svgClassName='me-1' className='fill-danger' /> : ''}
                         {
                           amountHasError ?
@@ -177,13 +176,13 @@ const OpenChannel = (props) => {
                           :
                             'Invalid Amount'
                         }
-                      </p>
+                      </motion.div>
                   }
                 </Col>
                 <Col xs={12} className='d-flex align-items-center mb-3'>
                   <Form.Label className='text-dark me-4'>Announce</Form.Label>
                   <div tabIndex={3} className='switch' data-isswitchon={announce} onClick={() => setAnnounce(!announce)}>
-                    <motion.div className='handle' layout transition={BOUNCY_SPRING_VARIANTS} />
+                    <motion.div className='handle' layout transition={BOUNCY_SPRING_VARIANTS_1} />
                   </div>
                 </Col>
                 <Col xs={12}>
