@@ -10,7 +10,7 @@ const ChannelsCard = () => {
   const [showOpenChannel, setShowOpenChannel] = useState(false);
 
   return (
-    <Card className='h-100 overflow-hidden'>
+    <Card className='h-100 overflow-hidden inner-box-shadow'>
       <AnimatePresence mode='wait'>
         <motion.div
           key={showOpenChannel.toString()}

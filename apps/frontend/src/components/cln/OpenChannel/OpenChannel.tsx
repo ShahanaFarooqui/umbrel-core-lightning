@@ -201,7 +201,7 @@ const OpenChannel = (props) => {
               }
             </Card.Body>
             <Card.Footer className='d-flex justify-content-center'>
-              <button tabIndex={5} type='submit' className='btn-rounded bg-primary fw-bold' disabled={responseStatus === CallStatus.PENDING}>
+              <button tabIndex={5} type='submit' className='btn-rounded bg-primary' disabled={responseStatus === CallStatus.PENDING}>
                 Open Channel
                 <ActionSVG className='ms-2' />
               </button>

@@ -104,7 +104,7 @@ const BTCWithdraw = (props) => {
             <Card.Header className='p-0 d-flex align-items-start justify-content-between'>
               <div className='p-0 fw-bold text-primary d-flex align-items-center'>
                 <BitcoinWalletSVG svgClassName='svg-small me-2' className='fill-primary' />
-                <span>Bitcoin Wallet</span>
+                <span className='fw-bold'>Bitcoin Wallet</span>
               </div>
               <FontAwesomeIcon icon={faCircleXmark} onClick={props.onClose} size='lg' />
             </Card.Header>
@@ -213,7 +213,7 @@ const BTCWithdraw = (props) => {
               }
             </Card.Body>
             <Card.Footer className='d-flex justify-content-center'>
-              <Button tabIndex={4} type='submit' variant='primary' className='btn-rounded fw-bold' disabled={responseStatus === CallStatus.PENDING}>
+              <Button tabIndex={4} type='submit' variant='primary' className='btn-rounded' disabled={responseStatus === CallStatus.PENDING}>
                 Withdraw
                 <ActionSVG className='ms-2' />
               </Button>

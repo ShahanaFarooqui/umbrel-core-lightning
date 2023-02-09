@@ -8,18 +8,18 @@
       "type": "image/x-icon"
     },
     {
-      "src": "images/cln-logo.png",
+      "src": "images/cln-logo-light.png",
       "type": "image/png",
-      "sizes": "192x192"
+      "sizes": "85x85"
     },
     {
-      "src": "images/cln-logo.png",
+      "src": "images/cln-logo-dark.png",
       "type": "image/png",
-      "sizes": "512x512"
+      "sizes": "85x85"
     }
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "theme_color": "#E1BA2D",
+  "background_color": "#2A2A2C"
 }

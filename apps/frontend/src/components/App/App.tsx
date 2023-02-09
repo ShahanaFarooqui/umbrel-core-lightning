@@ -31,7 +31,7 @@ const App = () => {
   const theme = document.createAttribute('data-bs-theme');
   theme.value = appCtx.appConfig.appMode?.toLowerCase() || 'dark';
   bodyHTML.style.backgroundColor =
-    appCtx.appConfig.appMode === ApplicationModes.LIGHT ? '#F4F7FE' : '#131314';
+    appCtx.appConfig.appMode === ApplicationModes.LIGHT ? '#EBEFF9' : '#0C0C0F';
   htmlAttributes.setNamedItem(theme);
 
   useEffect(() => {

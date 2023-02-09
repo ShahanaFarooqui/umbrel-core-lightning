@@ -17,7 +17,7 @@ export const PeersSVG = props => {
         cx="28"
         cy="28"
         r="14"
-        className='stroke-gray stroke-width-28'
+        className='stroke-primary-bg stroke-width-28'
         initial={ANIMATION_INITIAL_STATE}
         animate={ANIMATION_FINAL_STATE}
         transition={ANIMATION_TRANSITION}

@@ -48,7 +48,7 @@ const BTCDeposit = (props) => {
         <Card.Header className='p-0 d-flex align-items-start justify-content-between'>
           <div className='p-0 fw-bold text-primary d-flex align-items-center'>
             <BitcoinWalletSVG svgClassName='svg-small me-2' className='fill-primary' />
-            <span>Bitcoin Wallet</span>
+            <span className='fw-bold'>Bitcoin Wallet</span>
           </div>
           <FontAwesomeIcon icon={faCircleXmark} onClick={props.onClose} size='lg' />
         </Card.Header>

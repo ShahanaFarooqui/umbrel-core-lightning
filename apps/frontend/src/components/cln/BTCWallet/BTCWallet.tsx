@@ -20,13 +20,13 @@ const BTCWallet = (props) => {
 
   return (
     <Card className='h-100 d-flex align-items-stretch'>
-      <Card.Body className='d-flex align-items-stretch flex-column pt-4'>
-        <Card className='bg-primary bg-gradient'>
+      <Card.Body className='d-flex align-items-stretch flex-column p-0'>
+        <Card className='bg-primary wallet-card'>
           <Card.Body>
             <Col xs={12} className='d-flex align-items-center justify-content-start'>
               <BitcoinWalletSVG svgClassName='me-4' className='fill-contrast' />
               <div>
-                <div>Bitcoin Wallet</div>
+                <div className='fw-bold'>Bitcoin Wallet</div>
                 { appCtx.walletBalances.isLoading ? 
                     <Spinner animation='grow' variant='secondary' /> : 
                   appCtx.walletBalances.error ? 
@@ -36,7 +36,7 @@ const BTCWallet = (props) => {
                 </div>
             </Col>
           </Card.Body>
-          <ButtonGroup className='sticky-bottom btn-group-action'>
+          <ButtonGroup className='sticky-bottom btn-group-action mt-1'>
             <button className='btn-actions btn-primary' onClick={() => props.onActionClick('withdraw')}>
               <WithdrawSVG className='me-2' />
               Withdraw
@@ -47,7 +47,7 @@ const BTCWallet = (props) => {
             </button>
           </ButtonGroup>
         </Card>
-        <Card.Body className='px-0 list-scroll-container'>
+        <Card.Body className='px-3 list-scroll-container'>
           <div className='fs-7 text-light'>UTXOs</div>
           <PerfectScrollbar className='ps-show-always'>
             <UTXOs />

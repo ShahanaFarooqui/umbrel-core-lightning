@@ -6,7 +6,7 @@
     color: $light-dark !important;
   }
 
-  .text-light-white, .text-dark {
+  .text-light-white, .text-dark, .text-contrast {
     color: $white !important;
   }
 
@@ -18,13 +18,22 @@
     color: $white;
   }
 
-  .card, .list-group-item {
-    background-color: $gray-920;
+  .card {
+    background-color: $card-bg-dark;
+    box-shadow: none;
+    &.bg-primary {
+      color: $text-dark;
+    }
+  }
+  
+  .list-group-item, .dropdown-menu {
+    background-color: $card-bg-dark;
+    box-shadow: none;
   }
   
   .fill-contrast,
   .fill-1 {
-    fill: $gray-910;
+    fill: $text-dark;
   }
 
   .fill-primary, .fill-2 {
@@ -32,8 +41,16 @@
   }
 
   .fill-strong-contrast {
-    fill: $gray-920;
-    stop-color: $gray-920;
+    fill: $card-bg-dark;
+    stop-color: $card-bg-dark;
+  }
+
+  .fill-body-color {
+    fill: $light-dark;
+  }
+
+  .stroke-bg, .stroke-primary-bg {
+    stroke: $body-bg-dark;
   }
 
   .stroke-light {
@@ -47,7 +64,9 @@
   }
 
   .btn-rounded {
-    color: $gray-920;
+    &.btn.btn-primary, &.bg-primary {
+      color: $card-bg-dark;
+    }
   }
   
   .dropdown {
@@ -69,8 +88,72 @@
 
   .input-group {
     & .form-control {
+      font-size: 14px;
+      color: $light-dark;
+      background-color: $form-ctrl-bg-dark;
       &:focus {
         border-color: transparent;
+        box-shadow: none;
+      }
+    }
+    & .form-control-middle {
+      border-left: 0;
+      padding-left: 0;
+      border-right: 0;
+      padding-right: 0;
+    }
+    & .form-control.form-control-left {
+      cursor: pointer;
+      border-right: 0;
+      padding-right: 0;
+    }
+    & .form-control.form-control-right {
+      border-left: 0;
+      padding-left: 0;
+    }
+    & .form-control-addon {
+      background-color: $form-ctrl-bg-dark;
+      &.form-control-addon-disabled {
+        background-color: $gray-200;
+      }
+      &:focus {
+        border-color: transparent;
+        box-shadow: none;
+      }
+      &.form-control-addon-right {
+        cursor: pointer;
+        border-left: 0;
+        &:hover {
+          svg path {
+            stroke: darken($primary, 10%);
+          }
+        }
+        & .btn-addon-close {
+          &:hover {
+            & path {
+              fill: darken($primary, 10%);
+            }
+          }
+        }
+      }
+      &.form-control-addon-left {
+        border-right: 0;
+      }
+    }
+    &.invalid {
+      & .form-control {
+        border-color: $danger;
+        &:focus {
+          border-color: $danger;
+          box-shadow: none;
+        }
+      }
+      & .form-control-addon {
+        border-color: $danger;
+        &:focus {
+          border-color: $danger;
+          box-shadow: none;
+        }  
       }
     }
   }
@@ -90,5 +173,6 @@
       border: 1px solid darken($success, 10%);
     }
  
-  }  
+  }
+
 } // CLOSE FOR DARK MODE

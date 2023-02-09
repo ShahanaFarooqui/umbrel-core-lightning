@@ -66,7 +66,7 @@ const Channels = (props) => {
         }
       </Card.Body>
       <Card.Footer className='d-flex justify-content-center'>
-        <button tabIndex={1} className='btn-rounded bg-primary fw-bold' onClick={props.onOpenChannel}>
+        <button tabIndex={1} className='btn-rounded bg-primary' onClick={props.onOpenChannel}>
           Open Channel
           <ActionSVG className='ms-2' />
         </button>

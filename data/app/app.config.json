@@ -1,5 +1,5 @@
 {
-  "unit": "BTC",
+  "unit": "SATS",
   "fiatUnit": "CAD",
   "appMode": "DARK",
   "isLoading": false,

@@ -25,7 +25,7 @@ const Header = (props) => {
     return (
       <Row className='header mb-5 mx-1' data-testid='header'>
         <Col xs={12} data-testid='header-info'>
-          <Image src='images/cln-logo.png' className='header-info-logo me-3 rounded float-start' alt='Core Lightning Logo' />
+          <Image src={appCtx.appConfig.appMode === ApplicationModes.DARK ? 'images/cln-logo-dark.png' : 'images/cln-logo-light.png'} className='header-info-logo me-3 rounded float-start' alt='Core Lightning Logo' />
           <Col className='h-100 d-flex align-items-center justify-content-between'>
             <h4 className='m-0 text-dark'><strong>CLN</strong></h4>
             <div className='d-flex'>
@@ -55,7 +55,7 @@ const Header = (props) => {
   return (
     <Row className='header mb-4 mx-1' data-testid='header'>
       <Col xs={12} lg={8} data-testid='header-info'>
-        <Image src='images/cln-logo.png' className='header-info-logo me-3 rounded float-start' alt='Core Lightning Logo' />
+        <Image src={appCtx.appConfig.appMode === ApplicationModes.DARK ? 'images/cln-logo-dark.png' : 'images/cln-logo-light.png'} className='header-info-logo me-3 rounded float-start' alt='Core Lightning Logo' />
         <Row className='header-info-text mt-3'>
           {(currentScreenSize !== Breakpoints.MD) ?
             <h4 className='m-0 text-dark'><strong>Core Lightning Node</strong></h4>

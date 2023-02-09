@@ -42,7 +42,7 @@ const Overview = () => {
   return (
     <Row className='mx-1'>
       <Col xs={12} lg={3} className='d-lg-flex d-xl-flex mb-4'>
-        <Card className='bg-primary bg-gradient flex-grow-1'>
+        <Card className='bg-primary flex-grow-1 inner-box-shadow'>
           <Card.Body className='d-flex align-items-center'>
             <Row className='flex-fill'>
               <Col xs={6} lg={8} xxl={6}>
@@ -62,7 +62,7 @@ const Overview = () => {
         </Card>
       </Col>
       <Col xs={12} lg={9} className='mb-4'>
-        <Card>
+        <Card className='inner-box-shadow'>
           <Card.Body>
             <Row>
               <Col xs={12} md={4} lg={4}>

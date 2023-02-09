@@ -1,6 +1,10 @@
 @import 'constants';
 
 @include color-mode(light) {
+  .text-contrast {
+    color: $dark;
+  }
+  
   .text-light-white {
     color: $light !important;
   }
@@ -19,7 +23,19 @@
   }
 
   .fill-contrast {
-    fill: $gray-150;
+    fill: $body-bg;
+  }
+
+  .fill-body-color {
+    fill: $body-color;
+  }
+
+  .stroke-bg {
+    stroke: $body-bg;
+  }
+  
+  .stroke-primary-bg {
+    stroke: $primary;
   }
 
   .stroke-light {
@@ -27,7 +43,21 @@
   }
 
   .btn-rounded {
-    color: white;
+    &.btn.btn-primary, &.bg-primary {
+      color: white;
+    }
+  }
+
+  .card {
+    background-color: $white;
+    &.bg-primary {
+      color: $white;
+    }
+  }
+
+  .list-group-item, .dropdown-menu {
+    background-color: $white;
+    box-shadow: none;
   }
 
   .btn-group {
@@ -48,10 +78,15 @@
 
   .input-group {
     & .form-control {
+      background-color: $white;
       &:focus {
         border-color: $gray-300;
       }
     }
+  }
+
+  .inner-box-shadow {
+    box-shadow: 0px 4px 8px 0px $gray-400;
   }
 
 } // CLOSE FOR LIGHT MODE

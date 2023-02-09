@@ -9,38 +9,35 @@ $enable-gradients: true;
 $enable-responsive-font-sizes: true;
 
 // $font-family-base: -apple-system, BlinkMacSystemFont, 'DM Sans', 'Helvetica Neue', 'Segoe UI', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-$font-family-base: 'DM Sans';
+$font-family-base: 'Inter';
 
 $font-size-base: 14px;
 $font-weight-base: 500;
 $btn-font-size: 14px;
 
-$white: #ffffff;
-$primary: #DFB316;
+$primary: #E1BA2D;
+$primary-darker: #CCA103;
 $secondary: $gray-100;
-$success: #33db95;
+$success: #33DB95;
 $warning: #FE8E02;
-$danger: #dc3545;
+$danger: #DC3545;
 $blue: #1B2559;
-
 $light: #9F9F9F;
 $dark: #3A4247;
 $light-dark: #B7BBC2;
+$card-bg-dark: #2A2A2C;
+$text-dark: #131314;
+$form-ctrl-bg-dark: #303032;
 
-$logo-gray: #1D2127;
-$gray-150: #F4F7FE;
-$gray-250: #E9EDF7;
-$gray-910: #131314;
-$gray-920: #262626;
-
-$body-bg: $white;
-$body-bg-dark: $gray-910;
-
-$body-color: $white;
-$body-color-dark: $gray-910;
+$body-bg: #EBEFF9;
+$body-color: $dark;
+$body-bg-dark: #0C0C0F;
+$body-color-dark: $white;
 
 $border-radius: 1.25rem;
 $btn-link-color: $primary;
+$btn-padding-x: .625rem;
+
 $form-check-input-checked-bg-color: $primary;
 $form-check-input-checked-border-color: $primary;
 $form-check-input-focus-border: lighten($primary, 10%);
@@ -49,12 +46,11 @@ $form-check-input-focus-box-shadow: 0 0 0 0.25rem rgba(lighten($primary, 10%), 0
 $card-border-width: 0.5px;
 $card-border-color: rgba($light, 0.1);
 $card-border-radius: $border-radius;
-$card-box-shadow: 0px 4px 4px rgba($gray-400, 0.1);
 $card-cap-bg: transparent;
 
 $dropdown-min-width: 5rem;
-$btn-padding-y: .375rem;
-$btn-padding-x: .675rem;
+$dropdown-box-shadow: none;
+$dropdown-border-radius: 0.5rem;
 
 $input-color: $dark;
 $input-disabled-bg: $gray-200;

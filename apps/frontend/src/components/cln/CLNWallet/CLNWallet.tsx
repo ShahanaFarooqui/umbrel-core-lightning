@@ -20,13 +20,13 @@ const CLNWallet = (props) => {
   
   return (
     <Card className='h-100 d-flex align-items-stretch'>
-      <Card.Body className='d-flex align-items-stretch flex-column pt-4'>
-        <Card className='bg-primary bg-gradient'>
+      <Card.Body className='d-flex align-items-stretch flex-column p-0'>
+        <Card className='bg-primary wallet-card'>
           <Card.Body>
             <Col xs={12} className='d-flex align-items-center justify-content-start'>
               <LightningWalletSVG svgClassName='me-4' className='fill-contrast' />
               <div>
-                <div>Lightning Wallet</div>
+                <div className='fw-bold'>Lightning Wallet</div>
                 { appCtx.walletBalances.isLoading ? 
                     <Spinner animation='grow' variant='secondary' /> : 
                   appCtx.walletBalances.error ? 
@@ -36,7 +36,7 @@ const CLNWallet = (props) => {
               </div>
             </Col>
           </Card.Body>
-          <ButtonGroup className='sticky-bottom btn-group-action'>
+          <ButtonGroup className='sticky-bottom btn-group-action mt-1'>
             <button className='btn-actions btn-primary' onClick={() => props.onActionClick('send')}>
               <WithdrawSVG className='me-2' />
               Send
@@ -47,7 +47,7 @@ const CLNWallet = (props) => {
             </button>
           </ButtonGroup>
         </Card>
-        <Card.Body className='px-0 list-scroll-container'>
+        <Card.Body className='px-3 list-scroll-container'>
           <div className='fs-7 text-light'>Transactions</div>
           <PerfectScrollbar className='ps-show-always'>
             <Transactions />

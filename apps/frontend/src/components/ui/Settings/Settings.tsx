@@ -22,7 +22,7 @@ const Settings = (props) => {
         <span className={props.compact ? '' : 'me-2'}>{props.compact ? '' : 'Settings'}</span>
         <SettingsSVG className={((!!appCtx.nodeInfo.error || appCtx.nodeInfo.isLoading) ? 'mt-1 svg-fill-disabled' : 'mt-1')} />
       </Dropdown.Toggle>
-      <Dropdown.Menu className='fs-7'>
+      <Dropdown.Menu className='fs-7 inner-box-shadow border-none'>
         <Dropdown.Item data-bs-toggle='modal' data-bs-target='#staticBackdrop' onClick={props.onShowNodeInfo}>Show node ID</Dropdown.Item>
         <Dropdown.Item data-bs-toggle='modal' data-bs-target='#staticBackdrop' onClick={props.onShowConnectWallet}>Connect wallet</Dropdown.Item>
         <Dropdown.Divider />

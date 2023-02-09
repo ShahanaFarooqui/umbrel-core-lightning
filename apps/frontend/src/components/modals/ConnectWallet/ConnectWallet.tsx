@@ -1,5 +1,5 @@
 import './ConnectWallet.scss';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleXmark } from '@fortawesome/free-solid-svg-icons'
 import { QRCodeCanvas } from 'qrcode.react';
@@ -11,13 +11,15 @@ import InputGroup from 'react-bootstrap/esm/InputGroup';
 import Form from 'react-bootstrap/esm/Form';
 import Image from 'react-bootstrap/Image'
 
-import { LOCAL_HOST, TOR_HOST, MACAROON, PORT } from '../../../utilities/constants';
+import { LOCAL_HOST, TOR_HOST, MACAROON, PORT, ApplicationModes } from '../../../utilities/constants';
 import { CopySVG } from '../../../svgs/Copy';
 import ToastMessage from '../../shared/ToastMessage/ToastMessage';
+import { AppContext } from '../../../store/AppContext';
 
 const NETWORK_TYPES = ['Local Network', 'Tor']
 
 const ConnectWallet = (props) => {
+  const appCtx = useContext(AppContext);
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState('');
   const [selNetwork, setSelNetwork] = useState(0);
@@ -59,7 +61,7 @@ const ConnectWallet = (props) => {
         </Modal.Header>
         <Modal.Body className='py-0 px-5'>
           <Row className='qr-container d-flex align-items-start justify-content-center pt-2'>
-            <Image className='qr-cln-logo' rounded={true} src='/images/cln-logo.svg' />
+            <Image className='qr-cln-logo' src={appCtx.appConfig.appMode === ApplicationModes.DARK ? 'images/cln-logo-dark.png' : 'images/cln-logo-light.png'} />
             <QRCodeCanvas value={clnConnectUrl || ''} size={200} includeMargin={true} />
           </Row>
           <Row className='d-flex align-items-start justify-content-center pt-2'>

@@ -11,7 +11,7 @@ const CLNCard = () => {
   const [selCLNCard, setSelCLNCard] = useState('wallet');
 
   return (
-    <Card className='h-100 overflow-hidden'>
+    <Card className='h-100 overflow-hidden inner-box-shadow'>
       <SwitchTransition mode='out-in'>
         <CSSTransition
           key={selCLNCard}

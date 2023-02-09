@@ -12,6 +12,7 @@ import Image from 'react-bootstrap/Image'
 import { AppContext } from '../../../store/AppContext';
 import { CopySVG } from '../../../svgs/Copy';
 import ToastMessage from '../../shared/ToastMessage/ToastMessage';
+import { ApplicationModes } from '../../../utilities/constants';
 
 const NodeInfo = (props) => {
   const appCtx = useContext(AppContext);
@@ -30,7 +31,7 @@ const NodeInfo = (props) => {
         </Modal.Header>
         <Modal.Body className='py-0'>
           <Row className='qr-container d-flex align-items-start justify-content-center pt-2'>
-            <Image className='qr-cln-logo' rounded={true} src='/images/cln-logo.svg' />
+            <Image className='qr-cln-logo' src={appCtx.appConfig.appMode === ApplicationModes.DARK ? 'images/cln-logo-dark.png' : 'images/cln-logo-light.png'} />
             <QRCodeCanvas value={appCtx.nodeInfo.id || ''} size={220} includeMargin={true} />
           </Row>
           <Row className='qr-container d-flex align-items-start justify-content-center pt-2'>
