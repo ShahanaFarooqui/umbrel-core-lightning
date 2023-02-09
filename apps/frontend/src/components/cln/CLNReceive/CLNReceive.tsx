@@ -25,6 +25,7 @@ import { LightningWalletSVG } from '../../../svgs/LightningWallet';
 import QRCodeComponent from '../../shared/QRCode/QRCode';
 import ToastMessage from '../../shared/ToastMessage/ToastMessage';
 import FiatBox from '../../shared/FiatBox/FiatBox';
+import InvalidInputMessage from '../../shared/InvalidInputMessage/InvalidInputMessage';
 
 const CLNReceive = (props) => {
   const appCtx = useContext(AppContext);
@@ -165,10 +166,11 @@ const CLNReceive = (props) => {
                       onBlur={descriptionBlurHandler}
                     />
                   </InputGroup>
-                  <motion.div className='message invalid' variants={STAGERRED_SPRING_VARIANTS_2} initial='hidden' animate='visible' exit='hidden' custom={2}>
-                    {descriptionHasError ? <InformationSVG svgClassName='me-1' className='fill-danger' /> : ''}
-                    {descriptionHasError ? 'Invalid Description' : ''}
-                  </motion.div>
+                  {(descriptionHasError) ?
+                      <InvalidInputMessage message={'Invalid Description'} />
+                    :
+                      <div className='message'></div>
+                  }
                 </Col>
                 <Col xs={12}>
                   <Form.Label className='text-dark'>Amount</Form.Label>
@@ -189,27 +191,20 @@ const CLNReceive = (props) => {
                       onBlur={amountBlurHandler}
                     />
                   </InputGroup>
-                  {
-                    !amountHasError ?
-                      amountValue && amountValue !== 'All' ?
-                        <p className='fs-7 text-light d-flex align-items-center justify-content-end'>
-                          ~ <FiatBox value={(+amountValue || 0)} symbol={appCtx.fiatConfig.symbol} rate={appCtx.fiatConfig.rate} />
-                        </p>
-                      :
-                        <p className='message'></p>
+                  {!amountHasError ?
+                    amountValue && amountValue !== 'All' ?
+                      <p className='fs-7 text-light d-flex align-items-center justify-content-end'>
+                        ~ <FiatBox value={(+amountValue || 0)} symbol={appCtx.fiatConfig.symbol} rate={appCtx.fiatConfig.rate} />
+                      </p>
                     :
-                      <motion.div className='message invalid' variants={STAGERRED_SPRING_VARIANTS_2} initial='hidden' animate='visible' exit='hidden' custom={1}>
-                        {amountHasError ? <InformationSVG svgClassName='me-1' className='fill-danger' /> : ''}
-                        {
-                          amountHasError ?
-                            (+amountValue < 0) ? 
-                              'Amount should be greater than 0'
-                            :
-                              'Invalid Amount'
-                          :
-                            'Invalid Amount'
-                        }
-                      </motion.div>
+                      <p className='message'></p>
+                  :
+                    <InvalidInputMessage message={
+                        (+amountValue < 0) ? 
+                          'Amount should be greater than 0'
+                        :
+                          'Invalid Amount'
+                    } />
                   }
                 </Col>
               </Row>

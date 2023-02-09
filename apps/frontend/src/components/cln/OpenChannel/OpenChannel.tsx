@@ -14,13 +14,14 @@ import Alert from 'react-bootstrap/Alert';
 import logger from '../../../services/logger.service';
 import useInput from '../../../hooks/use-input';
 import useHttp from '../../../hooks/use-http';
-import { CallStatus, FeeRate, FEE_RATES, BOUNCY_SPRING_VARIANTS_1, STAGERRED_SPRING_VARIANTS_2 } from '../../../utilities/constants';
+import { CallStatus, FeeRate, FEE_RATES, BOUNCY_SPRING_VARIANTS_1 } from '../../../utilities/constants';
 import { AppContext } from '../../../store/AppContext';
 import { ActionSVG } from '../../../svgs/Action';
 import { AmountSVG } from '../../../svgs/Amount';
 import { AddressSVG } from '../../../svgs/Address';
 import { InformationSVG } from '../../../svgs/Information';
 import FiatBox from '../../shared/FiatBox/FiatBox';
+import InvalidInputMessage from '../../shared/InvalidInputMessage/InvalidInputMessage';
 
 
 const OpenChannel = (props) => {
@@ -128,10 +129,9 @@ const OpenChannel = (props) => {
                       onBlur={pubkeyBlurHandler}
                     />
                   </InputGroup>
-                  <motion.div className='message invalid' variants={STAGERRED_SPRING_VARIANTS_2} initial='hidden' animate='visible' exit='hidden' custom={0}>
-                    {pubkeyHasError ? <InformationSVG svgClassName='me-1' className='fill-danger' /> : ''}
-                    {pubkeyHasError ? 'Invalid Node ID' : ''}
-                  </motion.div>
+                  {(pubkeyHasError) ?
+                    <InvalidInputMessage message={'Invalid Node ID'} /> : <div className='message'></div>
+                  }
                 </Col>
                 <Col xs={12}>
                   <Form.Label className='text-dark'>Amount</Form.Label>
@@ -163,20 +163,14 @@ const OpenChannel = (props) => {
                       :
                         <p className='message'></p>
                     :
-                      <motion.div className='message invalid' variants={STAGERRED_SPRING_VARIANTS_2} initial='hidden' animate='visible' exit='hidden' custom={0}>
-                        {amountHasError ? <InformationSVG svgClassName='me-1' className='fill-danger' /> : ''}
-                        {
-                          amountHasError ?
-                            (+amountValue <= 0) ? 
-                              'Amount should be greater than 0'
-                            : (+amountValue > (appCtx.walletBalances.btcConfBalance || 0)) ? 
-                              'Amount should be lesser then ' + (appCtx.walletBalances.btcConfBalance || 0)
-                            :
-                              'Invalid Amount'
-                          :
-                            'Invalid Amount'
-                        }
-                      </motion.div>
+                      <InvalidInputMessage message={
+                        (+amountValue <= 0) ? 
+                          'Amount should be greater than 0'
+                        : (+amountValue > (appCtx.walletBalances.btcConfBalance || 0)) ? 
+                          'Amount should be lesser then ' + (appCtx.walletBalances.btcConfBalance || 0)
+                        :
+                          'Invalid Amount'
+                      } />
                   }
                 </Col>
                 <Col xs={12} className='d-flex align-items-center mb-3'>

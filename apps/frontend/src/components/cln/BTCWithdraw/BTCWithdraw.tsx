@@ -23,6 +23,7 @@ import { AddressSVG } from '../../../svgs/Address';
 import { InformationSVG } from '../../../svgs/Information';
 import { BitcoinWalletSVG } from '../../../svgs/BitcoinWallet';
 import FiatBox from '../../shared/FiatBox/FiatBox';
+import InvalidInputMessage from '../../shared/InvalidInputMessage/InvalidInputMessage';
 
 const BTCWithdraw = (props) => {
   const appCtx = useContext(AppContext);
@@ -156,20 +157,14 @@ const BTCWithdraw = (props) => {
                       :
                         <p className='message'></p>
                     :
-                      <motion.div className='message invalid' variants={STAGERRED_SPRING_VARIANTS_2} initial='hidden' animate='visible' exit='hidden' custom={1}>
-                        {amountHasError ? <InformationSVG svgClassName='me-1' className='fill-danger' /> : ''}
-                        {
-                          amountHasError ?
-                            (+amountValue <= 0) ? 
-                              'Amount should be greater than 0'
-                            : (+amountValue > (appCtx.walletBalances.btcConfBalance || 0)) ? 
-                              'Amount should be lesser then ' + (appCtx.walletBalances.btcConfBalance || 0)
-                            :
-                              'Invalid Amount'
-                          :
-                            'Invalid Amount'
-                        }
-                      </motion.div>
+                      <InvalidInputMessage message={
+                        (+amountValue <= 0) ? 
+                        'Amount should be greater than 0'
+                        : (+amountValue > (appCtx.walletBalances.btcConfBalance || 0)) ? 
+                          'Amount should be lesser then ' + (appCtx.walletBalances.btcConfBalance || 0)
+                        :
+                          'Invalid Amount'
+                      } />
                   }
                 </Col>
                 <Col xs={12}>
@@ -191,10 +186,11 @@ const BTCWithdraw = (props) => {
                       onBlur={addressBlurHandler}
                     />
                   </InputGroup>
-                  <motion.div className='message invalid' variants={STAGERRED_SPRING_VARIANTS_2} initial='hidden' animate='visible' exit='hidden' custom={2}>
-                    {addressHasError ? <InformationSVG svgClassName='me-1' className='fill-danger' /> : ''}
-                    {addressHasError ? 'Invalid Address' : ''}
-                  </motion.div>
+                  {(addressHasError) ?
+                      <InvalidInputMessage message={'Invalid Address'} />
+                    :
+                      <div className='message'></div>
+                  }
                 </Col>
                 <Col xs={12}>
                   <Form.Label className=' text-dark d-flex align-items-center justify-content-between'>

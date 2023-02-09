@@ -15,13 +15,14 @@ import Alert from 'react-bootstrap/Alert';
 import logger from '../../../services/logger.service';
 import useInput from '../../../hooks/use-input';
 import useHttp from '../../../hooks/use-http';
-import { CallStatus, PaymentType, BOUNCY_SPRING_VARIANTS_2, STAGERRED_SPRING_VARIANTS_2 } from '../../../utilities/constants';
+import { CallStatus, PaymentType } from '../../../utilities/constants';
 import { AppContext } from '../../../store/AppContext';
 import { ActionSVG } from '../../../svgs/Action';
 import { AmountSVG } from '../../../svgs/Amount';
 import { AddressSVG } from '../../../svgs/Address';
 import { InformationSVG } from '../../../svgs/Information';
 import { LightningWalletSVG } from '../../../svgs/LightningWallet';
+import InvalidInputMessage from '../../shared/InvalidInputMessage/InvalidInputMessage';
 
 const CLNSend = (props) => {
   const appCtx = useContext(AppContext);
@@ -169,10 +170,11 @@ const CLNSend = (props) => {
                       onBlur={invoiceBlurHandler}
                     />
                   </InputGroup>
-                  <motion.div className='message invalid' variants={STAGERRED_SPRING_VARIANTS_2} initial='hidden' animate='visible' exit='hidden' custom={2}>
-                    {invoiceHasError ? <InformationSVG svgClassName='me-1' className='fill-danger' /> : ''}
-                    {invoiceHasError ? ('Invalid ' + (paymentType === PaymentType.KEYSEND ? 'Pubkey' : paymentType === PaymentType.OFFER ? 'Offer' : 'Invoice')) : ''}
-                  </motion.div>
+                  {(invoiceHasError) ?
+                      <InvalidInputMessage message={('Invalid ' + (paymentType === PaymentType.KEYSEND ? 'Pubkey' : paymentType === PaymentType.OFFER ? 'Offer' : 'Invoice'))} /> 
+                    :
+                      <div className='message'></div>
+                  }
                 </Col>
                 {paymentType === PaymentType.KEYSEND ? 
                   <Col xs={12}>
@@ -194,10 +196,11 @@ const CLNSend = (props) => {
                         onBlur={amountBlurHandler}
                       />
                     </InputGroup>
-                    <motion.div className='message invalid' variants={STAGERRED_SPRING_VARIANTS_2} initial='hidden' animate='visible' exit='hidden' custom={1}>
-                      {amountHasError ? <InformationSVG svgClassName='me-1' className='fill-danger' /> : ''}
-                      {amountHasError ? 'Invalid Amount' : ''}
-                    </motion.div>
+                    {(amountHasError) ?
+                        <InvalidInputMessage message={('Invalid Amount')} />
+                      :
+                        <div className='message'></div>
+                    }
                   </Col>
                 :
                   <></>
