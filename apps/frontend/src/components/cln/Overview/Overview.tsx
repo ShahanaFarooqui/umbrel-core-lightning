@@ -37,7 +37,7 @@ const Overview = () => {
       const animationPeers = animate(countPeers, appCtx.listPeers.peers.length, { duration: 2 });
       return animationPeers.stop;
     }
-  }, [appCtx.listChannels.activeChannels, appCtx.listPeers.peers]);
+  }, [appCtx.listChannels.activeChannels, appCtx.listPeers.peers, countChannels, countPeers]);
 
   return (
     <Row className='mx-1'>

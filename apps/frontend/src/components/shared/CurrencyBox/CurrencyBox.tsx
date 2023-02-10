@@ -1,10 +1,13 @@
 import './CurrencyBox.scss';
 import { useContext, useEffect, useState } from 'react';
 import { motion, useMotionValue, useTransform, animate } from 'framer-motion';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
+import Tooltip from 'react-bootstrap/Tooltip';
 
 import { AppContext } from '../../../store/AppContext';
 import { formatCurrencyNumeric, formatCurrency } from '../../../utilities/data-formatters';
 import { Units } from '../../../utilities/constants';
+import FiatBox from '../FiatBox/FiatBox';
 
 const CurrencyBox = props => {
   const appCtx = useContext(AppContext);
@@ -24,24 +27,30 @@ const CurrencyBox = props => {
   }, [appCtx.appConfig.unit, count, props]);
 
   return (
-    <div className={props.rootClasses}>
-      {
-        animationFinished ? 
-          <div className={props.currencyClasses}>
-            {formatCurrency(props.value, appCtx.appConfig.unit, props.shorten)}
-          </div>
-        : 
-          <div className={'d-flex ' + props.currencyClasses}>
-            <motion.div>
-              {rounded}
-            </motion.div>
-            {(props.shorten && appCtx.appConfig.unit === Units.SATS) ? 'K' : ''}
-          </div>
-      }
-      <div className={props.unitClasses}>
-        {appCtx.appConfig.unit}
+    <OverlayTrigger
+      placement='right'
+      delay={{ show: 250, hide: 250 }}
+      overlay={<Tooltip><FiatBox value={(+props.value || 0)} symbol={appCtx.fiatConfig.symbol} rate={appCtx.fiatConfig.rate} iconSize='lg' /></Tooltip>}
+      >
+      <div className={props.rootClasses}>
+        {
+          animationFinished ? 
+            <div className={props.currencyClasses}>
+              {formatCurrency(props.value, appCtx.appConfig.unit, props.shorten)}
+            </div>
+          : 
+            <div className={'d-flex ' + props.currencyClasses}>
+              <motion.div>
+                {rounded}
+              </motion.div>
+              {(props.shorten && appCtx.appConfig.unit === Units.SATS) ? 'K' : ''}
+            </div>
+        }
+        <div className={props.unitClasses}>
+          {appCtx.appConfig.unit}
+        </div>
       </div>
-    </div>
+    </OverlayTrigger>
   );
 };
 

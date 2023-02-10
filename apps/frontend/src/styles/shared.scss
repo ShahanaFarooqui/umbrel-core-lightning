@@ -1,12 +1,27 @@
 @import './mode-dark.scss';
 @import './mode-light.scss';
 
-body.modal-open #root {
-  filter: blur(5px);
-}
-
-body #root {
-  transition: filter .5s ease;
+body {
+  overflow: hidden;
+  &.modal-open #root {
+    filter: blur(5px);
+  }
+  & #root {
+    transition: filter .5s ease;
+  }
+  & .tooltip {
+    padding: 0;
+    & .tooltip-arrow {
+      color: transparent;
+      &::before {
+        border-right-color: transparent;
+      }
+    }
+    & .tooltip-inner {
+      font-size: 0.75rem;
+      border-radius: 0;
+    }
+  }
 }
 
 .text-blue {

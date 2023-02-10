@@ -28,7 +28,7 @@ const Header = (props) => {
           <Image src={appCtx.appConfig.appMode === ApplicationModes.DARK ? 'images/cln-logo-dark.png' : 'images/cln-logo-light.png'} className='header-info-logo me-3 rounded float-start' alt='Core Lightning Logo' />
           <Col className='h-100 d-flex align-items-center justify-content-between'>
             <h4 className='m-0 text-dark'><strong>CLN</strong></h4>
-            <div className='d-flex'>
+            <div className='d-flex align-items-center'>
               <Settings compact={true} onShowNodeInfo={props.onShowNodeInfo} onShowConnectWallet={props.onShowConnectWallet} />
               {(appCtx.appConfig.appMode === ApplicationModes.DARK) ? <NightModeSVG className='svg-night ms-3 me-2' /> : <DayModeSVG className='svg-day ms-3 me-2' />}
             </div>
@@ -62,7 +62,7 @@ const Header = (props) => {
           : 
             <Col xs={12} lg={4} className='d-flex align-items-center justify-content-between' data-testid='header-context'>
               <h4 className='m-0 text-dark'><strong>Core Lightning Node</strong></h4>
-              <div className='d-flex'>
+              <div className='d-flex align-items-center'>
                 <Settings onShowNodeInfo={props.onShowNodeInfo} onShowConnectWallet={props.onShowConnectWallet} />
                 {(appCtx.appConfig.appMode === ApplicationModes.DARK) ? <NightModeSVG className='svg-night ms-3 me-2' /> : <DayModeSVG className='svg-day ms-3 me-2' />}
               </div>
@@ -84,7 +84,7 @@ const Header = (props) => {
       </Col>
       {(currentScreenSize !== Breakpoints.MD) ?
         <Col xs={12} lg={4} className='d-flex align-items-center justify-content-end' data-testid='header-context'>
-          <div className='d-flex'>
+          <div className='d-flex align-items-center'>
             <Settings onShowNodeInfo={props.onShowNodeInfo} onShowConnectWallet={props.onShowConnectWallet} />
             <div onClick={modeChangeHandler}>
               {(appCtx.appConfig.appMode === ApplicationModes.DARK) ? <NightModeSVG className='svg-night ms-3 me-2' /> : <DayModeSVG className='svg-day ms-3 me-2'/>}

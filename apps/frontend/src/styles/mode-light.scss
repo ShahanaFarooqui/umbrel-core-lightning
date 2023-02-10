@@ -110,4 +110,13 @@
     box-shadow: 0px 4px 8px 0px $gray-400;
   }
 
+  & .tooltip {
+    box-shadow: 0px 4px 8px 0px rgba($gray-400, 0.16);
+    & .tooltip-inner {
+      border: 1px solid $light-dark;
+      color: $dark;
+      background-color: $white;
+    }
+  }
+
 } // CLOSE FOR LIGHT MODE
