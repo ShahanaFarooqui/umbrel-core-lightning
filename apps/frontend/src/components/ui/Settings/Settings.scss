@@ -1,8 +1,12 @@
 @import '../../../styles/constants.scss';
 
 .settings-menu.dropdown {
-  & .dropdown-toggle::after {
-    display: none;
+  & .dropdown-toggle {
+    padding: 1.375rem 1.675rem;
+    border-radius: 50%;
+    &::after {
+      display: none;
+    }
   }
   & .dropdown-menu {
     & a.dropdown-item {

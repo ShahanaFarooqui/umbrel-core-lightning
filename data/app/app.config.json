@@ -1,7 +1,7 @@
 {
   "unit": "BTC",
   "fiatUnit": "CAD",
-  "appMode": "LIGHT",
+  "appMode": "DARK",
   "isLoading": false,
   "error": null,
   "useDummyData": true
