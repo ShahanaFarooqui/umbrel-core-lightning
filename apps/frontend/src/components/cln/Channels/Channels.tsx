@@ -21,8 +21,8 @@ const Channels = (props) => {
   }
 
   return (
-    <Card className='h-100 d-flex align-items-stretch p-3 pt-4'>
-      <Card.Header className='fs-6 p-0 fw-bold text-dark'>Payment Channels</Card.Header>
+    <Card className='h-100 d-flex align-items-stretch p-4'>
+      <Card.Header className='px-1 fs-18px p-0 fw-bold text-dark'>Payment Channels</Card.Header>
       <Card.Body className='py-0 px-1 channels-scroll-container'>
         { appCtx.listChannels.isLoading ? 
             <span className='h-100 d-flex justify-content-center align-items-center'>

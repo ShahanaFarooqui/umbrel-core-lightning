@@ -42,7 +42,7 @@ const Overview = () => {
   return (
     <Row className='mx-1'>
       <Col xs={12} lg={3} className='d-lg-flex d-xl-flex mb-4'>
-        <Card className='bg-primary flex-grow-1 inner-box-shadow'>
+        <Card className='ps-2 bg-primary flex-grow-1 inner-box-shadow'>
           <Card.Body className='d-flex align-items-center'>
             <Row className='flex-fill'>
               <Col xs={6} lg={8} xxl={6}>
@@ -63,9 +63,9 @@ const Overview = () => {
       </Col>
       <Col xs={12} lg={9} className='mb-4'>
         <Card className='inner-box-shadow'>
-          <Card.Body>
+          <Card.Body className='px-4'>
             <Row>
-              <Col xs={12} md={4} lg={4}>
+              <Col xs={12} md={4} lg={4} className='d-flex align-items-center justify-content-start'>
                 <div className='d-flex align-items-center justify-content-start'>
                   <ChannelsSVG className='me-4' />
                   <div>
@@ -81,7 +81,7 @@ const Overview = () => {
                   </div>
                 </div>
               </Col>
-              <Col xs={12} md={3} lg={3} className={(currentScreenSize === Breakpoints.XS || currentScreenSize === Breakpoints.SM) ? 'my-5' : ''}>
+              <Col xs={12} md={3} lg={3} className={'d-flex align-items-center justify-content-start ' + ((currentScreenSize === Breakpoints.XS || currentScreenSize === Breakpoints.SM) ? 'my-5' : '')}>
                 <div className='d-flex align-items-center justify-content-start'>
                   <PeersSVG className='me-4' />
                   <div>
@@ -97,11 +97,11 @@ const Overview = () => {
                   </div>
                 </div>
               </Col>
-              <Col xs={12} md={5} lg={5} xxl={5}>
-                <div className='d-flex align-items-center justify-content-start'>
+              <Col xs={12} md={5} lg={5} xxl={5} className='d-flex align-items-center justify-content-between'>
+                <div className='d-flex align-items-center justify-content-between w-100'>
                   <CapacitySVG className='me-4' />
                   <Col>
-                    <div className='d-flex align-items-center justify-content-between'>
+                    <div className='d-flex align-items-center justify-content-between w-100'>
                       <div className='text-light-white'>{(currentScreenSize === Breakpoints.MD || currentScreenSize === Breakpoints.LG) ? 'Max Send' : 'Maximum Send'}</div>
                       { appCtx.walletBalances.isLoading ? 
                           <Spinner animation='grow' variant='primary' /> : 

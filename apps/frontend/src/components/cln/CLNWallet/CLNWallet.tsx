@@ -23,7 +23,7 @@ const CLNWallet = (props) => {
       <Card.Body className='d-flex align-items-stretch flex-column p-0'>
         <Card className='bg-primary wallet-card'>
           <Card.Body>
-            <Col xs={12} className='d-flex align-items-center justify-content-start'>
+            <Col xs={12} className='ps-2 pt-2 d-flex align-items-center justify-content-start'>
               <LightningWalletSVG svgClassName='me-4' className='fill-contrast' />
               <div>
                 <div className='fw-bold'>Lightning Wallet</div>
@@ -36,7 +36,7 @@ const CLNWallet = (props) => {
               </div>
             </Col>
           </Card.Body>
-          <ButtonGroup className='sticky-bottom btn-group-action mt-1'>
+          <ButtonGroup className='sticky-bottom btn-group-action'>
             <button className='btn-actions btn-primary' onClick={() => props.onActionClick('send')}>
               <WithdrawSVG className='me-2' />
               Send
@@ -47,7 +47,7 @@ const CLNWallet = (props) => {
             </button>
           </ButtonGroup>
         </Card>
-        <Card.Body className='px-3 list-scroll-container'>
+        <Card.Body className='px-4 pe-3 list-scroll-container'>
           <div className='fs-7 text-light'>Transactions</div>
           <PerfectScrollbar className='ps-show-always'>
             <Transactions />

@@ -57,15 +57,32 @@
     stroke: $light-dark;
   }
 
+  .btn.btn-primary {
+    &.hover, &:hover {
+      box-shadow: 0px 2px 4px 0px $gray-700;
+    }
+  }
+  
   .btn-link {
     &:hover, &:active {
-      color: lighten($primary, 20%);
+      box-shadow: 0px 2px 4px 0px $gray-700;
     }
   }
 
   .btn-rounded {
     &.btn.btn-primary, &.bg-primary {
       color: $card-bg-dark;
+      &:hover {
+        box-shadow: 0px 2px 4px 0px $gray-700;
+      }
+    }
+  }
+  
+  .btn-group {
+    &.btn-group-action .btn, &.btn-group-action button.btn-actions {
+      &:hover {
+        box-shadow: 0px 2px 4px 0px $gray-700;
+      }
     }
   }
   
