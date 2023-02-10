@@ -121,7 +121,7 @@ const CLNReceive = (props) => {
                 </Row>
               </Card.Body>
           </Card.Body>
-          <ToastMessage message={(paymentType === PaymentType.OFFER ? 'Offer' : 'Invoice') + ' Copied!'} position='top-center' bg='primary' show={showToast} onClose={() => setShowToast(false)} />
+          <ToastMessage message={(paymentType === PaymentType.OFFER ? 'Offer' : 'Invoice') + ' Copied Successfully!'} position='top-center' bg='success' show={showToast} onClose={() => setShowToast(false)} />
         </Card>
       </Row>
     );

@@ -55,8 +55,8 @@ const NodeInfo = (props) => {
             </div>
           </Row>
         </Modal.Body>
-        <ToastMessage message='Node ID Copied!' position='top-center' bg='primary' show={showToast} onClose={() => setShowToast(false)} />
       </Modal>
+      <ToastMessage message='Node ID Copied Successfully!' position='top-center' bg='danger' show={showToast} onClose={() => setShowToast(false)} />
     </>
   );
 }

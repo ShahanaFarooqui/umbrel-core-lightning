@@ -39,7 +39,7 @@ const ConnectWallet = (props) => {
         navigator.clipboard.writeText(clnConnectUrl || '');
         break;
     }
-    setToastMessage(event.target.id + ' Copied!');
+    setToastMessage(event.target.id + ' Copied Successfully!');
     setShowToast(true);
   }
 
@@ -158,7 +158,7 @@ const ConnectWallet = (props) => {
             </Col>
           </Row>
         </Modal.Body>
-        <ToastMessage message={toastMessage} position='top-center' bg='primary' show={showToast} onClose={() => setShowToast(false)} />
+        <ToastMessage message={toastMessage} position='top-center' bg='success' show={showToast} onClose={() => setShowToast(false)} />
       </Modal>
     </>
   );

@@ -70,7 +70,7 @@ const BTCDeposit = (props) => {
           }
         </Card.Body>
       </Card.Body>
-      <ToastMessage message='Address Copied!' position='top-center' bg='primary' show={showToast} onClose={() => setShowToast(false)} />
+      <ToastMessage message='Address Copied Successfully!' position='top-center' bg='success' show={showToast} onClose={() => setShowToast(false)} />
     </Card>
   );
 };
