@@ -44,19 +44,17 @@
 
   .btn-rounded {
     &.btn.btn-primary, &.bg-primary {
-      color: white;
+      color: $white;
     }
   }
 
   .card {
-    background-color: $white;
     &.bg-primary {
       color: $white;
     }
   }
 
   .list-group-item, .dropdown-menu {
-    background-color: $white;
     box-shadow: none;
   }
 
@@ -99,7 +97,6 @@
 
   .input-group {
     & .form-control {
-      background-color: $white;
       &:focus {
         border-color: $gray-300;
       }

@@ -41,8 +41,7 @@ const Header = (props) => {
                 <><span className='d-inline-block mx-2 dot bg-danger'></span><span className='fs-7'>{('Error: ' + appCtx.nodeInfo.error)}</span></> : 
                 <>
                   <span className='d-inline-block mx-2 dot bg-success'></span>
-                  <span className='fs-7'>{appCtx.nodeInfo.alias + ' (' + appCtx.nodeInfo.version + ')'}</span> 
-                  <span className='d-inline-block square ms-2' style={{ backgroundColor: appCtx.nodeInfo.color ? ('#' + appCtx.nodeInfo.color) : 'none' }}></span>
+                  <span className='fs-7'>{appCtx.nodeInfo.alias + ' (' + appCtx.nodeInfo.version + ')'}</span>
                 </>
             }
             </Col>
@@ -76,7 +75,6 @@ const Header = (props) => {
                 <>
                   <span className='d-inline-block me-2 dot bg-success'></span>
                   <span className='fs-7'>{appCtx.nodeInfo.alias + ' (' + appCtx.nodeInfo.version + ')'}</span> 
-                  <span className='d-inline-block square ms-2' style={{ backgroundColor: appCtx.nodeInfo.color ? ('#' + appCtx.nodeInfo.color) : 'none' }}></span>
                 </>
             }
           </Col>
