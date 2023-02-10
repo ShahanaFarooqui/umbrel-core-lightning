@@ -192,6 +192,7 @@ button.btn-rounded {
   height: 1.25rem;
   border-radius: 1.25rem;
   padding: 0.25rem;
+  background-color: $white;
   border: 1px solid lighten($light, 20%);
 
   & .handle {
@@ -209,6 +210,9 @@ button.btn-rounded {
     justify-content: flex-end;
     background-color: $success;
     border: 1px solid lighten($success, 20%);
+    & .handle {
+      background-color: $white;
+    }
     &:focus {
         box-shadow: 0 0 0 0.2rem rgba($success, 0.25);
       }
@@ -245,6 +249,7 @@ button.btn-rounded {
 
 .dropdown.dropdown-white {
   & .dropdown-toggle.btn.btn-white {
+    background-color: $white;
     color: $dark;
     border-color: $gray-300;
     &::after {
@@ -254,6 +259,7 @@ button.btn-rounded {
   }
   & .dropdown-menu {
     width: 100%;
+    // background: $white;
     font-size: .875rem;
     & .dropdown-item {
       color: $dark;

@@ -71,7 +71,7 @@ const ConnectWallet = (props) => {
           </Row>
           <Row className='d-flex align-items-start justify-content-center'>
             <Col xs={6}>
-            <Form.Label className='mb-1 text-light'>Network</Form.Label>
+            <Form.Label className='text-light'>Network</Form.Label>
             <Dropdown className='dropdown-white'>
               <Dropdown.Toggle variant='white' id='network' className='w-100 d-flex align-items-center justify-content-between'>
                 {NETWORK_TYPES[selNetwork]}
