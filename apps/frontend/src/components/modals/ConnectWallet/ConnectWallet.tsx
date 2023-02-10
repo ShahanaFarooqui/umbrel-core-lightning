@@ -1,7 +1,5 @@
 import './ConnectWallet.scss';
 import { useContext, useState } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleXmark } from '@fortawesome/free-solid-svg-icons'
 import { QRCodeCanvas } from 'qrcode.react';
 import Modal from 'react-bootstrap/Modal';
 import Row from 'react-bootstrap/Row';
@@ -15,6 +13,7 @@ import { LOCAL_HOST, TOR_HOST, MACAROON, PORT, ApplicationModes } from '../../..
 import { CopySVG } from '../../../svgs/Copy';
 import ToastMessage from '../../shared/ToastMessage/ToastMessage';
 import { AppContext } from '../../../store/AppContext';
+import { CloseSVG } from '../../../svgs/Close';
 
 const NETWORK_TYPES = ['Local Network', 'Tor']
 
@@ -57,23 +56,23 @@ const ConnectWallet = (props) => {
     <>
       <Modal show={props.show} onHide={props.onHide} centered className='modal-lg'>
         <Modal.Header className='d-flex align-items-start justify-content-end pb-0'>
-          <FontAwesomeIcon icon={faCircleXmark} onClick={props.onHide} size='lg' />
+          <span className='span-close-svg' onClick={props.onHide}><CloseSVG /></span>
         </Modal.Header>
         <Modal.Body className='py-0 px-5'>
-          <Row className='qr-container d-flex align-items-start justify-content-center pt-2'>
+          <Row className='qr-container d-flex align-items-start justify-content-center'>
             <Image className='qr-cln-logo' src={appCtx.appConfig.appMode === ApplicationModes.DARK ? 'images/cln-logo-dark.png' : 'images/cln-logo-light.png'} />
             <QRCodeCanvas value={clnConnectUrl || ''} size={200} includeMargin={true} />
           </Row>
-          <Row className='d-flex align-items-start justify-content-center pt-2'>
-            <h4 className='w-75 text-blue fw-bold d-flex justify-content-center py-3 text-center'>
+          <Row className='d-flex align-items-start justify-content-center'>
+            <h4 className='w-75 text-blue fw-bold d-flex justify-content-center pt-2 text-center'>
               Connect your lightning wallet to your node
             </h4>
           </Row>
           <Row className='d-flex align-items-start justify-content-center'>
             <Col xs={6}>
             <Form.Label className='text-light'>Network</Form.Label>
-            <Dropdown className='dropdown-white'>
-              <Dropdown.Toggle variant='white' id='network' className='w-100 d-flex align-items-center justify-content-between'>
+            <Dropdown className='dropdown-network mt-1'>
+              <Dropdown.Toggle variant='secondary' id='network' className='w-100 d-flex align-items-center justify-content-between'>
                 {NETWORK_TYPES[selNetwork]}
               </Dropdown.Toggle>
               <Dropdown.Menu>
@@ -84,7 +83,7 @@ const ConnectWallet = (props) => {
             </Dropdown>              
             </Col>
             <Col xs={6}>
-              <Form.Label className='mb-1 text-light'>REST Port</Form.Label>
+              <Form.Label className='text-light'>REST Port</Form.Label>
               <InputGroup className='mb-3'>
                 <Form.Control 
                   onClick={copyHandler}
@@ -103,7 +102,7 @@ const ConnectWallet = (props) => {
           </Row>
           <Row className='d-flex align-items-start justify-content-center'>
             <Col xs={12}>
-              <Form.Label className='mb-1 text-light'>Host</Form.Label>
+              <Form.Label className='text-light'>Host</Form.Label>
               <InputGroup className='mb-3'>
                 <Form.Control 
                   onClick={copyHandler}
@@ -122,7 +121,7 @@ const ConnectWallet = (props) => {
           </Row>
           <Row className='d-flex align-items-start justify-content-center'>
             <Col xs={12}>
-              <Form.Label className='mb-1 text-light'>Macaroon</Form.Label>
+              <Form.Label className='text-light'>Macaroon</Form.Label>
               <InputGroup className='mb-3'>
                 <Form.Control 
                   onClick={copyHandler}
@@ -141,7 +140,7 @@ const ConnectWallet = (props) => {
           </Row>
           <Row className='mb-4 d-flex align-items-start justify-content-center'>
             <Col xs={12}>
-              <Form.Label className='mb-1 text-light'>REST Connect URL</Form.Label>
+              <Form.Label className='text-light'>REST Connect URL</Form.Label>
               <InputGroup className='mb-3'>
                 <Form.Control 
                   onClick={copyHandler}

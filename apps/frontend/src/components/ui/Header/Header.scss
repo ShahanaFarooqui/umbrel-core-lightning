@@ -8,11 +8,11 @@
 
 .svg-night {
   opacity: 0.7;
-  transition-duration: .5s;
+  transition-duration: 300ms;
   transition-property: all;
   transition-timing-function: cubic-bezier(.4,0,.2,1);
   & path {
-    transition-duration: .5s;
+    transition-duration: 300ms;
     transition-property: all;
     transition-timing-function: cubic-bezier(.4,0,.2,1);  
     fill: $primary;
@@ -20,12 +20,12 @@
   &:hover {
     cursor: pointer;
     opacity: 1;
-    scale: 1.05;
-    transition-duration: .5s;
+    scale: 1.1;
+    transition-duration: 300ms;
     transition-property: all;
     transition-timing-function: cubic-bezier(.4,0,.2,1);  
     & path {
-      transition-duration: .5s;
+      transition-duration: 300ms;
       transition-property: all;
       transition-timing-function: cubic-bezier(.4,0,.2,1);  
       fill: $light-dark;
@@ -35,11 +35,11 @@
 
 .svg-day {
   opacity: 0.6;
-  transition-duration: .5s;
+  transition-duration: 300ms;
   transition-property: all;
   transition-timing-function: cubic-bezier(.4,0,.2,1);
   & path {
-    transition-duration: .5s;
+    transition-duration: 300ms;
     transition-property: all;
     transition-timing-function: cubic-bezier(.4,0,.2,1);  
     fill: $dark;
@@ -47,12 +47,12 @@
   &:hover {
     cursor: pointer;
     opacity: 1;
-    scale: 1.05;
-    transition-duration: .5s;
+    scale: 1.1;
+    transition-duration: 300ms;
     transition-property: all;
     transition-timing-function: cubic-bezier(.4,0,.2,1);
     & path {
-      transition-duration: .5s;
+      transition-duration: 300ms;
       transition-property: all;
       transition-timing-function: cubic-bezier(.4,0,.2,1);  
       fill: $primary;

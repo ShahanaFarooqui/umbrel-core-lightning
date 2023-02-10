@@ -1,7 +1,5 @@
 import './NodeInfo.scss';
 import { useContext, useState } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleXmark } from '@fortawesome/free-solid-svg-icons'
 import { QRCodeCanvas } from 'qrcode.react';
 import Modal from 'react-bootstrap/Modal';
 import Row from 'react-bootstrap/Row';
@@ -13,6 +11,7 @@ import { AppContext } from '../../../store/AppContext';
 import { CopySVG } from '../../../svgs/Copy';
 import ToastMessage from '../../shared/ToastMessage/ToastMessage';
 import { ApplicationModes } from '../../../utilities/constants';
+import { CloseSVG } from '../../../svgs/Close';
 
 const NodeInfo = (props) => {
   const appCtx = useContext(AppContext);
@@ -27,7 +26,7 @@ const NodeInfo = (props) => {
     <>
       <Modal show={props.show} onHide={props.onHide} centered className='modal-lg'>
         <Modal.Header className='d-flex align-items-start justify-content-end pb-0'>
-          <FontAwesomeIcon icon={faCircleXmark} onClick={props.onHide} size='lg' />
+          <span className='span-close-svg' onClick={props.onHide}><CloseSVG /></span>
         </Modal.Header>
         <Modal.Body className='py-0'>
           <Row className='qr-container d-flex align-items-start justify-content-center pt-2'>

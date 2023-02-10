@@ -1,7 +1,5 @@
 import './CLNReceive.scss';
 import { useContext, useState } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
@@ -25,6 +23,7 @@ import QRCodeComponent from '../../shared/QRCode/QRCode';
 import ToastMessage from '../../shared/ToastMessage/ToastMessage';
 import FiatBox from '../../shared/FiatBox/FiatBox';
 import InvalidInputMessage from '../../shared/InvalidInputMessage/InvalidInputMessage';
+import { CloseSVG } from '../../../svgs/Close';
 
 const CLNReceive = (props) => {
   const appCtx = useContext(AppContext);
@@ -113,7 +112,7 @@ const CLNReceive = (props) => {
                   <LightningWalletSVG svgClassName='svg-small me-2' className='fill-primary' />
                   <span className='fw-bold'>Lightning Wallet</span>
                 </div>
-                <FontAwesomeIcon icon={faCircleXmark} onClick={props.onClose} size='lg' />
+                <span className='span-close-svg' onClick={props.onClose}><CloseSVG /></span>
               </Card.Header>
               <h4 className='text-blue fw-bold'>{paymentType === PaymentType.OFFER ? 'Offer' : 'Invoice'}</h4>
               <Card.Body className='py-0 px-1 d-flex flex-column align-items-start justify-content-between'>
@@ -137,12 +136,12 @@ const CLNReceive = (props) => {
                 <LightningWalletSVG svgClassName='svg-small me-2' className='fill-primary' />
                 <span className='fw-bold'>Lightning Wallet</span>
               </div>
-              <FontAwesomeIcon icon={faCircleXmark} onClick={props.onClose} size='lg' />
+              <span className='span-close-svg' onClick={props.onClose}><CloseSVG /></span>
             </Card.Header>
             <h4 className='text-blue fw-bold'>Generate {paymentType === PaymentType.OFFER ? 'Offer' : 'Invoice'}</h4>
             <Card.Body className='pb-0 px-1 d-flex flex-column align-items-start justify-content-between'>
               <Row className='d-flex align-items-start justify-content-center'>
-                <Col xs={12} className='mb-1 d-flex align-items-start justify-content-start'>
+                <Col xs={12} className='mb-3 d-flex align-items-start justify-content-start'>
                   <Form.Check tabIndex={1} onChange={paymentTypeChangeHandler} checked={paymentType === PaymentType.INVOICE} inline className='text-dark' label='Invoice' name='payType' type='radio' id='Invoice' />
                   <Form.Check tabIndex={2} onChange={paymentTypeChangeHandler} checked={paymentType === PaymentType.OFFER} inline className='ms-3 text-dark' label='Offer' name='payType' type='radio' id='Offer' />
                 </Col>
@@ -219,7 +218,7 @@ const CLNReceive = (props) => {
             <Card.Footer className='d-flex justify-content-center'>
               <Button tabIndex={5} type='submit' variant='primary' className='btn-rounded' disabled={responseStatus === CallStatus.PENDING}>
                 Generate {paymentType === PaymentType.OFFER ? 'Offer' : 'Invoice'}
-                <ActionSVG className='ms-2' />
+                <ActionSVG className='ms-3' />
               </Button>
             </Card.Footer>
         </Card.Body>

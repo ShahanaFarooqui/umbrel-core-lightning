@@ -1,7 +1,5 @@
 import './CLNSend.scss';
 import { useContext, useState } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
@@ -22,6 +20,7 @@ import { AddressSVG } from '../../../svgs/Address';
 import { InformationSVG } from '../../../svgs/Information';
 import { LightningWalletSVG } from '../../../svgs/LightningWallet';
 import InvalidInputMessage from '../../shared/InvalidInputMessage/InvalidInputMessage';
+import { CloseSVG } from '../../../svgs/Close';
 
 const CLNSend = (props) => {
   const appCtx = useContext(AppContext);
@@ -140,12 +139,12 @@ const CLNSend = (props) => {
                 <LightningWalletSVG svgClassName='svg-small me-2' className='fill-primary' />
                 <span className='fw-bold'>Lightning Wallet</span>
               </div>
-              <FontAwesomeIcon icon={faCircleXmark} onClick={props.onClose} size='lg' />
+              <span className='span-close-svg' onClick={props.onClose}><CloseSVG /></span>
             </Card.Header>
             <h4 className='text-blue fw-bold'>Send Payment</h4>
             <Card.Body className='pb-0 px-1 d-flex flex-column align-items-start justify-content-between'>
               <Row className='d-flex align-items-start justify-content-center'>
-                <Col xs={12} className='mb-1 d-flex align-items-start justify-content-between'>
+                <Col xs={12} className='mb-3 d-flex align-items-start justify-content-between'>
                   <Form.Check tabIndex={1} onChange={paymentTypeChangeHandler} checked={paymentType === PaymentType.INVOICE} inline className='text-dark' label='Invoice' name='payType' type='radio' id='Invoice' />
                   <Form.Check tabIndex={2} onChange={paymentTypeChangeHandler} checked={paymentType === PaymentType.OFFER} inline className='text-dark' label='Offer' name='payType' type='radio' id='Offer' />
                   <Form.Check tabIndex={3} onChange={paymentTypeChangeHandler} checked={paymentType === PaymentType.KEYSEND} inline className='text-dark' label='Keysend' name='payType' type='radio' id='Keysend' />
@@ -217,7 +216,7 @@ const CLNSend = (props) => {
             <Card.Footer className='d-flex justify-content-center'>
               <Button tabIndex={6} type='submit' variant='primary' className='btn-rounded' disabled={responseStatus === CallStatus.PENDING}>
                 Send Payment
-                <ActionSVG className='ms-2' />
+                <ActionSVG className='ms-3' />
               </Button>
             </Card.Footer>
         </Card.Body>

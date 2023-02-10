@@ -1,7 +1,5 @@
 import './BTCWithdraw.scss';
 import { useContext, useState } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleXmark, faXmark } from '@fortawesome/free-solid-svg-icons';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
@@ -23,6 +21,7 @@ import { InformationSVG } from '../../../svgs/Information';
 import { BitcoinWalletSVG } from '../../../svgs/BitcoinWallet';
 import FiatBox from '../../shared/FiatBox/FiatBox';
 import InvalidInputMessage from '../../shared/InvalidInputMessage/InvalidInputMessage';
+import { CloseSVG } from '../../../svgs/Close';
 
 const BTCWithdraw = (props) => {
   const appCtx = useContext(AppContext);
@@ -106,7 +105,7 @@ const BTCWithdraw = (props) => {
                 <BitcoinWalletSVG svgClassName='svg-small me-2' className='fill-primary' />
                 <span className='fw-bold'>Bitcoin Wallet</span>
               </div>
-              <FontAwesomeIcon icon={faCircleXmark} onClick={props.onClose} size='lg' />
+              <span className='span-close-svg' onClick={props.onClose}><CloseSVG /></span>
             </Card.Header>
             <h4 className='text-blue fw-bold'>Withdraw</h4>
             <Card.Body className='py-0 px-1 d-flex flex-column align-items-start justify-content-between'>
@@ -141,7 +140,7 @@ const BTCWithdraw = (props) => {
                     />
                     { amountValue === 'All' ? 
                         <InputGroup.Text className={'form-control-addon form-control-addon-right'}>
-                          <FontAwesomeIcon icon={faXmark} size='sm' className='btn-addon-close' onClick={() => resetAmount()} />
+                          <span className='btn-addon-close' onClick={() => resetAmount()}><CloseSVG /></span>
                         </InputGroup.Text>
                       :
                         <></>
@@ -215,7 +214,7 @@ const BTCWithdraw = (props) => {
             <Card.Footer className='d-flex justify-content-center'>
               <Button tabIndex={4} type='submit' variant='primary' className='btn-rounded' disabled={responseStatus === CallStatus.PENDING}>
                 Withdraw
-                <ActionSVG className='ms-2' />
+                <ActionSVG className='ms-3' />
               </Button>
             </Card.Footer>
         </Card.Body>

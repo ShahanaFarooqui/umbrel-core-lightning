@@ -21,7 +21,7 @@ const Channels = (props) => {
   }
 
   return (
-    <Card className='h-100 d-flex align-items-stretch p-4'>
+    <Card className='h-100 d-flex align-items-stretch px-4 pt-4 pb-3'>
       <Card.Header className='px-1 fs-18px p-0 fw-bold text-dark'>Payment Channels</Card.Header>
       <Card.Body className='py-0 px-1 channels-scroll-container'>
         { appCtx.listChannels.isLoading ? 
@@ -68,7 +68,7 @@ const Channels = (props) => {
       <Card.Footer className='d-flex justify-content-center'>
         <button tabIndex={1} className='btn-rounded bg-primary' onClick={props.onOpenChannel}>
           Open Channel
-          <ActionSVG className='ms-2' />
+          <ActionSVG className='ms-3' />
         </button>
       </Card.Footer>
     </Card>

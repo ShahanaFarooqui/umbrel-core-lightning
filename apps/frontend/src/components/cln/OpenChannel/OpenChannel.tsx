@@ -1,8 +1,6 @@
 import './OpenChannel.scss';
 import { useContext, useState } from 'react';
 import { motion } from 'framer-motion';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 import Card from 'react-bootstrap/Card';
 import Row from 'react-bootstrap/Row';
 import Spinner from 'react-bootstrap/Spinner';
@@ -22,6 +20,7 @@ import { AddressSVG } from '../../../svgs/Address';
 import { InformationSVG } from '../../../svgs/Information';
 import FiatBox from '../../shared/FiatBox/FiatBox';
 import InvalidInputMessage from '../../shared/InvalidInputMessage/InvalidInputMessage';
+import { CloseSVG } from '../../../svgs/Close';
 
 
 const OpenChannel = (props) => {
@@ -106,7 +105,7 @@ const OpenChannel = (props) => {
               <div className='fs-4 p-0 fw-bold text-dark'>
                 Open Channel
               </div>
-              <FontAwesomeIcon icon={faCircleXmark} onClick={props.onClose} size='lg' />
+              <span className='span-close-svg' onClick={props.onClose}><CloseSVG /></span>
             </Card.Header>
             <Card.Body className='pb-0 px-1 d-flex flex-column align-items-start justify-content-between'>
               <Row className='d-flex align-items-start justify-content-center'>
@@ -203,7 +202,7 @@ const OpenChannel = (props) => {
             <Card.Footer className='d-flex justify-content-center'>
               <button tabIndex={5} type='submit' className='btn-rounded bg-primary' disabled={responseStatus === CallStatus.PENDING}>
                 Open Channel
-                <ActionSVG className='ms-2' />
+                <ActionSVG className='ms-3' />
               </button>
             </Card.Footer>
         </Card.Body>

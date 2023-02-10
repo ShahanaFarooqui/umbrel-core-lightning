@@ -1,7 +1,5 @@
 import './BTCDeposit.scss';
 import { useEffect, useState } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 import Card from 'react-bootstrap/Card';
 
 import { CallStatus } from '../../../utilities/constants';
@@ -13,6 +11,8 @@ import Alert from 'react-bootstrap/esm/Alert';
 import Spinner from 'react-bootstrap/esm/Spinner';
 import { InformationSVG } from '../../../svgs/Information';
 import QRCodeComponent from '../../shared/QRCode/QRCode';
+import { CloseSVG } from '../../../svgs/Close';
+import CloseButton from 'react-bootstrap/esm/CloseButton';
 
 const BTCDeposit = (props) => {
   const { btcDeposit } = useHttp();
@@ -50,7 +50,7 @@ const BTCDeposit = (props) => {
             <BitcoinWalletSVG svgClassName='svg-small me-2' className='fill-primary' />
             <span className='fw-bold'>Bitcoin Wallet</span>
           </div>
-          <FontAwesomeIcon icon={faCircleXmark} onClick={props.onClose} size='lg' />
+          <span className='span-close-svg' onClick={props.onClose}><CloseSVG /></span>
         </Card.Header>
         <h4 className='text-blue fw-bold'>Deposit</h4>
         <Card.Body className='py-0 px-1'>
