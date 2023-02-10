@@ -18,11 +18,11 @@ const Settings = (props) => {
 
   return (
     <Dropdown autoClose={'outside'} className={(!!appCtx.nodeInfo.error || appCtx.nodeInfo.isLoading) ? 'settings-menu dropdown-disabled' : 'settings-menu'} >
-      <Dropdown.Toggle variant={props.compact ? '' : 'primary'} disabled={!!appCtx.nodeInfo.error || appCtx.nodeInfo.isLoading} className={props.compact ? 'd-flex align-items-center btn-rounded btn-compact' : 'd-flex align-items-center btn-rounded'}>
+      <Dropdown.Toggle variant={props.compact ? '' : 'primary'} disabled={!!appCtx.nodeInfo.error || appCtx.nodeInfo.isLoading} className={props.compact ? 'd-flex align-items-center btn-rounded btn-compact btn-settings-menu' : 'd-flex align-items-center btn-rounded btn-settings-menu'}>
         <span className={props.compact ? '' : 'me-2'}>{props.compact ? '' : 'Settings'}</span>
         <SettingsSVG className={((!!appCtx.nodeInfo.error || appCtx.nodeInfo.isLoading) ? 'mt-1 svg-fill-disabled' : 'mt-1')} />
       </Dropdown.Toggle>
-      <Dropdown.Menu className='fs-7 inner-box-shadow border-none'>
+      <Dropdown.Menu className='fs-7 inner-box-shadow'>
         <Dropdown.Item data-bs-toggle='modal' data-bs-target='#staticBackdrop' onClick={props.onShowNodeInfo}>Show node ID</Dropdown.Item>
         <Dropdown.Item data-bs-toggle='modal' data-bs-target='#staticBackdrop' onClick={props.onShowConnectWallet}>Connect wallet</Dropdown.Item>
         <Dropdown.Divider />
