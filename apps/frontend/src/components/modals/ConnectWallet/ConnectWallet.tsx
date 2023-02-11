@@ -1,13 +1,13 @@
 import './ConnectWallet.scss';
 import { useContext, useState } from 'react';
 import { QRCodeCanvas } from 'qrcode.react';
+import { motion, AnimatePresence } from 'framer-motion';
 import Modal from 'react-bootstrap/Modal';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Dropdown from 'react-bootstrap/esm/Dropdown';
 import InputGroup from 'react-bootstrap/esm/InputGroup';
 import Form from 'react-bootstrap/esm/Form';
-import Image from 'react-bootstrap/Image'
 
 import { LOCAL_HOST, TOR_HOST, MACAROON, PORT, ApplicationModes } from '../../../utilities/constants';
 import { CopySVG } from '../../../svgs/Copy';
@@ -58,10 +58,19 @@ const ConnectWallet = () => {
         <Modal.Header className='d-flex align-items-start justify-content-end pb-0'>
           <span className='span-close-svg' onClick={closeHandler}><CloseSVG /></span>
         </Modal.Header>
-        <Modal.Body className='py-0 px-5'>
-          <Row className='qr-container d-flex align-items-start justify-content-center'>
-            <Image className='qr-cln-logo' src={appCtx.appConfig.appMode === ApplicationModes.DARK ? 'images/cln-logo-dark.png' : 'images/cln-logo-light.png'} />
-            <QRCodeCanvas value={clnConnectUrl || ''} size={200} includeMargin={true} />
+        <Modal.Body className='py-0 px-4'>
+          <Row className='qr-container m-auto d-flex'>
+            <AnimatePresence>
+              <motion.img
+                key='cln-logo'
+                src={appCtx.appConfig.appMode === ApplicationModes.DARK ? 'images/cln-logo-dark.png' : 'images/cln-logo-light.png'}
+                className='qr-cln-logo'
+                initial={{ opacity: 0, scale: 0.5 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.3, duration: 0.3 }}
+              />
+            </AnimatePresence>
+            <QRCodeCanvas value={clnConnectUrl || ''} size={220} includeMargin={true} />
           </Row>
           <Row className='d-flex align-items-start justify-content-center'>
             <h4 className='w-75 text-blue fw-bold d-flex justify-content-center pt-2 text-center'>

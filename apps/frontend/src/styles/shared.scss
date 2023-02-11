@@ -351,11 +351,12 @@ label.form-label {
 
 .qr-container {
   position: relative;
+  width: 220px;
   & .qr-cln-logo {
     padding: 0;
     position: absolute;
-    top: 50%;
-    left: 50%;
+    top: 42%;
+    left: 42%;
     border-radius: 50%;
     width: 2.5rem;
     height: 2.5rem;

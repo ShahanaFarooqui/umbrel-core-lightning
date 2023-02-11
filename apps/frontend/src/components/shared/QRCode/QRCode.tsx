@@ -1,9 +1,9 @@
 import './QRCode.scss';
 import { useContext } from 'react';
 import { QRCodeCanvas } from 'qrcode.react';
+import { motion, AnimatePresence } from 'framer-motion';
 import Row from 'react-bootstrap/Row';
 import Form from 'react-bootstrap/Form';
-import Image from 'react-bootstrap/Image';
 import InputGroup from 'react-bootstrap/InputGroup';
 
 import { CopySVG } from '../../../svgs/Copy';
@@ -20,8 +20,17 @@ const QRCodeComponent = (props) => {
 
   return (
     <div className={props.className}>
-      <Row className='qr-container d-flex align-items-start justify-content-center pt-3'>
-        <Image className='qr-cln-logo' src={appCtx.appConfig.appMode === ApplicationModes.DARK ? 'images/cln-logo-dark.png' : 'images/cln-logo-light.png'} />
+      <Row className='qr-container d-flex align-items-start justify-content-center'>
+        <AnimatePresence>
+          <motion.img
+            key='cln-logo'
+            src={appCtx.appConfig.appMode === ApplicationModes.DARK ? 'images/cln-logo-dark.png' : 'images/cln-logo-light.png'}
+            className='qr-cln-logo'
+            initial={{ opacity: 0, scale: 0.5 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.5, duration: 0.3 }}
+          />
+        </AnimatePresence>
         <QRCodeCanvas value={props.message || ''} size={220} includeMargin={true} />
       </Row>
       <Row className='w-100 mt-5 d-flex align-items-start justify-content-center'>
