@@ -29,7 +29,7 @@ const Header = (props) => {
           <Col className='h-100 d-flex align-items-center justify-content-between'>
             <h4 className='m-0 text-dark'><strong>CLN</strong></h4>
             <div className='d-flex align-items-center'>
-              <Settings compact={true} onShowNodeInfo={props.onShowNodeInfo} onShowConnectWallet={props.onShowConnectWallet} />
+              <Settings compact={true} onShowConnectWallet={props.onShowConnectWallet} />
               {(appCtx.appConfig.appMode === ApplicationModes.DARK) ? <NightModeSVG className='svg-night ms-3 me-2' /> : <DayModeSVG className='svg-day ms-3 me-2' />}
             </div>
           </Col>
@@ -62,7 +62,7 @@ const Header = (props) => {
             <Col xs={12} lg={4} className='d-flex align-items-center justify-content-between' data-testid='header-context'>
               <h4 className='m-0 text-dark'><strong>Core Lightning Node</strong></h4>
               <div className='d-flex align-items-center'>
-                <Settings onShowNodeInfo={props.onShowNodeInfo} onShowConnectWallet={props.onShowConnectWallet} />
+                <Settings onShowConnectWallet={props.onShowConnectWallet} />
                 {(appCtx.appConfig.appMode === ApplicationModes.DARK) ? <NightModeSVG className='svg-night ms-3 me-2' /> : <DayModeSVG className='svg-day ms-3 me-2' />}
               </div>
             </Col>
@@ -83,7 +83,7 @@ const Header = (props) => {
       {(currentScreenSize !== Breakpoints.MD) ?
         <Col xs={12} lg={4} className='d-flex align-items-center justify-content-end' data-testid='header-context'>
           <div className='d-flex align-items-center'>
-            <Settings onShowNodeInfo={props.onShowNodeInfo} onShowConnectWallet={props.onShowConnectWallet} />
+            <Settings onShowConnectWallet={props.onShowConnectWallet} />
             <div onClick={modeChangeHandler}>
               {(appCtx.appConfig.appMode === ApplicationModes.DARK) ? <NightModeSVG className='svg-night ms-3 me-2' /> : <DayModeSVG className='svg-day ms-3 me-2'/>}
             </div>

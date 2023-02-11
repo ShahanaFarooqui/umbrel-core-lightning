@@ -11,16 +11,13 @@ import Image from 'react-bootstrap/Image'
 
 import { LOCAL_HOST, TOR_HOST, MACAROON, PORT, ApplicationModes } from '../../../utilities/constants';
 import { CopySVG } from '../../../svgs/Copy';
-import ToastMessage from '../../shared/ToastMessage/ToastMessage';
 import { AppContext } from '../../../store/AppContext';
 import { CloseSVG } from '../../../svgs/Close';
 
 const NETWORK_TYPES = ['Local Network', 'Tor']
 
-const ConnectWallet = (props) => {
+const ConnectWallet = () => {
   const appCtx = useContext(AppContext);
-  const [showToast, setShowToast] = useState(false);
-  const [toastMessage, setToastMessage] = useState('');
   const [selNetwork, setSelNetwork] = useState(0);
   const [clnConnectUrl, setClnConnectUrl] = useState('c-lightning-rest://' + LOCAL_HOST + ':' + PORT + '?macaroon=' + MACAROON + '&protocol=http');
 
@@ -39,8 +36,11 @@ const ConnectWallet = (props) => {
         navigator.clipboard.writeText(clnConnectUrl || '');
         break;
     }
-    setToastMessage(event.target.id + ' Copied Successfully!');
-    setShowToast(true);
+    appCtx.setShowToast({show: true, message: (event.target.id + ' Copied Successfully!'), position: 'top-center', bg: 'success'});
+  }
+
+  const closeHandler = () => {
+    appCtx.setShowModals({...appCtx.showModals, connectWalletModal: false});
   }
 
   const networkChangeHandler = (event) => {
@@ -54,9 +54,9 @@ const ConnectWallet = (props) => {
 
   return (
     <>
-      <Modal show={props.show} onHide={props.onHide} centered className='modal-lg'>
+      <Modal show={appCtx.showModals.connectWalletModal} onHide={closeHandler} centered className='modal-lg'>
         <Modal.Header className='d-flex align-items-start justify-content-end pb-0'>
-          <span className='span-close-svg' onClick={props.onHide}><CloseSVG /></span>
+          <span className='span-close-svg' onClick={closeHandler}><CloseSVG /></span>
         </Modal.Header>
         <Modal.Body className='py-0 px-5'>
           <Row className='qr-container d-flex align-items-start justify-content-center'>
@@ -144,7 +144,7 @@ const ConnectWallet = (props) => {
               <InputGroup className='mb-3'>
                 <Form.Control 
                   onClick={copyHandler}
-                  id='REST Connect URL'
+                  id='REST URL'
                   value={clnConnectUrl}
                   aria-label={clnConnectUrl}
                   aria-describedby='copy-addon-macaroon'
@@ -152,13 +152,12 @@ const ConnectWallet = (props) => {
                   readOnly
                 />
                 <InputGroup.Text className='form-control-addon form-control-addon-right' onClick={copyHandler}>
-                  <CopySVG id='REST Connect URL' />
+                  <CopySVG id='REST URL' />
                 </InputGroup.Text>
               </InputGroup>
             </Col>
           </Row>
         </Modal.Body>
-        <ToastMessage message={toastMessage} position='top-center' bg='success' show={showToast} onClose={() => setShowToast(false)} />
       </Modal>
     </>
   );

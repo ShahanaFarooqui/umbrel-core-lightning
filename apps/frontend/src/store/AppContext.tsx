@@ -163,6 +163,8 @@ const calculateBalances = (listFunds: Fund) => {
 }
 
 const AppContext = React.createContext<AppContextType>({
+  showModals: { nodeInfoModal: false, connectWalletModal: false},
+  showToast: {show: false, message: ''},
   appConfig: {isLoading: true, unit: Units.SATS, fiatUnit: 'USD', appMode: ApplicationModes.DARK, useDummyData: false},
   fiatConfig: {isLoading: true, symbol: faDollarSign, rate: 1},
   nodeInfo: {isLoading: true},
@@ -174,6 +176,8 @@ const AppContext = React.createContext<AppContextType>({
   listLightningTransactions: {isLoading: true, transactions: []},
   listBitcoinTransactions: {isLoading: true, transactions: []},
   walletBalances: {isLoading: true, clnLocalBalance: 0, clnRemoteBalance: 0, clnPendingBalance: 0, clnInactiveBalance: 0, btcConfBalance: 0, btcUnconfBalance: 0, btcTotalBalance: 0},
+  setShowModals: (newShowModals) => {}, 
+  setShowToast: (newShowToast) => {}, 
   setConfig: (config: ApplicationConfiguration) => {},
   setFiatConfig: (fiatConfig: FiatConfig) => {},
   setNodeInfo: (info: NodeInfo) => {},
@@ -187,6 +191,8 @@ const AppContext = React.createContext<AppContextType>({
 });
 
 const defaultAppState = {
+  showModals: {nodeInfoModal: false, connectWalletModal: false, toastComponent: false},
+  showToast: {show: false, message: ''},
   appConfig: {isLoading: true, unit: Units.SATS, fiatUnit: 'USD', appMode: ApplicationModes.DARK},
   fiatConfig: {isLoading: true, symbol: faDollarSign, rate: 1},
   nodeInfo: {isLoading: true},
@@ -204,16 +210,28 @@ const appReducer = (state, action) => {
   logger.info(action);
   logger.info(state);
   switch (action.type) {
-    case ApplicationActions.SET_FIAT_CONFIG:
+    case ApplicationActions.SET_SHOW_MODALS:
       return {
         ...state,
-        fiatConfig: action.payload
+        showModals: action.payload
       };
 
+    case ApplicationActions.SET_SHOW_TOAST:
+      return {
+        ...state,
+        showToast: action.payload
+      };
+  
     case ApplicationActions.SET_CONFIG:
       return {
         ...state,
         appConfig: action.payload
+      };
+
+    case ApplicationActions.SET_FIAT_CONFIG:
+      return {
+        ...state,
+        fiatConfig: action.payload
       };
 
     case ApplicationActions.SET_NODE_INFO:
@@ -291,12 +309,20 @@ const appReducer = (state, action) => {
 const AppProvider: React.PropsWithChildren<any> = (props) => {
   const [applicationState, dispatchApplicationAction] = useReducer(appReducer, defaultAppState);
   
-  const setFiatConfigHandler = (fiatConfig: FiatConfig) => {
-    dispatchApplicationAction({ type: ApplicationActions.SET_FIAT_CONFIG, payload: fiatConfig });
+  const setShowModalsHandler = (newShowModals: any) => {
+    dispatchApplicationAction({ type: ApplicationActions.SET_SHOW_MODALS, payload: newShowModals });
+  };
+
+  const setShowToastHandler = (newShowToast: any) => {
+    dispatchApplicationAction({ type: ApplicationActions.SET_SHOW_TOAST, payload: newShowToast });
   };
 
   const setConfigurationHandler = (config: ApplicationConfiguration) => {
     dispatchApplicationAction({ type: ApplicationActions.SET_CONFIG, payload: config });
+  };
+
+  const setFiatConfigHandler = (fiatConfig: FiatConfig) => {
+    dispatchApplicationAction({ type: ApplicationActions.SET_FIAT_CONFIG, payload: fiatConfig });
   };
 
   const setNodeInfoHandler = (info: NodeInfo) => {
@@ -332,8 +358,10 @@ const AppProvider: React.PropsWithChildren<any> = (props) => {
   };
 
   const appContext: AppContextType = {
-    fiatConfig: applicationState.fiatConfig,
+    showModals: applicationState.showModals,
+    showToast: applicationState.showToast,
     appConfig: applicationState.appConfig,
+    fiatConfig: applicationState.fiatConfig,
     nodeInfo: applicationState.nodeInfo,
     listFunds: applicationState.listFunds,
     listPeers: applicationState.listPeers,
@@ -343,6 +371,8 @@ const AppProvider: React.PropsWithChildren<any> = (props) => {
     listLightningTransactions: applicationState.listLightningTransactions,
     listBitcoinTransactions: applicationState.listBitcoinTransactions,
     walletBalances: applicationState.walletBalances,
+    setShowModals: setShowModalsHandler,
+    setShowToast: setShowToastHandler,
     setConfig: setConfigurationHandler,
     setFiatConfig: setFiatConfigHandler,
     setNodeInfo: setNodeInfoHandler,

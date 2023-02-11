@@ -1,4 +1,19 @@
 {
+  "showModals": {
+    "nodeInfoModal": false,
+    "connectWalletModal": false
+  },
+  "showToast": {
+    "show": false,
+    "message": ""
+  },
+  "appConfig": {
+    "unit": "SATS",
+    "fiatUnit": "CAD",
+    "appMode": "DARK",
+    "isLoading": false,
+    "error": null
+  },
   "fiatConfig": {
     "isLoading": false,
     "symbol": {
@@ -13,13 +28,6 @@
       ]
     },
     "rate": 31171.93,
-    "error": null
-  },
-  "appConfig": {
-    "unit": "SATS",
-    "fiatUnit": "CAD",
-    "appMode": "DARK",
-    "isLoading": false,
     "error": null
   },
   "nodeInfo": {

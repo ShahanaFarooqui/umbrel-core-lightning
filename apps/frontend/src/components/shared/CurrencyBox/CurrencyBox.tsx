@@ -14,7 +14,7 @@ const CurrencyBox = props => {
   const [animationFinished, setAnimationFinished] = useState(0);
   const count: any = useMotionValue(0);
   const rounded: any = useTransform(count, (value: number) => appCtx.appConfig.unit === Units.BTC ? Number.parseFloat((value).toString()).toFixed(5) : Math.floor(value));
-  
+
   useEffect(() => {
     setAnimationFinished(0);
     count.current = 0;
@@ -24,7 +24,7 @@ const CurrencyBox = props => {
       setAnimationFinished(1);
     }, 2000);
     return animation.stop;
-  }, [appCtx.appConfig.unit, count, props]);
+  }, [appCtx.appConfig.unit]);
 
   return (
     <OverlayTrigger

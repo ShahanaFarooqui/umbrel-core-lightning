@@ -8,7 +8,7 @@ import { Spinner } from 'react-bootstrap';
 import useHttp from '../../hooks/use-http';
 import { AppContext } from '../../store/AppContext';
 import { ApplicationModes } from '../../utilities/constants';
-// import ToastMessage from '../shared/ToastMessage/ToastMessage';
+import ToastMessage from '../shared/ToastMessage/ToastMessage';
 import Header from '../ui/Header/Header';
 import NodeInfo from '../modals/NodeInfo/NodeInfo';
 import Overview from '../cln/Overview/Overview';
@@ -19,11 +19,6 @@ import ChannelsCard from '../cln/ChannelsCard/ChannelsCard';
 
 const App = () => {
   const appCtx = useContext(AppContext);
-  const [showNodeInfoModal, setShowNodeInfoModal] = useState(false);
-  const [showConnectWalletModal, setShowConnectWalletModal] = useState(false);
-  // const [showToast, setShowToast] = useState(false);
-  // const [toastMessage] = useState('');
-
   const { getAppConfigurations } = useHttp();
 
   const bodyHTML = document.getElementsByTagName('body')[0];
@@ -74,10 +69,7 @@ const App = () => {
   return (
     <>
       <Container className='py-4' id='root-container' data-testid='container'>
-        <Header
-          onShowNodeInfo={() => setShowNodeInfoModal(true)}
-          onShowConnectWallet={() => setShowConnectWalletModal(true)}
-        />
+        <Header />
         <Row>
           <Col className='mx-1'>
             <Overview />
@@ -95,18 +87,9 @@ const App = () => {
           </Col>
         </Row>
       </Container>
-      {/* <ToastMessage
-        message={toastMessage}
-        position='top-center'
-        bg='primary'
-        show={showToast}
-        onClose={() => setShowToast(false)}
-      /> */}
-      <NodeInfo show={showNodeInfoModal} onHide={() => setShowNodeInfoModal(false)} />
-      <ConnectWallet
-        show={showConnectWalletModal}
-        onHide={() => setShowConnectWalletModal(false)}
-      />
+      <ToastMessage />
+      <NodeInfo />
+      <ConnectWallet />
     </>
   );
 };

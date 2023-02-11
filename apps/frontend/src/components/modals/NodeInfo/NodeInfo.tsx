@@ -1,5 +1,5 @@
 import './NodeInfo.scss';
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import { QRCodeCanvas } from 'qrcode.react';
 import Modal from 'react-bootstrap/Modal';
 import Row from 'react-bootstrap/Row';
@@ -9,24 +9,25 @@ import Image from 'react-bootstrap/Image'
 
 import { AppContext } from '../../../store/AppContext';
 import { CopySVG } from '../../../svgs/Copy';
-import ToastMessage from '../../shared/ToastMessage/ToastMessage';
 import { ApplicationModes } from '../../../utilities/constants';
 import { CloseSVG } from '../../../svgs/Close';
 
-const NodeInfo = (props) => {
+const NodeInfo = () => {
   const appCtx = useContext(AppContext);
-  const [showToast, setShowToast] = useState(false);
 
   const copyHandler = () => {
     navigator.clipboard.writeText(appCtx.nodeInfo.id || '');
-    setShowToast(true);
+    appCtx.setShowToast({show: true, message: 'Node ID Copied Successfully!', position: 'top-center', bg: 'success'});
+  }
+
+  const closeHandler = () => {
+    appCtx.setShowModals({...appCtx.showModals, nodeInfoModal: false});
   }
 
   return (
-    <>
-      <Modal show={props.show} onHide={props.onHide} centered className='modal-lg'>
+      <Modal show={appCtx.showModals.nodeInfoModal} onHide={closeHandler} centered className='modal-lg'>
         <Modal.Header className='d-flex align-items-start justify-content-end pb-0'>
-          <span className='span-close-svg' onClick={props.onHide}><CloseSVG /></span>
+          <span className='span-close-svg' onClick={closeHandler}><CloseSVG /></span>
         </Modal.Header>
         <Modal.Body className='py-0'>
           <Row className='qr-container d-flex align-items-start justify-content-center pt-2'>
@@ -56,9 +57,7 @@ const NodeInfo = (props) => {
           </Row>
         </Modal.Body>
       </Modal>
-      <ToastMessage message='Node ID Copied Successfully!' position='top-center' bg='danger' show={showToast} onClose={() => setShowToast(false)} />
-    </>
-  );
+  );  
 }
 
 export default NodeInfo;

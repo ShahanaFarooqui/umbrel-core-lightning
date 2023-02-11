@@ -20,7 +20,6 @@ import { DescriptionSVG } from '../../../svgs/Description';
 import { InformationSVG } from '../../../svgs/Information';
 import { LightningWalletSVG } from '../../../svgs/LightningWallet';
 import QRCodeComponent from '../../shared/QRCode/QRCode';
-import ToastMessage from '../../shared/ToastMessage/ToastMessage';
 import FiatBox from '../../shared/FiatBox/FiatBox';
 import InvalidInputMessage from '../../shared/InvalidInputMessage/InvalidInputMessage';
 import { CloseSVG } from '../../../svgs/Close';
@@ -30,7 +29,6 @@ const CLNReceive = (props) => {
   const { clnReceiveInvoice } = useHttp();
   const [paymentType, setPaymentType] = useState(PaymentType.INVOICE);
   const [showInvoice, setShowInvoice] = useState(false);
-  const [showToast, setShowToast] = useState(false);
   const [responseStatus, setResponseStatus] = useState(CallStatus.NONE);
   const [responseMessage, setResponseMessage] = useState('');
 
@@ -117,11 +115,10 @@ const CLNReceive = (props) => {
               <h4 className='text-blue fw-bold'>{paymentType === PaymentType.OFFER ? 'Offer' : 'Invoice'}</h4>
               <Card.Body className='py-0 px-1 d-flex flex-column align-items-start justify-content-between'>
                 <Row className='w-100 d-flex align-items-start justify-content-center'>
-                  <QRCodeComponent message={responseMessage} onCopy={() => setShowToast(true)} className='py-0 px-1 d-flex flex-column align-items-center justify-content-start' />
+                  <QRCodeComponent message={responseMessage} toastMessage={(paymentType === PaymentType.OFFER ? 'Offer' : 'Invoice') + ' Copied Successfully!'} className='py-0 px-1 d-flex flex-column align-items-center justify-content-start' />
                 </Row>
               </Card.Body>
           </Card.Body>
-          <ToastMessage message={(paymentType === PaymentType.OFFER ? 'Offer' : 'Invoice') + ' Copied Successfully!'} position='top-center' bg='success' show={showToast} onClose={() => setShowToast(false)} />
         </Card>
       </Row>
     );

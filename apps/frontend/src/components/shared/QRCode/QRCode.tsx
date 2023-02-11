@@ -15,7 +15,7 @@ const QRCodeComponent = (props) => {
 
   const copyHandler = () => {
     navigator.clipboard.writeText(props.message || '');
-    props.onCopy();
+    appCtx.setShowToast({show: true, message: (props.toastMessage || props.message), position: 'top-center', bg: 'success'});
   }
 
   return (

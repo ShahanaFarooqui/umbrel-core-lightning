@@ -6,19 +6,16 @@ import { CallStatus } from '../../../utilities/constants';
 import logger from '../../../services/logger.service';
 import useHttp from '../../../hooks/use-http';
 import { BitcoinWalletSVG } from '../../../svgs/BitcoinWallet';
-import ToastMessage from '../../shared/ToastMessage/ToastMessage';
 import Alert from 'react-bootstrap/esm/Alert';
 import Spinner from 'react-bootstrap/esm/Spinner';
 import { InformationSVG } from '../../../svgs/Information';
 import QRCodeComponent from '../../shared/QRCode/QRCode';
 import { CloseSVG } from '../../../svgs/Close';
-import CloseButton from 'react-bootstrap/esm/CloseButton';
 
 const BTCDeposit = (props) => {
   const { btcDeposit } = useHttp();
   const [responseStatus, setResponseStatus] = useState(CallStatus.NONE);
   const [responseMessage, setResponseMessage] = useState('');
-  const [showToast, setShowToast] = useState(false);
 
   useEffect(() => {
     setResponseStatus(CallStatus.PENDING);
@@ -55,7 +52,7 @@ const BTCDeposit = (props) => {
         <h4 className='text-blue fw-bold'>Deposit</h4>
         <Card.Body className='py-0 px-1'>
           {responseStatus === CallStatus.SUCCESS ?
-            <QRCodeComponent message={responseMessage} onCopy={() => setShowToast(true)} className='py-0 px-1 d-flex flex-column align-items-center justify-content-start' />
+            <QRCodeComponent message={responseMessage} toastMessage='Address Copied Successfully!' className='py-0 px-1 d-flex flex-column align-items-center justify-content-start' />
           :
             responseStatus === CallStatus.ERROR ?
               <Alert className='w-100' variant='danger'>
@@ -70,7 +67,6 @@ const BTCDeposit = (props) => {
           }
         </Card.Body>
       </Card.Body>
-      <ToastMessage message='Address Copied Successfully!' position='top-center' bg='success' show={showToast} onClose={() => setShowToast(false)} />
     </Card>
   );
 };
