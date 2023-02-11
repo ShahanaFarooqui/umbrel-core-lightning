@@ -17,7 +17,7 @@ const NodeInfo = () => {
 
   const copyHandler = () => {
     navigator.clipboard.writeText(appCtx.nodeInfo.id || '');
-    appCtx.setShowToast({show: true, message: 'Node ID Copied Successfully!', position: 'top-center', bg: 'success'});
+    appCtx.setShowToast({show: true, message: 'Node ID Copied Successfully!', bg: 'success'});
   }
 
   const closeHandler = () => {
@@ -30,7 +30,7 @@ const NodeInfo = () => {
           <span className='span-close-svg' onClick={closeHandler}><CloseSVG /></span>
         </Modal.Header>
         <Modal.Body className='py-0'>
-          <Row className='qr-container d-flex align-items-start justify-content-center'>
+          <Row className='qr-container m-auto d-flex'>
             <AnimatePresence>
               <motion.img
                 key='cln-logo'
@@ -43,7 +43,7 @@ const NodeInfo = () => {
             </AnimatePresence>
             <QRCodeCanvas value={appCtx.nodeInfo.id || ''} size={220} includeMargin={true} />
           </Row>
-          <Row className='qr-container d-flex align-items-start justify-content-center pt-2'>
+          <Row className='d-flex align-items-start justify-content-center pt-2'>
             <h4 className='text-blue fw-bold d-flex justify-content-center pt-4'>Node ID</h4>
             <p className='py-3 w-75 text-break text-dark d-flex justify-content-center'>
               Other Lightning nodes can open payment channels to your node following this Node ID.            

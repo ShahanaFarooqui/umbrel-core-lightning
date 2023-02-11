@@ -36,7 +36,7 @@ const ConnectWallet = () => {
         navigator.clipboard.writeText(clnConnectUrl || '');
         break;
     }
-    appCtx.setShowToast({show: true, message: (event.target.id + ' Copied Successfully!'), position: 'top-center', bg: 'success'});
+    appCtx.setShowToast({show: true, message: (event.target.id + ' Copied Successfully!'), bg: 'success'});
   }
 
   const closeHandler = () => {

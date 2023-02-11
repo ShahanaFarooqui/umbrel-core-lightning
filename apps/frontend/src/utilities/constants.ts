@@ -108,6 +108,7 @@ export const OPACITY_VARIANTS = { visible: { opacity: 1 }, hidden: { opacity: 0 
 export const SPRING_VARIANTS = { type: 'spring', stiffness: 500, damping: 25 };
 export const BOUNCY_SPRING_VARIANTS_1 = { type: 'spring', stiffness: 600, damping: 20 };
 export const BOUNCY_SPRING_VARIANTS_2 = { type: 'spring', stiffness: 700, damping: 10 };
+export const BOUNCY_SPRING_VARIANTS_3 = { type: 'spring', stiffness: 400, damping: 8, delay: 0.2 };
 export const STAGERRED_SPRING_VARIANTS_1 = {
   hidden: { pathLength: 0, opacity: 0 },
   visible: (i) => {
