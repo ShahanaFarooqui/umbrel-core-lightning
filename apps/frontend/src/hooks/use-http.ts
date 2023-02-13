@@ -35,7 +35,7 @@ const useHttp = () => {
   const sendRequest = useCallback((method: string, url: string, reqBody: any = null) => {
     try {
       return axios({
-        timeout: 10 * 60000,
+        timeout: 30000, // 30 Seconds
         method: method,
         url: API_BASE_URL + API_VERSION + url,
         data: reqBody
@@ -85,7 +85,7 @@ const useHttp = () => {
   const sendRequestToSetStore = useCallback((setStoreFunction: any, method: string, url: string, reqBody: any = null) => {
     try {
       axios({
-        timeout: 15000,
+        timeout: 15000, // 15 Seconds
         method: method,
         url: API_BASE_URL + API_VERSION + url,
         data: reqBody

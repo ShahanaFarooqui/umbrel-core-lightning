@@ -3,7 +3,7 @@
 
 body {
   overflow: hidden;
-  transition: all $theme-transition ease;
+  transition: background-color $theme-transition ease;
   &.modal-open #root-container {
     filter: blur(5px);
   }
@@ -71,6 +71,7 @@ body {
 }
 
 .btn.btn-primary {
+  transition: color $theme-transition ease;
   color: var(--bs-body-color);
   font-weight: 600;
   padding: 1.25rem 1.675rem;
@@ -92,7 +93,7 @@ body {
   font-size: .75rem;
   font-weight: 600;
   text-decoration: none;
-  transition: all $transition-time;
+  transition: all $transition-time ease;
   &:hover, &:active {
     transform: scale(1.05);
     color: darken($primary, 10%);
@@ -108,7 +109,7 @@ button.btn-rounded.btn.btn-primary, button.btn-rounded.bg-primary {
   height: 2rem;
   font-weight: 600;
   padding: 1.25rem 1.675rem;
-  transition: all $transition-time;
+  transition: all $transition-time ease;
   &:hover {
     background-color: darken($primary, 8%) !important;
     border-color: darken($primary, 8%) !important;
@@ -135,7 +136,7 @@ button.btn-rounded.btn.btn-primary, button.btn-rounded.bg-primary {
     box-shadow: none;
     background-color: $primary-darker;
     border-color: $primary-darker;
-    transition: all $transition-time;
+    transition: all $transition-time ease;
     &:hover {
       background-color: darken($primary-darker, 8%);
       border-color: darken($primary-darker, 8%);
@@ -193,7 +194,7 @@ button.btn-rounded.btn.btn-primary, button.btn-rounded.bg-primary {
 
 svg {
   & circle, & path, & line {
-    transition: all $theme-transition ease;
+    transition: fill, stroke $theme-transition ease;
   }
 }
 
@@ -238,7 +239,7 @@ svg {
 }
 
 .card {
-  transition: all $theme-transition ease;
+  transition: background-color $theme-transition ease;
   border: none;
   & .card-header {
     border-bottom: none;
@@ -292,6 +293,7 @@ label.form-label {
   margin-top: 0.25rem;
   box-shadow: 0px 1px 2px 0px rgba($dark-blue, 0.05);
   & .form-control {
+    transition: background-color $theme-transition ease;
     font-size: 14px;
     &.form-control-left {
       cursor: pointer;
@@ -302,17 +304,19 @@ label.form-label {
       border-left: 0;
       padding-left: 0;
     }  
+    &.form-control-middle {
+      transition: background-color $theme-transition ease;
+      border-left: 0;
+      padding-left: 0;
+      border-right: 0;
+      padding-right: 0;
+    }
     &:focus {
       box-shadow: 0px 1px 2px 0px rgba($dark-blue, 0.05);
     }
   }
-  & .form-control-middle {
-    border-left: 0;
-    padding-left: 0;
-    border-right: 0;
-    padding-right: 0;
-  }
   & .form-control-addon {
+    transition: background-color $theme-transition ease;
     &.form-control-addon-disabled {
       background-color: $gray-200;
     }
@@ -407,7 +411,7 @@ label.form-label {
 
 .list-group {
   & .list-group-item {
-    transition: all $theme-transition ease;
+    transition: background-color $theme-transition ease;
     border: none;
     margin-bottom: 1.5rem;
   }

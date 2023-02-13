@@ -1,8 +1,8 @@
 {
   "unit": "SATS",
   "fiatUnit": "USD",
-  "appMode": "LIGHT",
+  "appMode": "DARK",
   "isLoading": false,
   "error": null,
-  "useDummyData": true
+  "useDummyData": false
 }

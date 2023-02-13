@@ -40,3 +40,7 @@ export const sortDescByKey = (array, key) => {
   });
   return temp;
 };
+
+export const titleCase = (str: string) => {
+  return (str) ? (str[0].toUpperCase() + str.substring(1)) : '';
+};

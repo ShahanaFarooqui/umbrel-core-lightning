@@ -53,6 +53,10 @@
     fill: $body-bg-dark;
   }
 
+  .stoke-body-bg {
+    stroke: $body-bg-dark;
+  }
+
   .stroke-bg, .stroke-primary-bg {
     stroke: $body-bg-dark;
   }
@@ -64,7 +68,7 @@
   span.span-close-svg {
     cursor: pointer;
     & svg path {
-      transition: all $transition-time;
+      transition: all $transition-time ease;
     }
     &:hover {
       & svg path {
@@ -115,10 +119,24 @@
 
   .input-group {
     & .form-control {
-      color: $light-dark;
+      color: $white;
       background-color: $form-ctrl-bg-dark;
       &:focus {
         border-color: $border-color-dark;
+      }
+      &::-webkit-input-placeholder { 
+        color: $light-dark;
+      }
+      &:-moz-placeholder {
+        color: $light-dark;
+        opacity: 1;
+      }
+      &::-moz-placeholder {
+        color: $light-dark;
+        opacity: 1;
+      }
+      &:-ms-input-placeholder {
+        color: $light-dark;
       }
     }
     & .form-control-addon {

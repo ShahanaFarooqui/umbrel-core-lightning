@@ -16,12 +16,6 @@ import FiatBox from '../../shared/FiatBox/FiatBox';
 const Transactions = () => {
   const appCtx = useContext(AppContext);
 
-  // created_at?: number; ||  (paid_at?: number; ||   expires_at?: number;)
-  // type: bolt11 || bolt12
-	// (payment_hash || label) || (description || label)
-	// (msatoshi_sent || msatoshi)	|| (msatoshi_received || msatoshi)
-  // status?: string;
-
   return (
     appCtx.listLightningTransactions.isLoading ? 
       <span className='h-100 d-flex justify-content-center align-items-center'>
@@ -48,7 +42,7 @@ const Transactions = () => {
                   </Col>
                 </Row>
                 <Row className='d-flex justify-content-between align-items-center'>
-                  <Col xs={7} className='px-0 fs-7 text-light'>
+                  <Col xs={7} className='pe-0 fs-7 text-light'>
                     <DateBox dataValue={(transaction.created_at || transaction.paid_at || transaction.expires_at)} />
                   </Col>
                   <Col xs={4} className='ps-0 fs-7 text-light d-flex align-items-center justify-content-end'>

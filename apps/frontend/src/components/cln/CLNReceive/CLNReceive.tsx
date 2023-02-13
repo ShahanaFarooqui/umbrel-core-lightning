@@ -3,11 +3,9 @@ import { useContext, useState } from 'react';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
-import Spinner from 'react-bootstrap/Spinner';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
-import Alert from 'react-bootstrap/Alert';
 
 import logger from '../../../services/logger.service';
 import useInput from '../../../hooks/use-input';
@@ -17,12 +15,12 @@ import { AppContext } from '../../../store/AppContext';
 import { ActionSVG } from '../../../svgs/Action';
 import { AmountSVG } from '../../../svgs/Amount';
 import { DescriptionSVG } from '../../../svgs/Description';
-import { InformationSVG } from '../../../svgs/Information';
 import { LightningWalletSVG } from '../../../svgs/LightningWallet';
 import QRCodeComponent from '../../shared/QRCode/QRCode';
 import FiatBox from '../../shared/FiatBox/FiatBox';
 import InvalidInputMessage from '../../shared/InvalidInputMessage/InvalidInputMessage';
 import { CloseSVG } from '../../../svgs/Close';
+import StatusAlert from '../../shared/StatusAlert/StatusAlert';
 
 const CLNReceive = (props) => {
   const appCtx = useContext(AppContext);
@@ -203,14 +201,7 @@ const CLNReceive = (props) => {
                   }
                 </Col>
               </Row>
-              { (responseStatus !== CallStatus.NONE) ?
-                <Alert className='w-100' variant={responseStatus === CallStatus.ERROR ? 'danger' : responseStatus === CallStatus.PENDING ? 'warning' : responseStatus === CallStatus.SUCCESS ? 'success' : ''}>
-                  {responseStatus === CallStatus.PENDING ? <Spinner className='me-2' variant='primary' size='sm' /> : <InformationSVG svgClassName='me-1' className={responseStatus === CallStatus.ERROR ? 'fill-danger' : 'fill-success'} />}
-                  {responseMessage}
-                </Alert>
-              :
-                <></>
-              }
+              <StatusAlert responseStatus={responseStatus} responseMessage={responseMessage} />
             </Card.Body>
             <Card.Footer className='d-flex justify-content-center'>
               <Button tabIndex={5} type='submit' variant='primary' className='btn-rounded' disabled={responseStatus === CallStatus.PENDING}>

@@ -6,11 +6,9 @@ import { CallStatus } from '../../../utilities/constants';
 import logger from '../../../services/logger.service';
 import useHttp from '../../../hooks/use-http';
 import { BitcoinWalletSVG } from '../../../svgs/BitcoinWallet';
-import Alert from 'react-bootstrap/esm/Alert';
-import Spinner from 'react-bootstrap/esm/Spinner';
-import { InformationSVG } from '../../../svgs/Information';
 import QRCodeComponent from '../../shared/QRCode/QRCode';
 import { CloseSVG } from '../../../svgs/Close';
+import StatusAlert from '../../shared/StatusAlert/StatusAlert';
 
 const BTCDeposit = (props) => {
   const { btcDeposit } = useHttp();
@@ -54,16 +52,7 @@ const BTCDeposit = (props) => {
           {responseStatus === CallStatus.SUCCESS ?
             <QRCodeComponent message={responseMessage} toastMessage='Address Copied Successfully!' className='py-0 px-1 d-flex flex-column align-items-center justify-content-start' />
           :
-            responseStatus === CallStatus.ERROR ?
-              <Alert className='w-100' variant='danger'>
-                <InformationSVG svgClassName='me-1' className='fill-danger' />
-                {responseMessage}
-              </Alert>
-            :
-              <Alert className='w-100' variant='warning'>
-                <Spinner className='me-2' variant='primary' size='sm' />
-                {responseMessage}
-              </Alert>
+            <StatusAlert responseStatus={responseStatus} responseMessage={responseMessage} />
           }
         </Card.Body>
       </Card.Body>

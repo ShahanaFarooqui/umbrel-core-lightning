@@ -29,7 +29,7 @@
         width: 0.75rem;
         height: 0.75rem;
         & path {
-          transition: all $transition-time;
+          transition: all $transition-time ease;
         }
       }
       &:hover {
