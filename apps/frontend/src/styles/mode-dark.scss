@@ -49,6 +49,10 @@
     fill: $light-dark;
   }
 
+  .fill-body-bg {
+    fill: $body-bg-dark;
+  }
+
   .stroke-bg, .stroke-primary-bg {
     stroke: $body-bg-dark;
   }
@@ -60,7 +64,7 @@
   span.span-close-svg {
     cursor: pointer;
     & svg path {
-      transition: all 300ms;
+      transition: all $transition-time;
     }
     &:hover {
       & svg path {

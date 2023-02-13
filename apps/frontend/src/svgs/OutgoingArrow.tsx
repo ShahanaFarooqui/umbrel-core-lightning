@@ -8,7 +8,7 @@ export const OutgoingArrowSVG = props => {
       fill='none'
       xmlns='http://www.w3.org/2000/svg'
     >
-      <circle cx='21' cy='21' r='21' className='fill-contrast' />
+      <circle cx='21' cy='21' r='21' className='fill-body-bg' />
       <path
         d='M13.3891 30L12 28.6109L25.6265 14.9844H13.1245V13H29V28.8755H27.0156V16.3735L13.3891 30Z'
         className='fill-warning'

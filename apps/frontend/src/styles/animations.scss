@@ -16,7 +16,7 @@
 }
 .slide-right-to-left-enter-active, 
 .slide-right-to-left-exit-active {
-  transition: opacity 1000ms, transform 1000ms;
+  transition: opacity $theme-transition, transform $theme-transition;
 }
 
 .slide-left-to-right-enter {
@@ -37,7 +37,7 @@
 }
 .slide-left-to-right-enter-active,
 .slide-left-to-right-exit-active {
-  transition: opacity 1000ms, transform 1000ms;
+  transition: opacity $theme-transition, transform $theme-transition;
 }
 
 .fade-component-enter {
@@ -55,5 +55,5 @@
 
 .fade-component-enter-active,
 .fade-component-exit-active {
-  transition: opacity 1000ms;
+  transition: opacity $theme-transition;
 }

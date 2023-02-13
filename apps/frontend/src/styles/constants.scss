@@ -3,6 +3,8 @@
 @import '~bootstrap/scss/variables';
 @import '~bootstrap/scss/mixins';
 
+$transition-time: 300ms;
+$theme-transition: 1000ms;
 $color-mode-type: data;
 $enable-shadows: true;
 $enable-gradients: true;
@@ -32,7 +34,7 @@ $dark-blue: #101828;
 $border-color-dark: #495057;
 $border-color: #DEE2E6;
 
-$light-bg: #EBEFF9;
+$body-bg-light: #EBEFF9;
 $body-bg: $white;
 $body-color: $dark;
 $body-tertiary-bg: $white;

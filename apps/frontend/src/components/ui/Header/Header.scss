@@ -7,55 +7,50 @@
 }
 
 .svg-night {
+  cursor: pointer;
   opacity: 0.7;
-  transition-duration: 300ms;
-  transition-property: all;
-  transition-timing-function: cubic-bezier(.4,0,.2,1);
+  transition: all $transition-time ease-in;
   & path {
-    transition-duration: 300ms;
-    transition-property: all;
-    transition-timing-function: cubic-bezier(.4,0,.2,1);  
+    transition: all $transition-time ease-in;
     fill: $primary;
   }
   &:hover {
-    cursor: pointer;
     opacity: 1;
     scale: 1.1;
-    transition-duration: 300ms;
-    transition-property: all;
-    transition-timing-function: cubic-bezier(.4,0,.2,1);  
+    filter: drop-shadow(0px 0px 3px $light-dark)
+    drop-shadow(0px 0px 6px  $light-dark)
+    drop-shadow(0px 0px 10px $light-dark)
+    drop-shadow(0px 0px 20px $light-dark)
+    drop-shadow(0px 0px 30px $light-dark);
     & path {
-      transition-duration: 300ms;
-      transition-property: all;
-      transition-timing-function: cubic-bezier(.4,0,.2,1);  
       fill: $light-dark;
     }
   }
 }
 
 .svg-day {
+  cursor: pointer;
   opacity: 0.6;
-  transition-duration: 300ms;
-  transition-property: all;
-  transition-timing-function: cubic-bezier(.4,0,.2,1);
-  & path {
-    transition-duration: 300ms;
-    transition-property: all;
-    transition-timing-function: cubic-bezier(.4,0,.2,1);  
-    fill: $dark;
+  transition: all $transition-time ease-in;
+  & line, & circle {
+    transition: all $transition-time ease-in;
+    stroke: $dark;
+    stroke-width: 1.5px;
+    stroke-linecap: round;
   }
   &:hover {
-    cursor: pointer;
     opacity: 1;
     scale: 1.1;
-    transition-duration: 300ms;
-    transition-property: all;
-    transition-timing-function: cubic-bezier(.4,0,.2,1);
-    & path {
-      transition-duration: 300ms;
-      transition-property: all;
-      transition-timing-function: cubic-bezier(.4,0,.2,1);  
-      fill: $primary;
+    filter: drop-shadow(0px 0px 20px $primary)
+      drop-shadow(0px 0px 30px $primary)
+      drop-shadow(0px 0px 40px $primary);
+    & line {
+      stroke: $primary;
+      filter: drop-shadow(0px 0px 5px lighten($primary, 50%));
+    }
+    & circle {
+      stroke: $primary;
+      filter: drop-shadow(0px 0px 3px lighten($primary, 50%));
     }
   }
 }
