@@ -19,9 +19,9 @@
     scale: 1.1;
     filter: drop-shadow(0px 0px 3px $light-dark)
     drop-shadow(0px 0px 6px  $light-dark)
-    drop-shadow(0px 0px 10px $light-dark)
     drop-shadow(0px 0px 20px $light-dark)
-    drop-shadow(0px 0px 30px $light-dark);
+    drop-shadow(0px 0px 30px $light-dark)
+    drop-shadow(0px 0px 40px $light-dark);
     & path {
       fill: $light-dark;
     }

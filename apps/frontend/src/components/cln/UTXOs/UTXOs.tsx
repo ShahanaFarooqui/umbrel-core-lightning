@@ -5,9 +5,11 @@ import Row from 'react-bootstrap/Row';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Spinner from 'react-bootstrap/Spinner';
 import Alert from 'react-bootstrap/Alert';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
+import Tooltip from 'react-bootstrap/Tooltip';
 
 import { AppContext } from '../../../store/AppContext';
-import { formatCurrency } from '../../../utilities/data-formatters';
+import { formatCurrency, titleCase } from '../../../utilities/data-formatters';
 import { ReservedSVG } from '../../../svgs/Reserved';
 import { UnReservedSVG } from '../../../svgs/UnReserved';
 import FiatBox from '../../shared/FiatBox/FiatBox';
@@ -29,7 +31,13 @@ const UTXOs = () => {
             <Row className='d-flex justify-content-between align-items-center'>
               <Col xs={7} className='d-flex align-items-center'>
                 {utxo.reserved ? <ReservedSVG className='minw-12px' /> : <UnReservedSVG className='minw-12px' />}
-                <div className={'d-inline-block mx-1 dot ' + (utxo.status === 'confirmed' ? 'bg-success' : 'bg-warning')}></div>
+                <OverlayTrigger
+                  placement='auto'
+                  delay={{ show: 250, hide: 250 }}
+                  overlay={<Tooltip>{titleCase(utxo.status)}</Tooltip>}
+                  >
+                  <div className={'d-inline-block mx-1 dot ' + (utxo.status === 'confirmed' ? 'bg-success' : 'bg-warning')}></div>
+                </OverlayTrigger>
                 <span className='fw-bold overflow-x-ellipsis'>{utxo.txid}</span>
               </Col>
               <Col xs={4} className='d-flex align-items-center justify-content-end'>

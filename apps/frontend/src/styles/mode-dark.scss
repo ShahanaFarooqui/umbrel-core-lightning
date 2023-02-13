@@ -31,6 +31,10 @@
     box-shadow: none;
   }
   
+  .fill-light {
+    fill: $light-dark;
+  }
+
   .fill-contrast,
   .fill-1 {
     fill: $text-dark;

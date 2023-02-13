@@ -3,6 +3,8 @@ import { useContext } from 'react';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Image from 'react-bootstrap/Image';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
+import Tooltip from 'react-bootstrap/Tooltip';
 
 import useHttp from '../../../hooks/use-http';
 import useBreakpoint from '../../../hooks/use-breakpoint';
@@ -36,13 +38,39 @@ const Header = (props) => {
           <Row className='header-info-text my-2'>
             <Col xs={12} className='d-flex align-items-center text-light'>
             { appCtx.nodeInfo.isLoading ? 
-                <><span className='d-inline-block mx-2 dot bg-warning'></span><span className='fs-7'>Loading...</span></> : 
-              appCtx.nodeInfo.error ? 
-                <><span className='d-inline-block mx-2 dot bg-danger'></span><span className='fs-7'>{('Error: ' + appCtx.nodeInfo.error)}</span></> : 
                 <>
-                  <span className='d-inline-block mx-2 dot bg-success'></span>
-                  <span className='fs-7'>{appCtx.nodeInfo.alias + ' (' + appCtx.nodeInfo.version + ')'}</span>
+                  <OverlayTrigger
+                    placement='auto'
+                    delay={{ show: 250, hide: 250 }}
+                    overlay={<Tooltip>Loading</Tooltip>}
+                    >
+                    <span className='d-inline-block mx-2 dot bg-warning'></span>
+                  </OverlayTrigger>
+                  <span className='fs-7'>Loading...</span>
                 </>
+              : 
+                appCtx.nodeInfo.error ? 
+                  <>
+                    <OverlayTrigger
+                      placement='auto'
+                      delay={{ show: 250, hide: 250 }}
+                      overlay={<Tooltip>Error</Tooltip>}
+                      >
+                      <span className='d-inline-block mx-2 dot bg-danger'></span>
+                    </OverlayTrigger>
+                    <span className='fs-7'>{('Error: ' + appCtx.nodeInfo.error)}</span>
+                  </>
+                : 
+                  <>
+                    <OverlayTrigger
+                      placement='auto'
+                      delay={{ show: 250, hide: 250 }}
+                      overlay={<Tooltip>Connected</Tooltip>}
+                      >
+                      <span className='d-inline-block mx-2 dot bg-success'></span>
+                    </OverlayTrigger>
+                    <span className='fs-7'>{appCtx.nodeInfo.alias + ' (' + appCtx.nodeInfo.version + ')'}</span>
+                  </>
             }
             </Col>
           </Row>
@@ -69,11 +97,37 @@ const Header = (props) => {
           }
           <Col xs={12} className='d-flex align-items-center text-light'>
             { appCtx.nodeInfo.isLoading ? 
-                <><span className='d-inline-block me-2 dot bg-warning'></span><span className='fs-7'>Loading...</span></> : 
-              appCtx.nodeInfo.error ? 
-                <><span className='d-inline-block me-2 dot bg-danger'></span><span className='fs-7'>{('Error: ' + appCtx.nodeInfo.error)}</span></> : 
                 <>
-                  <span className='d-inline-block me-2 dot bg-success'></span>
+                  <OverlayTrigger
+                    placement='auto'
+                    delay={{ show: 250, hide: 250 }}
+                    overlay={<Tooltip>Warning</Tooltip>}
+                    >
+                    <span className='d-inline-block me-2 dot bg-warning'></span>
+                  </OverlayTrigger>
+                  <span className='fs-7'>Loading...</span>
+                </>
+              : 
+              appCtx.nodeInfo.error ? 
+                <>
+                  <OverlayTrigger
+                    placement='auto'
+                    delay={{ show: 250, hide: 250 }}
+                    overlay={<Tooltip>Error</Tooltip>}
+                    >
+                    <span className='d-inline-block me-2 dot bg-danger'></span>
+                  </OverlayTrigger>
+                  <span className='fs-7'>{('Error: ' + appCtx.nodeInfo.error)}</span>
+                </>
+              : 
+                <>
+                  <OverlayTrigger
+                    placement='auto'
+                    delay={{ show: 250, hide: 250 }}
+                    overlay={<Tooltip>Connected</Tooltip>}
+                    >
+                    <span className='d-inline-block me-2 dot bg-success'></span>
+                  </OverlayTrigger>
                   <span className='fs-7'>{appCtx.nodeInfo.alias + ' (' + appCtx.nodeInfo.version + ')'}</span> 
                 </>
             }

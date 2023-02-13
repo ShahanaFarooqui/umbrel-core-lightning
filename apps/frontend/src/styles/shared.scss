@@ -15,7 +15,7 @@ body {
     & .tooltip-arrow {
       color: transparent;
       &::before {
-        border-right-color: transparent;
+        border-color: transparent;
       }
     }
     & .tooltip-inner {
@@ -410,10 +410,12 @@ label.form-label {
 }
 
 .list-group {
+  position: relative;
+  overflow: hidden;
   & .list-group-item {
     transition: background-color $theme-transition ease;
     border: none;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
   }
 }
 

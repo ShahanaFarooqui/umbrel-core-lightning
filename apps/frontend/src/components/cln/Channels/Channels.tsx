@@ -8,9 +8,11 @@ import Spinner from 'react-bootstrap/Spinner';
 import Alert from 'react-bootstrap/Alert';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import Col from 'react-bootstrap/Col';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
+import Tooltip from 'react-bootstrap/Tooltip';
 
 import { AppContext } from '../../../store/AppContext';
-import { formatCurrency } from '../../../utilities/data-formatters';
+import { formatCurrency, titleCase } from '../../../utilities/data-formatters';
 import { ActionSVG } from '../../../svgs/Action';
 
 const Channels = (props) => {
@@ -42,8 +44,16 @@ const Channels = (props) => {
                     <div className='flex-fill text-dark'>
                       <>
                         <div className='fw-bold'>
-                          <div className={'d-inline-block mx-1 dot ' + (channel.current_state === 'ACTIVE' ? 'bg-success' : channel.current_state === 'PENDING' ? 'bg-warning' : 'bg-danger')}></div>
-                          {channel.node_alias}
+                          <OverlayTrigger
+                            placement='auto'
+                            delay={{ show: 250, hide: 250 }}
+                            overlay={<Tooltip>{titleCase(channel.current_state)}</Tooltip>}
+                            >
+                            <span>
+                              <div className={'d-inline-block mx-1 dot ' + (channel.current_state === 'ACTIVE' ? 'bg-success' : channel.current_state === 'PENDING' ? 'bg-warning' : 'bg-danger')}></div>
+                              {channel.node_alias}
+                            </span>
+                          </OverlayTrigger>
                         </div>
                         <ProgressBar>
                           <ProgressBar variant='primary' now={(channel.satoshi_to_us > 1000000 || channel.satoshi_to_them > 1000000) ? (channel.satoshi_to_us / 1000) : channel.satoshi_to_us} key={1} />
