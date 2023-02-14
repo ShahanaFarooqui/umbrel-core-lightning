@@ -3,7 +3,7 @@ import { useContext, useEffect } from 'react';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import { Spinner } from 'react-bootstrap';
+import Spinner from 'react-bootstrap/Spinner';
 
 import useHttp from '../../hooks/use-http';
 import { AppContext } from '../../store/AppContext';
@@ -57,7 +57,7 @@ const App = () => {
     return (
       <Container className='py-4' id='root-container' data-testid='container'>
         <Header />
-        <Row className='mt-10'>
+        <Row className='message invalid mt-10'>
           <Col xs={12} className='d-flex align-items-center justify-content-center'>
             {appCtx.nodeInfo.error}
           </Col>

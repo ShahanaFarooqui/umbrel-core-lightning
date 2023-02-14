@@ -101,7 +101,7 @@ const Header = (props) => {
                   <OverlayTrigger
                     placement='auto'
                     delay={{ show: 250, hide: 250 }}
-                    overlay={<Tooltip>Warning</Tooltip>}
+                    overlay={<Tooltip>Loading</Tooltip>}
                     >
                     <span className='d-inline-block me-2 dot bg-warning'></span>
                   </OverlayTrigger>
