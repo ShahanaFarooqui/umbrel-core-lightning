@@ -1,0 +1,15 @@
+@import '../../../styles/constants.scss';
+
+.transaction-placeholder {
+  transform-origin: top left;
+  min-height: 15rem;
+  & .transaction-copy {
+    padding: 0;
+    cursor: pointer;
+    &:hover {
+      svg path {
+        stroke: darken($primary, 10%);
+      }
+    }
+  }
+}

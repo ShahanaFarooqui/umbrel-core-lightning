@@ -1,0 +1,12 @@
+.transactions-list {
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding-right: 0.5rem;
+  & .transaction-header {
+    border: none;
+    margin-bottom: 1rem;
+    padding: 0.5rem 1rem 0.5rem 0;
+  }
+}

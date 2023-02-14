@@ -59,7 +59,7 @@ const NodeInfo = () => {
                 readOnly
               />
               <InputGroup.Text className='form-control-addon form-control-addon-right' onClick={copyHandler}>
-                <CopySVG id={appCtx.nodeInfo.id} />              
+                <CopySVG id={appCtx.nodeInfo.id} />
               </InputGroup.Text>
             </InputGroup>
             </div>
