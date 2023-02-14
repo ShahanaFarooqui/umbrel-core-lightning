@@ -110,7 +110,9 @@ const useHttp = () => {
             setStoreFunction({ isLoading: false, error: 'Request timedout! Verify that CLN node is working!' }) :
           (err.response && err.response.data) ?
             setStoreFunction({ isLoading: false, error: err.response.data }) :
-            setStoreFunction({ isLoading: false, error: JSON.stringify(err) })
+            (!err.response && err.message) ?
+              setStoreFunction({ isLoading: false, error: err.message }) :
+              setStoreFunction({ isLoading: false, error: JSON.stringify(err) })
         }
       });
     } catch (err: any) {
