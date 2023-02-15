@@ -131,9 +131,8 @@ const calculateBalances = (listFunds: Fund) => {
     clnRemoteBalance: 0,
     clnPendingBalance: 0,
     clnInactiveBalance: 0,
-    btcConfBalance: 0,
-    btcUnconfBalance: 0,
-    btcTotalBalance: 0,
+    btcSpendableBalance: 0,
+    btcReservedBalance: 0,
     error: null
   };
   listFunds.channels?.map((channel: FundChannel) => {
@@ -151,14 +150,12 @@ const calculateBalances = (listFunds: Fund) => {
   });
   listFunds.outputs?.map((output: FundOutput) => {
     if(output.status === 'confirmed') {
-      walletBalances.btcConfBalance = walletBalances.btcConfBalance + (output.value || 0);
+      walletBalances.btcSpendableBalance = walletBalances.btcSpendableBalance + (output.value || 0);
     } else if(output.status === 'unconfirmed') {
-      walletBalances.btcUnconfBalance = walletBalances.btcUnconfBalance + (output.value || 0);
+      walletBalances.btcReservedBalance = walletBalances.btcReservedBalance + (output.value || 0);
     }
     return walletBalances;
   });
-  walletBalances.btcTotalBalance = walletBalances.btcConfBalance + walletBalances.btcUnconfBalance;
-
   return walletBalances;
 }
 
@@ -175,7 +172,7 @@ const AppContext = React.createContext<AppContextType>({
   listPayments: {isLoading: true, payments: []},
   listLightningTransactions: {isLoading: true, transactions: []},
   listBitcoinTransactions: {isLoading: true, transactions: []},
-  walletBalances: {isLoading: true, clnLocalBalance: 0, clnRemoteBalance: 0, clnPendingBalance: 0, clnInactiveBalance: 0, btcConfBalance: 0, btcUnconfBalance: 0, btcTotalBalance: 0},
+  walletBalances: {isLoading: true, clnLocalBalance: 0, clnRemoteBalance: 0, clnPendingBalance: 0, clnInactiveBalance: 0, btcSpendableBalance: 0, btcReservedBalance: 0},
   setShowModals: (newShowModals) => {}, 
   setShowToast: (newShowToast) => {}, 
   setConfig: (config: ApplicationConfiguration) => {},
@@ -203,7 +200,7 @@ const defaultAppState = {
   listPayments: {isLoading: true, payments: []},
   listLightningTransactions: {isLoading: true, transactions: []},
   listBitcoinTransactions: {isLoading: true, transactions: []},
-  walletBalances: {isLoading: true, clnLocalBalance: 0, clnRemoteBalance: 0, clnPendingBalance: 0, clnInactiveBalance: 0, btcConfBalance: 0, btcUnconfBalance: 0, btcTotalBalance: 0}
+  walletBalances: {isLoading: true, clnLocalBalance: 0, clnRemoteBalance: 0, clnPendingBalance: 0, clnInactiveBalance: 0, btcSpendableBalance: 0, btcReservedBalance: 0}
 };
 
 const appReducer = (state, action) => {

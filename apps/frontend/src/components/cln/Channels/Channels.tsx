@@ -14,6 +14,7 @@ import Tooltip from 'react-bootstrap/Tooltip';
 import { AppContext } from '../../../store/AppContext';
 import { formatCurrency, titleCase } from '../../../utilities/data-formatters';
 import { ActionSVG } from '../../../svgs/Action';
+import { Units } from '../../../utilities/constants';
 
 const Channels = (props) => {
   const appCtx = useContext(AppContext);
@@ -61,10 +62,10 @@ const Channels = (props) => {
                         </ProgressBar>
                         <Row className='text-light d-flex align-items-end justify-content-between'>
                           <Col xs={6} className='fs-7 fw-bold d-flex justify-content-start text-primary'>
-                            {formatCurrency(channel.satoshi_to_us, appCtx.appConfig.unit)} {appCtx.appConfig.unit}
+                            {formatCurrency(channel.satoshi_to_us, Units.SATS, appCtx.appConfig.unit, false, 5, 'string')} {appCtx.appConfig.unit}
                           </Col>
                           <Col xs={6} className='fs-7 fw-bold d-flex justify-content-end'>
-                            {formatCurrency(channel.satoshi_to_them, appCtx.appConfig.unit)} {appCtx.appConfig.unit}
+                            {formatCurrency(channel.satoshi_to_them, Units.SATS, appCtx.appConfig.unit, false, 5, 'string')} {appCtx.appConfig.unit}
                           </Col>
                         </Row>
                       </>

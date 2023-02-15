@@ -5,7 +5,7 @@ import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
 import Tooltip from 'react-bootstrap/Tooltip';
 
 import { AppContext } from '../../../store/AppContext';
-import { formatCurrencyNumeric, formatCurrency } from '../../../utilities/data-formatters';
+import { formatCurrency } from '../../../utilities/data-formatters';
 import { Units } from '../../../utilities/constants';
 import FiatBox from '../FiatBox/FiatBox';
 
@@ -19,7 +19,7 @@ const CurrencyBox = props => {
     setAnimationFinished(0);
     count.current = 0;
     count.prev = 0;
-    const animation = animate(count, +formatCurrencyNumeric(props.value, appCtx.appConfig.unit, props.shorten), { duration: 2 });
+    const animation = animate(count, +formatCurrency(props.value, Units.SATS, appCtx.appConfig.unit, false, 5, 'number'), { duration: 2 });
     setTimeout(() => {
       setAnimationFinished(1);
     }, 2000);
@@ -36,7 +36,7 @@ const CurrencyBox = props => {
         {
           animationFinished ? 
             <div className={props.currencyClasses}>
-              {formatCurrency(props.value, appCtx.appConfig.unit, props.shorten)}
+              {formatCurrency(props.value, Units.SATS, appCtx.appConfig.unit, props.shorten, 0, 'string')}
             </div>
           : 
             <div className={'d-flex ' + props.currencyClasses}>

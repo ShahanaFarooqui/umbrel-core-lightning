@@ -31,7 +31,7 @@ const BTCWallet = (props) => {
                     <Spinner animation='grow' variant='secondary' /> : 
                   appCtx.walletBalances.error ? 
                     <Alert className='py-0 px-1 fs-8' variant='danger'>{appCtx.walletBalances.error}</Alert> : 
-                    <CurrencyBox value={appCtx.walletBalances.btcConfBalance} shorten={false} rootClasses='d-inline-flex flex-column' currencyClasses='lh-1 fs-4 fw-bold' unitClasses='fs-7 fw-bold'></CurrencyBox>
+                    <CurrencyBox value={appCtx.walletBalances.btcSpendableBalance} shorten={false} rootClasses='d-inline-flex flex-column' currencyClasses='lh-1 fs-4 fw-bold' unitClasses='fs-7 fw-bold'></CurrencyBox>
                 }
                 </div>
             </Col>
@@ -47,7 +47,7 @@ const BTCWallet = (props) => {
             </button>
           </ButtonGroup>
         </Card>
-        <Card.Body className='px-4 pe-3 list-scroll-container'>
+        <Card.Body className='px-4 pb-0 list-scroll-container'>
           <div className='fs-7 text-light'>UTXOs</div>
           <PerfectScrollbar className='ps-show-always'>
             <UTXOs />

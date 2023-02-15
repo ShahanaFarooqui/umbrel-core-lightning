@@ -1912,9 +1912,8 @@
     "clnRemoteBalance": 179499,
     "clnPendingBalance": 0,
     "clnInactiveBalance": 0,
-    "btcConfBalance": 1203685,
-    "btcUnconfBalance": 0,
-    "btcTotalBalance": 1203685,
+    "btcSpendableBalance": 1203685,
+    "btcReservedBalance": 0,
     "error": null
   }
 }

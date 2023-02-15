@@ -28,7 +28,7 @@ const BTCWithdraw = (props) => {
   const [responseStatus, setResponseStatus] = useState(CallStatus.NONE);
   const [responseMessage, setResponseMessage] = useState('');
 
-  const isValidAmount = (value) => value === 'All' || (value > 0 && value <= (appCtx.walletBalances.btcConfBalance || 0));
+  const isValidAmount = (value) => value === 'All' || (value > 0 && value <= (appCtx.walletBalances.btcSpendableBalance || 0));
   const isValidAddress = (value) => value.trim() !== '';
 
   const {
@@ -125,12 +125,12 @@ const BTCWithdraw = (props) => {
                       tabIndex={1}
                       id='amount'
                       type={amountValue === 'All' ? 'text' : 'number'}
-                      placeholder={'Amount (Between 1 - ' + parseFloat((appCtx.walletBalances.btcConfBalance || 0).toString()).toLocaleString('en-us')  + ' Sats)'}
+                      placeholder={'Amount (Between 1 - ' + parseFloat((appCtx.walletBalances.btcSpendableBalance || 0).toString()).toLocaleString('en-us')  + ' Sats)'}
                       aria-label='amount'
                       aria-describedby='addon-amount'
                       className={amountValue === 'All' ? 'form-control-middle' : 'form-control-right'}
                       min='1'
-                      max={appCtx.walletBalances.btcConfBalance}
+                      max={appCtx.walletBalances.btcSpendableBalance}
                       value={amountValue}
                       onChange={amountChangeHandler}
                       onBlur={amountBlurHandler}
@@ -156,8 +156,8 @@ const BTCWithdraw = (props) => {
                       <InvalidInputMessage message={
                         (+amountValue <= 0) ? 
                         'Amount should be greater than 0'
-                        : (+amountValue > (appCtx.walletBalances.btcConfBalance || 0)) ? 
-                          'Amount should be lesser then ' + (appCtx.walletBalances.btcConfBalance || 0)
+                        : (+amountValue > (appCtx.walletBalances.btcSpendableBalance || 0)) ? 
+                          'Amount should be lesser then ' + (appCtx.walletBalances.btcSpendableBalance || 0)
                         :
                           'Invalid Amount'
                       } />

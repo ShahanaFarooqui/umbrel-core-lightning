@@ -13,7 +13,7 @@ import { OutgoingArrowSVG } from '../../../svgs/OutgoingArrow';
 import DateBox from '../../shared/DateBox/DateBox';
 import FiatBox from '../../shared/FiatBox/FiatBox';
 import Transaction from '../Transaction/Transaction';
-import { ApplicationModes, SATS_MSAT } from '../../../utilities/constants';
+import { ApplicationModes, Units } from '../../../utilities/constants';
 
 const TransactionsAccordion = ({ i, expanded, setExpanded, transaction, appConfig, fiatConfig }) => {
   return (
@@ -32,15 +32,15 @@ const TransactionsAccordion = ({ i, expanded, setExpanded, transaction, appConfi
               <Col xs={7} className='ps-2 d-flex align-items-center'>
                 <span className='fw-bold overflow-x-ellipsis'>{transaction.payment_hash}</span>
               </Col>
-              <Col xs={4} className='ps-0 d-flex align-items-center justify-content-end'>
-                {(transaction.type === 'PAYMENT' ? '-' : '+') + (formatCurrency(((transaction.msatoshi_sent || transaction.msatoshi_received || 0) / SATS_MSAT), appConfig.unit))}
+              <Col xs={5} className='ps-0 d-flex align-items-center justify-content-end fw-bold text-darker-blue'>
+                {(transaction.type === 'PAYMENT' ? '-' : '+') + (formatCurrency((transaction.msatoshi_sent || transaction.msatoshi_received || 0), Units.MSATS, appConfig.unit, false, 0, 'string')) + ' ' + (appConfig.unit)}
               </Col>
             </Row>
             <Row className='d-flex justify-content-between align-items-center'>
               <Col xs={7} className='ps-2 pe-0 fs-7 text-light'>
                 <DateBox dataValue={(transaction.created_at || transaction.paid_at || transaction.expires_at)} dataType={(transaction.created_at ? 'Created At' : transaction.paid_at ? 'Paid At' : 'Expires At')} showTooltip={true} />
               </Col>
-              <Col xs={4} className='ps-0 fs-7 text-light d-flex align-items-center justify-content-end'>
+              <Col xs={5} className='ps-0 fs-7 text-light d-flex align-items-center justify-content-end'>
                 <FiatBox value={(transaction.msatoshi_sent || transaction.msatoshi_received || 0)} symbol={fiatConfig.symbol} rate={fiatConfig.rate} />
               </Col>
             </Row>

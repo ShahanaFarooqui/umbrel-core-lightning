@@ -301,8 +301,7 @@ export type WalletBalances = {
   clnRemoteBalance?: number;
   clnPendingBalance?: number;
   clnInactiveBalance?: number;
-  btcConfBalance?: number;
-  btcUnconfBalance?: number;
-  btcTotalBalance?: number;
+  btcSpendableBalance?: number;
+  btcReservedBalance?: number;
   error?: any;
 }

@@ -51,7 +51,7 @@ const Overview = () => {
                   <Spinner animation='grow' variant='secondary' /> : 
                   appCtx.walletBalances.error ? 
                     <Alert className='py-0 px-1 fs-8' variant='danger'>{appCtx.walletBalances.error}</Alert> : 
-                    <CurrencyBox value={(appCtx.walletBalances.btcConfBalance || 0) + (appCtx.walletBalances.clnLocalBalance || 0)} shorten={false} rootClasses='d-inline-flex flex-column' currencyClasses='lh-1 fs-4 fw-bold' unitClasses='fs-7 fw-bold'></CurrencyBox>
+                    <CurrencyBox value={(appCtx.walletBalances.btcSpendableBalance || 0) + (appCtx.walletBalances.clnLocalBalance || 0)} shorten={false} rootClasses='d-inline-flex flex-column' currencyClasses='lh-1 fs-4 fw-bold' unitClasses='fs-7 fw-bold'></CurrencyBox>
                 }
               </Col>
               <Col xs={6} lg={4} xxl={6} className='d-flex align-items-center justify-content-end'>

@@ -29,6 +29,10 @@ body {
   color: $blue;
 }
 
+.text-darker-blue {
+  color: $darker-blue;
+}
+
 .border-none {
   border: none !important;
 }
@@ -95,7 +99,7 @@ body {
   text-decoration: none;
   transition: all $transition-time ease;
   &:hover, &:active {
-    transform: scale(1.05);
+    transform: scale(1.01);
     color: darken($primary, 10%);
   }
 }

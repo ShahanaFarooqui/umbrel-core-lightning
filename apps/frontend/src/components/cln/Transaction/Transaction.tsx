@@ -8,7 +8,7 @@ import { CopySVG } from '../../../svgs/Copy';
 import { AppContext } from '../../../store/AppContext';
 import DateBox from '../../shared/DateBox/DateBox';
 import { formatCurrency } from '../../../utilities/data-formatters';
-import { SATS_MSAT } from '../../../utilities/constants';
+import { Units } from '../../../utilities/constants';
 
 const Transaction = (props) => {
   const appCtx = useContext(AppContext);
@@ -37,6 +37,20 @@ const Transaction = (props) => {
         transition={{ duration: 0.3 }}
         className='transaction-placeholder'
       >
+      {props.transaction.msatoshi ?        
+        <Row className='mb-2 w-100 d-flex align-items-center'>
+          <Col xs={12} className='fs-7 text-light'>Fee (mSATS)</Col>
+          <Col xs={11} className='fs-7 overflow-x-ellipsis'>
+            {props.transaction.msatoshi_sent ? 
+              formatCurrency((props.transaction.msatoshi_sent - props.transaction.msatoshi), Units.MSATS, Units.MSATS, false, 0, 'string')
+            :
+              formatCurrency((props.transaction.msatoshi_received - props.transaction.msatoshi), Units.MSATS, Units.MSATS, false, 0, 'string')
+            }
+          </Col>
+        </Row>
+        :
+        <></>
+      }
       {props.transaction.label ?
         <Row className='mb-2 w-100 d-flex align-items-center'>
           <Col xs={12} className='fs-7 text-light'>Label</Col>
@@ -57,7 +71,7 @@ const Transaction = (props) => {
         <Row className='mb-2 w-100 d-flex align-items-center'>
           <Col xs={12} className='fs-7 text-light'>Invoice Amount (Sats)</Col>
           <Col xs={11} className='fs-7 overflow-x-ellipsis'>
-            {formatCurrency((props.transaction.msatoshi / SATS_MSAT), appCtx.appConfig.unit)}
+            {formatCurrency((props.transaction.msatoshi), Units.MSATS, appCtx.appConfig.unit, false, 0, 'string')}
           </Col>
         </Row>
       :

@@ -9,6 +9,7 @@ export const LOG_LEVEL = 'info';
 export const API_BASE_URL = 'http://localhost:3007';
 export const API_VERSION = '/v1';
 
+export const BTC_MSAT = 100000000000;
 export const BTC_SATS = 100000000;
 export const SATS_MSAT = 1000;
 
