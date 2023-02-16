@@ -7,7 +7,7 @@ export const OutgoingArrowSVG = props => {
     <OverlayTrigger
       placement='auto'
       delay={{ show: 250, hide: 250 }}
-      overlay={<Tooltip>{titleCase(props.txStatus)}</Tooltip>}
+      overlay={<Tooltip>{props.txStatus === 'complete' ? 'Paid' : titleCase(props.txStatus)}</Tooltip>}
       >
       <svg
         className={props.className}

@@ -101,13 +101,13 @@ const mergeLightningTransactions = (invoices: Invoice[], payments: Payment[]) =>
   let mergedTransactions: any[] = [];
   let totalTransactionsLength = (invoices?.length || 0) + (payments?.length || 0);
   for (let i = 0, v = 0, p = 0; i < totalTransactionsLength; i++) {
-    if (v === (invoices.length || 0)) {
+    if (v === (invoices?.length || 0)) {
       payments.slice(p)?.map(payment => {
         mergedTransactions.push({type: 'PAYMENT', payment_hash: payment.payment_hash, status: payment.status, msatoshi: payment.msatoshi, label: payment.label, bolt11: payment.bolt11, description: payment.description, bolt12: payment.bolt12, payment_preimage: payment.payment_preimage, created_at: payment.created_at, msatoshi_sent: payment.msatoshi_sent, destination: payment.destination, expires_at: null, msatoshi_received: null, paid_at: null});
         return payment;
       })
       i = totalTransactionsLength;
-    } else if (p === (payments.length || 0)) {
+    } else if (p === (payments?.length || 0)) {
       invoices.slice(v)?.map(invoice => {
         mergedTransactions.push({type: 'INVOICE', payment_hash: invoice.payment_hash, status: invoice.status, msatoshi: invoice.msatoshi, label: invoice.label, bolt11: invoice.bolt11, description: invoice.description, bolt12: invoice.bolt12, payment_preimage: invoice.payment_preimage, created_at: null, msatoshi_sent: null, destination: null, expires_at: invoice.expires_at, msatoshi_received: invoice.msatoshi_received, paid_at: invoice.paid_at});
         return invoice;
@@ -254,7 +254,7 @@ const appReducer = (state, action) => {
       };
 
     case ApplicationActions.SET_LIST_INVOICES:
-      const sortedInvoices = action.payload.invoices?.sort((i1: Invoice, i2: Invoice) => ((i1.pay_index && i2.pay_index && i1.pay_index > i2.pay_index) ? -1 : 1));
+      const sortedInvoices = action.payload.invoices?.sort((i1: Invoice, i2: Invoice) => ((i1.expires_at && i2.expires_at && i1.expires_at > i2.expires_at) ? -1 : 1));
       if (!state.listPayments.isLoading) {
         const mergedTransactions = mergeLightningTransactions(sortedInvoices, state.listPayments.payments);
         return {

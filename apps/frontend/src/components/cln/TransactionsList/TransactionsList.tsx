@@ -15,6 +15,80 @@ import FiatBox from '../../shared/FiatBox/FiatBox';
 import Transaction from '../Transaction/Transaction';
 import { ApplicationModes, Units } from '../../../utilities/constants';
 
+const TODAY = Math.floor(Date.now() / 1000);
+
+const PaymentHeader = ({payment, appConfig, fiatConfig}) => {
+  return (
+    <Row className='d-flex justify-content-between align-items-center'>
+      <Col xs={2}>
+        <OutgoingArrowSVG className='me-1' txStatus={payment.status} />
+      </Col>
+      <Col xs={10}>
+        <Row className='d-flex justify-content-between align-items-center'>
+          <Col xs={7} className='ps-2 d-flex align-items-center'>
+            <span className='fw-bold overflow-x-ellipsis'>{payment.description || payment.payment_hash}</span>
+          </Col>
+          <Col xs={5} className='ps-0 d-flex align-items-center justify-content-end fw-bold text-darker-blue'>
+            { payment.status === 'complete' ?
+              '-' + (formatCurrency((payment.msatoshi_sent || 0), Units.MSATS, appConfig.unit, false, 0, 'string')) + ' ' + (appConfig.unit)
+            :
+              0 + ' ' + (appConfig.unit)
+            }
+          </Col>
+        </Row>
+        <Row className='d-flex justify-content-between align-items-center'>
+          <Col xs={7} className='ps-2 pe-0 fs-7 text-light d-flex flex-row'>
+            <span className='me-1'>Created at</span>
+            {/* <span className={'me-1 ' + (payment.status === 'complete' ? 'text-valid' : 'text-invalid')}>Created at</span> */}
+            <DateBox dataValue={payment.created_at} dataType={'Created At'} showTooltip={false} />
+          </Col>
+          <Col xs={5} className='ps-0 fs-7 text-light d-flex align-items-center justify-content-end'>
+            <FiatBox value={(payment.msatoshi_sent || 0)} symbol={fiatConfig.symbol} rate={fiatConfig.rate} />
+          </Col>
+        </Row>
+      </Col>
+    </Row>
+  );
+};
+
+const InvoiceHeader = ({invoice, appConfig, fiatConfig}) => {
+  return (
+    <Row className='d-flex justify-content-between align-items-center'>
+      <Col xs={2}>
+        <IncomingArrowSVG className='me-1' txStatus={invoice.status} />
+      </Col>
+      <Col xs={10}>
+        <Row className='d-flex justify-content-between align-items-center'>
+          <Col xs={7} className='ps-2 d-flex align-items-center'>
+            <span className='fw-bold overflow-x-ellipsis'>{invoice.description || invoice.payment_hash}</span>
+          </Col>
+          <Col xs={5} className='ps-0 d-flex align-items-center justify-content-end fw-bold text-darker-blue'>
+            {invoice.paid_at ?
+              <span>{'+' + (formatCurrency((invoice.msatoshi_received || 0), Units.MSATS, appConfig.unit, false, 0, 'string')) + ' ' + (appConfig.unit)}</span>
+            :
+              (formatCurrency((invoice.msatoshi || 0), Units.MSATS, appConfig.unit, false, 0, 'string')) + ' ' + (appConfig.unit)
+            }
+          </Col>
+        </Row>
+        <Row className='d-flex justify-content-between align-items-center'>
+          <Col xs={7} className='ps-2 pe-0 fs-7 text-light d-flex flex-row align-items-center'>
+            {invoice.paid_at ? <span className='me-1'>Paid at</span> : 
+              invoice.expires_at > TODAY ?
+                <span className='me-1 text-valid'>Expires on</span>
+              :
+                <span className='me-1 text-invalid'>Expired on</span>
+            }
+            <DateBox dataValue={invoice.paid_at ? invoice.paid_at : invoice.expires_at} dataType={''} showTooltip={false} />
+          </Col>
+          <Col xs={5} className='ps-0 fs-7 text-light d-flex align-items-center justify-content-end'>
+            <FiatBox value={(invoice.paid_at ? invoice.msatoshi_received : invoice.msatoshi)} symbol={fiatConfig.symbol} rate={fiatConfig.rate} />
+          </Col>
+        </Row>
+      </Col>
+    </Row>
+  );
+};
+
 const TransactionsAccordion = ({ i, expanded, setExpanded, transaction, appConfig, fiatConfig }) => {
   return (
     <>
@@ -22,30 +96,9 @@ const TransactionsAccordion = ({ i, expanded, setExpanded, transaction, appConfi
         className='transaction-header'
         initial={false}
         animate={{ backgroundColor: ((appConfig.appMode === ApplicationModes.DARK) ? (expanded[i] ? '#0C0C0F' : '#2A2A2C') : (expanded[i] ? '#EBEFF9' : '#FFFFFF')) }}
+        transition={{ duration: 1, ease: [0.38, 0.05, 0.5, 1.0] }}
         onClick={() => { let newExpanded = [...expanded]; newExpanded[i]=!expanded[i]; return setExpanded(newExpanded); }}>
-        <Row className='d-flex justify-content-between align-items-center'>
-          <Col xs={2}>
-            {transaction.type === 'PAYMENT' ? <OutgoingArrowSVG className='me-1' txStatus={transaction.status} /> : <IncomingArrowSVG className='me-1' txStatus={transaction.status} />}
-          </Col>
-          <Col xs={10}>
-            <Row className='d-flex justify-content-between align-items-center'>
-              <Col xs={7} className='ps-2 d-flex align-items-center'>
-                <span className='fw-bold overflow-x-ellipsis'>{transaction.payment_hash}</span>
-              </Col>
-              <Col xs={5} className='ps-0 d-flex align-items-center justify-content-end fw-bold text-darker-blue'>
-                {(transaction.type === 'PAYMENT' ? '-' : '+') + (formatCurrency((transaction.msatoshi_sent || transaction.msatoshi_received || 0), Units.MSATS, appConfig.unit, false, 0, 'string')) + ' ' + (appConfig.unit)}
-              </Col>
-            </Row>
-            <Row className='d-flex justify-content-between align-items-center'>
-              <Col xs={7} className='ps-2 pe-0 fs-7 text-light'>
-                <DateBox dataValue={(transaction.created_at || transaction.paid_at || transaction.expires_at)} dataType={(transaction.created_at ? 'Created At' : transaction.paid_at ? 'Paid At' : 'Expires At')} showTooltip={true} />
-              </Col>
-              <Col xs={5} className='ps-0 fs-7 text-light d-flex align-items-center justify-content-end'>
-                <FiatBox value={(transaction.msatoshi_sent || transaction.msatoshi_received || 0)} symbol={fiatConfig.symbol} rate={fiatConfig.rate} />
-              </Col>
-            </Row>
-          </Col>
-        </Row>
+        {transaction.type === 'PAYMENT' ? <PaymentHeader payment={transaction} appConfig={appConfig} fiatConfig={fiatConfig} /> : <InvoiceHeader invoice={transaction} appConfig={appConfig} fiatConfig={fiatConfig} /> }
       </motion.header>
       <AnimatePresence initial={false}>
         {expanded[i] && (

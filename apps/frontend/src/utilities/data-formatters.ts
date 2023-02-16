@@ -33,7 +33,7 @@ export const ConvertMSatsToBTC = (num: number, numDecimalPlaces: number = 5, ret
     Number.parseFloat((num / BTC_MSAT).toString()).toFixed(numDecimalPlaces);
 };
 
-export const formatSats = (num: number, shorten: boolean, returnFormat: string = 'string') => {
+export const formatCurrencyType = (num: number, shorten: boolean, returnFormat: string = 'string') => {
   return returnFormat === 'string' ?
     (shorten ? (Math.floor((num / 1000)).toLocaleString('en-us') + 'K') : parseFloat(num.toString()).toLocaleString('en-us'))
   :
@@ -43,11 +43,11 @@ export const formatSats = (num: number, shorten: boolean, returnFormat: string =
 export const formatCurrency = (num: number, fromUnit: Units, toUnit: Units = Units.SATS, shorten: boolean = false, numDecimalPlaces: number = 5, returnFormat: string = 'string') => {
   switch (fromUnit) {
     case Units.MSATS:
-      return toUnit === Units.BTC ? ConvertMSatsToBTC(num, numDecimalPlaces, returnFormat) : toUnit === Units.SATS ? ConvertMSatsToSats(num, numDecimalPlaces, returnFormat) : num;
+      return toUnit === Units.BTC ? ConvertMSatsToBTC(num, numDecimalPlaces, returnFormat) : toUnit === Units.SATS ? ConvertMSatsToSats(num, numDecimalPlaces, returnFormat) : formatCurrencyType(num, shorten, returnFormat);
     case Units.BTC:
-      return toUnit === Units.SATS ? ConvertBTCToSats(num) : toUnit === Units.MSATS ? ConvertBTCToMSats(num) : num;
+      return toUnit === Units.SATS ? ConvertBTCToSats(num) : toUnit === Units.MSATS ? ConvertBTCToMSats(num) : formatCurrencyType(num, shorten, returnFormat);
     default:
-      return toUnit === Units.BTC ? ConvertSatsToBTC(num, numDecimalPlaces, returnFormat) : toUnit === Units.MSATS ? ConvertSatsToMSats(num) : formatSats(num, shorten, returnFormat);
+      return toUnit === Units.BTC ? ConvertSatsToBTC(num, numDecimalPlaces, returnFormat) : toUnit === Units.MSATS ? ConvertSatsToMSats(num) : formatCurrencyType(num, shorten, returnFormat);
   }
 };
 

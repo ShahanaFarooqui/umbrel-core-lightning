@@ -3,7 +3,7 @@
 
 body {
   overflow: hidden;
-  transition: background-color $theme-transition ease;
+  transition: background-color $theme-transition ease-in-out;
   &.modal-open #root-container {
     filter: blur(5px);
   }
@@ -23,6 +23,14 @@ body {
       border-radius: 0;
     }
   }
+}
+
+.text-valid {
+  color: $success;
+}
+
+.text-invalid {
+  color: $danger;
 }
 
 .text-blue {
@@ -243,7 +251,7 @@ svg {
 }
 
 .card {
-  transition: background-color $theme-transition ease;
+  transition: background-color $theme-transition ease-in-out;
   border: none;
   & .card-header {
     border-bottom: none;
@@ -301,7 +309,7 @@ label.form-label {
   margin-top: 0.25rem;
   box-shadow: 0px 1px 2px 0px rgba($dark-blue, 0.05);
   & .form-control {
-    transition: background-color $theme-transition ease;
+    transition: background-color $theme-transition ease-in-out;
     font-size: 14px;
     &.form-control-left {
       cursor: pointer;
@@ -313,7 +321,7 @@ label.form-label {
       padding-left: 0;
     }  
     &.form-control-middle {
-      transition: background-color $theme-transition ease;
+      transition: background-color $theme-transition ease-in-out;
       border-left: 0;
       padding-left: 0;
       border-right: 0;
@@ -324,7 +332,7 @@ label.form-label {
     }
   }
   & .form-control-addon {
-    transition: background-color $theme-transition ease;
+    transition: background-color $theme-transition ease-in-out;
     &.form-control-addon-disabled {
       background-color: $gray-200;
     }
@@ -421,7 +429,7 @@ label.form-label {
   position: relative;
   overflow: hidden;
   & .list-group-item {
-    transition: background-color $theme-transition ease;
+    transition: background-color $theme-transition ease-in-out;
     border: none;
     margin-bottom: 1rem;
   }

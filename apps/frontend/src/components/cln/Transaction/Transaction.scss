@@ -2,8 +2,9 @@
 
 .transaction-placeholder {
   transform-origin: top left;
-  min-height: 12rem;
-  & .transaction-copy {
+  margin-bottom: 0.5rem;
+  // border-bottom: 0.5px solid $light;
+  & .transaction-copy, .transaction-open {
     padding: 0;
     cursor: pointer;
     &:hover {

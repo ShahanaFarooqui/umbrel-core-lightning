@@ -14,10 +14,10 @@
     color: $primary;
   }
   
-  .text-blue {
+  .text-blue, .text-darker-blue {
     color: $white;
   }
-
+  
   .card {
     background-color: $card-bg-dark;
     box-shadow: none;

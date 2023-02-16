@@ -15,6 +15,13 @@ import { UnReservedSVG } from '../../../svgs/UnReserved';
 import FiatBox from '../../shared/FiatBox/FiatBox';
 import { Units } from '../../../utilities/constants';
 
+// import { OpenLinkSVG } from '../../../svgs/OpenLink';
+// const openLinkHandler = (event) => {
+//   console.warn(event.target.id);
+//   window.open('https://blockstream.info/' + event.target.id, '_blank');
+// };
+// {/* <Col xs={1} onClick={openLinkHandler} className='transaction-open'><OpenLinkSVG id={props.transaction.payment_hash} showTooltip={true} /></Col> */}
+
 const UTXOs = () => {
   const appCtx = useContext(AppContext);
 

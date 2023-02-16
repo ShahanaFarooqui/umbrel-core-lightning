@@ -254,6 +254,17 @@ export type Transaction = {
   channel?: string;
 }
 
+export type BkprTransaction = {
+  account: string;
+  tag?: string;
+  credit_msat?: string;
+  debit_msat?: string;
+  currency?: string;
+  timestamp?: number;
+  description?: string;
+  payment_id?: string;  
+}
+
 export type ListBitcoinTransactions = {
   isLoading: boolean;
   transactions?: Transaction[];
