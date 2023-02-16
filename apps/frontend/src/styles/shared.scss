@@ -83,7 +83,7 @@ body {
 }
 
 .btn.btn-primary {
-  transition: color $theme-transition ease;
+  transition: color $theme-transition ease-in-out;
   color: var(--bs-body-color);
   font-weight: 600;
   padding: 1.25rem 1.675rem;
@@ -105,7 +105,8 @@ body {
   font-size: .75rem;
   font-weight: 600;
   text-decoration: none;
-  transition: all $transition-time ease;
+  transition: transform $transition-time ease;
+  transition: color $theme-transition ease-in-out;
   &:hover, &:active {
     transform: scale(1.01);
     color: darken($primary, 10%);
@@ -121,7 +122,8 @@ button.btn-rounded.btn.btn-primary, button.btn-rounded.bg-primary {
   height: 2rem;
   font-weight: 600;
   padding: 1.25rem 1.675rem;
-  transition: all $transition-time ease;
+  transition: background-color $transition-time ease;
+  transition: color $theme-transition ease-in-out;
   &:hover {
     background-color: darken($primary, 8%) !important;
     border-color: darken($primary, 8%) !important;
@@ -148,7 +150,8 @@ button.btn-rounded.btn.btn-primary, button.btn-rounded.bg-primary {
     box-shadow: none;
     background-color: $primary-darker;
     border-color: $primary-darker;
-    transition: all $transition-time ease;
+    transition: background-color $transition-time ease;
+    transition: color $theme-transition ease-in-out;
     &:hover {
       background-color: darken($primary-darker, 8%);
       border-color: darken($primary-darker, 8%);
@@ -205,9 +208,19 @@ button.btn-rounded.btn.btn-primary, button.btn-rounded.bg-primary {
 }
 
 svg {
-  & circle, & path, & line {
-    transition: fill, stroke $theme-transition ease;
+  & circle, & path, & line, & defs > linearGradient > stop {
+    transition: fill $theme-transition ease-in-out, stroke $theme-transition ease-in-out, stop-color $theme-transition ease-in-out;
   }
+  &.svg-small {
+    width: 0.75rem;
+  }
+  
+  &.svg-white {
+    path {
+      fill: $white;
+    }
+  }
+ 
 }
 
 .svg-fill-disabled path.fill-contrast {
@@ -251,10 +264,13 @@ svg {
 }
 
 .card {
-  transition: background-color $theme-transition ease-in-out;
+  transition: background-color $theme-transition ease-in-out, box-shadow $theme-transition ease-in-out;
   border: none;
   & .card-header {
     border-bottom: none;
+  }
+  & .card-body {
+    transition: color $theme-transition ease-in-out;
   }
   & .card-footer {
     border-top: none;
@@ -432,16 +448,6 @@ label.form-label {
     transition: background-color $theme-transition ease-in-out;
     border: none;
     margin-bottom: 1rem;
-  }
-}
-
-svg.svg-small {
-  width: 0.75rem;
-}
-
-svg.svg-white {
-  path {
-    fill: $white;
   }
 }
 

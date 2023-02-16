@@ -26,7 +26,7 @@ const PaymentHeader = ({payment, appConfig, fiatConfig}) => {
       <Col xs={10}>
         <Row className='d-flex justify-content-between align-items-center'>
           <Col xs={7} className='ps-2 d-flex align-items-center'>
-            <span className='fw-bold overflow-x-ellipsis'>{payment.description || payment.payment_hash}</span>
+            <span className='text-dark fw-bold overflow-x-ellipsis'>{payment.description || payment.payment_hash}</span>
           </Col>
           <Col xs={5} className='ps-0 d-flex align-items-center justify-content-end fw-bold text-darker-blue'>
             { payment.status === 'complete' ?
@@ -60,7 +60,7 @@ const InvoiceHeader = ({invoice, appConfig, fiatConfig}) => {
       <Col xs={10}>
         <Row className='d-flex justify-content-between align-items-center'>
           <Col xs={7} className='ps-2 d-flex align-items-center'>
-            <span className='fw-bold overflow-x-ellipsis'>{invoice.description || invoice.payment_hash}</span>
+            <span className='text-dark fw-bold overflow-x-ellipsis'>{invoice.description || invoice.payment_hash}</span>
           </Col>
           <Col xs={5} className='ps-0 d-flex align-items-center justify-content-end fw-bold text-darker-blue'>
             {invoice.paid_at ?
@@ -74,9 +74,9 @@ const InvoiceHeader = ({invoice, appConfig, fiatConfig}) => {
           <Col xs={7} className='ps-2 pe-0 fs-7 text-light d-flex flex-row align-items-center'>
             {invoice.paid_at ? <span className='me-1'>Paid at</span> : 
               invoice.expires_at > TODAY ?
-                <span className='me-1 text-valid'>Expires on</span>
+                <span className='me-1 text-valid'>Expires at</span>
               :
-                <span className='me-1 text-invalid'>Expired on</span>
+                <span className='me-1 text-invalid'>Expired at</span>
             }
             <DateBox dataValue={invoice.paid_at ? invoice.paid_at : invoice.expires_at} dataType={''} showTooltip={false} />
           </Col>
@@ -95,8 +95,8 @@ const TransactionsAccordion = ({ i, expanded, setExpanded, transaction, appConfi
       <motion.header
         className='transaction-header'
         initial={false}
-        animate={{ backgroundColor: ((appConfig.appMode === ApplicationModes.DARK) ? (expanded[i] ? '#0C0C0F' : '#2A2A2C') : (expanded[i] ? '#EBEFF9' : '#FFFFFF')) }}
-        transition={{ duration: 1, ease: [0.38, 0.05, 0.5, 1.0] }}
+        animate={{ backgroundColor: ((appConfig.appMode === ApplicationModes.DARK) ? (expanded[i] ? '#0C0C0F' : 'transparent') : (expanded[i] ? '#EBEFF9' : 'transparent')) }}
+        transition={{ duration: 1 }}
         onClick={() => { let newExpanded = [...expanded]; newExpanded[i]=!expanded[i]; return setExpanded(newExpanded); }}>
         {transaction.type === 'PAYMENT' ? <PaymentHeader payment={transaction} appConfig={appConfig} fiatConfig={fiatConfig} /> : <InvoiceHeader invoice={transaction} appConfig={appConfig} fiatConfig={fiatConfig} /> }
       </motion.header>

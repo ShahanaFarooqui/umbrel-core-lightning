@@ -54,9 +54,9 @@ const Payment = ({payment, copyHandler}) => {
 const Invoice = ({invoice, copyHandler}) => {
   return (
     <>
-    {invoice.expires_at && invoice.expires_at > TODAY ?
+    {invoice.paid_at && invoice.expires_at && invoice.expires_at > TODAY ?
       <Row className='mb-2 w-100 d-flex align-items-center'>
-        <Col xs={12} className='fs-7 text-light'>Expires At</Col>
+        <Col xs={12} className='fs-7 text-light'>Expires at</Col>
         <Col xs={11} className='fs-7 overflow-x-ellipsis'>
           <DateBox dataValue={invoice.expires_at} dataType={''} showTooltip={false} />
         </Col>

@@ -36,7 +36,7 @@ const UTXOs = () => {
       <ListGroup as='ul' variant='flush'>
         { appCtx.listFunds.outputs?.map(utxo => 
           <ListGroup.Item key={(utxo.txid || '') + utxo.output} as='li' className='ps-0 text-dark'>
-            <Row className='d-flex justify-content-between align-items-center'>
+            <Row className='text-dark d-flex justify-content-between align-items-center'>
               <Col xs={7} className='d-flex align-items-center'>
                 {utxo.reserved ? <ReservedSVG className='minw-12px' /> : <UnReservedSVG className='minw-12px' />}
                 <OverlayTrigger

@@ -3,18 +3,22 @@
 @include color-mode(dark) {
   
   .text-light {
+    transition: color $theme-transition ease-in-out;
     color: $light-dark !important;
   }
 
   .text-light-white, .text-dark, .text-contrast {
+    transition: color $theme-transition ease-in-out;
     color: $white !important;
   }
 
   .text-dark-primary {
+    transition: color $theme-transition ease-in-out;
     color: $primary;
   }
   
   .text-blue, .text-darker-blue {
+    transition: color $theme-transition ease-in-out;
     color: $white;
   }
   
@@ -57,7 +61,7 @@
     fill: $body-bg-dark;
   }
 
-  .stoke-body-bg {
+  .stroke-body-bg {
     stroke: $body-bg-dark;
   }
 
