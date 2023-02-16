@@ -10,13 +10,21 @@ export const API_VERSION = '/v1';
 export const NODE_ENV: Environment = Environment.DEVELOPMENT;
 export const LOG_FILE = './dist/logs/cln-backend-' + new Date().toISOString() + '.log';
 
-// // Local TESTNET 1
-export const COMMANDO_PUBKEY = '037610b58f47e78ea5178e56f4c793656da5cf093d6269a37f5b0709b7d610e627';
+// Local Development Testnet 1 (workspace/.lightning/l1-testnet)
+export const COMMANDO_PUBKEY = '03e42b5719166ad3c8f71ab6da493b25eb0f1e8fca342bcbb132dcd251b367ac9d';
 export const COMMANDO_WS_PROXY = 'ws://0.0.0.0:5001';
 export const COMMANDO_IP = '0.0.0.0';
 export const COMMANDO_PORT = 5001;
-export const COMMANDO_RUNE = 'bfoeiPMx3rZslYvQZq6hjtDXRMmT_JKxEgXDHjLRpyU9MA==';
+export const COMMANDO_RUNE = 'HIu-zMlCRFuYlZGIlrjxE2G7aD7GtIBeKN1tUYszy7o9MQ==';
 export const COMMANDO_PRIVATE_KEY = crypto.randomBytes(32).toString('hex');
+
+// // Local TESTNET 1
+// export const COMMANDO_PUBKEY = '037610b58f47e78ea5178e56f4c793656da5cf093d6269a37f5b0709b7d610e627';
+// export const COMMANDO_WS_PROXY = 'ws://0.0.0.0:5001';
+// export const COMMANDO_IP = '0.0.0.0';
+// export const COMMANDO_PORT = 5001;
+// export const COMMANDO_RUNE = 'bfoeiPMx3rZslYvQZq6hjtDXRMmT_JKxEgXDHjLRpyU9MA==';
+// export const COMMANDO_PRIVATE_KEY = crypto.randomBytes(32).toString('hex');
 
 // // Local TESTNET 2
 // export const COMMANDO_PUBKEY = '027bff0162504153dd48cb92a13d2ea781a7f33a014678beeb43a328c88e21bd7f';

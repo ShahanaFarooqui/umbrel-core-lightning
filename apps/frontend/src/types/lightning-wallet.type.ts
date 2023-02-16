@@ -267,7 +267,7 @@ export type BkprTransaction = {
 
 export type ListBitcoinTransactions = {
   isLoading: boolean;
-  transactions?: Transaction[];
+  transactions?: BkprTransaction[];
   error?: any;
 }
 

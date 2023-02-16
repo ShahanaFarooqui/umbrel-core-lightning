@@ -133,13 +133,16 @@ export const TransactionsList = () => {
     : 
     appCtx.listLightningTransactions.error ? 
       <Alert className='py-0 px-1 fs-8' variant='danger'>{appCtx.listLightningTransactions.error}</Alert> : 
-      <div className='transactions-list'>
-        { 
-          appCtx.listLightningTransactions?.transactions?.map((transaction, i) => (
-            <TransactionsAccordion key={i} i={i} expanded={expanded} setExpanded={setExpanded} initExpansions={initExpansions} transaction={transaction} appConfig={appCtx.appConfig} fiatConfig={appCtx.fiatConfig} />
-          ))
-        }
-      </div>
+      appCtx.listLightningTransactions?.transactions && appCtx.listLightningTransactions?.transactions.length && appCtx.listLightningTransactions?.transactions.length > 0 ?
+        <div className='transactions-list'>
+          { 
+            appCtx.listLightningTransactions?.transactions?.map((transaction, i) => (
+              <TransactionsAccordion key={i} i={i} expanded={expanded} setExpanded={setExpanded} initExpansions={initExpansions} transaction={transaction} appConfig={appCtx.appConfig} fiatConfig={appCtx.fiatConfig} />
+            ))
+          }
+        </div>
+      :
+        <div className='fs-7 mt-2'>{!(appCtx.listChannels?.activeChannels && appCtx.listChannels.activeChannels.length && appCtx.listChannels.activeChannels.length > 0) ? 'No transaction found. Click send/receive to start!' : 'No transaction found. Open channel to start!'}</div>
   );
 };
 

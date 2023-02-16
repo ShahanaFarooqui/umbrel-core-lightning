@@ -33,34 +33,37 @@ const UTXOs = () => {
     : 
     appCtx.listFunds.error ? 
       <Alert className='py-0 px-1 fs-8' variant='danger'>{appCtx.listFunds.error}</Alert> : 
-      <ListGroup as='ul' variant='flush'>
-        { appCtx.listFunds.outputs?.map(utxo => 
-          <ListGroup.Item key={(utxo.txid || '') + utxo.output} as='li' className='ps-0 text-dark'>
-            <Row className='text-dark d-flex justify-content-between align-items-center'>
-              <Col xs={7} className='d-flex align-items-center'>
-                {utxo.reserved ? <ReservedSVG className='minw-12px' /> : <UnReservedSVG className='minw-12px' />}
-                <OverlayTrigger
-                  placement='auto'
-                  delay={{ show: 250, hide: 250 }}
-                  overlay={<Tooltip>{titleCase(utxo.status)}</Tooltip>}
-                  >
-                  <div className={'d-inline-block mx-1 dot ' + (utxo.status === 'confirmed' ? 'bg-success' : 'bg-warning')}></div>
-                </OverlayTrigger>
-                <span className='fw-bold overflow-x-ellipsis'>{utxo.txid}</span>
-              </Col>
-              <Col xs={4} className='d-flex align-items-center justify-content-end'>
-                {formatCurrency((utxo.value || 0), Units.SATS, appCtx.appConfig.unit, false, 8, 'string')}
-              </Col>
-              <Col xs={7} className='fs-7 text-light'>
-                {utxo.blockheight ? ((utxo.blockheight || 0).toLocaleString('en-us')) : ''}
-              </Col>
-              <Col xs={4} className='fs-7 text-light d-flex align-items-center justify-content-end'>
-                <FiatBox value={utxo.value} symbol={appCtx.fiatConfig.symbol} rate={appCtx.fiatConfig.rate} />
-              </Col>
-            </Row>
-          </ListGroup.Item>
-        )}
-      </ListGroup>
+      appCtx.listFunds.outputs && appCtx.listFunds.outputs.length && appCtx.listFunds.outputs.length > 0 ?
+        <ListGroup as='ul' variant='flush'>
+          { appCtx.listFunds.outputs?.map(utxo => 
+            <ListGroup.Item key={(utxo.txid || '') + utxo.output} as='li' className='ps-0 text-dark'>
+              <Row className='text-dark d-flex justify-content-between align-items-center'>
+                <Col xs={7} className='d-flex align-items-center'>
+                  {utxo.reserved ? <ReservedSVG className='minw-12px' /> : <UnReservedSVG className='minw-12px' />}
+                  <OverlayTrigger
+                    placement='auto'
+                    delay={{ show: 250, hide: 250 }}
+                    overlay={<Tooltip>{titleCase(utxo.status)}</Tooltip>}
+                    >
+                    <div className={'d-inline-block mx-1 dot ' + (utxo.status === 'confirmed' ? 'bg-success' : 'bg-warning')}></div>
+                  </OverlayTrigger>
+                  <span className='fw-bold overflow-x-ellipsis'>{utxo.txid}</span>
+                </Col>
+                <Col xs={4} className='d-flex align-items-center justify-content-end'>
+                  {formatCurrency((utxo.value || 0), Units.SATS, appCtx.appConfig.unit, false, 8, 'string')}
+                </Col>
+                <Col xs={7} className='fs-7 text-light'>
+                  {utxo.blockheight ? ((utxo.blockheight || 0).toLocaleString('en-us')) : ''}
+                </Col>
+                <Col xs={4} className='fs-7 text-light d-flex align-items-center justify-content-end'>
+                  <FiatBox value={utxo.value} symbol={appCtx.fiatConfig.symbol} rate={appCtx.fiatConfig.rate} />
+                </Col>
+              </Row>
+            </ListGroup.Item>
+          )}
+        </ListGroup>
+      :
+      <div className='fs-7 mt-2'>No balance found. Click deposit to receive amount!</div>
   );
 };
 
