@@ -1,6 +1,6 @@
 import './CLNCard.scss';
 import { useState } from 'react';
-import { CSSTransition, SwitchTransition } from 'react-transition-group';
+import { motion, AnimatePresence } from 'framer-motion';
 import Card from 'react-bootstrap/Card';
 
 import CLNWallet from '../CLNWallet/CLNWallet';
@@ -12,14 +12,14 @@ const CLNCard = () => {
 
   return (
     <Card className='h-100 overflow-hidden inner-box-shadow'>
-      <SwitchTransition mode='out-in'>
-        <CSSTransition
+      <AnimatePresence mode='wait'>
+        <motion.div
           key={selCLNCard}
-          addEndListener={(node, done) =>
-            node.addEventListener('transitionend', done, false)
-          }
-          classNames='fade-component'
-          // classNames={selCLNCard === 'wallet' ? 'slide-right-to-left' : 'slide-left-to-right'}
+          initial={{ y: 20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          exit={{ y: -20, opacity: 0 }}
+          transition={{ duration: 0.3 }}
+          className='h-100 overflow-hidden'
         >
           {selCLNCard === 'wallet' ? (
             <CLNWallet onActionClick={(action) => setSelCLNCard(action)} />
@@ -28,8 +28,8 @@ const CLNCard = () => {
           ) : (
             <CLNSend onClose={() => setSelCLNCard('wallet')} />
           )}
-        </CSSTransition>
-      </SwitchTransition>
+        </motion.div>
+      </AnimatePresence>
     </Card>
   );
 };

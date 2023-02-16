@@ -144,8 +144,6 @@ const OpenChannel = (props) => {
                       aria-label='amount'
                       aria-describedby='addon-amount'
                       className='form-control-right'
-                      min='1'
-                      max={appCtx.walletBalances.btcSpendableBalance}
                       value={amountValue}
                       onChange={amountChangeHandler}
                       onBlur={amountBlurHandler}

@@ -1,6 +1,6 @@
 import './BTCCard.scss';
 import { useState } from 'react';
-import { CSSTransition, SwitchTransition } from 'react-transition-group';
+import { motion, AnimatePresence } from 'framer-motion';
 import Card from 'react-bootstrap/Card';
 
 import BTCWallet from '../BTCWallet/BTCWallet';
@@ -12,15 +12,14 @@ const BTCCard = () => {
 
   return (
     <Card className='h-100 overflow-hidden inner-box-shadow'>
-      <SwitchTransition mode='out-in'>
-        <CSSTransition
-          addEndListener={(node, done) =>
-            node.addEventListener('transitionend', done, false)
-          }
+      <AnimatePresence mode='wait'>
+        <motion.div
           key={selBTCCard}
-          classNames={selBTCCard === 'wallet' ? 'slide-right-to-left' : 'slide-left-to-right'}
-          mountOnEnter
-          unmountOnExit
+          initial={{ y: 20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          exit={{ y: -20, opacity: 0 }}
+          transition={{ duration: 0.3 }}
+          className='h-100 overflow-hidden'
         >
           {selBTCCard === 'wallet' ? (
             <BTCWallet onActionClick={(action) => setSelBTCCard(action)} />
@@ -29,8 +28,8 @@ const BTCCard = () => {
           ) : (
             <BTCWithdraw onClose={() => setSelBTCCard('wallet')} />
           )}
-        </CSSTransition>
-      </SwitchTransition>
+        </motion.div>
+      </AnimatePresence>
     </Card>
   );
 };

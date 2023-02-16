@@ -24,7 +24,8 @@ const CurrencyBox = props => {
       setAnimationFinished(1);
     }, 2000);
     return animation.stop;
-  }, [appCtx.appConfig.unit]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <OverlayTrigger
@@ -36,7 +37,7 @@ const CurrencyBox = props => {
         {
           animationFinished ? 
             <div className={props.currencyClasses}>
-              {formatCurrency(props.value, Units.SATS, appCtx.appConfig.unit, props.shorten, 0, 'string')}
+              {formatCurrency(props.value, Units.SATS, appCtx.appConfig.unit, props.shorten, 5, 'string')}
             </div>
           : 
             <div className={'d-flex ' + props.currencyClasses}>

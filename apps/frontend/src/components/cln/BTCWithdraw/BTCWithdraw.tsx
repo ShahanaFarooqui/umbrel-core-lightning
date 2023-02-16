@@ -129,8 +129,6 @@ const BTCWithdraw = (props) => {
                       aria-label='amount'
                       aria-describedby='addon-amount'
                       className={amountValue === 'All' ? 'form-control-middle' : 'form-control-right'}
-                      min='1'
-                      max={appCtx.walletBalances.btcSpendableBalance}
                       value={amountValue}
                       onChange={amountChangeHandler}
                       onBlur={amountBlurHandler}

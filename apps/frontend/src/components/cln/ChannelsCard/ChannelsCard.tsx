@@ -17,7 +17,7 @@ const ChannelsCard = () => {
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: -20, opacity: 0 }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.3 }}
           className='h-100 overflow-hidden'
         >
           {showOpenChannel ? (

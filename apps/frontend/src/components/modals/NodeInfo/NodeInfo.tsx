@@ -1,7 +1,6 @@
 import './NodeInfo.scss';
 import { useContext } from 'react';
 import { QRCodeCanvas } from 'qrcode.react';
-import { motion, AnimatePresence } from 'framer-motion';
 import Modal from 'react-bootstrap/Modal';
 import Row from 'react-bootstrap/Row';
 import InputGroup from 'react-bootstrap/InputGroup';
@@ -31,16 +30,7 @@ const NodeInfo = () => {
         </Modal.Header>
         <Modal.Body className='py-0'>
           <Row className='qr-container m-auto d-flex'>
-            <AnimatePresence>
-              <motion.img
-                key='cln-logo'
-                src={appCtx.appConfig.appMode === ApplicationModes.DARK ? 'images/cln-logo-dark.png' : 'images/cln-logo-light.png'}
-                className='qr-cln-logo'
-                initial={{ opacity: 0, scale: 0.5 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.5, duration: 0.3 }}
-              />
-            </AnimatePresence>
+            <img alt='cln-logo' src={appCtx.appConfig.appMode === ApplicationModes.DARK ? 'images/cln-logo-dark.png' : 'images/cln-logo-light.png'} className='qr-cln-logo' />
             <QRCodeCanvas value={appCtx.nodeInfo.id || ''} size={220} includeMargin={true} />
           </Row>
           <Row className='d-flex align-items-start justify-content-center pt-2'>

@@ -49,7 +49,7 @@ const UTXOs = () => {
                 <span className='fw-bold overflow-x-ellipsis'>{utxo.txid}</span>
               </Col>
               <Col xs={4} className='d-flex align-items-center justify-content-end'>
-                {formatCurrency((utxo.value || 0), Units.SATS, appCtx.appConfig.unit, false, 5, 'string')}
+                {formatCurrency((utxo.value || 0), Units.SATS, appCtx.appConfig.unit, false, 8, 'string')}
               </Col>
               <Col xs={7} className='fs-7 text-light'>
                 {utxo.blockheight ? ((utxo.blockheight || 0).toLocaleString('en-us')) : ''}

@@ -48,7 +48,7 @@ const BTCWallet = (props) => {
           </ButtonGroup>
         </Card>
         <Card.Body className='px-4 pb-0 list-scroll-container'>
-          <div className='fs-7 text-light'>UTXOs</div>
+          <div className='text-light'>UTXOs</div>
           <PerfectScrollbar className='ps-show-always'>
             <UTXOs />
           </PerfectScrollbar>

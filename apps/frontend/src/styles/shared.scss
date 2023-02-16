@@ -25,6 +25,10 @@ body {
   }
 }
 
+.mt-2px {
+  margin-top: 2px !important;
+}
+
 .text-valid {
   color: $success;
 }
@@ -407,8 +411,8 @@ label.form-label {
   & .qr-cln-logo {
     padding: 0;
     position: absolute;
-    top: 42%;
-    left: 42%;
+    top: 50%;
+    left: 50%;
     border-radius: 50%;
     width: 2.5rem;
     height: 2.5rem;

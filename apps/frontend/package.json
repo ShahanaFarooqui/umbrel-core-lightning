@@ -22,8 +22,7 @@
     "react-bootstrap": "^2.7.0",
     "react-dom": "^18.2.0",
     "react-perfect-scrollbar": "^1.5.8",
-    "react-scripts": "5.0.1",
-    "react-transition-group": "^4.4.5"
+    "react-scripts": "5.0.1"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.5",
