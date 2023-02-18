@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react';
-import Transaction from './Transaction';
+import BTCTransaction from './BTCTransaction';
 
-describe('Transaction component ', () => {
-  beforeEach(() => render(<Transaction />));
+describe('BTCTransaction component ', () => {
+  beforeEach(() => render(<BTCTransaction />));
 
   it('should be in the document', () => {
     // expect(screen.getByTestId('header-context')).toBeInTheDocument();

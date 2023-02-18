@@ -13,7 +13,7 @@ import { BitcoinWalletSVG } from '../../../svgs/BitcoinWallet';
 import { WithdrawSVG } from '../../../svgs/Withdraw';
 import { DepositSVG } from '../../../svgs/Deposit';
 import CurrencyBox from '../../shared/CurrencyBox/CurrencyBox';
-import UTXOs from '../UTXOs/UTXOs';
+import BTCTransactionsList from '../BTCTransactionsList/BTCTransactionsList';
 
 const BTCWallet = (props) => {
   const appCtx = useContext(AppContext);
@@ -48,9 +48,9 @@ const BTCWallet = (props) => {
           </ButtonGroup>
         </Card>
         <Card.Body className='px-4 pb-0 list-scroll-container'>
-          <div className='text-light'>UTXOs</div>
+          <div className='text-light'>Transactions</div>
           <PerfectScrollbar className='ps-show-always'>
-            <UTXOs />
+            <BTCTransactionsList />
           </PerfectScrollbar>
         </Card.Body>
       </Card.Body>

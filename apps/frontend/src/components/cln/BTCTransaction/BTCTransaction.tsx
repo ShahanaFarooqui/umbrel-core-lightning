@@ -1,4 +1,4 @@
-import './Transaction.scss';
+import './BTCTransaction.scss';
 import { useContext } from 'react';
 import { motion } from 'framer-motion';
 import Row from 'react-bootstrap/esm/Row';
@@ -33,7 +33,7 @@ const Payment = ({payment, copyHandler}) => {
       <Row className='mb-2 w-100 d-flex align-items-center'>
         <Col xs={12} className='fs-7 text-light'>Invoice</Col>
         <Col xs={11} className='pe-1 fs-7 overflow-x-ellipsis'>{payment.bolt11 || payment.bolt12}</Col>
-        <Col xs={1} onClick={copyHandler} className='transaction-copy'><CopySVG id='Invoice' showTooltip={true} /></Col>
+        <Col xs={1} onClick={copyHandler} className='btc-transaction-copy'><CopySVG id='Invoice' showTooltip={true} /></Col>
       </Row>
     :
       <></>
@@ -42,7 +42,7 @@ const Payment = ({payment, copyHandler}) => {
       <Row className='mb-2 w-100 d-flex align-items-center'>
         <Col xs={12} className='fs-7 text-light'>Preimage</Col>
         <Col xs={11} className='pe-1 fs-7 overflow-x-ellipsis'>{payment.payment_preimage}</Col>
-        <Col xs={1} onClick={copyHandler} className='transaction-copy'><CopySVG id='Preimage' showTooltip={true} /></Col>
+        <Col xs={1} onClick={copyHandler} className='btc-transaction-copy'><CopySVG id='Preimage' showTooltip={true} /></Col>
       </Row>
     :
       <></>
@@ -68,7 +68,7 @@ const Invoice = ({invoice, copyHandler}) => {
       <Row className='mb-2 w-100 d-flex align-items-center'>
         <Col xs={12} className='fs-7 text-light'>Invoice</Col>
         <Col xs={11} className='pe-1 fs-7 overflow-x-ellipsis'>{invoice.bolt11 || invoice.bolt12}</Col>
-        <Col xs={1} onClick={copyHandler} className='transaction-copy'><CopySVG id='Invoice' showTooltip={true} /></Col>
+        <Col xs={1} onClick={copyHandler} className='btc-transaction-copy'><CopySVG id='Invoice' showTooltip={true} /></Col>
       </Row>
     :
       <></>
@@ -77,7 +77,7 @@ const Invoice = ({invoice, copyHandler}) => {
       <Row className='mb-2 w-100 d-flex align-items-center'>
         <Col xs={12} className='fs-7 text-light'>Preimage</Col>
         <Col xs={11} className='pe-1 fs-7 overflow-x-ellipsis'>{invoice.payment_preimage}</Col>
-        <Col xs={1} onClick={copyHandler} className='transaction-copy'><CopySVG id='Preimage' showTooltip={true} /></Col>
+        <Col xs={1} onClick={copyHandler} className='btc-transaction-copy'><CopySVG id='Preimage' showTooltip={true} /></Col>
       </Row>
     :
       <></>
@@ -86,7 +86,7 @@ const Invoice = ({invoice, copyHandler}) => {
   )
 };
 
-const Transaction = (props) => {
+const BTCTransaction = (props) => {
   const appCtx = useContext(AppContext);
   
   const copyHandler = (event) => {
@@ -111,7 +111,7 @@ const Transaction = (props) => {
     <motion.div
         variants={{ collapsed: { scale: 0.8, opacity: 0 }, open: { scale: 1, opacity: 1 } }}
         transition={{ duration: 0.3 }}
-        className='transaction-placeholder'
+        className='btc-transaction-placeholder'
       >
         {props.transaction.type === 'PAYMENT' ? 
           <Payment payment={props.transaction} copyHandler={copyHandler} />
@@ -122,4 +122,4 @@ const Transaction = (props) => {
   );
 };
 
-export default Transaction;
+export default BTCTransaction;

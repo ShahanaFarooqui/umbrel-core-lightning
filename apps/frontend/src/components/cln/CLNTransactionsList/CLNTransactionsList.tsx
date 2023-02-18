@@ -1,4 +1,4 @@
-import './TransactionsList.scss';
+import './CLNTransactionsList.scss';
 import { useContext, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Spinner from 'react-bootstrap/Spinner';
@@ -12,7 +12,7 @@ import { IncomingArrowSVG } from '../../../svgs/IncomingArrow';
 import { OutgoingArrowSVG } from '../../../svgs/OutgoingArrow';
 import DateBox from '../../shared/DateBox/DateBox';
 import FiatBox from '../../shared/FiatBox/FiatBox';
-import Transaction from '../Transaction/Transaction';
+import Transaction from '../CLNTransaction/CLNTransaction';
 import { ApplicationModes, Units } from '../../../utilities/constants';
 
 const TODAY = Math.floor(Date.now() / 1000);
@@ -25,23 +25,23 @@ const PaymentHeader = ({payment, appConfig, fiatConfig}) => {
       </Col>
       <Col xs={10}>
         <Row className='d-flex justify-content-between align-items-center'>
-          <Col xs={6} className='ps-2 d-flex align-items-center'>
+          <Col xs={7} className='ps-2 d-flex align-items-center'>
             <span className='text-dark fw-bold overflow-x-ellipsis'>{payment.description || payment.payment_hash}</span>
           </Col>
-          <Col xs={6} className='ps-0 d-flex align-items-center justify-content-end fw-bold text-darker-blue'>
+          <Col xs={5} className='ps-0 d-flex align-items-center justify-content-end fw-bold text-darker-blue'>
             { payment.status === 'complete' ?
-              '-' + (formatCurrency((payment.msatoshi_sent || 0), Units.MSATS, appConfig.unit, false, 0, 'string')) + ' ' + (appConfig.unit)
+              '-' + (formatCurrency((payment.msatoshi_sent || 0), Units.MSATS, appConfig.unit, false, 0, 'string'))
             :
-              0 + ' ' + (appConfig.unit)
+              0
             }
           </Col>
         </Row>
         <Row className='d-flex justify-content-between align-items-center'>
-          <Col xs={6} className='ps-2 pe-0 fs-7 text-light d-flex flex-row'>
+          <Col xs={7} className='ps-2 pe-0 fs-7 text-light d-flex flex-row'>
             <span className='me-1'>Created at</span>
             <DateBox dataValue={payment.created_at} dataType={'Created At'} showTooltip={false} />
           </Col>
-          <Col xs={6} className='ps-0 fs-7 text-light d-flex align-items-center justify-content-end'>
+          <Col xs={5} className='ps-0 fs-7 text-light d-flex align-items-center justify-content-end'>
             <FiatBox value={(payment.msatoshi_sent || 0)} symbol={fiatConfig.symbol} rate={fiatConfig.rate} />
           </Col>
         </Row>
@@ -58,19 +58,19 @@ const InvoiceHeader = ({invoice, appConfig, fiatConfig}) => {
       </Col>
       <Col xs={10}>
         <Row className='d-flex justify-content-between align-items-center'>
-          <Col xs={6} className='ps-2 d-flex align-items-center'>
+          <Col xs={7} className='ps-2 d-flex align-items-center'>
             <span className='text-dark fw-bold overflow-x-ellipsis'>{invoice.description || invoice.payment_hash}</span>
           </Col>
-          <Col xs={6} className='ps-0 d-flex align-items-center justify-content-end fw-bold text-darker-blue'>
+          <Col xs={5} className='ps-0 d-flex align-items-center justify-content-end fw-bold text-darker-blue'>
             {invoice.paid_at ?
-              <span>{'+' + (formatCurrency((invoice.msatoshi_received || 0), Units.MSATS, appConfig.unit, false, 8, 'string')) + ' ' + (appConfig.unit)}</span>
+              <span>{'+' + (formatCurrency((invoice.msatoshi_received || 0), Units.MSATS, appConfig.unit, false, 8, 'string'))}</span>
             :
-              (formatCurrency((invoice.msatoshi || 0), Units.MSATS, appConfig.unit, false, 8, 'string')) + ' ' + (appConfig.unit)
+              (formatCurrency((invoice.msatoshi || 0), Units.MSATS, appConfig.unit, false, 8, 'string'))
             }
           </Col>
         </Row>
         <Row className='d-flex justify-content-between align-items-center'>
-          <Col xs={6} className='ps-2 pe-0 fs-7 text-light d-flex flex-row align-items-center'>
+          <Col xs={7} className='ps-2 pe-0 fs-7 text-light d-flex flex-row align-items-center'>
             {invoice.paid_at ? <span className='me-1'>Paid at</span> : 
               invoice.expires_at > TODAY ?
                 <span className='me-1 text-valid'>Valid till</span>
@@ -79,7 +79,7 @@ const InvoiceHeader = ({invoice, appConfig, fiatConfig}) => {
             }
             <DateBox dataValue={invoice.paid_at ? invoice.paid_at : invoice.expires_at} dataType={''} showTooltip={false} />
           </Col>
-          <Col xs={6} className='ps-0 fs-7 text-light d-flex align-items-center justify-content-end'>
+          <Col xs={5} className='ps-0 fs-7 text-light d-flex align-items-center justify-content-end'>
             <FiatBox value={(invoice.paid_at ? invoice.msatoshi_received : invoice.msatoshi)} symbol={fiatConfig.symbol} rate={fiatConfig.rate} />
           </Col>
         </Row>
@@ -88,11 +88,11 @@ const InvoiceHeader = ({invoice, appConfig, fiatConfig}) => {
   );
 };
 
-const TransactionsAccordion = ({ i, expanded, setExpanded, initExpansions, transaction, appConfig, fiatConfig }) => {
+const CLNTransactionsAccordion = ({ i, expanded, setExpanded, initExpansions, transaction, appConfig, fiatConfig }) => {
   return (
     <>
       <motion.header
-        className='transaction-header'
+        className='cln-transaction-header'
         initial={false}
         animate={{ backgroundColor: ((appConfig.appMode === ApplicationModes.DARK) ? (expanded[i] ? '#0C0C0F' : 'transparent') : (expanded[i] ? '#EBEFF9' : 'transparent')) }}
         transition={{ duration: 1 }}
@@ -120,9 +120,9 @@ const TransactionsAccordion = ({ i, expanded, setExpanded, initExpansions, trans
   );
 };
 
-export const TransactionsList = () => {
+export const CLNTransactionsList = () => {
   const appCtx = useContext(AppContext);
-  const initExpansions = (appCtx.listLightningTransactions.transactions?.reduce((acc: boolean[], curr) => [...acc, false], []) || []);
+  const initExpansions = (appCtx.listLightningTransactions.clnTransactions?.reduce((acc: boolean[], curr) => [...acc, false], []) || []);
   const [expanded, setExpanded] = useState<boolean[]>(initExpansions);
 
   return (
@@ -133,11 +133,11 @@ export const TransactionsList = () => {
     : 
     appCtx.listLightningTransactions.error ? 
       <Alert className='py-0 px-1 fs-8' variant='danger'>{appCtx.listLightningTransactions.error}</Alert> : 
-      appCtx.listLightningTransactions?.transactions && appCtx.listLightningTransactions?.transactions.length && appCtx.listLightningTransactions?.transactions.length > 0 ?
-        <div className='transactions-list'>
+      appCtx.listLightningTransactions?.clnTransactions && appCtx.listLightningTransactions?.clnTransactions.length && appCtx.listLightningTransactions?.clnTransactions.length > 0 ?
+        <div className='cln-transactions-list'>
           { 
-            appCtx.listLightningTransactions?.transactions?.map((transaction, i) => (
-              <TransactionsAccordion key={i} i={i} expanded={expanded} setExpanded={setExpanded} initExpansions={initExpansions} transaction={transaction} appConfig={appCtx.appConfig} fiatConfig={appCtx.fiatConfig} />
+            appCtx.listLightningTransactions?.clnTransactions?.map((transaction, i) => (
+              <CLNTransactionsAccordion key={i} i={i} expanded={expanded} setExpanded={setExpanded} initExpansions={initExpansions} transaction={transaction} appConfig={appCtx.appConfig} fiatConfig={appCtx.fiatConfig} />
             ))
           }
         </div>
@@ -146,4 +146,4 @@ export const TransactionsList = () => {
   );
 };
 
-export default TransactionsList;
+export default CLNTransactionsList;

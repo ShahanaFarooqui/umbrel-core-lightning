@@ -7,7 +7,7 @@ import React, { useReducer } from 'react';
 import { AppContextType } from '../types/app-context.type';
 import { ApplicationActions, ApplicationModes, SATS_MSAT, Units } from '../utilities/constants';
 import { ApplicationConfiguration, FiatConfig } from '../types/app-config.type';
-import { Fund, FundChannel, FundOutput, Invoice, ListBitcoinTransactions, ListInvoices, ListPayments, ListPeers, NodeInfo, Payment, Peer } from '../types/lightning-wallet.type';
+import { BkprTransaction, Fund, FundChannel, FundOutput, Invoice, ListBitcoinTransactions, ListInvoices, ListPayments, ListPeers, NodeInfo, Payment, Peer } from '../types/lightning-wallet.type';
 import logger from '../services/logger.service';
 import { faDollarSign } from '@fortawesome/free-solid-svg-icons';
 import { sortDescByKey } from '../utilities/data-formatters';
@@ -109,7 +109,9 @@ const mergeLightningTransactions = (invoices: Invoice[], payments: Payment[]) =>
       i = totalTransactionsLength;
     } else if (p === (payments?.length || 0)) {
       invoices.slice(v)?.map(invoice => {
-        mergedTransactions.push({type: 'INVOICE', payment_hash: invoice.payment_hash, status: invoice.status, msatoshi: invoice.msatoshi, label: invoice.label, bolt11: invoice.bolt11, description: invoice.description, bolt12: invoice.bolt12, payment_preimage: invoice.payment_preimage, created_at: null, msatoshi_sent: null, destination: null, expires_at: invoice.expires_at, msatoshi_received: invoice.msatoshi_received, paid_at: invoice.paid_at});
+        if (invoice.status !== 'expired') {
+          mergedTransactions.push({type: 'INVOICE', payment_hash: invoice.payment_hash, status: invoice.status, msatoshi: invoice.msatoshi, label: invoice.label, bolt11: invoice.bolt11, description: invoice.description, bolt12: invoice.bolt12, payment_preimage: invoice.payment_preimage, created_at: null, msatoshi_sent: null, destination: null, expires_at: invoice.expires_at, msatoshi_received: invoice.msatoshi_received, paid_at: invoice.paid_at});
+        }
         return invoice;
       });
       i = totalTransactionsLength;
@@ -117,12 +119,14 @@ const mergeLightningTransactions = (invoices: Invoice[], payments: Payment[]) =>
       mergedTransactions.push({type: 'PAYMENT', payment_hash: payments[p].payment_hash, status: payments[p].status, msatoshi: payments[p].msatoshi, label: payments[p].label, bolt11: payments[p].bolt11, description: payments[p].description, bolt12: payments[p].bolt12, payment_preimage: payments[p].payment_preimage, created_at: payments[p].created_at, msatoshi_sent: payments[p].msatoshi_sent, destination: payments[p].destination, expires_at: null, msatoshi_received: null, paid_at: null});
       p++;
     } else if((payments[p].created_at || 0) < (invoices[v].paid_at || invoices[v].expires_at || 0)) {
-      mergedTransactions.push({type: 'INVOICE', payment_hash: invoices[v].payment_hash, status: invoices[v].status, msatoshi: invoices[v].msatoshi, label: invoices[v].label, bolt11: invoices[v].bolt11, description: invoices[v].description, bolt12: invoices[v].bolt12, payment_preimage: invoices[v].payment_preimage, created_at: null, msatoshi_sent: null, destination: null, expires_at: invoices[v].expires_at, msatoshi_received: invoices[v].msatoshi_received, paid_at: invoices[v].paid_at});
+      if (invoices[v].status !== 'expired') {
+        mergedTransactions.push({type: 'INVOICE', payment_hash: invoices[v].payment_hash, status: invoices[v].status, msatoshi: invoices[v].msatoshi, label: invoices[v].label, bolt11: invoices[v].bolt11, description: invoices[v].description, bolt12: invoices[v].bolt12, payment_preimage: invoices[v].payment_preimage, created_at: null, msatoshi_sent: null, destination: null, expires_at: invoices[v].expires_at, msatoshi_received: invoices[v].msatoshi_received, paid_at: invoices[v].paid_at});
+      }
       v++;
     }
   }
   return mergedTransactions;
-}
+};
 
 const calculateBalances = (listFunds: Fund) => {
   const walletBalances = { 
@@ -157,7 +161,11 @@ const calculateBalances = (listFunds: Fund) => {
     return walletBalances;
   });
   return walletBalances;
-}
+};
+
+const filterOnChainTransactions = (events: BkprTransaction[]) => {
+  return events.filter((event: BkprTransaction) => (event.account === 'wallet' && (event.tag === 'deposit' || event.tag === 'withdrawal')));
+};
 
 const AppContext = React.createContext<AppContextType>({
   showModals: { nodeInfoModal: false, connectWalletModal: false},
@@ -170,8 +178,8 @@ const AppContext = React.createContext<AppContextType>({
   listChannels: {isLoading: true, activeChannels: [], pendingChannels: [], inactiveChannels: []},
   listInvoices: {isLoading: true, invoices: []},
   listPayments: {isLoading: true, payments: []},
-  listLightningTransactions: {isLoading: true, transactions: []},
-  listBitcoinTransactions: {isLoading: true, transactions: []},
+  listLightningTransactions: {isLoading: true, clnTransactions: []},
+  listBitcoinTransactions: {isLoading: true, btcTransactions: []},
   walletBalances: {isLoading: true, clnLocalBalance: 0, clnRemoteBalance: 0, clnPendingBalance: 0, clnInactiveBalance: 0, btcSpendableBalance: 0, btcReservedBalance: 0},
   setShowModals: (newShowModals) => {}, 
   setShowToast: (newShowToast) => {}, 
@@ -198,8 +206,8 @@ const defaultAppState = {
   listChannels: {isLoading: true, activeChannels: [], pendingChannels: [], inactiveChannels: []},
   listInvoices: {isLoading: true, invoices: []},
   listPayments: {isLoading: true, payments: []},
-  listLightningTransactions: {isLoading: true, transactions: []},
-  listBitcoinTransactions: {isLoading: true, transactions: []},
+  listLightningTransactions: {isLoading: true, clnTransactions: []},
+  listBitcoinTransactions: {isLoading: true, btcTransactions: []},
   walletBalances: {isLoading: true, clnLocalBalance: 0, clnRemoteBalance: 0, clnPendingBalance: 0, clnInactiveBalance: 0, btcSpendableBalance: 0, btcReservedBalance: 0}
 };
 
@@ -259,7 +267,7 @@ const appReducer = (state, action) => {
         const mergedTransactions = mergeLightningTransactions(sortedInvoices, state.listPayments.payments);
         return {
           ...state,
-          listLightningTransactions: { isLoading: false, error: action.payload.error, transactions: mergedTransactions },
+          listLightningTransactions: { isLoading: false, error: action.payload.error, clnTransactions: mergedTransactions },
           listInvoices: {...action.payload, invoices: sortedInvoices}
         };
       }
@@ -276,7 +284,7 @@ const appReducer = (state, action) => {
         const mergedTransactions = mergeLightningTransactions(state.listInvoices.invoices, groupedMPPs);
         return {
           ...state,
-          listLightningTransactions: { isLoading: false, error: action.payload.error, transactions: mergedTransactions },
+          listLightningTransactions: { isLoading: false, error: action.payload.error, clnTransactions: mergedTransactions },
           listPayments: {...action.payload, payments: groupedMPPs}
         };
       }
@@ -287,9 +295,10 @@ const appReducer = (state, action) => {
       };
 
     case ApplicationActions.SET_LIST_BITCOIN_TRANSACTIONS:
+      const filteredTransactions = filterOnChainTransactions(action.payload.events);
       return {
         ...state,
-        listBitcoinTransactions: action.payload
+        listBitcoinTransactions: { isLoading: false, error: action.payload.error, btcTransactions: filteredTransactions },
       };
 
     case ApplicationActions.SET_CONTEXT:
@@ -342,7 +351,7 @@ const AppProvider: React.PropsWithChildren<any> = (props) => {
     dispatchApplicationAction({ type: ApplicationActions.SET_LIST_SEND_PAYS, payload: list });
   };
 
-  const setListBitcoinTransactionsHandler = (list: ListBitcoinTransactions) => {
+  const setListBitcoinTransactionsHandler = (list: any) => {
     dispatchApplicationAction({ type: ApplicationActions.SET_LIST_BITCOIN_TRANSACTIONS, payload: list });
   };
 

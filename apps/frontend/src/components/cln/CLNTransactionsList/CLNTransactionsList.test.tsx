@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react';
-import TransactionsList from './TransactionsList';
+import CLNTransactionsList from './CLNTransactionsList';
 
-describe('TransactionsList component ', () => {
-  beforeEach(() => render(<TransactionsList />));
+describe('CLNTransactionsList component ', () => {
+  beforeEach(() => render(<CLNTransactionsList />));
 
   it('should be in the document', () => {
     // expect(screen.getByTestId('header-context')).toBeInTheDocument();

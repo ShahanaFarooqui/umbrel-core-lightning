@@ -12,7 +12,7 @@ import { AppContext } from '../../../store/AppContext';
 import { LightningWalletSVG } from '../../../svgs/LightningWallet';
 import { WithdrawSVG } from '../../../svgs/Withdraw';
 import { DepositSVG } from '../../../svgs/Deposit';
-import TransactionsList from '../TransactionsList/TransactionsList';
+import CLNTransactionsList from '../CLNTransactionsList/CLNTransactionsList';
 import CurrencyBox from '../../shared/CurrencyBox/CurrencyBox';
 
 const CLNWallet = (props) => {
@@ -50,7 +50,7 @@ const CLNWallet = (props) => {
         <Card.Body className='px-4 pb-0 list-scroll-container'>
           <div className='text-light'>Transactions</div>
           <PerfectScrollbar className='ps-show-always'>
-            <TransactionsList />
+            <CLNTransactionsList />
           </PerfectScrollbar>
         </Card.Body>
       </Card.Body>

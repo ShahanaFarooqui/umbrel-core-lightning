@@ -221,7 +221,7 @@ export type LightningTransaction = {
 
 export type ListLightningTransactions = {
   isLoading: boolean;
-  transactions?: LightningTransaction[];
+  clnTransactions?: LightningTransaction[];
   error?: any;
 }
 
@@ -254,20 +254,50 @@ export type Transaction = {
   channel?: string;
 }
 
+export type btcDeposit = {
+	tag: string;
+	credit_msat?: string;
+	timestamp?: number;
+	txid?: string;
+	blockheight: number;
+	outpoint?: string;
+	payment_id?: string;
+	description?: string;
+}
+
+export type btcWithdraw = {
+	tag: string;
+	debit_msat?: string;
+	timestamp?: number;
+	txid?: string;
+	blockheight: number;
+	outpoint?: string;
+	payment_id?: string;
+	description?: string;
+}
+
 export type BkprTransaction = {
   account: string;
-  tag?: string;
-  credit_msat?: string;
-  debit_msat?: string;
-  currency?: string;
-  timestamp?: number;
-  description?: string;
-  payment_id?: string;  
+	type?: string; // 'onchain_fee', 'chain', 'channel'
+	credit_msat?: string;
+	debit_msat?: string;
+	currency?: string;
+	timestamp?: number;
+	tag?: string;
+	txid?: string;
+	blockheight: number;
+	outpoint?: string;
+	origin?: string;
+	payment_id?: string;
+	description?: string;
+	fees_msat?: string;
+	is_rebalance?: boolean;
+	part_id?: number;
 }
 
 export type ListBitcoinTransactions = {
   isLoading: boolean;
-  transactions?: BkprTransaction[];
+  btcTransactions?: BkprTransaction[];
   error?: any;
 }
 
