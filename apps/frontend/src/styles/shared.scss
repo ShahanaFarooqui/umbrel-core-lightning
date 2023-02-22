@@ -91,9 +91,6 @@ body {
   color: var(--bs-body-color);
   font-weight: 600;
   padding: 1.25rem 1.675rem;
-  &.disabled, &:disabled {
-    color: $gray-100;
-  }
   &.active, &:active {
     color: var(--bs-body-color);
     text-decoration: none;
@@ -127,7 +124,9 @@ button.btn-rounded.btn.btn-primary, button.btn-rounded.bg-primary {
   font-weight: 600;
   padding: 1.25rem 1.675rem;
   transition: background-color $transition-time ease;
-  transition: color $theme-transition ease-in-out;
+  &:not(.btn-settings-menu.dropdown-toggle) {
+    transition: color $theme-transition ease-in-out;
+  }
   &:hover {
     background-color: darken($primary, 8%) !important;
     border-color: darken($primary, 8%) !important;
@@ -150,7 +149,7 @@ button.btn-rounded.btn.btn-primary, button.btn-rounded.bg-primary {
     font-weight: 600;
     box-shadow: none;
     background-color: $primary-darker;
-    transition: all $transition-time ease;
+    transition: background-color $theme-transition ease, color $theme-transition ease, border-color $theme-transition ease;
     &:hover {
       & + button.btn-actions {
         border-color: $white;
@@ -159,7 +158,7 @@ button.btn-rounded.btn.btn-primary, button.btn-rounded.bg-primary {
       background-color: $white;
       color: $primary;
       & svg .fill-contrast {
-        transition: fill $transition-time ease;
+        transition: fill $theme-transition ease;
         fill: $primary;
       }
     }
@@ -215,7 +214,7 @@ button.btn-rounded.btn.btn-primary, button.btn-rounded.bg-primary {
 }
 
 svg {
-  & circle, & path, & line, & defs > linearGradient > stop {
+  & circle, & path:not(.path-settings), & line, & defs > linearGradient > stop {
     transition: fill $theme-transition ease-in-out, stroke $theme-transition ease-in-out, stop-color $theme-transition ease-in-out;
   }
   &.svg-small {
@@ -295,7 +294,7 @@ svg {
   }
   &.dropdown-disabled {
     cursor: not-allowed;
-    color: $gray-600;
+    opacity: 0.2;
   }
   & .btn:first-child:active, & .btn.show {
     box-shadow: none;

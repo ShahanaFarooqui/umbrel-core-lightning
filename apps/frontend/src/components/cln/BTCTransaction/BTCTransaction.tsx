@@ -6,6 +6,7 @@ import Col from 'react-bootstrap/esm/Col';
 
 import { AppContext } from '../../../store/AppContext';
 import { CopySVG } from '../../../svgs/Copy';
+import { TRANSITION_DURATION } from '../../../utilities/constants';
 
 const TransactionDetail = ({transaction, copyHandler}) => {
   return (
@@ -69,7 +70,7 @@ const BTCTransaction = (props) => {
   return (
     <motion.div
         variants={{ collapsed: { scale: 0.8, opacity: 0 }, open: { scale: 1, opacity: 1 } }}
-        transition={{ duration: 0.3 }}
+        transition={{ duration: TRANSITION_DURATION }}
         className='btc-transaction-placeholder'
       >
       <TransactionDetail transaction={props.transaction} copyHandler={copyHandler} />

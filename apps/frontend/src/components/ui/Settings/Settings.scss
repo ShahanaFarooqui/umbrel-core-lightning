@@ -21,6 +21,12 @@
 
 @include color-mode(light) {
   .settings-menu.dropdown {
+    & .dropdown-toggle.btn-settings-menu {
+      color: $white;
+      & svg path {
+        fill: $white;
+      }
+    }
     & > .dropdown-menu {
       border: none;
     }
@@ -35,6 +41,12 @@
 
 @include color-mode(dark) {
   .settings-menu.dropdown {
+    & .dropdown-toggle.btn-settings-menu {
+      color: $card-bg-dark;
+      & svg path {
+        fill: $card-bg-dark;
+      }
+    }
     & .dropdown-menu {
       & div.dropdown-item {
           color: $white;

@@ -8,7 +8,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
 import useBreakpoint from '../../../hooks/use-breakpoint';
-import { Breakpoints } from '../../../utilities/constants';
+import { Breakpoints, COUNTUP_DURATION } from '../../../utilities/constants';
 import { BalanceSVG } from '../../../svgs/Balance';
 import { PeersSVG } from '../../../svgs/Peers';
 import { CapacitySVG } from '../../../svgs/Capacity';
@@ -28,13 +28,13 @@ const Overview = () => {
     if (appCtx.listChannels.activeChannels && appCtx.listChannels.activeChannels.length && appCtx.listChannels.activeChannels.length > 0) {
       countChannels.current = 0;
       countChannels.prev = 0;
-      const animationChannels = animate(countChannels, appCtx.listChannels.activeChannels.length, { duration: 2 });
+      const animationChannels = animate(countChannels, appCtx.listChannels.activeChannels.length, { duration: COUNTUP_DURATION });
       return animationChannels.stop;
     }
     if (appCtx.listPeers.peers && appCtx.listPeers.peers.length && appCtx.listPeers.peers.length > 0) {
       countPeers.current = 0;
       countPeers.prev = 0;
-      const animationPeers = animate(countPeers, appCtx.listPeers.peers.length, { duration: 2 });
+      const animationPeers = animate(countPeers, appCtx.listPeers.peers.length, { duration: COUNTUP_DURATION });
       return animationPeers.stop;
     }
   }, [appCtx.listChannels.activeChannels, appCtx.listPeers.peers, countChannels, countPeers]);

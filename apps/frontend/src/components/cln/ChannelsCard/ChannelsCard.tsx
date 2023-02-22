@@ -5,6 +5,7 @@ import Card from 'react-bootstrap/Card';
 
 import Channels from '../Channels/Channels';
 import OpenChannel from '../OpenChannel/OpenChannel';
+import { TRANSITION_DURATION } from '../../../utilities/constants';
 
 const ChannelsCard = () => {
   const [showOpenChannel, setShowOpenChannel] = useState(false);
@@ -17,7 +18,7 @@ const ChannelsCard = () => {
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: -20, opacity: 0 }}
-          transition={{ duration: 0.3 }}
+          transition={{ duration: TRANSITION_DURATION }}
           className='h-100 overflow-hidden'
         >
           {showOpenChannel ? (

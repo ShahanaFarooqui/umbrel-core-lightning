@@ -13,7 +13,7 @@ import { OutgoingArrowSVG } from '../../../svgs/OutgoingArrow';
 import DateBox from '../../shared/DateBox/DateBox';
 import FiatBox from '../../shared/FiatBox/FiatBox';
 import Transaction from '../BTCTransaction/BTCTransaction';
-import { ApplicationModes, Units } from '../../../utilities/constants';
+import { ApplicationModes, TRANSITION_DURATION, Units } from '../../../utilities/constants';
 
 const WithdrawHeader = ({withdraw, appConfig, fiatConfig}) => {
   return (
@@ -78,7 +78,7 @@ const BTCTransactionsAccordion = ({ i, expanded, setExpanded, initExpansions, tr
         className={'btc-transaction-header ' + (expanded[i] ? 'expanded' : '')}
         initial={false}
         animate={{ backgroundColor: ((appConfig.appMode === ApplicationModes.DARK) ? (expanded[i] ? '#0C0C0F' : '#2A2A2C') : (expanded[i] ? '#EBEFF9' : '#FFFFFF')) }}
-        transition={{ duration: 0.5 }}
+        transition={{ duration: TRANSITION_DURATION }}
         onClick={() => { initExpansions[i]=!expanded[i]; return setExpanded(initExpansions); }}>
         {transaction?.tag === 'withdrawal' ? <WithdrawHeader withdraw={transaction} appConfig={appConfig} fiatConfig={fiatConfig} /> : <DepositHeader deposit={transaction} appConfig={appConfig} fiatConfig={fiatConfig} /> }
       </motion.div>
@@ -94,7 +94,7 @@ const BTCTransactionsAccordion = ({ i, expanded, setExpanded, initExpansions, tr
               open: { opacity: 1, height: 'auto' },
               collapsed: { opacity: 0, height: 0 }
             }}
-            transition={{ duration: 0.3, ease: [0.04, 0.62, 0.23, 0.98] }}
+            transition={{ duration: TRANSITION_DURATION, ease: [0.04, 0.62, 0.23, 0.98] }}
           >
             <Transaction transaction={transaction} />
           </motion.div>

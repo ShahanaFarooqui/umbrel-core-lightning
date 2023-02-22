@@ -19,7 +19,7 @@ import ChannelsCard from '../cln/ChannelsCard/ChannelsCard';
 
 const App = () => {
   const appCtx = useContext(AppContext);
-  const { getAppConfigurations } = useHttp();
+  const { getAppConfigurations, fetchData } = useHttp();
 
   const bodyHTML = document.getElementsByTagName('body')[0];
   const htmlAttributes = bodyHTML.attributes;
@@ -32,7 +32,7 @@ const App = () => {
   useEffect(() => {
     getAppConfigurations();
     window.setInterval(() => {
-      getAppConfigurations();
+      fetchData();
     }, 60 * 60 * 1000); // one hour
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

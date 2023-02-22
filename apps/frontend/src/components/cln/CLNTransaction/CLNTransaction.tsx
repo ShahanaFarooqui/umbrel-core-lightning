@@ -6,7 +6,7 @@ import Col from 'react-bootstrap/esm/Col';
 
 import { AppContext } from '../../../store/AppContext';
 import { formatCurrency } from '../../../utilities/data-formatters';
-import { Units } from '../../../utilities/constants';
+import { TRANSITION_DURATION, Units } from '../../../utilities/constants';
 import { CopySVG } from '../../../svgs/Copy';
 import DateBox from '../../shared/DateBox/DateBox';
 
@@ -110,7 +110,7 @@ const CLNTransaction = (props) => {
   return (
     <motion.div
         variants={{ collapsed: { scale: 0.8, opacity: 0 }, open: { scale: 1, opacity: 1 } }}
-        transition={{ duration: 0.3 }}
+        transition={{ duration: TRANSITION_DURATION }}
         className='cln-transaction-placeholder'
       >
         {props.transaction.type === 'PAYMENT' ? 

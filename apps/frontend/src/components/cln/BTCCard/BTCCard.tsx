@@ -6,6 +6,7 @@ import Card from 'react-bootstrap/Card';
 import BTCWallet from '../BTCWallet/BTCWallet';
 import BTCDeposit from '../BTCDeposit/BTCDeposit';
 import BTCWithdraw from '../BTCWithdraw/BTCWithdraw';
+import { TRANSITION_DURATION } from '../../../utilities/constants';
 
 const BTCCard = () => {
   const [selBTCCard, setSelBTCCard] = useState('wallet');
@@ -18,7 +19,7 @@ const BTCCard = () => {
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: -20, opacity: 0 }}
-          transition={{ duration: 0.3 }}
+          transition={{ duration: TRANSITION_DURATION }}
           className='h-100 overflow-hidden'
         >
           {selBTCCard === 'wallet' ? (

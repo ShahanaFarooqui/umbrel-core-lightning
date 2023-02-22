@@ -6,7 +6,7 @@ import Tooltip from 'react-bootstrap/Tooltip';
 
 import { AppContext } from '../../../store/AppContext';
 import { formatCurrency } from '../../../utilities/data-formatters';
-import { Units } from '../../../utilities/constants';
+import { COUNTUP_DURATION, Units } from '../../../utilities/constants';
 import FiatBox from '../FiatBox/FiatBox';
 
 const CurrencyBox = props => {
@@ -19,7 +19,7 @@ const CurrencyBox = props => {
     setAnimationFinished(0);
     count.current = 0;
     count.prev = 0;
-    const animation = animate(count, +formatCurrency(props.value, Units.SATS, appCtx.appConfig.unit, false, 5, 'number'), { duration: 2 });
+    const animation = animate(count, +formatCurrency(props.value, Units.SATS, appCtx.appConfig.unit, false, 5, 'number'), { duration: COUNTUP_DURATION });
     setTimeout(() => {
       setAnimationFinished(1);
     }, 2000);

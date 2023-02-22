@@ -96,7 +96,7 @@ const useHttp = () => {
           if (response.data.useDummyData) {
             appCtx.setStore(dummyDataFromJSON);
           } else {
-            fetchData();
+            fetchData();              
           }
         }
         setStoreFunction({...response.data, ...{ isLoading: false, error: null }});
