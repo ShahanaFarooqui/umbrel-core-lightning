@@ -88,12 +88,6 @@
   .btn-group {
     & button.btn-actions {
       color: $white;
-      border-color: darken($primary, 10%);
-    }
-    &.btn-group-action .btn, &.btn-group-action button.btn-actions {
-      &:hover {
-        box-shadow: 0px 2px 4px 0px $gray-400;
-      }
     }
   }
 

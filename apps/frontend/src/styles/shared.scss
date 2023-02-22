@@ -142,10 +142,7 @@ button.btn-rounded.btn.btn-primary, button.btn-rounded.bg-primary {
     padding: $btn-padding-x;
     text-align: center;
     &:not(:first-child) {
-      margin-left: 1px;
-    }
-    &:not(:last-child) {
-      margin-right: 1px;
+      border-left: 2px solid $primary;
     }
   }
     
@@ -153,12 +150,18 @@ button.btn-rounded.btn.btn-primary, button.btn-rounded.bg-primary {
     font-weight: 600;
     box-shadow: none;
     background-color: $primary-darker;
-    border-color: $primary-darker;
-    transition: background-color $transition-time ease;
-    transition: color $theme-transition ease-in-out;
+    transition: all $transition-time ease;
     &:hover {
-      background-color: darken($primary-darker, 8%);
-      border-color: darken($primary-darker, 8%);
+      & + button.btn-actions {
+        border-color: $white;
+      }
+      border-color: $white;
+      background-color: $white;
+      color: $primary;
+      & svg .fill-contrast {
+        transition: fill $transition-time ease;
+        fill: $primary;
+      }
     }
   }
 }

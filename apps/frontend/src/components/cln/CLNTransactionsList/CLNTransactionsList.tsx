@@ -19,7 +19,7 @@ const TODAY = Math.floor(Date.now() / 1000);
 
 const PaymentHeader = ({payment, appConfig, fiatConfig}) => {
   return (
-    <Row className='d-flex justify-content-between align-items-center'>
+    <Row className='transaction-list-item d-flex justify-content-between align-items-center'>
       <Col xs={2}>
         <OutgoingArrowSVG className='me-1' txStatus={payment.status} />
       </Col>
@@ -37,11 +37,11 @@ const PaymentHeader = ({payment, appConfig, fiatConfig}) => {
           </Col>
         </Row>
         <Row className='d-flex justify-content-between align-items-center'>
-          <Col xs={7} className='ps-2 pe-0 fs-7 text-light d-flex flex-row'>
+          <Col xs={8} className='ps-2 pe-0 fs-7 text-light d-flex flex-row'>
             <span className='me-1'>Created at</span>
             <DateBox dataValue={payment.created_at} dataType={'Created At'} showTooltip={false} />
           </Col>
-          <Col xs={5} className='ps-0 fs-7 text-light d-flex align-items-center justify-content-end'>
+          <Col xs={4} className='ps-0 fs-7 text-light d-flex align-items-center justify-content-end'>
             <FiatBox value={(payment.msatoshi_sent || 0)} symbol={fiatConfig.symbol} rate={fiatConfig.rate} />
           </Col>
         </Row>
@@ -52,7 +52,7 @@ const PaymentHeader = ({payment, appConfig, fiatConfig}) => {
 
 const InvoiceHeader = ({invoice, appConfig, fiatConfig}) => {
   return (
-    <Row className='d-flex justify-content-between align-items-center'>
+    <Row className='transaction-list-item d-flex justify-content-between align-items-center'>
       <Col xs={2}>
         <IncomingArrowSVG className='me-1' txStatus={invoice.status} />
       </Col>
@@ -70,7 +70,7 @@ const InvoiceHeader = ({invoice, appConfig, fiatConfig}) => {
           </Col>
         </Row>
         <Row className='d-flex justify-content-between align-items-center'>
-          <Col xs={7} className='ps-2 pe-0 fs-7 text-light d-flex flex-row align-items-center'>
+          <Col xs={8} className='ps-2 pe-0 fs-7 text-light d-flex flex-row align-items-center'>
             {invoice.paid_at ? <span className='me-1'>Paid at</span> : 
               invoice.expires_at > TODAY ?
                 <span className='me-1 text-valid'>Valid till</span>
@@ -79,7 +79,7 @@ const InvoiceHeader = ({invoice, appConfig, fiatConfig}) => {
             }
             <DateBox dataValue={invoice.paid_at ? invoice.paid_at : invoice.expires_at} dataType={''} showTooltip={false} />
           </Col>
-          <Col xs={5} className='ps-0 fs-7 text-light d-flex align-items-center justify-content-end'>
+          <Col xs={4} className='ps-0 fs-7 text-light d-flex align-items-center justify-content-end'>
             <FiatBox value={(invoice.paid_at ? invoice.msatoshi_received : invoice.msatoshi)} symbol={fiatConfig.symbol} rate={fiatConfig.rate} />
           </Col>
         </Row>
@@ -91,29 +91,30 @@ const InvoiceHeader = ({invoice, appConfig, fiatConfig}) => {
 const CLNTransactionsAccordion = ({ i, expanded, setExpanded, initExpansions, transaction, appConfig, fiatConfig }) => {
   return (
     <>
-      <motion.header
-        className='cln-transaction-header'
+      <motion.div
+        className={'cln-transaction-header ' + (expanded[i] ? 'expanded' : '')}
         initial={false}
-        animate={{ backgroundColor: ((appConfig.appMode === ApplicationModes.DARK) ? (expanded[i] ? '#0C0C0F' : 'transparent') : (expanded[i] ? '#EBEFF9' : 'transparent')) }}
-        transition={{ duration: 1 }}
+        animate={{ backgroundColor: ((appConfig.appMode === ApplicationModes.DARK) ? (expanded[i] ? '#0C0C0F' : '#2A2A2C') : (expanded[i] ? '#EBEFF9' : '#FFFFFF')) }}
+        transition={{ duration: 0.5 }}
         onClick={() => { initExpansions[i]=!expanded[i]; return setExpanded(initExpansions); }}>
         {transaction.type === 'PAYMENT' ? <PaymentHeader payment={transaction} appConfig={appConfig} fiatConfig={fiatConfig} /> : <InvoiceHeader invoice={transaction} appConfig={appConfig} fiatConfig={fiatConfig} /> }
-      </motion.header>
+      </motion.div>
       <AnimatePresence initial={false}>
         {expanded[i] && (
-          <motion.section
-            key="content"
-            initial="collapsed"
-            animate="open"
-            exit="collapsed"
+          <motion.div
+            className='cln-transaction-details'
+            key='content'
+            initial='collapsed'
+            animate='open'
+            exit='collapsed'
             variants={{
-              open: { opacity: 1, height: "auto" },
+              open: { opacity: 1, height: 'auto' },
               collapsed: { opacity: 0, height: 0 }
             }}
-            transition={{ duration: 0.8, ease: [0.04, 0.62, 0.23, 0.98] }}
+            transition={{ duration: 0.3, ease: [0.04, 0.62, 0.23, 0.98] }}
           >
             <Transaction transaction={transaction} />
-          </motion.section>
+          </motion.div>
         )}
       </AnimatePresence>
     </>

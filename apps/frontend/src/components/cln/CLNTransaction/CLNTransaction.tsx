@@ -16,7 +16,7 @@ const Payment = ({payment, copyHandler}) => {
   return (
     <>
     {payment.msatoshi ?        
-      <Row className='mb-2 w-100 d-flex align-items-center'>
+      <Row className='cln-transaction-detail'>
         <Col xs={12} className='fs-7 text-light'>Transaction Fee (mSats)</Col>
         <Col xs={11} className='fs-7 overflow-x-ellipsis'>
           {payment.msatoshi_sent ? 
@@ -30,7 +30,7 @@ const Payment = ({payment, copyHandler}) => {
       <></>
     }
     {(payment.bolt11 || payment.bolt12) ?
-      <Row className='mb-2 w-100 d-flex align-items-center'>
+      <Row className='cln-transaction-detail'>
         <Col xs={12} className='fs-7 text-light'>Invoice</Col>
         <Col xs={11} className='pe-1 fs-7 overflow-x-ellipsis'>{payment.bolt11 || payment.bolt12}</Col>
         <Col xs={1} onClick={copyHandler} className='cln-transaction-copy'><CopySVG id='Invoice' showTooltip={true} /></Col>
@@ -39,7 +39,7 @@ const Payment = ({payment, copyHandler}) => {
       <></>
     }
     {payment.payment_preimage ?
-      <Row className='mb-2 w-100 d-flex align-items-center'>
+      <Row className='cln-transaction-detail'>
         <Col xs={12} className='fs-7 text-light'>Preimage</Col>
         <Col xs={11} className='pe-1 fs-7 overflow-x-ellipsis'>{payment.payment_preimage}</Col>
         <Col xs={1} onClick={copyHandler} className='cln-transaction-copy'><CopySVG id='Preimage' showTooltip={true} /></Col>
@@ -55,7 +55,7 @@ const Invoice = ({invoice, copyHandler}) => {
   return (
     <>
     {invoice.paid_at && invoice.expires_at && invoice.expires_at > TODAY ?
-      <Row className='mb-2 w-100 d-flex align-items-center'>
+      <Row className='cln-transaction-detail'>
         <Col xs={12} className='fs-7 text-light'>Valid till</Col>
         <Col xs={11} className='fs-7 overflow-x-ellipsis'>
           <DateBox dataValue={invoice.expires_at} dataType={''} showTooltip={false} />
@@ -65,7 +65,7 @@ const Invoice = ({invoice, copyHandler}) => {
       <></>
     }
     {(invoice.bolt11 || invoice.bolt12) ?
-      <Row className='mb-2 w-100 d-flex align-items-center'>
+      <Row className='cln-transaction-detail'>
         <Col xs={12} className='fs-7 text-light'>Invoice</Col>
         <Col xs={11} className='pe-1 fs-7 overflow-x-ellipsis'>{invoice.bolt11 || invoice.bolt12}</Col>
         <Col xs={1} onClick={copyHandler} className='cln-transaction-copy'><CopySVG id='Invoice' showTooltip={true} /></Col>
@@ -74,7 +74,7 @@ const Invoice = ({invoice, copyHandler}) => {
       <></>
     }
     {invoice.payment_preimage ?
-      <Row className='mb-2 w-100 d-flex align-items-center'>
+      <Row className='cln-transaction-detail'>
         <Col xs={12} className='fs-7 text-light'>Preimage</Col>
         <Col xs={11} className='pe-1 fs-7 overflow-x-ellipsis'>{invoice.payment_preimage}</Col>
         <Col xs={1} onClick={copyHandler} className='cln-transaction-copy'><CopySVG id='Preimage' showTooltip={true} /></Col>

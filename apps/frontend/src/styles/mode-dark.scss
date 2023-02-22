@@ -103,10 +103,15 @@
   .btn-group {
     &.btn-group-action .btn, &.btn-group-action button.btn-actions {
       &:hover {
-        box-shadow: 0px 2px 4px 0px rgba($light-dark, 0.25);
+        & + button.btn-actions {
+          border-color: $card-bg-dark;
+        }
+        border-color: $card-bg-dark;
+        background-color: $card-bg-dark;
       }
     }
   }
+  
   
   .dropdown {
     & a.dropdown-item {
