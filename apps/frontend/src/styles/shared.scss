@@ -332,6 +332,7 @@ label.form-label {
   margin-top: 0.25rem;
   box-shadow: 0px 1px 2px 0px rgba($dark-blue, 0.05);
   & .form-control {
+    padding: 0.675rem;
     transition: background-color $theme-transition ease-in-out;
     font-size: 14px;
     &.form-control-left {

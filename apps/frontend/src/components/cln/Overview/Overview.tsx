@@ -46,7 +46,7 @@ const Overview = () => {
           <Card.Body className='d-flex align-items-center'>
             <Row className='flex-fill'>
               <Col xs={6} lg={8} xxl={6}>
-                <div className='fs-6'>Total Balance</div>
+                <div className='fs-6 fw-bold'>Total Balance</div>
                 { appCtx.walletBalances.isLoading ? 
                   <Spinner animation='grow' variant='secondary' /> : 
                   appCtx.walletBalances.error ? 

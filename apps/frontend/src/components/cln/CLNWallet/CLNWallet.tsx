@@ -26,7 +26,7 @@ const CLNWallet = (props) => {
             <Col xs={12} className='ps-2 pt-2 d-flex align-items-center justify-content-start'>
               <LightningWalletSVG svgClassName='me-4' className='fill-contrast' />
               <div>
-                <div className='fw-bold'>Lightning Wallet</div>
+                <div className='fs-6 fw-bold'>Lightning Wallet</div>
                 { appCtx.walletBalances.isLoading ? 
                     <Spinner animation='grow' variant='secondary' /> : 
                   appCtx.walletBalances.error ? 

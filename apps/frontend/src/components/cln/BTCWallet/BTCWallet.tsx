@@ -26,7 +26,7 @@ const BTCWallet = (props) => {
             <Col xs={12} className='ps-2 pt-2 d-flex align-items-center justify-content-start'>
               <BitcoinWalletSVG svgClassName='me-4' className='fill-contrast' />
               <div>
-                <div className='fw-bold'>Bitcoin Wallet</div>
+                <div className='fs-6 fw-bold'>Bitcoin Wallet</div>
                 { appCtx.walletBalances.isLoading ? 
                     <Spinner animation='grow' variant='secondary' /> : 
                   appCtx.walletBalances.error ? 

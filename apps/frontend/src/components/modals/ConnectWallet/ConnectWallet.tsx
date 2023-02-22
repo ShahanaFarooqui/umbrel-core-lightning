@@ -62,8 +62,8 @@ const ConnectWallet = () => {
             <img alt='cln-logo' src={appCtx.appConfig.appMode === ApplicationModes.DARK ? 'images/cln-logo-dark.png' : 'images/cln-logo-light.png'} className='qr-cln-logo' />
             <QRCodeCanvas value={clnConnectUrl || ''} size={220} includeMargin={true} />
           </Row>
-          <Row className='d-flex align-items-start justify-content-center'>
-            <h4 className='w-75 text-blue fw-bold d-flex justify-content-center pt-2 text-center'>
+          <Row className='d-flex align-items-start justify-content-center pt-2'>
+            <h4 className='w-75 text-blue fw-bold d-flex justify-content-center text-center'>
               Connect your lightning wallet to your node
             </h4>
           </Row>

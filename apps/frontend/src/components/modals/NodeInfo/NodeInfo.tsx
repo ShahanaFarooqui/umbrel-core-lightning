@@ -34,7 +34,7 @@ const NodeInfo = () => {
             <QRCodeCanvas value={appCtx.nodeInfo.id || ''} size={220} includeMargin={true} />
           </Row>
           <Row className='d-flex align-items-start justify-content-center pt-2'>
-            <h4 className='text-blue fw-bold d-flex justify-content-center pt-4'>Node ID</h4>
+            <h4 className='text-blue fw-bold d-flex justify-content-center'>Node ID</h4>
             <p className='py-3 w-75 text-break text-dark d-flex justify-content-center'>
               Other Lightning nodes can open payment channels to your node following this Node ID.            
             </p>
