@@ -45,8 +45,9 @@ export const formatCurrency = (num: number, fromUnit: Units, toUnit: Units = Uni
   }
 };
 
-export const formatFiatValue = (num: number = 0, rate: number = 1) => {
-  return Number.parseFloat(((num / BTC_SATS) * rate).toString()).toFixed(2);
+export const formatFiatValue = (num: number = 0, rate: number = 1, fromUnit: Units) => {
+  num = (fromUnit === Units.MSATS) ? (num / BTC_MSAT) : (fromUnit === Units.SATS) ? (num / BTC_SATS) : num;
+  return Number.parseFloat((num * rate).toString()).toFixed(2);
 };
 
 export const sortDescByKey = (array, key) => {

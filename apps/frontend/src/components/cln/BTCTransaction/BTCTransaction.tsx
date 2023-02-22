@@ -5,79 +5,41 @@ import Row from 'react-bootstrap/esm/Row';
 import Col from 'react-bootstrap/esm/Col';
 
 import { AppContext } from '../../../store/AppContext';
-import { formatCurrency } from '../../../utilities/data-formatters';
-import { Units } from '../../../utilities/constants';
 import { CopySVG } from '../../../svgs/Copy';
-import DateBox from '../../shared/DateBox/DateBox';
 
-const TODAY = Math.floor(Date.now() / 1000);
-
-const Payment = ({payment, copyHandler}) => {
+const TransactionDetail = ({transaction, copyHandler}) => {
   return (
     <>
-    {payment.msatoshi ?        
-      <Row className='mb-2 w-100 d-flex align-items-center'>
-        <Col xs={12} className='fs-7 text-light'>Transaction Fee (mSats)</Col>
-        <Col xs={11} className='fs-7 overflow-x-ellipsis'>
-          {payment.msatoshi_sent ? 
-            formatCurrency((payment.msatoshi_sent - payment.msatoshi), Units.MSATS, Units.MSATS, false, 0, 'string')
-          :
-            0
-          }
-        </Col>
+    {transaction.blockheight ?
+      <Row className='btc-transaction-detail'>
+        <Col xs={12} className='fs-7 text-light'>Blockheight</Col>
+        <Col xs={12} className='fs-7 overflow-x-ellipsis'>{transaction.blockheight}</Col>
       </Row>
       :
       <></>
     }
-    {(payment.bolt11 || payment.bolt12) ?
-      <Row className='mb-2 w-100 d-flex align-items-center'>
-        <Col xs={12} className='fs-7 text-light'>Invoice</Col>
-        <Col xs={11} className='pe-1 fs-7 overflow-x-ellipsis'>{payment.bolt11 || payment.bolt12}</Col>
-        <Col xs={1} onClick={copyHandler} className='btc-transaction-copy'><CopySVG id='Invoice' showTooltip={true} /></Col>
+    {(transaction.description) ?
+      <Row className='btc-transaction-detail'>
+        <Col xs={12} className='fs-7 text-light'>Description</Col>
+        <Col xs={12} className='pe-1 fs-7 overflow-x-ellipsis'>{transaction.description}</Col>
       </Row>
     :
       <></>
     }
-    {payment.payment_preimage ?
-      <Row className='mb-2 w-100 d-flex align-items-center'>
-        <Col xs={12} className='fs-7 text-light'>Preimage</Col>
-        <Col xs={11} className='pe-1 fs-7 overflow-x-ellipsis'>{payment.payment_preimage}</Col>
-        <Col xs={1} onClick={copyHandler} className='btc-transaction-copy'><CopySVG id='Preimage' showTooltip={true} /></Col>
+    {transaction.txid ?
+      <Row className='btc-transaction-detail'>
+        <Col xs={12} className='fs-7 text-light'>Transaction ID</Col>
+        <Col xs={11} className='pe-1 fs-7 overflow-x-ellipsis'>{transaction.txid}</Col>
+        <Col xs={1} onClick={copyHandler} className='btc-transaction-copy'><CopySVG id='Transaction ID' showTooltip={true} /></Col>
       </Row>
     :
       <></>
     }
-    </>
-  )
-};
-
-const Invoice = ({invoice, copyHandler}) => {
-  return (
-    <>
-    {invoice.paid_at && invoice.expires_at && invoice.expires_at > TODAY ?
-      <Row className='mb-2 w-100 d-flex align-items-center'>
-        <Col xs={12} className='fs-7 text-light'>Valid till</Col>
-        <Col xs={11} className='fs-7 overflow-x-ellipsis'>
-          <DateBox dataValue={invoice.expires_at} dataType={''} showTooltip={false} />
-        </Col>
-      </Row>
-    :
-      <></>
-    }
-    {(invoice.bolt11 || invoice.bolt12) ?
-      <Row className='mb-2 w-100 d-flex align-items-center'>
-        <Col xs={12} className='fs-7 text-light'>Invoice</Col>
-        <Col xs={11} className='pe-1 fs-7 overflow-x-ellipsis'>{invoice.bolt11 || invoice.bolt12}</Col>
-        <Col xs={1} onClick={copyHandler} className='btc-transaction-copy'><CopySVG id='Invoice' showTooltip={true} /></Col>
-      </Row>
-    :
-      <></>
-    }
-    {invoice.payment_preimage ?
-      <Row className='mb-2 w-100 d-flex align-items-center'>
-        <Col xs={12} className='fs-7 text-light'>Preimage</Col>
-        <Col xs={11} className='pe-1 fs-7 overflow-x-ellipsis'>{invoice.payment_preimage}</Col>
-        <Col xs={1} onClick={copyHandler} className='btc-transaction-copy'><CopySVG id='Preimage' showTooltip={true} /></Col>
+    {transaction.payment_id ?
+      <Row className='btc-transaction-detail'>
+        <Col xs={12} className='fs-7 text-light'>Payment ID</Col>
+        <Col xs={11} className='pe-1 fs-7 overflow-x-ellipsis'>{transaction.payment_id}</Col>
+        <Col xs={1} onClick={copyHandler} className='btc-transaction-copy'><CopySVG id='Payment ID' showTooltip={true} /></Col>
       </Row>
     :
       <></>
@@ -91,17 +53,14 @@ const BTCTransaction = (props) => {
   
   const copyHandler = (event) => {
     switch (event.target.id) {
-      case 'Destination':
-        navigator.clipboard.writeText(props.transaction.destination || '');
+      case 'Transaction ID':
+        navigator.clipboard.writeText(props.transaction.txid || '');
         break;
-      case 'Invoice':
-        navigator.clipboard.writeText(props.transaction.bolt11 || props.transaction.bolt12 || '');
-        break;
-      case 'Preimage':
-        navigator.clipboard.writeText(props.transaction.payment_preimage || '');
+      case 'Payment ID':
+        navigator.clipboard.writeText(props.transaction.payment_id || '');
         break;
       default:
-        navigator.clipboard.writeText(props.transaction.payment_hash || '');
+        navigator.clipboard.writeText(props.transaction.payment_id || '');
         break;
     }
     appCtx.setShowToast({show: true, message: (event.target.id + ' Copied Successfully!'), bg: 'success'});
@@ -113,11 +72,7 @@ const BTCTransaction = (props) => {
         transition={{ duration: 0.3 }}
         className='btc-transaction-placeholder'
       >
-        {props.transaction.type === 'PAYMENT' ? 
-          <Payment payment={props.transaction} copyHandler={copyHandler} />
-        :
-          <Invoice invoice={props.transaction} copyHandler={copyHandler} />
-        }
+      <TransactionDetail transaction={props.transaction} copyHandler={copyHandler} />
     </motion.div>
   );
 };

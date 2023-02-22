@@ -255,44 +255,44 @@ export type Transaction = {
 }
 
 export type btcDeposit = {
-	tag: string;
-	credit_msat?: string;
-	timestamp?: number;
-	txid?: string;
-	blockheight: number;
-	outpoint?: string;
-	payment_id?: string;
-	description?: string;
+  tag: string;
+  credit_msat?: string;
+  timestamp?: number;
+  txid?: string;
+  blockheight: number;
+  outpoint?: string;
+  payment_id?: string;
+  description?: string;
 }
 
 export type btcWithdraw = {
-	tag: string;
-	debit_msat?: string;
-	timestamp?: number;
-	txid?: string;
-	blockheight: number;
-	outpoint?: string;
-	payment_id?: string;
-	description?: string;
+  tag: string;
+  debit_msat?: string;
+  timestamp?: number;
+  txid?: string;
+  blockheight: number;
+  outpoint?: string;
+  payment_id?: string;
+  description?: string;
 }
 
 export type BkprTransaction = {
   account: string;
-	type?: string; // 'onchain_fee', 'chain', 'channel'
-	credit_msat?: string;
-	debit_msat?: string;
-	currency?: string;
-	timestamp?: number;
-	tag?: string;
-	txid?: string;
-	blockheight: number;
-	outpoint?: string;
-	origin?: string;
-	payment_id?: string;
-	description?: string;
-	fees_msat?: string;
-	is_rebalance?: boolean;
-	part_id?: number;
+  type?: string; // 'onchain_fee', 'chain', 'channel'
+  credit_msat?: string;
+  debit_msat?: string;
+  currency?: string;
+  timestamp?: number;
+  tag?: string;
+  txid?: string;
+  blockheight: number;
+  outpoint?: string;
+  origin?: string;
+  payment_id?: string;
+  description?: string;
+  fees_msat?: string;
+  is_rebalance?: boolean;
+  part_id?: number;
 }
 
 export type ListBitcoinTransactions = {

@@ -86,7 +86,7 @@ const Invoice = ({invoice, copyHandler}) => {
   )
 };
 
-const Transaction = (props) => {
+const CLNTransaction = (props) => {
   const appCtx = useContext(AppContext);
   
   const copyHandler = (event) => {
@@ -122,4 +122,4 @@ const Transaction = (props) => {
   );
 };
 
-export default Transaction;
+export default CLNTransaction;
