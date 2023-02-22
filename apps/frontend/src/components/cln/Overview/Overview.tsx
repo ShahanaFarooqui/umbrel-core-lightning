@@ -22,22 +22,27 @@ const Overview = () => {
   const countChannels: any = useMotionValue(0);
   const roundedChannels: any = useTransform(countChannels, Math.round);
   const countPeers: any = useMotionValue(0);
-  const roundedPeers: any = useTransform(countChannels, Math.round);
+  const roundedPeers: any = useTransform(countPeers, Math.round);
 
   useEffect(() => {
-    if (appCtx.listChannels.activeChannels && appCtx.listChannels.activeChannels.length && appCtx.listChannels.activeChannels.length > 0) {
+    if (appCtx.listChannels.activeChannels && appCtx.listChannels.activeChannels.length && appCtx.listChannels.activeChannels.length > 0
+      && countChannels.prev === 0) {
       countChannels.current = 0;
       countChannels.prev = 0;
       const animationChannels = animate(countChannels, appCtx.listChannels.activeChannels.length, { duration: COUNTUP_DURATION });
       return animationChannels.stop;
     }
-    if (appCtx.listPeers.peers && appCtx.listPeers.peers.length && appCtx.listPeers.peers.length > 0) {
+  }, [appCtx.listChannels.activeChannels, countChannels]);
+
+  useEffect(() => {
+    if (appCtx.listPeers.peers && appCtx.listPeers.peers.length && appCtx.listPeers.peers.length > 0
+      && countPeers.prev === 0) {
       countPeers.current = 0;
       countPeers.prev = 0;
       const animationPeers = animate(countPeers, appCtx.listPeers.peers.length, { duration: COUNTUP_DURATION });
       return animationPeers.stop;
     }
-  }, [appCtx.listChannels.activeChannels, appCtx.listPeers.peers, countChannels, countPeers]);
+  }, [appCtx.listPeers.peers, countPeers]);
 
   return (
     <Row className='mx-1'>
