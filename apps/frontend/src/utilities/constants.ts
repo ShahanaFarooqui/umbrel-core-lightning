@@ -139,3 +139,16 @@ export const STAGERRED_SPRING_VARIANTS_2 = {
     };
   }
 };
+
+export const STAGERRED_COLOR_DRAIN = {
+  primary: { fill: '#E1BA2D' },
+  dark: (i) => {
+    const delay = 0 + i * 0.5;
+    return {
+      fill: '#E1BA2D',
+      transition: {
+        fill: { delay }
+      }
+    };
+  }
+};

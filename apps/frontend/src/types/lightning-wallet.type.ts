@@ -89,6 +89,7 @@ export type Channel = {
   msatoshi_to_us_min?: number;
   msatoshi_to_us_max?: number;
   msatoshi_total?: number;
+  fee_base_msat?: string;
   fee_proportional_millionths?: number;
   dust_limit_satoshis?: number;
   max_htlc_value_in_flight_msat?: number;
@@ -102,6 +103,7 @@ export type Channel = {
   max_accepted_htlcs?: number;
   state_changes?: StateChange[];
   status?: string[];
+  last_tx_fee_msat?: string;
   in_payments_offered?: number;
   in_msatoshi_offered?: number;
   in_payments_fulfilled?: number;

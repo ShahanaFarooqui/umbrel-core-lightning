@@ -164,7 +164,7 @@ const calculateBalances = (listFunds: Fund) => {
 };
 
 const filterOnChainTransactions = (events: BkprTransaction[]) => {
-  return events.filter((event: BkprTransaction) => {
+  return events?.filter((event: BkprTransaction) => {
     if (event.account === 'wallet' && (event.tag === 'deposit' || event.tag === 'withdrawal')) {
       event.credit_msat = event.credit_msat && event.credit_msat.length ? event.credit_msat.substring(0, (event.credit_msat.length - 4)) : '0';
       event.debit_msat = event.debit_msat && event.debit_msat.length ? event.debit_msat.substring(0, (event.debit_msat.length - 4)) : '0';

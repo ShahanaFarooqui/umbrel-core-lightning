@@ -1,3 +1,4 @@
+@use 'sass:math';
 @import '../../../styles/constants.scss';
 
 .header {
@@ -16,7 +17,7 @@
   }
   &:hover {
     opacity: 1;
-    scale: 1.1;
+    scale: 1.05;
     filter: drop-shadow(0px 0px 3px $light)
     drop-shadow(0px 0px 6px  $light)
     drop-shadow(0px 0px 20px $light);
@@ -28,27 +29,195 @@
 
 .svg-day {
   cursor: pointer;
-  opacity: 0.8;
-  transition: all $transition-time ease;
-  & line, & circle {
-    transition: all $transition-time ease;
-    stroke: $primary;
-    stroke-width: 1.5px;
-    stroke-linecap: round;
+  opacity: 1;
+  transition: all $theme-transition ease;
+  & path {
+    fill: $primary;
+    &.delay-1 {
+      transition: all $theme-transition ease 300ms;
+    }
+    &.delay-2 {
+      transition: all $theme-transition ease 290ms;
+    }
+    &.delay-3 {
+      transition: all $theme-transition ease 280ms;
+    }
+    &.delay-4 {
+      transition: all $theme-transition ease 270ms;
+    }
+    &.delay-5 {
+      transition: all $theme-transition ease 260ms;
+    }
+    &.delay-6 {
+      transition: all $theme-transition ease 250ms;
+    }
+    &.delay-7 {
+      transition: all $theme-transition ease 240ms;
+    }
+    &.delay-8 {
+      transition: all $theme-transition ease 230ms;
+    }
+    &.delay-9 {
+      transition: all $theme-transition ease 220ms;
+    }
+    &.delay-10 {
+      transition: all $theme-transition ease 210ms;
+    }
+    &.delay-11 {
+      transition: all $theme-transition ease 200ms;
+    }
+    &.delay-12 {
+      transition: all $theme-transition ease 190ms;
+    }
+    &.delay-13 {
+      transition: all $theme-transition ease 180ms;
+    }
+    &.delay-14 {
+      transition: all $theme-transition ease 170ms;
+    }
+    &.delay-15 {
+      transition: all $theme-transition ease 160ms;
+    }
+    &.delay-16 {
+      transition: all $theme-transition ease 150ms;
+    }
+    &.delay-17 {
+      transition: all $theme-transition ease 140ms;
+    }
+    &.delay-18 {
+      transition: all $theme-transition ease 130ms;
+    }
+    &.delay-19 {
+      transition: all $theme-transition ease 120ms;
+    }
+    &.delay-20 {
+      transition: all $theme-transition ease 110ms;
+    }
+    &.delay-21 {
+      transition: all $theme-transition ease 100ms;
+    }
+    &.delay-22 {
+      transition: all $theme-transition ease 90ms;
+    }
+    &.delay-23 {
+      transition: all $theme-transition ease 80ms;
+    }
+    &.delay-24 {
+      transition: all $theme-transition ease 70ms;
+    }
+    &.delay-25 {
+      transition: all $theme-transition ease 60ms;
+    }
+    &.delay-26 {
+      transition: all $theme-transition ease 50ms;
+    }
+    &.delay-27 {
+      transition: all $theme-transition ease 40ms;
+    }
+    &.delay-28 {
+      transition: all $theme-transition ease 30ms;
+    }
+    &.delay-29 {
+      transition: all $theme-transition ease 20ms;
+    }
+    &.delay-30 {
+      transition: all $theme-transition ease 10ms;
+    }
   }
   &:hover {
-    opacity: 1;
-    scale: 0.9;
-    filter: drop-shadow(0px 0px 10px  $dark)
-    drop-shadow(0px 0px 20px $dark)
-    drop-shadow(0px 0px 30px $dark);
-    & line {
-      stroke: $dark;
-      filter: drop-shadow(0px 0px 5px lighten($dark, 50%));
-    }
-    & circle {
-      stroke: $dark;
-      filter: drop-shadow(0px 0px 3px lighten($dark, 50%));
+    opacity: 0.8;
+    & path {
+      fill: $dark;
+      &.delay-1 {
+        transition: all $theme-transition ease 10ms;
+      }
+      &.delay-2 {
+        transition: all $theme-transition ease 20ms;
+      }
+      &.delay-3 {
+        transition: all $theme-transition ease 30ms;
+      }
+      &.delay-4 {
+        transition: all $theme-transition ease 40ms;
+      }
+      &.delay-5 {
+        transition: all $theme-transition ease 50ms;
+      }
+      &.delay-6 {
+        transition: all $theme-transition ease 60ms;
+      }
+      &.delay-7 {
+        transition: all $theme-transition ease 70ms;
+      }
+      &.delay-8 {
+        transition: all $theme-transition ease 80ms;
+      }
+      &.delay-9 {
+        transition: all $theme-transition ease 90ms;
+      }
+      &.delay-10 {
+        transition: all $theme-transition ease 100ms;
+      }
+      &.delay-11 {
+        transition: all $theme-transition ease 110ms;
+      }
+      &.delay-12 {
+        transition: all $theme-transition ease 120ms;
+      }
+      &.delay-13 {
+        transition: all $theme-transition ease 130ms;
+      }
+      &.delay-14 {
+        transition: all $theme-transition ease 140ms;
+      }
+      &.delay-15 {
+        transition: all $theme-transition ease 150ms;
+      }
+      &.delay-16 {
+        transition: all $theme-transition ease 160ms;
+      }
+      &.delay-17 {
+        transition: all $theme-transition ease 170ms;
+      }
+      &.delay-18 {
+        transition: all $theme-transition ease 180ms;
+      }
+      &.delay-19 {
+        transition: all $theme-transition ease 190ms;
+      }
+      &.delay-20 {
+        transition: all $theme-transition ease 200ms;
+      }
+      &.delay-21 {
+        transition: all $theme-transition ease 210ms;
+      }
+      &.delay-22 {
+        transition: all $theme-transition ease 220ms;
+      }
+      &.delay-23 {
+        transition: all $theme-transition ease 230ms;
+      }
+      &.delay-24 {
+        transition: all $theme-transition ease 240ms;
+      }
+      &.delay-25 {
+        transition: all $theme-transition ease 250ms;
+      }
+      &.delay-26 {
+        transition: all $theme-transition ease 260ms;
+      }
+      &.delay-27 {
+        transition: all $theme-transition ease 270ms;
+      }
+      &.delay-28 {
+        transition: all $theme-transition ease 280ms;
+      }
+      &.delay-29 {
+        transition: all $theme-transition ease 290ms;
+      }
+      &.delay-30 {
+        transition: all $theme-transition ease 300ms;
+      }
     }
   }
 }

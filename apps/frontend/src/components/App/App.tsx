@@ -33,7 +33,7 @@ const App = () => {
     getAppConfigurations();
     window.setInterval(() => {
       fetchData();
-    }, 60 * 60 * 1000); // one hour
+    }, 60 * 1000); // one minute
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
