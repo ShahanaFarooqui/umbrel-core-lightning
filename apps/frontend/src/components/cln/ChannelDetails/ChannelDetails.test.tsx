@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react';
-import OpenChannel from './OpenChannel';
+import ChannelDetails from './ChannelDetails';
 
-describe('OpenChannel component ', () => {
-  beforeEach(() => render(<OpenChannel />));
+describe('ChannelDetails component ', () => {
+  beforeEach(() => render(<ChannelDetails />));
 
   it('should be in the document', () => {
     // expect(screen.getByTestId('header-context')).toBeInTheDocument();

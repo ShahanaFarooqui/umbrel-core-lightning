@@ -6,6 +6,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
+import Spinner from 'react-bootstrap/Spinner';
 
 import logger from '../../../services/logger.service';
 import useInput from '../../../hooks/use-input';
@@ -203,7 +204,7 @@ const BTCWithdraw = (props) => {
             <Card.Footer className='d-flex justify-content-center'>
               <Button tabIndex={4} type='submit' variant='primary' className='btn-rounded' disabled={responseStatus === CallStatus.PENDING}>
                 Withdraw
-                <ActionSVG className='ms-3' />
+                {responseStatus === CallStatus.PENDING ? <Spinner className='mt-1 ms-2' size='sm' variant='white' /> : <ActionSVG className='ms-3' />}
               </Button>
             </Card.Footer>
         </Card.Body>

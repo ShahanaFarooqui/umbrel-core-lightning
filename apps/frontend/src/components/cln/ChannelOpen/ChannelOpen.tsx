@@ -1,4 +1,4 @@
-import './OpenChannel.scss';
+import './ChannelOpen.scss';
 import { useContext, useState } from 'react';
 import { motion } from 'framer-motion';
 import Card from 'react-bootstrap/Card';
@@ -6,6 +6,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
+import Spinner from 'react-bootstrap/Spinner';
 
 import logger from '../../../services/logger.service';
 import useInput from '../../../hooks/use-input';
@@ -21,7 +22,7 @@ import { CloseSVG } from '../../../svgs/Close';
 import StatusAlert from '../../shared/StatusAlert/StatusAlert';
 
 
-const OpenChannel = (props) => {
+const ChannelOpen = (props) => {
   const appCtx = useContext(AppContext);
   const { openChannel } = useHttp();
   const [feeRate, setFeeRate] = useState(FeeRate.NORMAL);
@@ -70,7 +71,7 @@ const OpenChannel = (props) => {
     setFeeRate(FeeRate.NORMAL);
   };
 
-  const openChannelHandler = (event) => {
+  const ChannelOpenHandler = (event) => {
     event.preventDefault();
     touchFormControls();
     if (!formIsValid) { return; }
@@ -96,7 +97,7 @@ const OpenChannel = (props) => {
   };
 
   return (
-    <form onSubmit={openChannelHandler} className='h-100'>
+    <form onSubmit={ChannelOpenHandler} className='h-100'>
       <Card className='h-100 d-flex align-items-stretch'>
         <Card.Body className='text-dark d-flex align-items-stretch flex-column pt-4'>
             <Card.Header className='p-0 d-flex align-items-start justify-content-between'>
@@ -191,7 +192,7 @@ const OpenChannel = (props) => {
             <Card.Footer className='d-flex justify-content-center'>
               <button tabIndex={5} type='submit' className='btn-rounded bg-primary' disabled={responseStatus === CallStatus.PENDING}>
                 Open Channel
-                <ActionSVG className='ms-3' />
+                {responseStatus === CallStatus.PENDING ? <Spinner className='mt-1 ms-2' size='sm' variant='white' /> : <ActionSVG className='ms-3' />}
               </button>
             </Card.Footer>
         </Card.Body>
@@ -200,4 +201,4 @@ const OpenChannel = (props) => {
   );
 };
 
-export default OpenChannel;
+export default ChannelOpen;

@@ -8,7 +8,7 @@ import Spinner from 'react-bootstrap/Spinner';
 import Alert from 'react-bootstrap/Alert';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import Col from 'react-bootstrap/Col';
-import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 
 import { AppContext } from '../../../store/AppContext';
@@ -39,6 +39,7 @@ const Channels = (props) => {
                       key={channel.short_channel_id || channel.node_alias || idx}
                       as='li'
                       className='ps-0 d-flex justify-content-between align-items-start'
+                      onClick={() => (props.onChannelClick(channel))}
                     >
                       <div className='flex-fill text-dark'>
                         <>

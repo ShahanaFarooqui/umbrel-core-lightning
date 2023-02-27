@@ -105,6 +105,10 @@ const useHttp = () => {
     return sendRequest(true, 'post', '/cln/call', { 'method': 'fundchannel', 'params': { 'id': pubkey, 'amount': amount, 'feerate': feeRate, 'announce': announce } });
   };
 
+  const closeChannel = (channelId: string) => {
+    return sendRequest(true, 'post', '/cln/call', { 'method': 'close', 'params': { 'id': channelId } });
+  };
+
   const btcWithdraw = (address: string, amount: string, feeRate: string) => {
     return sendRequest(true, 'post', '/cln/call', { 'method': 'withdraw', 'params': { 'destination': address, 'satoshi': amount, 'feerate': feeRate } });
   };
@@ -147,6 +151,7 @@ const useHttp = () => {
     getFiatRate,
     updateConfig,
     openChannel,
+    closeChannel,
     btcWithdraw,
     btcDeposit,
     clnSendPayment,

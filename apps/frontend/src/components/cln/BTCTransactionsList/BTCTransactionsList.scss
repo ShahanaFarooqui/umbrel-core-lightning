@@ -22,7 +22,6 @@
     }
     &:hover {
       background-color: $body-bg-light !important;
-      box-shadow: 0px 2px 4px 0px rgba($dark, 0.2);
     }
   }
   & .btc-transaction-details {
@@ -38,7 +37,6 @@
     & .btc-transaction-header {
       &:hover {
         background-color: $body-bg-dark !important;
-        box-shadow: 0px 2px 4px 0px rgba($light-dark, 0.2);
       }
     }
     & .btc-transaction-details {
