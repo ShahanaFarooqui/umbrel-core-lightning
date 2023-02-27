@@ -3,9 +3,12 @@
 .btc-transaction-placeholder {
   transform-origin: top left;
   & .btc-transaction-detail {
+    align-items: center;
     margin: 0.5rem;
   }
   & .btc-transaction-copy, .btc-transaction-open {
+    display: inline-flex;
+    align-items: flex-start;
     padding: 0;
     cursor: pointer;
     &:hover {

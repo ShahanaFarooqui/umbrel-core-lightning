@@ -7,7 +7,7 @@ import Row from 'react-bootstrap/esm/Row';
 import Col from 'react-bootstrap/esm/Col';
 
 import { AppContext } from '../../../store/AppContext';
-import { formatCurrency } from '../../../utilities/data-formatters';
+import { formatCurrency, titleCase } from '../../../utilities/data-formatters';
 import { IncomingArrowSVG } from '../../../svgs/IncomingArrow';
 import { OutgoingArrowSVG } from '../../../svgs/OutgoingArrow';
 import DateBox from '../../shared/DateBox/DateBox';
@@ -24,7 +24,7 @@ const WithdrawHeader = ({withdraw, appConfig, fiatConfig}) => {
       <Col xs={10}>
         <Row className='d-flex justify-content-between align-items-center'>
           <Col xs={7} className='ps-2 d-flex align-items-center'>
-            <span className='text-dark fw-bold overflow-x-ellipsis'>{withdraw.outpoint}</span>
+            <span className='text-dark fw-bold overflow-x-ellipsis'>{titleCase(withdraw.tag)}</span>
           </Col>
           <Col xs={5} className='ps-0 d-flex align-items-center justify-content-end fw-bold text-darker-blue'>
             <span>{'-' + (formatCurrency((withdraw.debit_msat || 0), Units.MSATS, appConfig.unit, false, 0, 'string'))}</span>
@@ -52,7 +52,7 @@ const DepositHeader = ({deposit, appConfig, fiatConfig}) => {
       <Col xs={10}>
         <Row className='d-flex justify-content-between align-items-center'>
           <Col xs={7} className='ps-2 d-flex align-items-center'>
-            <span className='text-dark fw-bold overflow-x-ellipsis'>{deposit.outpoint}</span>
+            <span className='text-dark fw-bold overflow-x-ellipsis'>{titleCase(deposit.tag)}</span>
           </Col>
           <Col xs={5} className='ps-0 d-flex align-items-center justify-content-end fw-bold text-darker-blue'>
             <span>{'+' + (formatCurrency((deposit.credit_msat || 0), Units.MSATS, appConfig.unit, false, 8, 'string'))}</span>
