@@ -1,4 +1,4 @@
-import { faDollarSign, faYenSign, faEuroSign, faSterlingSign, faIndianRupeeSign, faRubleSign, faWonSign  } from '@fortawesome/free-solid-svg-icons'
+import { faDollarSign, faYenSign, faEuroSign, faSterlingSign, faIndianRupeeSign, faRubleSign  } from '@fortawesome/free-solid-svg-icons'
 
 export const LOCAL_HOST = 'http://umbrel.local';
 export const TOR_HOST = 'http://oqaer4kd7ufryngx6dsztovs4pnlmaouwmtkofjsasnanm.onion';
@@ -41,18 +41,15 @@ export const FIAT_CURRENCIES = [
   { currency:	'USD', symbol: faDollarSign },
 	{ currency:	'AUD', symbol: faDollarSign },
 	{ currency:	'CAD', symbol: faDollarSign },
-	{ currency:	'CLP', symbol: faDollarSign },
 	{ currency:	'CNY', symbol: faYenSign },
 	{ currency:	'EUR', symbol: faEuroSign },
 	{ currency:	'GBP', symbol: faSterlingSign },
 	{ currency:	'HKD', symbol: faDollarSign },
 	{ currency:	'INR', symbol: faIndianRupeeSign },
 	{ currency:	'JPY', symbol: faYenSign },
-	{ currency:	'KRW', symbol: faWonSign },
 	{ currency:	'NZD', symbol: faDollarSign },
 	{ currency:	'RUB', symbol: faRubleSign },
 	{ currency:	'SGD', symbol: faDollarSign },
-	{ currency:	'TWD', symbol: faDollarSign }
 ];
 
 export enum ApplicationActions {
@@ -60,6 +57,7 @@ export enum ApplicationActions {
   SET_SHOW_TOAST = 'SET_SHOW_TOAST',
   SET_CONFIG = 'SET_CONFIG',
   SET_FIAT_CONFIG = 'SET_FIAT_CONFIG',
+  SET_FEE_RATE = 'SET_FEE_RATE',
   SET_NODE_INFO = 'SET_NODE_INFO',
   SET_LIST_FUNDS = 'SET_LIST_FUNDS',
   SET_LIST_PEERS = 'SET_LIST_PEERS',

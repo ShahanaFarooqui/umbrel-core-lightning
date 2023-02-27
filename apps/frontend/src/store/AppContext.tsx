@@ -7,7 +7,7 @@ import React, { useReducer } from 'react';
 import { AppContextType } from '../types/app-context.type';
 import { ApplicationActions, ApplicationModes, SATS_MSAT, Units } from '../utilities/constants';
 import { ApplicationConfiguration, FiatConfig } from '../types/app-config.type';
-import { BkprTransaction, Fund, FundChannel, FundOutput, Invoice, ListBitcoinTransactions, ListInvoices, ListPayments, ListPeers, NodeInfo, Payment, Peer } from '../types/lightning-wallet.type';
+import { BkprTransaction, Fund, FundChannel, FundOutput, Invoice, ListBitcoinTransactions, ListInvoices, ListPayments, ListPeers, NodeFeeRate, NodeInfo, Payment, Peer } from '../types/lightning-wallet.type';
 import logger from '../services/logger.service';
 import { faDollarSign } from '@fortawesome/free-solid-svg-icons';
 import { sortDescByKey } from '../utilities/data-formatters';
@@ -179,6 +179,7 @@ const AppContext = React.createContext<AppContextType>({
   showToast: {show: false, message: ''},
   appConfig: {isLoading: true, unit: Units.SATS, fiatUnit: 'USD', appMode: ApplicationModes.DARK, useDummyData: false},
   fiatConfig: {isLoading: true, symbol: faDollarSign, rate: 1},
+  feeRate: {isLoading: true},
   nodeInfo: {isLoading: true},
   listFunds: {isLoading: true, channels: [], outputs: []},
   listPeers: {isLoading: true, peers: []},
@@ -192,6 +193,7 @@ const AppContext = React.createContext<AppContextType>({
   setShowToast: (newShowToast) => {}, 
   setConfig: (config: ApplicationConfiguration) => {},
   setFiatConfig: (fiatConfig: FiatConfig) => {},
+  setFeeRate: (feeRate: NodeFeeRate) => {},
   setNodeInfo: (info: NodeInfo) => {},
   setListFunds: (fundsList: Fund) => {},
   setListPeers: (peersList: ListPeers) => {},
@@ -207,6 +209,7 @@ const defaultAppState = {
   showToast: {show: false, message: ''},
   appConfig: {isLoading: true, unit: Units.SATS, fiatUnit: 'USD', appMode: ApplicationModes.DARK},
   fiatConfig: {isLoading: true, symbol: faDollarSign, rate: 1},
+  feeRate: {isLoading: true},
   nodeInfo: {isLoading: true},
   listFunds: {isLoading: true, channels: [], outputs: []},
   listPeers: {isLoading: true, peers: []},
@@ -244,6 +247,12 @@ const appReducer = (state, action) => {
       return {
         ...state,
         fiatConfig: action.payload
+      };
+
+    case ApplicationActions.SET_FEE_RATE:
+      return {
+        ...state,
+        feeRate: action.payload
       };
 
     case ApplicationActions.SET_NODE_INFO:
@@ -338,6 +347,10 @@ const AppProvider: React.PropsWithChildren<any> = (props) => {
     dispatchApplicationAction({ type: ApplicationActions.SET_FIAT_CONFIG, payload: fiatConfig });
   };
 
+  const setFeeRateHandler = (feeRate: NodeFeeRate) => {
+    dispatchApplicationAction({ type: ApplicationActions.SET_FEE_RATE, payload: feeRate });
+  };
+
   const setNodeInfoHandler = (info: NodeInfo) => {
     dispatchApplicationAction({ type: ApplicationActions.SET_NODE_INFO, payload: info });
   };
@@ -375,6 +388,7 @@ const AppProvider: React.PropsWithChildren<any> = (props) => {
     showToast: applicationState.showToast,
     appConfig: applicationState.appConfig,
     fiatConfig: applicationState.fiatConfig,
+    feeRate: applicationState.feeRate,
     nodeInfo: applicationState.nodeInfo,
     listFunds: applicationState.listFunds,
     listPeers: applicationState.listPeers,
@@ -388,6 +402,7 @@ const AppProvider: React.PropsWithChildren<any> = (props) => {
     setShowToast: setShowToastHandler,
     setConfig: setConfigurationHandler,
     setFiatConfig: setFiatConfigHandler,
+    setFeeRate: setFeeRateHandler,
     setNodeInfo: setNodeInfoHandler,
     setListFunds: setListFundsHandler,
     setListPeers: setListPeersHandler,

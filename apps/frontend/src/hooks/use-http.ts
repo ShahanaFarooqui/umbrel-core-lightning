@@ -67,6 +67,7 @@ const useHttp = () => {
     sendRequestToSetStore(appCtx.setListPayments, 'post', '/cln/call', { 'method': 'listsendpays', 'params': [] });
     sendRequestToSetStore(appCtx.setListFunds, 'post', '/cln/call', { 'method': 'listfunds', 'params': [] });
     sendRequestToSetStore(appCtx.setListBitcoinTransactions, 'post', '/cln/call', { 'method': 'bkpr-listaccountevents', 'params': [] });
+    sendRequestToSetStore(appCtx.setFeeRate, 'post', '/cln/call', { 'method': 'feerates', 'params': ['perkw'] });
   }, [appCtx, sendRequestToSetStore]);
 
   const updateConfig = (updatedConfig: ApplicationConfiguration) => {

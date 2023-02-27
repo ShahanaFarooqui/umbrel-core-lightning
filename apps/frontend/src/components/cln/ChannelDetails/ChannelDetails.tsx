@@ -18,6 +18,7 @@ import { CloseSVG } from '../../../svgs/Close';
 import StatusAlert from '../../shared/StatusAlert/StatusAlert';
 import logger from '../../../services/logger.service';
 import { CopySVG } from '../../../svgs/Copy';
+import { OpenLinkSVG } from '../../../svgs/OpenLink';
 
 const ChannelDetails = (props) => {
   const appCtx = useContext(AppContext);
@@ -25,6 +26,10 @@ const ChannelDetails = (props) => {
   const [channelClosed, setChannelClosed] = useState(props.selChannel.current_state !== 'ACTIVE');
   const [responseStatus, setResponseStatus] = useState(CallStatus.NONE);
   const [responseMessage, setResponseMessage] = useState('');
+
+  const openLinkHandler = (event) => {
+    window.open('https://blockstream.info/' + (appCtx.nodeInfo.network === 'testnet' ? 'testnet/' : '') + 'tx/' + event.target.id, '_blank');
+  };
 
   const ChannelDetailsHandler = (event) => {
     event.preventDefault();
@@ -74,7 +79,7 @@ const ChannelDetails = (props) => {
               </div>
               <span className='span-close-svg' onClick={props.onClose}><CloseSVG /></span>
             </Card.Header>
-            <Card.Body className='py-2 pb-0 px-1 d-flex flex-column align-items-stretch justify-content-between channel-scroll-container'>
+            <Card.Body className='pt-1 pb-0 px-1 d-flex flex-column align-items-stretch justify-content-between channel-scroll-container'>
               <PerfectScrollbar className='ps-show-always' options={{suppressScrollX:true}}>
                 <Row className='d-flex align-items-start justify-content-start'>
                   <Col className='me-3'>
@@ -101,57 +106,58 @@ const ChannelDetails = (props) => {
                       </Col>
                     </Row>
                   </Col>
-                  <Row className='mt-12px fs-7'>
+                  <Row className='mt-1'>
                     <Col xs={12} className='fs-7 text-light'>Short Channel Id</Col>
-                    <Col xs={12} className='pe-1 fs-7 overflow-x-ellipsis fw-bold'>
+                    <Col xs={12} className='pe-1 overflow-x-ellipsis fw-bold'>
                       {props.selChannel.short_channel_id}
                     </Col>
                   </Row>
-                  <Row className='mt-12px fs-7'>
+                  <Row className='mt-12px'>
                     <Col xs={12} className='fs-7 text-light'>Withdrawal Timelock</Col>
-                    <Col xs={12} className='pe-1 fs-7 overflow-x-ellipsis fw-bold'>
+                    <Col xs={12} className='pe-1 overflow-x-ellipsis fw-bold'>
                       {props.selChannel.their_to_self_delay} Blocks
                     </Col>
                   </Row>
-                  <Row className='mt-12px fs-7'>
+                  <Row className='mt-12px'>
                     <Col xs={12} className='fs-7 text-light'>Opened By</Col>
-                    <Col xs={12} className='pe-1 fs-7 overflow-x-ellipsis fw-bold'>
+                    <Col xs={12} className='pe-1 overflow-x-ellipsis fw-bold'>
                       {titleCase(props.selChannel.opener)}
                     </Col>
                   </Row>
-                  <Row className='mt-12px fs-7'>
+                  <Row className='mt-12px'>
                     <Col xs={12} className='fs-7 text-light'>Channel Type</Col>
-                    <Col xs={12} className='pe-1 fs-7 overflow-x-ellipsis fw-bold'>
+                    <Col xs={12} className='pe-1 overflow-x-ellipsis fw-bold'>
                       {props.selChannel.private ? 'Private' : 'Public'}
                     </Col>
                   </Row>
-                  <Row className='mt-12px fs-7'>
+                  <Row className='mt-12px'>
                     <Col xs={12} className='fs-7 text-light'>Dust Limit</Col>
-                    <Col xs={12} className='pe-1 fs-7 overflow-x-ellipsis fw-bold'>
+                    <Col xs={12} className='pe-1 overflow-x-ellipsis fw-bold'>
                       {formatCurrency(props.selChannel.dust_limit_satoshis, Units.SATS, appCtx.appConfig.unit, false, 8, 'string')} {appCtx.appConfig.unit}
                     </Col>
                   </Row>
-                  <Row className='mt-12px fs-7'>
+                  <Row className='mt-12px'>
                     <Col xs={12} className='fs-7 text-light'>Spendable</Col>
-                    <Col xs={12} className='pe-1 fs-7 overflow-x-ellipsis fw-bold'>
+                    <Col xs={12} className='pe-1 overflow-x-ellipsis fw-bold'>
                       {formatCurrency(props.selChannel.spendable_msatoshi, Units.MSATS, appCtx.appConfig.unit, false, 8, 'string')} {appCtx.appConfig.unit}
                     </Col>
                   </Row>
-                  <Row className='mt-12px fs-7'>
+                  <Row className='mt-12px'>
                     <Col xs={12} className='fs-7 text-light'>Receivable</Col>
-                    <Col xs={12} className='pe-1 fs-7 overflow-x-ellipsis fw-bold'>
+                    <Col xs={12} className='pe-1 overflow-x-ellipsis fw-bold'>
                       {formatCurrency(props.selChannel.receivable_msatoshi, Units.MSATS, appCtx.appConfig.unit, false, 8, 'string')} {appCtx.appConfig.unit}
                     </Col>
                   </Row>
-                  <Row className='mt-12px fs-7'>
+                  <Row className='mt-12px'>
                     <Col xs={12} className='fs-7 text-light'>Channel ID</Col>
-                    <Col xs={11} className='pe-1 fs-7 overflow-x-ellipsis fw-bold'>{props.selChannel.channel_id}</Col>
-                    <Col xs={1} onClick={copyHandler} className='btn-copy'><CopySVG id='Channel ID' showTooltip={true} /></Col>
+                    <Col xs={11} className='pe-1 overflow-x-ellipsis fw-bold'>{props.selChannel.channel_id}</Col>
+                    <Col xs={1} onClick={copyHandler} className='btn-sm-svg'><CopySVG id='Channel ID' showTooltip={true} /></Col>
                   </Row>
-                  <Row className='mt-12px fs-7'>
+                  <Row className='mt-12px'>
                     <Col xs={12} className='fs-7 text-light'>Funding ID</Col>
-                    <Col xs={11} className='pe-1 fs-7 overflow-x-ellipsis fw-bold'>{props.selChannel.funding_txid}</Col>
-                    <Col xs={1} onClick={copyHandler} className='btn-copy'><CopySVG id='Funding ID' showTooltip={true} /></Col>
+                    <Col xs={10} className='pe-1 overflow-x-ellipsis fw-bold'>{props.selChannel.funding_txid}</Col>
+                    <Col xs={1} onClick={copyHandler} className='btn-sm-svg'><CopySVG id='Funding ID' showTooltip={true} /></Col>
+                    <Col xs={1} onClick={openLinkHandler} className='btn-sm-svg'><OpenLinkSVG id={props.selChannel.funding_txid} /></Col>
                   </Row>
                 </Row>
                 </PerfectScrollbar>

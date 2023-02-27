@@ -26,7 +26,7 @@ export type NodeInfo = {
   error?: any;
 };
 
-export type FeeRate = {
+export type ChannelFeeRate = {
   perkw?: number;
   perkb?: number;
 };
@@ -73,7 +73,7 @@ export type Channel = {
   state: string;
   connected: boolean;
   scratch_txid?: string;
-  feerate?: FeeRate;
+  feerate?: ChannelFeeRate;
   owner?: string;
   direction?: number;
   channel_id?: string;
@@ -346,5 +346,43 @@ export type WalletBalances = {
   clnInactiveBalance?: number;
   btcSpendableBalance?: number;
   btcReservedBalance?: number;
+  error?: any;
+}
+
+export type FeeRatePerKB = {
+  min_acceptable: number;
+  max_acceptable: number;
+  opening?: number;
+  mutual_close?: number;
+  unilateral_close?: number;
+  delayed_to_us?: number;
+  htlc_resolution?: number;
+  penalty?: number;
+}
+
+export type FeeRatePerKW = {
+  min_acceptable: number;
+  max_acceptable: number;
+  opening?: number;
+  mutual_close?: number;
+  unilateral_close?: number;
+  delayed_to_us?: number;
+  htlc_resolution?: number;
+  penalty?: number;
+}
+
+export type OnChainFeeEstimates = {
+  opening_channel_satoshis: number;
+  mutual_close_satoshis?: number;
+  unilateral_close_satoshis?: number;
+  htlc_timeout_satoshis?: number;
+  htlc_success_satoshis?: number;
+}
+
+export type NodeFeeRate = {
+  isLoading: boolean;
+  perkw?: FeeRatePerKW;
+  perkb?: FeeRatePerKB;
+  onchain_fee_estimates?: OnChainFeeEstimates;
   error?: any;
 }

@@ -10,9 +10,8 @@
 .svg-night {
   cursor: pointer;
   opacity: 0.7;
-  transition: all $transition-time ease;
+  transition: all $theme-transition ease;
   & path {
-    transition: all $transition-time ease;
     fill: $primary;
   }
   &:hover {
