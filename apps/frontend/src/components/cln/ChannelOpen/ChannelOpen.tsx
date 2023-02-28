@@ -1,5 +1,5 @@
 import './ChannelOpen.scss';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import Card from 'react-bootstrap/Card';
 import Row from 'react-bootstrap/Row';
@@ -20,12 +20,17 @@ import FiatBox from '../../shared/FiatBox/FiatBox';
 import InvalidInputMessage from '../../shared/InvalidInputMessage/InvalidInputMessage';
 import { CloseSVG } from '../../../svgs/Close';
 import StatusAlert from '../../shared/StatusAlert/StatusAlert';
+import FeerateRange from '../../shared/FeerateRange/FeerateRange';
 
 
 const ChannelOpen = (props) => {
   const appCtx = useContext(AppContext);
   const { openChannel } = useHttp();
   const [feeRate, setFeeRate] = useState(FeeRate.NORMAL);
+  const [feeRateValue, setFeeRateValue] = useState(
+    props.feeRate === FeeRate.SLOW ? appCtx.feeRate.perkw?.min_acceptable :
+    props.feeRate === FeeRate.URGENT ? appCtx.feeRate.perkw?.unilateral_close : appCtx.feeRate.perkw?.opening);
+
   const [announce, setAnnounce] = useState(true);
   const [responseStatus, setResponseStatus] = useState(CallStatus.NONE);
   const [responseMessage, setResponseMessage] = useState('');
@@ -55,8 +60,26 @@ const ChannelOpen = (props) => {
     formIsValid = true;
   };
   
+  useEffect(() => {
+    // Urgent: appCtx.feeRate.perkw?.unilateral_close
+    // Normal: appCtx.feeRate.perkw?.opening
+    // Slow: appCtx.feeRate.perkw?.min_acceptable
+    if (((appCtx.feeRate.perkw?.unilateral_close || 0) - (appCtx.feeRate.perkw?.opening || 0)) > 100) {
+      setFeeRate(FeeRate.URGENT);
+      setFeeRateValue(appCtx.feeRate.perkw?.unilateral_close);
+    } else if (((appCtx.feeRate.perkw?.opening || 0) - (appCtx.feeRate.perkw?.min_acceptable || 0)) < 50) {
+      setFeeRate(FeeRate.SLOW);
+      setFeeRateValue(appCtx.feeRate.perkw?.min_acceptable);
+    } else {
+      setFeeRate(FeeRate.NORMAL);
+      setFeeRateValue(appCtx.feeRate.perkw?.opening);
+    }
+  }, [appCtx.feeRate.perkw]);
+
   const feeRateChangeHandler = (event) => {
     setFeeRate(FEE_RATES[+event.target.value]);
+    setFeeRateValue(FEE_RATES[+event.target.value] === FeeRate.SLOW ? appCtx.feeRate.perkw?.min_acceptable :
+      FEE_RATES[+event.target.value] === FeeRate.URGENT ? appCtx.feeRate.perkw?.unilateral_close : appCtx.feeRate.perkw?.opening);
   };
 
   const touchFormControls = () => {
@@ -69,6 +92,7 @@ const ChannelOpen = (props) => {
     resetAmount();
     setAnnounce(true);
     setFeeRate(FeeRate.NORMAL);
+    setFeeRateValue(appCtx.feeRate.perkw?.opening);
   };
 
   const ChannelOpenHandler = (event) => {
@@ -176,15 +200,7 @@ const ChannelOpen = (props) => {
                   </div>
                 </Col>
                 <Col xs={12}>
-                  <Form.Label className='text-dark d-flex align-items-center justify-content-between'>
-                    Fee Rate
-                  </Form.Label>
-                  <Form.Range tabIndex={4} defaultValue={feeRate} min='0' max='2' onChange={feeRateChangeHandler} />
-                  <Row className='d-flex align-items-start justify-content-between'>
-                    {FEE_RATES.map((rate, i) => 
-                      <Col xs={4} className={'fs-7 text-light d-flex ' + (i === 0 ? 'justify-content-start' : i === 1 ? 'justify-content-center' : 'justify-content-end')} key={rate}>{rate}</Col>
-                    )}
-                  </Row>
+                  <FeerateRange tabIndex={4} feeRate={feeRate} feeRateValue={feeRateValue} feeRateChangeHandler={feeRateChangeHandler} />
                 </Col>
               </Row>
               <StatusAlert responseStatus={responseStatus} responseMessage={responseMessage} />
