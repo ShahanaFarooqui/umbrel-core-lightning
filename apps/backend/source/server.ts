@@ -52,16 +52,22 @@ app.use(bodyParser.json({ limit: '25mb' }));
 app.use(bodyParser.urlencoded({ extended: false, limit: '25mb' }));
 app.use((req, res, next) => {
   res.setHeader('Cache-Control', 'no-cache');
-  // res.setHeader(
-  //   'Content-Security-Policy',
-  //   "default-src 'self'; font-src 'self'; img-src 'self'; script-src 'self'; style-src 'unsafe-inline'; frame-src 'self'",
-  // );
+  res.setHeader(
+    'Content-Security-Policy',
+    "default-src 'self'; font-src 'self'; img-src 'self'; script-src 'self'; frame-src 'self'; style-src 'self' " +
+      NODE_ENV ===
+      Environment.DEVELOPMENT
+      ? 'http://' + CLN_HOST + ':4300'
+      : 'http://' + CLN_HOST + ':' + CLN_PORT,
+  );
   next();
 });
 const corsOptions = {
   methods: 'GET, POST, PATCH, PUT, DELETE, OPTIONS',
   origin:
-    NODE_ENV === Environment.DEVELOPMENT ? 'http://localhost:4300' : 'http://localhost:' + CLN_PORT,
+    NODE_ENV === Environment.DEVELOPMENT
+      ? 'http://' + CLN_HOST + ':4300'
+      : 'http://' + CLN_HOST + ':' + CLN_PORT,
   credentials: true,
   allowedHeaders: 'Content-Type, X-XSRF-TOKEN',
 };
