@@ -33,12 +33,12 @@ const Channels = (props) => {
             <Alert className='fs-8' variant='danger'>{appCtx.listChannels.error}</Alert> : 
             allChannelsMerged && allChannelsMerged.length && allChannelsMerged.length > 0 ?
               <PerfectScrollbar className='ps-show-always'>
-                <ListGroup as='ul' variant='flush'>
+                <ListGroup as='ul' variant='flush' className='list-channels'>
                   {allChannelsMerged.map((channel, idx) => (
                     <ListGroup.Item
                       key={channel.short_channel_id || channel.node_alias || idx}
                       as='li'
-                      className='ps-0 d-flex justify-content-between align-items-start'
+                      className='list-item-channel'
                       onClick={() => (props.onChannelClick(channel))}
                     >
                       <div className='flex-fill text-dark'>

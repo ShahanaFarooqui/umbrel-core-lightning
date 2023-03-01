@@ -3,22 +3,22 @@
 @include color-mode(dark) {
   
   .text-light {
-    transition: color $theme-transition ease-in-out;
+    transition: color $theme-transition ease;
     color: $light-dark !important;
   }
 
   .text-light-white, .text-dark, .text-contrast {
-    transition: color $theme-transition ease-in-out;
+    transition: color $theme-transition ease;
     color: $white !important;
   }
 
   .text-dark-primary {
-    transition: color $theme-transition ease-in-out;
+    transition: color $theme-transition ease;
     color: $primary;
   }
   
   .text-blue, .text-darker-blue {
-    transition: color $theme-transition ease-in-out;
+    transition: color $theme-transition ease;
     color: $white;
   }
   

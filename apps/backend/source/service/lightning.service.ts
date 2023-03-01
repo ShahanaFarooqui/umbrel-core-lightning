@@ -22,8 +22,8 @@ export class LightningService {
       port: COMMANDO_PORT,
       privateKey: COMMANDO_PRIVATE_KEY,
       logger: {
-        info: console.log,
-        warn: console.warn,
+        info: () => {},
+        warn: () => {},
         error: console.error,
       },
     });

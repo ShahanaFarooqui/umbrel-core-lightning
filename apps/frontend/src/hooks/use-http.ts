@@ -9,25 +9,29 @@ import dummyDataFromJSON from '../z-dummy-data/dummy.data.json';
 
 const useHttp = () => {
   const appCtx = useContext(AppContext);
+  let axiosInstance = axios.create({
+    baseURL: API_BASE_URL + API_VERSION,
+    timeout: 15000,
+    withCredentials: true,
+    xsrfCookieName: 'XSRF-TOKEN',
+    xsrfHeaderName: 'X-XSRF-TOKEN'
+  });
 
   const getFiatRate = useCallback((fiatUnit: string) => {
-    axios.get(API_BASE_URL + API_VERSION + '/shared/rate/' + fiatUnit)
+    return axiosInstance.get('/shared/rate/' + fiatUnit)
     .then((response: any) => {
       const foundCurrency = FIAT_CURRENCIES.find(curr => curr.currency === fiatUnit);
       appCtx.setFiatConfig({ isLoading: false, symbol: (foundCurrency ? foundCurrency.symbol : faDollarSign), rate: response.data, error: null });
     }).catch(err => {
-      appCtx.setFiatConfig({ isLoading: false, symbol: faDollarSign, error: err.response.data });
+      appCtx.setFiatConfig({ isLoading: false, symbol: faDollarSign, 
+        error: err.response && err.response.data ? err.response.data : 
+        {isLoading: true, symbol: faDollarSign, rate: 1}});
     });
-  }, [appCtx]);
+  }, [appCtx, axiosInstance]);
 
   const sendRequestToSetStore = useCallback((setStoreFunction: any, method: string, url: string, reqBody: any = null) => {
     try {
-      axios({
-        timeout: 15000, // 15 Seconds
-        method: method,
-        url: API_BASE_URL + API_VERSION + url,
-        data: reqBody
-      }).then((response: any) => {
+      axiosInstance(url, {method: method, data: reqBody}).then((response: any) => {
         logger.info(response);
         if(url === '/shared/config') {
           getFiatRate(response.data.fiatUnit);
@@ -58,7 +62,7 @@ const useHttp = () => {
       setStoreFunction({ isLoading: false, error: err });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [getFiatRate]);
+  }, [getFiatRate, axiosInstance]);
 
   const fetchData = useCallback(() => {
     sendRequestToSetStore(appCtx.setNodeInfo, 'post', '/cln/call', { 'method': 'getinfo', 'params': [] });
@@ -71,7 +75,7 @@ const useHttp = () => {
   }, [appCtx, sendRequestToSetStore]);
 
   const updateConfig = (updatedConfig: ApplicationConfiguration) => {
-    axios.post(API_BASE_URL + API_VERSION + '/shared/config', updatedConfig)
+    axiosInstance.post('/shared/config', updatedConfig)
     .then((response: any) => {
       if(appCtx.appConfig.fiatUnit !== updatedConfig.fiatUnit) {
         getFiatRate(updatedConfig.fiatUnit);
@@ -84,12 +88,7 @@ const useHttp = () => {
 
   const sendRequest = useCallback((flgRefreshData: boolean, method: string, url: string, reqBody: any = null) => {
     try {
-      return axios({
-        timeout: 30000, // 30 Seconds
-        method: method,
-        url: API_BASE_URL + API_VERSION + url,
-        data: reqBody
-      }).then(res => {
+      return axiosInstance(url, {method: method, data: reqBody, timeout: 30000}).then(res => {
         if (flgRefreshData) { fetchData(); }
         return res;
       }).catch(err => {
@@ -100,7 +99,7 @@ const useHttp = () => {
       logger.error(err);
       return err;
     }
-  }, [fetchData]);
+  }, [fetchData, axiosInstance]);
 
   const openChannel = (pubkey: string, amount: number, feeRate: string, announce: boolean) => {
     return sendRequest(true, 'post', '/cln/call', { 'method': 'fundchannel', 'params': { 'id': pubkey, 'amount': amount, 'feerate': feeRate, 'announce': announce } });
@@ -142,11 +141,26 @@ const useHttp = () => {
     return sendRequest(false, 'post', '/cln/call', { 'method': 'fetchinvoice', 'params': { 'offer': offer, 'amount_msat': amount * SATS_MSAT } });
   };
 
+  const setCSRFToken = () => {
+    try {
+      return axiosInstance.get('/shared/csrf').then(res => {
+        return axiosInstance.defaults.headers.post = { 'X-XSRF-TOKEN': res.data.csrfToken };
+      }).catch(err => {
+        logger.error(err);
+        return err;
+      });
+    } catch (err: any) {
+      logger.error(err);
+      return err;
+    }
+  };
+
   const getAppConfigurations = useCallback(() => {
     sendRequestToSetStore(appCtx.setConfig, 'get', '/shared/config');
   }, [appCtx, sendRequestToSetStore]);
 
   return {
+    setCSRFToken,
     getAppConfigurations,
     fetchData,
     getFiatRate,

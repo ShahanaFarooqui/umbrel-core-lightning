@@ -19,7 +19,6 @@
     "./source/server.ts"
   ],
   "include": [
-    "./source/polyfills.ts",
     "./source/**/*.d.ts"
   ]  
 }

@@ -1,4 +1,6 @@
 import * as crypto from 'crypto';
+import { join, dirname } from 'path';
+import { fileURLToPath } from 'url';
 
 export enum Environment {
   PRODUCTION = 'production',
@@ -63,4 +65,13 @@ export enum HttpStatusCode {
   CLN_SERVER = 521,
 }
 
-export const SETTINGS_FILE_PATH = '../../data/app/app.config.json';
+export const SETTINGS_FILE_PATH = join(
+  dirname(fileURLToPath(import.meta.url)),
+  '..',
+  '..',
+  '..',
+  '..',
+  'data',
+  'app',
+  'app.config.json',
+);

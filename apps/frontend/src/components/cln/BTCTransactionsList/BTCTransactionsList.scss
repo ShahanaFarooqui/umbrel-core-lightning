@@ -25,7 +25,7 @@
     }
   }
   & .btc-transaction-details {
-    transition: background-color $theme-transition ease-in-out;
+    transition: background-color $theme-transition ease;
     background-color: $body-bg-light;
     border-bottom-left-radius: 0.675rem;
     border-bottom-right-radius: 0.675rem;  

@@ -19,7 +19,7 @@ import ChannelsCard from '../cln/ChannelsCard/ChannelsCard';
 
 const App = () => {
   const appCtx = useContext(AppContext);
-  const { getAppConfigurations, fetchData } = useHttp();
+  const { setCSRFToken, getAppConfigurations, fetchData } = useHttp();
 
   const bodyHTML = document.getElementsByTagName('body')[0];
   const htmlAttributes = bodyHTML.attributes;
@@ -30,6 +30,7 @@ const App = () => {
   htmlAttributes.setNamedItem(theme);
 
   useEffect(() => {
+    setCSRFToken();
     getAppConfigurations();
     window.setInterval(() => {
       fetchData();

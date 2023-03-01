@@ -94,7 +94,7 @@ const BTCTransactionsAccordion = ({ i, expanded, setExpanded, initExpansions, tr
               open: { opacity: 1, height: 'auto' },
               collapsed: { opacity: 0, height: 0 }
             }}
-            transition={{ duration: TRANSITION_DURATION, ease: [0.04, 0.62, 0.23, 0.98] }}
+            transition={{ duration: TRANSITION_DURATION, ease: [0.4, 0.52, 0.83, 0.98] }}
           >
             <Transaction transaction={transaction} />
           </motion.div>

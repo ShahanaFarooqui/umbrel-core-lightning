@@ -3,7 +3,7 @@
 
 body {
   // overflow: hidden;
-  transition: background-color $theme-transition ease-in-out;
+  transition: background-color $theme-transition ease;
   &.modal-open #root-container {
     filter: blur(5px);
   }
@@ -91,7 +91,7 @@ body {
 }
 
 .btn.btn-primary {
-  transition: color $theme-transition ease-in-out;
+  transition: color $theme-transition ease;
   color: var(--bs-body-color);
   font-weight: 600;
   padding: 1.25rem 1.675rem;
@@ -111,7 +111,7 @@ body {
   font-weight: 600;
   text-decoration: none;
   transition: transform $transition-time ease;
-  transition: color $theme-transition ease-in-out;
+  transition: color $theme-transition ease;
   &:hover, &:active {
     transform: scale(1.01);
     color: darken($primary, 10%);
@@ -127,9 +127,9 @@ button.btn-rounded.btn.btn-primary, button.btn-rounded.bg-primary {
   height: 2rem;
   font-weight: 600;
   padding: 1.25rem 1.675rem;
-  transition: background-color $transition-time ease;
+  transition: all $transition-time ease;
   &:not(.btn-settings-menu.dropdown-toggle) {
-    transition: color $theme-transition ease-in-out;
+    transition: color $theme-transition ease;
   }
   &:hover {
     background-color: darken($primary, 8%) !important;
@@ -219,7 +219,7 @@ button.btn-rounded.btn.btn-primary, button.btn-rounded.bg-primary {
 
 svg {
   & circle, & path:not(.path-settings), & line, & defs > linearGradient > stop {
-    transition: fill $theme-transition ease-in-out, stroke $theme-transition ease-in-out, stop-color $theme-transition ease-in-out;
+    transition: fill $theme-transition ease, stroke $theme-transition ease, stop-color $theme-transition ease;
   }
   &.svg-small {
     width: 0.75rem;
@@ -274,13 +274,13 @@ svg {
 }
 
 .card {
-  transition: background-color $theme-transition ease-in-out, box-shadow $theme-transition ease-in-out;
+  transition: background-color $theme-transition ease, box-shadow $theme-transition ease;
   border: none;
   & .card-header {
     border-bottom: none;
   }
   & .card-body {
-    transition: color $theme-transition ease-in-out;
+    transition: color $theme-transition ease;
   }
   & .card-footer {
     border-top: none;
@@ -337,7 +337,7 @@ label.form-label {
   box-shadow: 0px 1px 2px 0px rgba($dark-blue, 0.05);
   & .form-control {
     padding: 0.675rem;
-    transition: background-color $theme-transition ease-in-out;
+    transition: background-color $theme-transition ease;
     font-size: 14px;
     &.form-control-left {
       cursor: pointer;
@@ -349,7 +349,7 @@ label.form-label {
       padding-left: 0;
     }  
     &.form-control-middle {
-      transition: background-color $theme-transition ease-in-out;
+      transition: background-color $theme-transition ease;
       border-left: 0;
       padding-left: 0;
       border-right: 0;
@@ -360,7 +360,7 @@ label.form-label {
     }
   }
   & .form-control-addon {
-    transition: background-color $theme-transition ease-in-out;
+    transition: background-color $theme-transition ease;
     &.form-control-addon-disabled {
       background-color: $gray-200;
     }
@@ -457,9 +457,7 @@ label.form-label {
   position: relative;
   overflow: hidden;
   & .list-group-item {
-    transition: background-color $theme-transition ease-in-out;
     border: none;
-    margin-bottom: 1rem;
   }
 }
 

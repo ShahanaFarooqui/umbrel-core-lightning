@@ -2,6 +2,9 @@
 
 .channel-scroll-container {
   max-height: 53vh;
+  & .progress {
+    height: 6px;
+  }
   & .btn-sm-svg {
     display: inline-flex;
     align-items: flex-start;

@@ -1,10 +1,11 @@
-import * as polyfills from './polyfills.js';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 import express from 'express';
 import http from 'http';
 import bodyParser from 'body-parser';
 import cors from 'cors';
+import csurf from 'csurf';
+import cookieParser from 'cookie-parser';
 import expressWinston from 'express-winston';
 
 import { logger, expressLogConfiguration } from './shared/logger.js';
@@ -12,10 +13,12 @@ import { CommonRoutesConfig } from './shared/routes.config.js';
 import { LightningRoutes } from './routes/v1/lightning.js';
 import { SharedRoutes } from './routes/v1/shared.js';
 import { APIError } from './models/errors.js';
+import { Environment, NODE_ENV } from './shared/consts.js';
+import handleError from './shared/error-handler.js';
 
-polyfills;
 let directoryName = dirname(fileURLToPath(import.meta.url));
 let routes: Array<CommonRoutesConfig> = [];
+
 const app: express.Application = express();
 const server: http.Server = http.createServer(app);
 
@@ -34,16 +37,32 @@ function normalizePort(val: string) {
 }
 
 app.set('trust proxy', true);
-app.use((req, res, next) => {
-  res.setHeader(
-    'Content-Security-Policy',
-    "default-src 'self'; font-src 'self'; img-src 'self'; script-src 'self'; style-src 'self'; frame-src 'self'",
-  );
-  next();
-});
+app.use(cookieParser());
+app.use(csurf({
+  cookie: {
+    key: '_csrf',
+    httpOnly: true,
+    secure: NODE_ENV !== Environment.DEVELOPMENT,
+    maxAge: 3600
+  }
+}));
 app.use(bodyParser.json({ limit: '25mb' }));
 app.use(bodyParser.urlencoded({ extended: false, limit: '25mb' }));
-app.use(cors());
+app.use((req, res, next) => {
+  res.setHeader('Cache-Control', 'no-cache');
+  // res.setHeader(
+  //   'Content-Security-Policy',
+  //   "default-src 'self'; font-src 'self'; img-src 'self'; script-src 'self'; style-src 'unsafe-inline'; frame-src 'self'",
+  // );
+  next();
+});
+const corsOptions = {
+  methods: 'GET, POST, PATCH, PUT, DELETE, OPTIONS',
+  origin: NODE_ENV === Environment.DEVELOPMENT ? 'http://localhost:4300' : 'http://localhost:' + CLN_PORT,
+  credentials: true,
+  allowedHeaders: 'Content-Type, X-XSRF-TOKEN',
+};
+app.use(cors(corsOptions));
 
 app.use(expressWinston.logger(expressLogConfiguration));
 app.use(expressWinston.errorLogger(expressLogConfiguration));
@@ -57,76 +76,51 @@ app.use((req: express.Request, res: express.Response, next: any) => {
   res.sendFile(join(directoryName, '..', '..', 'frontend', 'build', 'index.html'));
 });
 
-app.use((req: express.Request, res: express.Response, next: any) => {
-  const error = new Error('not found');
-  return res.status(404).json({
-    message: error.message,
-  });
-});
-
 app.use((err: any, req: express.Request, res: express.Response, next: any) => {
-  handleApplicationErrors(err, res);
-  next();
+  return handleError(throwApiError(err), req, res, next);
 });
 
-const onListening = () => {
-  logger.info('Server running at http://' + CLN_HOST + ':' + CLN_PORT);
-};
-
-const onError = (error: any) => {
-  logger.error('Server error: ' + error);
-  if (error.syscall !== 'listen') {
-    throw new APIError(error);
-  }
-  switch (error.code) {
-    case 'EACCES':
-      logger.error('http://' + CLN_HOST + ':' + CLN_PORT + ' requires elevated privileges');
-      process.exit(1);
-      break;
-    case 'EADDRINUSE':
-      logger.error('http://' + CLN_HOST + ':' + CLN_PORT + ' is already in use');
-      process.exit(1);
-      break;
-    case 'ECONNREFUSED':
-      logger.error('Server is down/locked');
-      process.exit(1);
-      break;
-    case 'EBADCSRFTOKEN':
-      logger.error('Form tempered');
-      process.exit(1);
-      break;
-    default:
-      logger.error('DEFUALT ERROR: ' + error.code);
-      throw new APIError(error);
-  }
-};
-
-const handleApplicationErrors = (err: any, res: express.Response) => {
+const throwApiError = (err: any) => {
+  logger.error('Server error: ' + err);
   switch (err.code) {
     case 'EACCES':
-      logger.error('Server requires elevated privileges');
-      res.status(406).send('Server requires elevated privileges.');
-      break;
+      return new APIError(
+        'http://' + CLN_HOST + ':' + CLN_PORT + ' requires elevated privileges',
+        'http://' + CLN_HOST + ':' + CLN_PORT + ' requires elevated privileges',
+        406,
+        'http://' + CLN_HOST + ':' + CLN_PORT + ' requires elevated privileges',
+      );
     case 'EADDRINUSE':
-      logger.error('Server is already in use');
-      res.status(409).send('Server is already in use.');
-      break;
+      return new APIError(
+        'http://' + CLN_HOST + ':' + CLN_PORT + ' is already in use',
+        'http://' + CLN_HOST + ':' + CLN_PORT + ' is already in use',
+        409,
+        'http://' + CLN_HOST + ':' + CLN_PORT + ' is already in use',
+      );
     case 'ECONNREFUSED':
-      logger.error('Server is down/locked');
-      res.status(401).send('Server is down/locked.');
-      break;
+      return new APIError(
+        'Server is down/locked',
+        'Server is down/locked',
+        401,
+        'Server is down/locked',
+      );
     case 'EBADCSRFTOKEN':
-      logger.error('Invalid CSRF token. Form tempered.');
-      res.status(403).send('Invalid CSRF token, form tempered.');
-      break;
+      return new APIError(
+        'Invalid CSRF token. Form tempered.',
+        'Invalid CSRF token. Form tempered.',
+        403,
+        'Invalid CSRF token. Form tempered.',
+      );
     default:
-      logger.error('DEFUALT ERROR: ' + JSON.stringify(err));
-      res.status(400).send(JSON.stringify(err));
-      break;
+      return new APIError(
+        'Default: ' + JSON.stringify(err),
+        'Default: ' + JSON.stringify(err),
+        400,
+        'Default: ' + JSON.stringify(err),
+      );
   }
 };
 
-server.on('error', onError);
-server.on('listening', onListening);
-
+server.on('error', throwApiError);
+server.on('listening', () => logger.info('Server running at http://' + CLN_HOST + ':' + CLN_PORT));
 server.listen({ port: CLN_PORT, host: CLN_HOST });

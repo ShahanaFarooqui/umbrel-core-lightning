@@ -11,7 +11,7 @@
     background: linear-gradient(to right, $success, $warning, $danger);
     outline: none;
     opacity: 0.8;
-    transition: opacity $theme-transition ease-in-out;
+    transition: opacity $theme-transition ease;
     &:hover {
       opacity: 1;
     }
