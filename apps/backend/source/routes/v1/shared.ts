@@ -12,7 +12,6 @@ export class SharedRoutes extends CommonRoutesConfig {
 
   configureRoutes() {
     this.app.route(API_VERSION + SHARED_ROUTE + '/csrf/').get((req, res, next) => {
-      res.cookie('XSRF-TOKEN', req.csrfToken(), { sameSite: NODE_ENV !== Environment.DEVELOPMENT });
       res.send({ csrfToken: req.csrfToken() });
     });
     this.app

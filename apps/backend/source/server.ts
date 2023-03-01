@@ -38,14 +38,16 @@ function normalizePort(val: string) {
 
 app.set('trust proxy', true);
 app.use(cookieParser());
-app.use(csurf({
-  cookie: {
-    key: '_csrf',
-    httpOnly: true,
-    secure: NODE_ENV !== Environment.DEVELOPMENT,
-    maxAge: 3600
-  }
-}));
+app.use(
+  csurf({
+    cookie: {
+      key: '_csrf',
+      httpOnly: true,
+      secure: true,
+      maxAge: 3600,
+    },
+  }),
+);
 app.use(bodyParser.json({ limit: '25mb' }));
 app.use(bodyParser.urlencoded({ extended: false, limit: '25mb' }));
 app.use((req, res, next) => {
@@ -58,7 +60,8 @@ app.use((req, res, next) => {
 });
 const corsOptions = {
   methods: 'GET, POST, PATCH, PUT, DELETE, OPTIONS',
-  origin: NODE_ENV === Environment.DEVELOPMENT ? 'http://localhost:4300' : 'http://localhost:' + CLN_PORT,
+  origin:
+    NODE_ENV === Environment.DEVELOPMENT ? 'http://localhost:4300' : 'http://localhost:' + CLN_PORT,
   credentials: true,
   allowedHeaders: 'Content-Type, X-XSRF-TOKEN',
 };

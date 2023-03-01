@@ -12,9 +12,7 @@ const useHttp = () => {
   let axiosInstance = axios.create({
     baseURL: API_BASE_URL + API_VERSION,
     timeout: 15000,
-    withCredentials: true,
-    xsrfCookieName: 'XSRF-TOKEN',
-    xsrfHeaderName: 'X-XSRF-TOKEN'
+    withCredentials: true
   });
 
   const getFiatRate = useCallback((fiatUnit: string) => {
