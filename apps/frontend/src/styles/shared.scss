@@ -33,6 +33,10 @@ body {
   margin-top: 2px !important;
 }
 
+.cursor-pointer {
+  cursor: pointer !important;
+}
+
 .text-valid {
   color: $success;
 }
@@ -466,4 +470,13 @@ label.form-label {
   border-top-right-radius: $border-radius;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
+}
+
+.information-svg {
+  margin-right: 0.25rem;
+  min-width: 17px;
+  &.svg-sm {
+    display: block;
+    height: 0.75rem;
+  }
 }

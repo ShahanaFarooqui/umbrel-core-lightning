@@ -1,7 +1,5 @@
 import './FeerateRange.scss';
 import { useContext, useEffect, useState } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
@@ -11,11 +9,12 @@ import Tooltip from 'react-bootstrap/Tooltip';
 import { FeeRate, FEE_RATES, Units } from '../../../utilities/constants';
 import { AppContext } from '../../../store/AppContext';
 import FiatBox from '../FiatBox/FiatBox';
+import { InformationSVGRef } from '../../../svgs/Information';
 
 const FeerateRange = (props) => {
   const appCtx = useContext(AppContext);
   const [recommendedfeeRate, setRecommendedfeeRate] = useState(FeeRate.NORMAL);
-
+  
   useEffect(() => {
     // Urgent: appCtx.feeRate.perkw?.unilateral_close
     // Normal: appCtx.feeRate.perkw?.opening
@@ -38,7 +37,11 @@ const FeerateRange = (props) => {
           delay={{ show: 300, hide: 300 }}
           overlay={<Tooltip>Recommended {recommendedfeeRate}</Tooltip>}
           >
-          <FontAwesomeIcon className='mb-2 ms-1' size='sm' icon={faCircleInfo} />
+          {({ ref, ...triggerHandler }) => (
+            <span {...triggerHandler} >
+              <InformationSVGRef ref={ref} svgClassName='mb-2 ms-1 information-svg svg-sm' className={'fill-light'} />
+            </span>
+          )}
         </OverlayTrigger>
       </Form.Label>
       <div className='slider-container'>

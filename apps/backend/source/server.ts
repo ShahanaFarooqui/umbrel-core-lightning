@@ -23,7 +23,7 @@ const app: express.Application = express();
 const server: http.Server = http.createServer(app);
 
 const CLN_PORT = normalizePort(process.env.PORT || '3007');
-const CLN_HOST = process.env.HOST || '127.0.0.1';
+const CLN_HOST = process.env.HOST || 'localhost';
 
 function normalizePort(val: string) {
   var port = parseInt(val, 10);
@@ -54,11 +54,7 @@ app.use((req, res, next) => {
   res.setHeader('Cache-Control', 'no-cache');
   res.setHeader(
     'Content-Security-Policy',
-    "default-src 'self'; font-src 'self'; img-src 'self'; script-src 'self'; frame-src 'self'; style-src 'self' " +
-      NODE_ENV ===
-      Environment.DEVELOPMENT
-      ? 'http://' + CLN_HOST + ':4300'
-      : 'http://' + CLN_HOST + ':' + CLN_PORT,
+    "default-src 'self'; font-src 'self'; img-src 'self'; script-src 'self'; frame-src 'self'; style-src 'self';",
   );
   next();
 });

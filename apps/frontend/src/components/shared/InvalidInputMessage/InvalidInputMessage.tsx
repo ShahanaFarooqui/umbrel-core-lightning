@@ -6,7 +6,7 @@ import { InformationSVG } from '../../../svgs/Information';
 const InvalidInputMessage = props => {
   return (
     <motion.div className='message invalid' variants={STAGERRED_SPRING_VARIANTS_2} initial='hidden' animate='visible' exit='hidden' custom={props.custom || 0}>
-      <InformationSVG svgClassName='me-1' className='fill-danger' />
+      <InformationSVG svgClassName='information-svg' className='fill-danger' />
       {props.message}
     </motion.div>
   );

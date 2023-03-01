@@ -7,7 +7,9 @@ import {
   COMMANDO_PUBKEY,
   COMMANDO_RUNE,
   COMMANDO_WS_PROXY,
+  Environment,
   HttpStatusCode,
+  NODE_ENV,
 } from '../shared/consts.js';
 import { logger } from '../shared/logger.js';
 
@@ -22,8 +24,8 @@ export class LightningService {
       port: COMMANDO_PORT,
       privateKey: COMMANDO_PRIVATE_KEY,
       logger: {
-        info: () => {},
-        warn: () => {},
+        info: NODE_ENV === Environment.DEVELOPMENT ? console.info : () => {},
+        warn: NODE_ENV === Environment.DEVELOPMENT ? console.warn : () => {},
         error: console.error,
       },
     });
