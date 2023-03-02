@@ -19,11 +19,9 @@ const useHttp = () => {
     return axiosInstance.get('/shared/rate/' + fiatUnit)
     .then((response: any) => {
       const foundCurrency = FIAT_CURRENCIES.find(curr => curr.currency === fiatUnit);
-      appCtx.setFiatConfig({ isLoading: false, symbol: (foundCurrency ? foundCurrency.symbol : faDollarSign), rate: response.data, error: null });
+      appCtx.setFiatConfig({ ...response.data, isLoading: false, symbol: (foundCurrency ? foundCurrency.symbol : faDollarSign), error: null });
     }).catch(err => {
-      appCtx.setFiatConfig({ isLoading: false, symbol: faDollarSign, 
-        error: err.response && err.response.data ? err.response.data : 
-        {isLoading: true, symbol: faDollarSign, rate: 1}});
+      appCtx.setFiatConfig({ isLoading: false, symbol: faDollarSign, rate: 1, venue: '', error: err.response && err.response.data ? err.response.data : ''});
     });
   }, [appCtx, axiosInstance]);
 

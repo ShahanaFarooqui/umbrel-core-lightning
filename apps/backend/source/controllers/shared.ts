@@ -2,7 +2,7 @@ import axios from 'axios';
 import * as fs from 'fs';
 import { Request, Response, NextFunction } from 'express';
 
-import { SETTINGS_FILE_PATH } from '../shared/consts.js';
+import { SETTINGS_FILE_PATH, FIAT_RATE_API, FIAT_VENUES } from '../shared/consts.js';
 import { logger } from '../shared/logger.js';
 import handleError from '../shared/error-handler.js';
 import { APIError } from '../models/errors.js';
@@ -30,14 +30,15 @@ class SharedController {
   getFiatRate(req: Request, res: Response, next: NextFunction) {
     try {
       logger.info('Getting Fiat Rate for: ' + req.params.fiatCurrency);
+      const FIAT_VENUE = FIAT_VENUES.hasOwnProperty(req.params.fiatCurrency)
+        ? FIAT_VENUES[req.params.fiatCurrency]
+        : 'COINGECKO';
       return axios
-        .get(
-          'https://min-api.cryptocompare.com/data/price?fsym=BTC&tsyms=' + req.params.fiatCurrency,
-        )
+        .get(FIAT_RATE_API + FIAT_VENUE + '/pairs/XBT/' + req.params.fiatCurrency)
         .then((response: any) => {
-          logger.info('Fiat Rate Response: ' + JSON.stringify(response.data));
-          if (response.data[req.params.fiatCurrency]) {
-            return res.status(200).json(response.data[req.params.fiatCurrency]);
+          logger.info('Fiat Response: ' + JSON.stringify(response.data));
+          if (response.data.rate) {
+            return res.status(200).json({ venue: FIAT_VENUE, rate: response.data.rate });
           } else {
             return handleError(new APIError('Price Not Found', 'Price Not Found'), req, res, next);
           }

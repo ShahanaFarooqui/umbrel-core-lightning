@@ -75,3 +75,11 @@ export const SETTINGS_FILE_PATH = join(
   'app',
   'app.config.json',
 );
+
+export const FIAT_RATE_API = 'https://green-bitcoin-mainnet.blockstream.com/prices/v0/venues/';
+export const FIAT_VENUES: any = {
+  USD: 'KRAKEN',
+  CAD: 'BULLBITCOIN',
+  EUR: 'KRAKEN',
+  NZD: 'KIWICOIN',
+};
