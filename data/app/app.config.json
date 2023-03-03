@@ -1,6 +1,6 @@
 {
   "unit": "SATS",
-  "fiatUnit": "CAD",
+  "fiatUnit": "USD",
   "appMode": "DARK",
   "isLoading": false,
   "error": null,

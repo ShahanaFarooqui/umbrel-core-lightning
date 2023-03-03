@@ -1,5 +1,5 @@
 import './FeerateRange.scss';
-import { useContext, useEffect, useState } from 'react';
+import { useContext } from 'react';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
@@ -13,20 +13,14 @@ import { InformationSVGRef } from '../../../svgs/Information';
 
 const FeerateRange = (props) => {
   const appCtx = useContext(AppContext);
-  const [recommendedfeeRate, setRecommendedfeeRate] = useState(FeeRate.NORMAL);
-  
-  useEffect(() => {
-    // Urgent: appCtx.feeRate.perkw?.unilateral_close
-    // Normal: appCtx.feeRate.perkw?.opening
-    // Slow: appCtx.feeRate.perkw?.min_acceptable
-    if (((appCtx.feeRate.perkw?.unilateral_close || 0) - (appCtx.feeRate.perkw?.opening || 0)) > 100) {
-      setRecommendedfeeRate(FeeRate.URGENT);
-    } else if (((appCtx.feeRate.perkw?.opening || 0) - (appCtx.feeRate.perkw?.min_acceptable || 0)) < 50) {
-      setRecommendedfeeRate(FeeRate.SLOW);
-    } else {
-      setRecommendedfeeRate(FeeRate.NORMAL);
-    }
-  }, [appCtx.feeRate.perkw]);
+
+  const getSelFeeRateValue = () => {
+    return (props.selFeeRate === FeeRate.SLOW) ? 
+      (appCtx.feeRate.perkb?.min_acceptable || 0) :
+      (props.selFeeRate === FeeRate.URGENT) ? 
+        (appCtx.feeRate.perkb?.unilateral_close || 0) :
+        (appCtx.feeRate.perkb?.opening || 0);
+  };
 
   return (
     <>
@@ -35,7 +29,7 @@ const FeerateRange = (props) => {
         <OverlayTrigger
           placement='right'
           delay={{ show: 300, hide: 300 }}
-          overlay={<Tooltip>Recommended {recommendedfeeRate}</Tooltip>}
+          overlay={<Tooltip>Recommended {props.recommendedfeeRate}</Tooltip>}
           >
           {({ ref, ...triggerHandler }) => (
             <span {...triggerHandler} >
@@ -49,14 +43,14 @@ const FeerateRange = (props) => {
           placement='top'
           delay={{ show: 300, hide: 300 }}
           overlay={
-            <Tooltip className='feerate-tooltip' data-feerate={props.feeRate}>
-              {props.feeRateValue} Sats/vB
+            <Tooltip className={'feerate-tooltip feerate-tooltip-' + props.selFeeRate}>
+              {Math.round(getSelFeeRateValue() / 1000)} Sats/vB
                ≈ 
-              <FiatBox className='ms-1' value={(props.feeRateValue || 0)} fromUnit={Units.SATS} symbol={appCtx.fiatConfig.symbol} rate={appCtx.fiatConfig.rate} />
+              <FiatBox className='ms-1' value={Math.round(getSelFeeRateValue()/1000 * 144)} fromUnit={Units.SATS} symbol={appCtx.fiatConfig.symbol} rate={appCtx.fiatConfig.rate} />
             </Tooltip>
             }
           >
-          <Form.Range tabIndex={props.tabIndex} className='slider-pic' id='feeRange' defaultValue={FEE_RATES.findIndex((fRate) => props.feeRate === fRate)} min='0' max='2' onChange={props.feeRateChangeHandler} />
+          <Form.Range tabIndex={props.tabIndex} className='slider-pic' id='feeRange' defaultValue={props.recommendedfeeRate === FeeRate.SLOW ? 0 : 1} min='0' max='2' onClick={props.selFeeRateChangeHandler} onChange={props.selFeeRateChangeHandler} />
         </OverlayTrigger>
       </div>
       <Row className='d-flex align-items-start justify-content-between'>

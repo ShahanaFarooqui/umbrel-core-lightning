@@ -44,7 +44,7 @@ const ChannelDetails = (props) => {
         setResponseMessage('Channel ' + response.data.type + ' closed' + (response.data.txid ? (' with transaction id ' + response.data.txid) : ''));
       } else {
         setResponseStatus(CallStatus.ERROR);
-        setResponseMessage('Unknown Error');
+        setResponseMessage(response.message || 'Unknown Error');
       }
     })
     .catch(err => {

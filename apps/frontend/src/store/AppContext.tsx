@@ -250,10 +250,10 @@ const appReducer = (state, action) => {
       };
 
     case ApplicationActions.SET_FEE_RATE:
-      // if(action.payload && action.payload.perkw) {
-      //   action.payload.perkw.unilateral_close = 400;
-      //   action.payload.perkw.opening = 253;
-      //   action.payload.perkw.min_acceptable = 240;
+      // if(action.payload && action.payload.perkb) {
+      //   action.payload.perkb.unilateral_close = 26624;
+      //   action.payload.perkb.opening = 25172;
+      //   action.payload.perkb.min_acceptable = 7900;
       // }
       return {
         ...state,

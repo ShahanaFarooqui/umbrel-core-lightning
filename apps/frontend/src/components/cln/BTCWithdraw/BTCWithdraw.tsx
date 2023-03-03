@@ -85,7 +85,7 @@ const BTCWithdraw = (props) => {
         resetFormValues();
       } else {
         setResponseStatus(CallStatus.ERROR);
-        setResponseMessage('Unknown Error');
+        setResponseMessage(response.message || 'Unknown Error');
       }
     })
     .catch(err => {

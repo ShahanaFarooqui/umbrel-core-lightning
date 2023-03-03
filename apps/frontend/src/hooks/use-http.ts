@@ -7,6 +7,8 @@ import { ApplicationConfiguration } from '../types/app-config.type';
 import { faDollarSign } from '@fortawesome/free-solid-svg-icons';
 import dummyDataFromJSON from '../z-dummy-data/dummy.data.json';
 
+let CSRF_TOKEN = '';
+
 const useHttp = () => {
   const appCtx = useContext(AppContext);
   let axiosInstance = axios.create({
@@ -27,6 +29,7 @@ const useHttp = () => {
 
   const sendRequestToSetStore = useCallback((setStoreFunction: any, method: string, url: string, reqBody: any = null) => {
     try {
+      axiosInstance.defaults.headers.post = { 'X-XSRF-TOKEN': CSRF_TOKEN };
       axiosInstance(url, {method: method, data: reqBody}).then((response: any) => {
         logger.info(response);
         if(url === '/shared/config') {
@@ -67,10 +70,11 @@ const useHttp = () => {
     sendRequestToSetStore(appCtx.setListPayments, 'post', '/cln/call', { 'method': 'listsendpays', 'params': [] });
     sendRequestToSetStore(appCtx.setListFunds, 'post', '/cln/call', { 'method': 'listfunds', 'params': [] });
     sendRequestToSetStore(appCtx.setListBitcoinTransactions, 'post', '/cln/call', { 'method': 'bkpr-listaccountevents', 'params': [] });
-    sendRequestToSetStore(appCtx.setFeeRate, 'post', '/cln/call', { 'method': 'feerates', 'params': ['perkw'] });
+    sendRequestToSetStore(appCtx.setFeeRate, 'post', '/cln/call', { 'method': 'feerates', 'params': ['perkb'] });
   }, [appCtx, sendRequestToSetStore]);
 
   const updateConfig = (updatedConfig: ApplicationConfiguration) => {
+    axiosInstance.defaults.headers.post = { 'X-XSRF-TOKEN': CSRF_TOKEN };
     axiosInstance.post('/shared/config', updatedConfig)
     .then((response: any) => {
       if(appCtx.appConfig.fiatUnit !== updatedConfig.fiatUnit) {
@@ -84,6 +88,7 @@ const useHttp = () => {
 
   const sendRequest = useCallback((flgRefreshData: boolean, method: string, url: string, reqBody: any = null) => {
     try {
+      axiosInstance.defaults.headers.post = { 'X-XSRF-TOKEN': CSRF_TOKEN };
       return axiosInstance(url, {method: method, data: reqBody, timeout: 30000}).then(res => {
         if (flgRefreshData) { fetchData(); }
         return res;
@@ -140,7 +145,8 @@ const useHttp = () => {
   const setCSRFToken = () => {
     try {
       return axiosInstance.get('/shared/csrf').then(res => {
-        return axiosInstance.defaults.headers.post = { 'X-XSRF-TOKEN': res.data.csrfToken };
+        CSRF_TOKEN = res.data.csrfToken;
+        return CSRF_TOKEN;
       }).catch(err => {
         logger.error(err);
         return err;

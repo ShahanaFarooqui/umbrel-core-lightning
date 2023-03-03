@@ -26,7 +26,7 @@ const BTCDeposit = (props) => {
         setResponseMessage((response.data.bech32));
       } else {
         setResponseStatus(CallStatus.ERROR);
-        setResponseMessage('Unknown Error');
+        setResponseMessage(response.message || 'Unknown Error');
       }
     })
     .catch(err => {

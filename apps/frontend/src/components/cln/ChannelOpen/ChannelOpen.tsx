@@ -11,7 +11,7 @@ import Spinner from 'react-bootstrap/Spinner';
 import logger from '../../../services/logger.service';
 import useInput from '../../../hooks/use-input';
 import useHttp from '../../../hooks/use-http';
-import { CallStatus, FeeRate, FEE_RATES, BOUNCY_SPRING_VARIANTS_1 } from '../../../utilities/constants';
+import { CallStatus, FeeRate, BOUNCY_SPRING_VARIANTS_1 } from '../../../utilities/constants';
 import { AppContext } from '../../../store/AppContext';
 import { ActionSVG } from '../../../svgs/Action';
 import { AmountSVG } from '../../../svgs/Amount';
@@ -26,11 +26,8 @@ import FeerateRange from '../../shared/FeerateRange/FeerateRange';
 const ChannelOpen = (props) => {
   const appCtx = useContext(AppContext);
   const { openChannel } = useHttp();
-  const [feeRate, setFeeRate] = useState(FeeRate.NORMAL);
-  const [feeRateValue, setFeeRateValue] = useState(
-    props.feeRate === FeeRate.SLOW ? appCtx.feeRate.perkw?.min_acceptable :
-    props.feeRate === FeeRate.URGENT ? appCtx.feeRate.perkw?.unilateral_close : appCtx.feeRate.perkw?.opening);
-
+  const [selFeeRate, setSelFeeRate] = useState(FeeRate.NORMAL)
+  const [recommendedfeeRate, setRecommendedfeeRate] = useState(FeeRate.NORMAL);
   const [announce, setAnnounce] = useState(true);
   const [responseStatus, setResponseStatus] = useState(CallStatus.NONE);
   const [responseMessage, setResponseMessage] = useState('');
@@ -61,25 +58,32 @@ const ChannelOpen = (props) => {
   };
   
   useEffect(() => {
-    // Urgent: appCtx.feeRate.perkw?.unilateral_close
-    // Normal: appCtx.feeRate.perkw?.opening
-    // Slow: appCtx.feeRate.perkw?.min_acceptable
-    if (((appCtx.feeRate.perkw?.unilateral_close || 0) - (appCtx.feeRate.perkw?.opening || 0)) > 100) {
-      setFeeRate(FeeRate.URGENT);
-      setFeeRateValue(appCtx.feeRate.perkw?.unilateral_close);
-    } else if (((appCtx.feeRate.perkw?.opening || 0) - (appCtx.feeRate.perkw?.min_acceptable || 0)) < 50) {
-      setFeeRate(FeeRate.SLOW);
-      setFeeRateValue(appCtx.feeRate.perkw?.min_acceptable);
+    // if (((appCtx.feeRate.perkb?.unilateral_close || 0) - (appCtx.feeRate.perkb?.opening || 0)) > 5000) {
+    //   setSelFeeRate(FeeRate.URGENT);
+    //   setRecommendedfeeRate(FeeRate.URGENT);
+    // }
+    if (((appCtx.feeRate.perkb?.opening || 0) - (appCtx.feeRate.perkb?.min_acceptable || 0)) < 5000) {
+      setSelFeeRate(FeeRate.SLOW);
+      setRecommendedfeeRate(FeeRate.SLOW);
     } else {
-      setFeeRate(FeeRate.NORMAL);
-      setFeeRateValue(appCtx.feeRate.perkw?.opening);
+      setSelFeeRate(FeeRate.NORMAL);
+      setRecommendedfeeRate(FeeRate.NORMAL);
     }
-  }, [appCtx.feeRate.perkw]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-  const feeRateChangeHandler = (event) => {
-    setFeeRate(FEE_RATES[+event.target.value]);
-    setFeeRateValue(FEE_RATES[+event.target.value] === FeeRate.SLOW ? appCtx.feeRate.perkw?.min_acceptable :
-      FEE_RATES[+event.target.value] === FeeRate.URGENT ? appCtx.feeRate.perkw?.unilateral_close : appCtx.feeRate.perkw?.opening);
+  const selFeeRateChangeHandler = (event) => {
+    switch (+(event.target.value)) {
+      case 0:
+        setSelFeeRate(FeeRate.SLOW);
+        break;
+      case 2:
+        setSelFeeRate(FeeRate.URGENT);
+        break;
+      default:
+        setSelFeeRate(FeeRate.NORMAL);
+        break;
+    }
   };
 
   const touchFormControls = () => {
@@ -91,8 +95,7 @@ const ChannelOpen = (props) => {
     resetPubkey();
     resetAmount();
     setAnnounce(true);
-    setFeeRate(FeeRate.NORMAL);
-    setFeeRateValue(appCtx.feeRate.perkw?.opening);
+    setSelFeeRate(FeeRate.NORMAL);
   };
 
   const ChannelOpenHandler = (event) => {
@@ -101,7 +104,7 @@ const ChannelOpen = (props) => {
     if (!formIsValid) { return; }
     setResponseStatus(CallStatus.PENDING);
     setResponseMessage('Opening Channel...');
-    openChannel(pubkeyValue, +amountValue, feeRate.toLowerCase(), announce)
+    openChannel(pubkeyValue, +amountValue, selFeeRate.toLowerCase(), announce)
     .then((response: any) => {
       logger.info(response);
       if (response.data && (response.data.channel_id || response.data.txid)) {
@@ -110,7 +113,7 @@ const ChannelOpen = (props) => {
         resetFormValues();
       } else {
         setResponseStatus(CallStatus.ERROR);
-        setResponseMessage('Unknown Error');
+        setResponseMessage(response.message || 'Unknown Error');
       }
     })
     .catch(err => {
@@ -200,7 +203,7 @@ const ChannelOpen = (props) => {
                   </div>
                 </Col>
                 <Col xs={12}>
-                  <FeerateRange tabIndex={4} feeRate={feeRate} feeRateValue={feeRateValue} feeRateChangeHandler={feeRateChangeHandler} />
+                  <FeerateRange tabIndex={4} recommendedfeeRate={recommendedfeeRate} selFeeRate={selFeeRate} selFeeRateChangeHandler={selFeeRateChangeHandler} />
                 </Col>
               </Row>
               <StatusAlert responseStatus={responseStatus} responseMessage={responseMessage} />

@@ -36,11 +36,11 @@
 }
 
 .tooltip.bs-tooltip-top.feerate-tooltip {
-  &[data-feerate='Slow'] {
-    left: -6.2vw !important;
+  &.feerate-tooltip-Slow {
+    left: -6.7vw !important;
   }
-  &[data-feerate='Urgent'] {
-    left: 6.2vw !important;
+  &.feerate-tooltip-Urgent {
+    left: 6.7vw !important;
   }
   & .tooltip-inner {
     margin-bottom: 0.5rem;
