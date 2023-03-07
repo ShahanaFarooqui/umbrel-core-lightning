@@ -8,5 +8,5 @@ data/app/app.config.json
 data/lightning/config
 data/lightning/lightningd-regtest.pid
 data/lightning/regtest/*
-data/app/app.config.json
 data/cln/config
+data/lightning/log
