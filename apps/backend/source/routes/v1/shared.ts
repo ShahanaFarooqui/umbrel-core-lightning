@@ -1,7 +1,7 @@
 import express from 'express';
 import { CommonRoutesConfig } from '../../shared/routes.config.js';
 import SharedController from '../../controllers/shared.js';
-import { API_VERSION, Environment, NODE_ENV } from '../../shared/consts.js';
+import { API_VERSION } from '../../shared/consts.js';
 
 const SHARED_ROUTE = '/shared';
 

@@ -1,45 +1,32 @@
-# Build backend
-FROM node:16-buster-slim AS backend-builder
+# Build Stage
+FROM node:16-buster-slim AS umbrel-lightning-builder
 
 # Create app directory
 WORKDIR /app
 
-# Copy package.json and install dependencies
-COPY package.json ./
-COPY apps/backend/package.json ./apps/backend/package.json
-RUN npm install
 # Copy project files and folders
-COPY apps/backend ./apps/backend
-
-# Build backend
-RUN yarn run backend:build
-
-# Build frontend
-FROM node:16-buster-slim AS frontend-builder
-
-# Create app directory
-WORKDIR /app
-
-# Copy package.json and install dependencies
+COPY apps/backend ./backend
+COPY apps/frontend ./frontend
 COPY package.json ./
-COPY apps/frontend/package.json ./apps/frontend/package.json
+
+# Install dependencies
 RUN npm install
 
-# Copy project files and folders
-COPY apps/frontend ./apps/frontend
+# Copy project files and folders to the current working directory (i.e. '/app')
+COPY . .
 
 # Build assets
-RUN yarn run frontend:build
+RUN npm run build
 
 # Final image
-FROM node:16-buster-slim AS lightning
+FROM node:16-buster-slim AS umbrel-lightning
+
+# Copy built code from build stages to '/app' directory
+COPY --from=umbrel-lightning-builder /app /app
 
 # Change directory to '/app' 
 WORKDIR /app
 
-# Copy built code from build stages to '/app' directory
-COPY --from=backend-builder /app/apps/backend/dist/ /app/apps/backend/dist/
-COPY --from=frontend-builder /app/apps/frontend/build/ /app/apps/frontend/build/
-
 EXPOSE 3007
+
 CMD [ "npm", "run", "start" ]

@@ -3,11 +3,10 @@ node_modules
 dist
 build
 data/bitcoin/regtest
-data/cln/regtest
-data/cln/lightningd-regtest.pid
-data/cln/log
-data/cln/rune
-
-apps/backend/source/shared/consts.ts
-apps/backend/dist/shared/consts.js
+data/app/store.json
 data/app/app.config.json
+data/lightning/config
+data/lightning/lightningd-regtest.pid
+data/lightning/regtest/*
+data/app/app.config.json
+data/cln/config

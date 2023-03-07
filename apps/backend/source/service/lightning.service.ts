@@ -1,16 +1,7 @@
+import * as crypto from 'crypto';
 import Lnmessage from 'lnmessage';
 import { LightningError } from '../models/errors.js';
-import {
-  COMMANDO_IP,
-  COMMANDO_PORT,
-  COMMANDO_PRIVATE_KEY,
-  COMMANDO_PUBKEY,
-  COMMANDO_RUNE,
-  COMMANDO_WS_PROXY,
-  Environment,
-  HttpStatusCode,
-  NODE_ENV,
-} from '../shared/consts.js';
+import { Environment, HttpStatusCode, APP_CONSTANTS } from '../shared/consts.js';
 import { logger } from '../shared/logger.js';
 
 export class LightningService {
@@ -18,14 +9,14 @@ export class LightningService {
 
   constructor() {
     this.lnMessage = new Lnmessage({
-      remoteNodePublicKey: COMMANDO_PUBKEY,
-      wsProxy: COMMANDO_WS_PROXY,
-      ip: COMMANDO_IP,
-      port: COMMANDO_PORT,
-      privateKey: COMMANDO_PRIVATE_KEY,
+      remoteNodePublicKey: APP_CONSTANTS.NODE_PUBKEY,
+      wsProxy: 'ws://' + APP_CONSTANTS.LOCAL_HOST + ':' + APP_CONSTANTS.LIGHTNING_WEBSOCKET_PORT,
+      ip: APP_CONSTANTS.LOCAL_HOST,
+      port: +APP_CONSTANTS.LIGHTNING_WEBSOCKET_PORT,
+      privateKey: crypto.randomBytes(32).toString('hex'),
       logger: {
-        info: NODE_ENV === Environment.DEVELOPMENT ? console.info : () => {},
-        warn: NODE_ENV === Environment.DEVELOPMENT ? console.warn : () => {},
+        info: APP_CONSTANTS.APPLICATION_MODE === Environment.DEVELOPMENT ? console.info : () => {},
+        warn: APP_CONSTANTS.APPLICATION_MODE === Environment.DEVELOPMENT ? console.warn : () => {},
         error: console.error,
       },
     });
@@ -37,7 +28,7 @@ export class LightningService {
       .commando({
         method: method,
         params: methodParams,
-        rune: COMMANDO_RUNE,
+        rune: APP_CONSTANTS.LIGHTNING_RUNE,
       })
       .then((commandRes: any) => {
         logger.info('Command Res for ' + method + ': ' + JSON.stringify(commandRes));

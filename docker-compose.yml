@@ -2,41 +2,35 @@ version: "3.7"
 
 services:
 
-  # app:
-  #   build:
-  #     dockerfile: ./Dockerfile
-  #     context: ./
-  #   command: npm run start
-  #   restart: on-failure
-  #   volumes:
-  #     - ${PWD}/data/cln:/cln/.lightning
-  #     - ${PWD}/data/app:/data
-  #   environment:
-  #     PORT: "3007"
-  #     BITCOIN_HOST: "bitcoind"
-  #     RPC_PORT: "18443"
-  #     RPC_USER: "usr"
-  #     RPC_PASSWORD: "usr"
-  #     CLN_NETWORK: "regtest"
-  #     CLN_HOST: "cln"
-  #     CHANNEL_BACKUP_FILE: /data/.lightning/channel.backup
-  #     BACKUP_STATUS_FILE: /data/.lightning/backup-status.json
-  #     JSON_STORE_FILE: /data/app/state.json
-  #     EXPLORER_PORT: 1235
-  #     EXPLORER_HIDDEN_SERVICE: 'mempool.onion'
-  #     TOR_PROXY_IP: tor
-  #     TOR_PROXY_PORT: 9051
-  #     DEVICE_HOSTNAME: test.local
-  #   ports:
-  #     - "3007:3007"
+  app:
+    build:
+      dockerfile: ./Dockerfile
+      context: ./
+    command: npm run start
+    restart: on-failure
+    volumes:
+      - ${PWD}/data/lightning:/data/.lightning
+      - ${PWD}/data/app:/data/app
+    environment:
+      PORT: "3007"
+      LIGHTNING_HOST: "lightning"
+      LIGHTNING_NETWORK: "regtest"
+      LOCAL_HOST: http://core-lightning-test.local    
+      JSON_STORE_FILE: /data/app/store.json
+      LIGHTNING_LOCAL_SERVICE: "umbrel.local"
+      LIGHTNING_RUNE: "NZ0wOuBtKlKdmQ_MBsME6Hlbo0kKYNNBo8gUZFYuFpI9MA=="
+      NODE_PUBKEY: "034c46fcb1a954ca34f61a3248c1854ff7f97b27217ffa9c9caafa81f78c772894"
+      LIGHTNING_WEBSOCKET_PORT: 5001
+    ports:
+      - "3007:3007"
 
   cln:
-    image: lncm/clightning:latest@sha256:7f3a3719ab6948451e92613ecb92aba5f8a2d145a7de0eb58992855fc1d7eb65
+    image: lncm/clightning:v22.11.1@sha256:e9939341ca6736566e0499db5a339b25140d6e77fb16ab202c217112f0df9b77
     user: 1000:1000
     hostname: cln
     command: --network=regtest --lightning-dir=/data/.lightning
     volumes:
-      - ${PWD}/data/cln:/data/.lightning
+      - ${PWD}/data/lightning:/data/.lightning
     environment:
       HOME: /data
 

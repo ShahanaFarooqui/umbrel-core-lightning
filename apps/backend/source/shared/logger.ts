@@ -1,5 +1,5 @@
 import winston from 'winston';
-import { NODE_ENV, LOG_FILE, Environment } from './consts.js';
+import { Environment, APP_CONSTANTS } from './consts.js';
 
 export const enum LogLevel {
   ERROR = 'error',
@@ -13,9 +13,9 @@ export const logConfiguration = {
   transports: [
     new winston.transports.Console({
       level:
-        NODE_ENV === Environment.PRODUCTION
+        APP_CONSTANTS.APPLICATION_MODE === Environment.PRODUCTION
           ? LogLevel.WARN
-          : NODE_ENV === Environment.TESTING
+          : APP_CONSTANTS.APPLICATION_MODE === Environment.TESTING
           ? LogLevel.INFO
           : LogLevel.DEBUG,
       format: winston.format.combine(
@@ -27,11 +27,11 @@ export const logConfiguration = {
       ),
     }),
     new winston.transports.File({
-      filename: LOG_FILE,
+      filename: APP_CONSTANTS.LOG_FILE_LOCATION,
       level:
-        NODE_ENV === Environment.PRODUCTION
+        APP_CONSTANTS.APPLICATION_MODE === Environment.PRODUCTION
           ? LogLevel.WARN
-          : NODE_ENV === Environment.TESTING
+          : APP_CONSTANTS.APPLICATION_MODE === Environment.TESTING
           ? LogLevel.INFO
           : LogLevel.DEBUG,
       format: winston.format.combine(
@@ -47,19 +47,10 @@ export const logConfiguration = {
 
 export const expressLogConfiguration = {
   ...logConfiguration,
-  meta: NODE_ENV !== Environment.PRODUCTION,
+  meta: APP_CONSTANTS.APPLICATION_MODE !== Environment.PRODUCTION,
   message: 'HTTP {{res.statusCode}} {{req.method}} {{res.responseTime}}ms {{req.url}}',
   expressFormat: false,
   colorize: true,
 };
 
 export const logger = winston.createLogger(logConfiguration);
-
-// export class LoggerService {
-//   public logger: any = null;
-//   constructor() {
-//     this.logger = winston.createLogger(logConfiguration);
-//   }
-// }
-
-// export const logger = new LoggerService().logger;

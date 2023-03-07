@@ -13,7 +13,7 @@ import { CommonRoutesConfig } from './shared/routes.config.js';
 import { LightningRoutes } from './routes/v1/lightning.js';
 import { SharedRoutes } from './routes/v1/shared.js';
 import { APIError } from './models/errors.js';
-import { Environment, NODE_ENV } from './shared/consts.js';
+import { Environment, APP_CONSTANTS } from './shared/consts.js';
 import handleError from './shared/error-handler.js';
 
 let directoryName = dirname(fileURLToPath(import.meta.url));
@@ -61,7 +61,7 @@ app.use((req, res, next) => {
 const corsOptions = {
   methods: 'GET, POST, PATCH, PUT, DELETE, OPTIONS',
   origin:
-    NODE_ENV === Environment.DEVELOPMENT
+    APP_CONSTANTS.APPLICATION_MODE === Environment.DEVELOPMENT
       ? 'http://' + CLN_HOST + ':4300'
       : 'http://' + CLN_HOST + ':' + CLN_PORT,
   credentials: true,

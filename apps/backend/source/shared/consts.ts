@@ -1,4 +1,3 @@
-import * as crypto from 'crypto';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 
@@ -7,50 +6,6 @@ export enum Environment {
   TESTING = 'testing',
   DEVELOPMENT = 'development',
 }
-
-export const API_VERSION = '/v1';
-export const NODE_ENV: Environment = Environment.DEVELOPMENT;
-export const LOG_FILE = './dist/logs/cln-backend-' + new Date().toISOString() + '.log';
-
-// Local Development Testnet 1 (workspace/.lightning/l1-testnet)
-// export const COMMANDO_PUBKEY = '02b412142c42c143aad5805af68f214ec890398f982128c9921ee87e242177c2e6';
-// export const COMMANDO_WS_PROXY = 'ws://0.0.0.0:5010';
-// export const COMMANDO_IP = '0.0.0.0';
-// export const COMMANDO_PORT = 5010;
-// export const COMMANDO_RUNE = 'C1u62m6GVNHTobTsOl6X7sZQgAsyxM99XPwD1p6zbu09Ng==';
-// export const COMMANDO_PRIVATE_KEY = crypto.randomBytes(32).toString('hex');
-
-// // Local TESTNET 1
-export const COMMANDO_PUBKEY = '037610b58f47e78ea5178e56f4c793656da5cf093d6269a37f5b0709b7d610e627';
-export const COMMANDO_WS_PROXY = 'ws://0.0.0.0:5001';
-export const COMMANDO_IP = '0.0.0.0';
-export const COMMANDO_PORT = 5001;
-export const COMMANDO_RUNE = 'bfoeiPMx3rZslYvQZq6hjtDXRMmT_JKxEgXDHjLRpyU9MA==';
-export const COMMANDO_PRIVATE_KEY = crypto.randomBytes(32).toString('hex');
-
-// // Local TESTNET 2
-// export const COMMANDO_PUBKEY = '027bff0162504153dd48cb92a13d2ea781a7f33a014678beeb43a328c88e21bd7f';
-// export const COMMANDO_WS_PROXY = 'ws://0.0.0.0:5002';
-// export const COMMANDO_IP = '0.0.0.0';
-// export const COMMANDO_PORT = 5002;
-// export const COMMANDO_RUNE = 'EnY-PL3S27YClWAuGTQQdjHUutOe-fb1YooiD3jyyuE9MQ==';
-// export const COMMANDO_PRIVATE_KEY = crypto.randomBytes(32).toString('hex');
-
-// // Local REGTEST 1
-// export const COMMANDO_RUNE = 'Am3W_wI0PRn4qVNEsJ2iInHyFPQK8wfdqEXztm8-icQ9MA==';
-// export const COMMANDO_PUBKEY = '0233263e392b38d0d905e8b35cead00063e8a6b7601d2d2bc3b97348e39026178c';
-// export const COMMANDO_WS_PROXY = 'ws://0.0.0.0:5001';
-// export const COMMANDO_IP = '0.0.0.0';
-// export const COMMANDO_PORT = 5001;
-// export const COMMANDO_PRIVATE_KEY = crypto.randomBytes(32).toString('hex');
-
-// Remote TESTNET from Box
-// export const COMMANDO_RUNE = 'zIhp8zW8jGx6OOfBiN8dg0zRnVb9Hw2AWhVwEDAx6bM9MQ=='; //Full access
-// export const COMMANDO_PUBKEY = '031844beb16bf8dd8c7bc30588b8c37b36e62b71c6e812e9b6d976c0a57e151be2';
-// export const COMMANDO_WS_PROXY = 'ws://192.168.1.89:5050';
-// export const COMMANDO_IP = '192.168.1.89';
-// export const COMMANDO_PORT = 5050;
-// export const COMMANDO_PRIVATE_KEY = crypto.randomBytes(32).toString('hex');
 
 export enum HttpStatusCode {
   GET_OK = 200,
@@ -65,17 +20,41 @@ export enum HttpStatusCode {
   CLN_SERVER = 521,
 }
 
-export const SETTINGS_FILE_PATH = join(
-  dirname(fileURLToPath(import.meta.url)),
-  '..',
-  '..',
-  '..',
-  '..',
-  'data',
-  'app',
-  'app.config.json',
-);
+export const APP_CONSTANTS = {
+  REQUEST_CORRELATION_NAMESPACE_KEY: 'umbrel-lightning-request',
+  REQUEST_CORRELATION_ID_KEY: 'reqId',
+  LIGHTNING_NETWORK: process.env.LIGHTNING_NETWORK || 'mainnet',
+  LOCAL_HOST: process.env.LOCAL_HOST || '0.0.0.0',
+  LIGHTNING_RUNE: process.env.LIGHTNING_RUNE || 'bfoeiPMx3rZslYvQZq6hjtDXRMmT_JKxEgXDHjLRpyU9MA==',
+  NODE_PUBKEY:
+    process.env.NODE_PUBKEY || '037610b58f47e78ea5178e56f4c793656da5cf093d6269a37f5b0709b7d610e627',
+  LIGHTNING_WEBSOCKET_PORT: process.env.LIGHTNING_WEBSOCKET_PORT || 5001,
+  APPLICATION_MODE: process.env.APPLICATION_MODE || Environment.DEVELOPMENT,
+  LOG_FILE_LOCATION:
+    process.env.LOG_FILE_LOCATION ||
+    join(
+      dirname(fileURLToPath(import.meta.url)),
+      'apps',
+      'backend',
+      'dist',
+      'logs',
+      'cln-' + new Date().toISOString() + '.log',
+    ),
+  JSON_STORE_FILE:
+    process.env.JSON_STORE_FILE ||
+    join(
+      dirname(fileURLToPath(import.meta.url)),
+      '..',
+      '..',
+      '..',
+      '..',
+      'data',
+      'app',
+      'store.json',
+    ),
+};
 
+export const API_VERSION = '/v1';
 export const FIAT_RATE_API = 'https://green-bitcoin-mainnet.blockstream.com/prices/v0/venues/';
 export const FIAT_VENUES: any = {
   USD: 'KRAKEN',
