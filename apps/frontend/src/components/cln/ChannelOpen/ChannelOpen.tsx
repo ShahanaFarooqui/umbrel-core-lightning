@@ -1,5 +1,5 @@
 import './ChannelOpen.scss';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import { motion } from 'framer-motion';
 import Card from 'react-bootstrap/Card';
 import Row from 'react-bootstrap/Row';
