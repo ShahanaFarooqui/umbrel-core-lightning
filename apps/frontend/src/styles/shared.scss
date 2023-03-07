@@ -324,6 +324,9 @@ svg {
       width: 0.25rem;
     }
   }
+  &.ps-show-always.ps.ps--active-x > .ps__rail-x {
+    display: none !important;
+  }
 }
 
 .modal.modal-md, .modal.modal-lg, .modal.modal-xl, .modal.modal-xxl {

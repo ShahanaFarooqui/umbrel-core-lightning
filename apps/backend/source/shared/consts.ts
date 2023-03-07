@@ -13,11 +13,11 @@ export const NODE_ENV: Environment = Environment.DEVELOPMENT;
 export const LOG_FILE = './dist/logs/cln-backend-' + new Date().toISOString() + '.log';
 
 // Local Development Testnet 1 (workspace/.lightning/l1-testnet)
-// export const COMMANDO_PUBKEY = '03e42b5719166ad3c8f71ab6da493b25eb0f1e8fca342bcbb132dcd251b367ac9d';
+// export const COMMANDO_PUBKEY = '02b412142c42c143aad5805af68f214ec890398f982128c9921ee87e242177c2e6';
 // export const COMMANDO_WS_PROXY = 'ws://0.0.0.0:5010';
 // export const COMMANDO_IP = '0.0.0.0';
 // export const COMMANDO_PORT = 5010;
-// export const COMMANDO_RUNE = 'HIu-zMlCRFuYlZGIlrjxE2G7aD7GtIBeKN1tUYszy7o9MQ==';
+// export const COMMANDO_RUNE = 'C1u62m6GVNHTobTsOl6X7sZQgAsyxM99XPwD1p6zbu09Ng==';
 // export const COMMANDO_PRIVATE_KEY = crypto.randomBytes(32).toString('hex');
 
 // // Local TESTNET 1

@@ -55,7 +55,7 @@ const Overview = () => {
                 { appCtx.walletBalances.isLoading ? 
                   <Spinner animation='grow' variant='secondary' /> : 
                   appCtx.walletBalances.error ? 
-                    <Alert className='py-0 px-1 fs-8' variant='danger'>{appCtx.walletBalances.error}</Alert> : 
+                    <Alert className='py-0 px-1 fs-7' variant='danger'>{appCtx.walletBalances.error}</Alert> : 
                     <CurrencyBox value={(appCtx.walletBalances.btcSpendableBalance || 0) + (appCtx.walletBalances.clnLocalBalance || 0)} shorten={false} rootClasses='d-inline-flex flex-column' currencyClasses='lh-1 fs-4 fw-bold' unitClasses='fs-7 fw-bold'></CurrencyBox>
                 }
               </Col>
@@ -79,7 +79,7 @@ const Overview = () => {
                       { appCtx.listChannels.isLoading ? 
                         <Spinner animation='grow' variant='primary' /> : 
                         appCtx.listChannels.error ? 
-                          <Alert className='py-0 px-1 fs-8' variant='danger'>{appCtx.listChannels.error}</Alert> : 
+                          <Alert className='py-0 px-1 fs-7' variant='danger'>{appCtx.listChannels.error}</Alert> : 
                           <motion.div>{roundedChannels}</motion.div>
                       }
                     </div>
@@ -95,7 +95,7 @@ const Overview = () => {
                     { appCtx.listPeers.isLoading ? 
                       <Spinner animation='grow' variant='primary' /> : 
                       appCtx.listPeers.error ? 
-                        <Alert className='py-0 px-1 fs-8' variant='danger'>{appCtx.listPeers.error}</Alert> : 
+                        <Alert className='py-0 px-1 fs-7' variant='danger'>{appCtx.listPeers.error}</Alert> : 
                         <motion.div>{roundedPeers}</motion.div>
                     }
                     </div>
@@ -111,7 +111,7 @@ const Overview = () => {
                       { appCtx.walletBalances.isLoading ? 
                           <Spinner animation='grow' variant='primary' /> : 
                         appCtx.walletBalances.error ? 
-                          <Alert className='py-0 px-1 fs-8' variant='danger'>{appCtx.walletBalances.error}</Alert> : 
+                          <Alert className='py-0 px-1 fs-7' variant='danger'>{appCtx.walletBalances.error}</Alert> : 
                           <CurrencyBox value={appCtx.walletBalances.clnLocalBalance} shorten={true} rootClasses='d-inline-flex flex-row align-items-center' currencyClasses='fw-bold text-dark-primary' unitClasses='fw-bold ms-2 text-dark-primary'></CurrencyBox>
                       }
                     </div>
@@ -120,7 +120,7 @@ const Overview = () => {
                       { appCtx.walletBalances.isLoading ? 
                           <Spinner animation='grow' variant='primary' /> : 
                         appCtx.walletBalances.error ? 
-                          <Alert className='py-0 px-1 fs-8' variant='danger'>{appCtx.walletBalances.error}</Alert> : 
+                          <Alert className='py-0 px-1 fs-7' variant='danger'>{appCtx.walletBalances.error}</Alert> : 
                           <CurrencyBox value={appCtx.walletBalances.clnRemoteBalance} shorten={true} rootClasses='d-inline-flex flex-row align-items-center' currencyClasses='fw-bold text-dark-primary' unitClasses='fw-bold ms-2 text-dark-primary'></CurrencyBox>
                       }
                     </div>

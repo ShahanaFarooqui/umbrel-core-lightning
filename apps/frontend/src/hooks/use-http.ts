@@ -7,15 +7,14 @@ import { ApplicationConfiguration } from '../types/app-config.type';
 import { faDollarSign } from '@fortawesome/free-solid-svg-icons';
 import dummyDataFromJSON from '../z-dummy-data/dummy.data.json';
 
-let CSRF_TOKEN = '';
+const axiosInstance = axios.create({
+  baseURL: API_BASE_URL + API_VERSION,
+  timeout: 15000,
+  withCredentials: true
+});
 
 const useHttp = () => {
   const appCtx = useContext(AppContext);
-  let axiosInstance = axios.create({
-    baseURL: API_BASE_URL + API_VERSION,
-    timeout: 15000,
-    withCredentials: true
-  });
 
   const getFiatRate = useCallback((fiatUnit: string) => {
     return axiosInstance.get('/shared/rate/' + fiatUnit)
@@ -25,11 +24,10 @@ const useHttp = () => {
     }).catch(err => {
       appCtx.setFiatConfig({ isLoading: false, symbol: faDollarSign, rate: 1, venue: '', error: err.response && err.response.data ? err.response.data : ''});
     });
-  }, [appCtx, axiosInstance]);
+  }, [appCtx]);
 
   const sendRequestToSetStore = useCallback((setStoreFunction: any, method: string, url: string, reqBody: any = null) => {
     try {
-      axiosInstance.defaults.headers.post = { 'X-XSRF-TOKEN': CSRF_TOKEN };
       axiosInstance(url, {method: method, data: reqBody}).then((response: any) => {
         logger.info(response);
         if(url === '/shared/config') {
@@ -61,7 +59,7 @@ const useHttp = () => {
       setStoreFunction({ isLoading: false, error: err });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [getFiatRate, axiosInstance]);
+  }, [getFiatRate]);
 
   const fetchData = useCallback(() => {
     sendRequestToSetStore(appCtx.setNodeInfo, 'post', '/cln/call', { 'method': 'getinfo', 'params': [] });
@@ -74,7 +72,6 @@ const useHttp = () => {
   }, [appCtx, sendRequestToSetStore]);
 
   const updateConfig = (updatedConfig: ApplicationConfiguration) => {
-    axiosInstance.defaults.headers.post = { 'X-XSRF-TOKEN': CSRF_TOKEN };
     axiosInstance.post('/shared/config', updatedConfig)
     .then((response: any) => {
       if(appCtx.appConfig.fiatUnit !== updatedConfig.fiatUnit) {
@@ -88,7 +85,6 @@ const useHttp = () => {
 
   const sendRequest = useCallback((flgRefreshData: boolean, method: string, url: string, reqBody: any = null) => {
     try {
-      axiosInstance.defaults.headers.post = { 'X-XSRF-TOKEN': CSRF_TOKEN };
       return axiosInstance(url, {method: method, data: reqBody, timeout: 30000}).then(res => {
         if (flgRefreshData) { fetchData(); }
         return res;
@@ -100,7 +96,7 @@ const useHttp = () => {
       logger.error(err);
       return err;
     }
-  }, [fetchData, axiosInstance]);
+  }, [fetchData]);
 
   const openChannel = (pubkey: string, amount: number, feeRate: string, announce: boolean) => {
     return sendRequest(true, 'post', '/cln/call', { 'method': 'fundchannel', 'params': { 'id': pubkey, 'amount': amount, 'feerate': feeRate, 'announce': announce } });
@@ -145,8 +141,7 @@ const useHttp = () => {
   const setCSRFToken = () => {
     try {
       return axiosInstance.get('/shared/csrf').then(res => {
-        CSRF_TOKEN = res.data.csrfToken;
-        return CSRF_TOKEN;
+        return axiosInstance.defaults.headers.post = { 'X-XSRF-TOKEN': res.data.csrfToken };
       }).catch(err => {
         logger.error(err);
         return err;

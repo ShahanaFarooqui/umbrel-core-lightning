@@ -14,6 +14,7 @@ import DateBox from '../../shared/DateBox/DateBox';
 import FiatBox from '../../shared/FiatBox/FiatBox';
 import Transaction from '../BTCTransaction/BTCTransaction';
 import { ApplicationModes, TRANSITION_DURATION, Units } from '../../../utilities/constants';
+import { EmptyStateSVG } from '../../../svgs/EmptyState';
 
 const WithdrawHeader = ({withdraw, appConfig, fiatConfig}) => {
   return (
@@ -116,7 +117,7 @@ export const BTCTransactionsList = () => {
       </span> 
     : 
     appCtx.listBitcoinTransactions.error ? 
-      <Alert className='py-0 px-1 fs-8' variant='danger'>{appCtx.listBitcoinTransactions.error}</Alert> : 
+      <Alert className='py-0 px-1 fs-7' variant='danger'>{appCtx.listBitcoinTransactions.error}</Alert> : 
       appCtx.listBitcoinTransactions?.btcTransactions && appCtx.listBitcoinTransactions?.btcTransactions.length && appCtx.listBitcoinTransactions?.btcTransactions.length > 0 ?
         <div className='btc-transactions-list'>
           { 
@@ -126,7 +127,12 @@ export const BTCTransactionsList = () => {
           }
         </div>
       :
-        <div className='fs-7 mt-2'>{!(appCtx.listChannels?.activeChannels && appCtx.listChannels.activeChannels.length && appCtx.listChannels.activeChannels.length > 0) ? 'No transaction found. Click send/receive to start!' : 'No transaction found. Open channel to start!'}</div>
+        <Row className='text-light fs-6 h-75 mt-2 align-items-center justify-content-center'>
+          <Row>
+            <EmptyStateSVG className='mb-2' />
+            No transaction found. Click deposit to start!
+          </Row>
+        </Row>
   );
 };
 

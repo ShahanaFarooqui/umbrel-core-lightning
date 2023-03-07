@@ -27,7 +27,6 @@ const ChannelOpen = (props) => {
   const appCtx = useContext(AppContext);
   const { openChannel } = useHttp();
   const [selFeeRate, setSelFeeRate] = useState(FeeRate.NORMAL)
-  const [recommendedfeeRate, setRecommendedfeeRate] = useState(FeeRate.NORMAL);
   const [announce, setAnnounce] = useState(true);
   const [responseStatus, setResponseStatus] = useState(CallStatus.NONE);
   const [responseMessage, setResponseMessage] = useState('');
@@ -57,21 +56,6 @@ const ChannelOpen = (props) => {
     formIsValid = true;
   };
   
-  useEffect(() => {
-    // if (((appCtx.feeRate.perkb?.unilateral_close || 0) - (appCtx.feeRate.perkb?.opening || 0)) > 5000) {
-    //   setSelFeeRate(FeeRate.URGENT);
-    //   setRecommendedfeeRate(FeeRate.URGENT);
-    // }
-    if (((appCtx.feeRate.perkb?.opening || 0) - (appCtx.feeRate.perkb?.min_acceptable || 0)) < 5000) {
-      setSelFeeRate(FeeRate.SLOW);
-      setRecommendedfeeRate(FeeRate.SLOW);
-    } else {
-      setSelFeeRate(FeeRate.NORMAL);
-      setRecommendedfeeRate(FeeRate.NORMAL);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   const selFeeRateChangeHandler = (event) => {
     switch (+(event.target.value)) {
       case 0:
@@ -203,7 +187,7 @@ const ChannelOpen = (props) => {
                   </div>
                 </Col>
                 <Col xs={12}>
-                  <FeerateRange tabIndex={4} recommendedfeeRate={recommendedfeeRate} selFeeRate={selFeeRate} selFeeRateChangeHandler={selFeeRateChangeHandler} />
+                  <FeerateRange tabIndex={4} selFeeRate={selFeeRate} selFeeRateChangeHandler={selFeeRateChangeHandler} />
                 </Col>
               </Row>
               <StatusAlert responseStatus={responseStatus} responseMessage={responseMessage} />

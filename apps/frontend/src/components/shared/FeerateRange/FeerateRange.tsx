@@ -9,7 +9,6 @@ import Tooltip from 'react-bootstrap/Tooltip';
 import { FeeRate, FEE_RATES, Units } from '../../../utilities/constants';
 import { AppContext } from '../../../store/AppContext';
 import FiatBox from '../FiatBox/FiatBox';
-import { InformationSVGRef } from '../../../svgs/Information';
 
 const FeerateRange = (props) => {
   const appCtx = useContext(AppContext);
@@ -26,17 +25,6 @@ const FeerateRange = (props) => {
     <>
       <Form.Label className='text-dark d-flex align-items-center justify-content-start'>
         Fee Rate
-        <OverlayTrigger
-          placement='right'
-          delay={{ show: 300, hide: 300 }}
-          overlay={<Tooltip>Recommended {props.recommendedfeeRate}</Tooltip>}
-          >
-          {({ ref, ...triggerHandler }) => (
-            <span {...triggerHandler} >
-              <InformationSVGRef ref={ref} svgClassName='mb-2 ms-1 information-svg svg-sm' className={'fill-light'} />
-            </span>
-          )}
-        </OverlayTrigger>
       </Form.Label>
       <div className='slider-container'>
         <OverlayTrigger
@@ -46,11 +34,12 @@ const FeerateRange = (props) => {
             <Tooltip className={'feerate-tooltip feerate-tooltip-' + props.selFeeRate}>
               {Math.round(getSelFeeRateValue() / 1000)} Sats/vB
                ≈ 
-              <FiatBox className='ms-1' value={Math.round(getSelFeeRateValue()/1000 * 144)} fromUnit={Units.SATS} symbol={appCtx.fiatConfig.symbol} rate={appCtx.fiatConfig.rate} />
+              {/* <FiatBox className='ms-1' value={Math.round(getSelFeeRateValue() * .22)} fromUnit={Units.SATS} symbol={appCtx.fiatConfig.symbol} rate={appCtx.fiatConfig.rate} /> */}
+              <FiatBox className='ms-1' value={Math.round(getSelFeeRateValue() * .18)} fromUnit={Units.SATS} symbol={appCtx.fiatConfig.symbol} rate={appCtx.fiatConfig.rate} />
             </Tooltip>
             }
           >
-          <Form.Range tabIndex={props.tabIndex} className='slider-pic' id='feeRange' defaultValue={props.recommendedfeeRate === FeeRate.SLOW ? 0 : 1} min='0' max='2' onClick={props.selFeeRateChangeHandler} onChange={props.selFeeRateChangeHandler} />
+          <Form.Range tabIndex={props.tabIndex} className='slider-pic' id='feeRange' defaultValue={1} min='0' max='2' onClick={props.selFeeRateChangeHandler} onChange={props.selFeeRateChangeHandler} />
         </OverlayTrigger>
       </div>
       <Row className='d-flex align-items-start justify-content-between'>
