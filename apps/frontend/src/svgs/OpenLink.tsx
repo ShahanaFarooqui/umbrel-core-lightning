@@ -6,7 +6,7 @@ export const OpenLinkSVG = props => {
     <OverlayTrigger
       placement='auto'
       delay={{ show: 250, hide: 250 }}
-      overlay={<Tooltip>{'Open on Blockstream Explorer'}</Tooltip>}
+      overlay={<Tooltip>{'Open with Blockstream Explorer'}</Tooltip>}
       >
       <svg id={props.id} className={props.className} width='17' height='17' viewBox='0 0 18 18' fill='none' xmlns='http://www.w3.org/2000/svg'>
         <path d='M10.875 0.75C10.875 0.335786 11.2108 1.11759e-08 11.625 1.11759e-08H17.25C17.6642 1.11759e-08 18 0.335786 18 0.75V6.375C18 6.78921 17.6642 7.125 17.25 7.125C16.8358 7.125 16.5 6.78921 16.5 6.375V1.5H11.625C11.2108 1.5 10.875 1.16421 10.875 0.75Z' className='fill-light' />

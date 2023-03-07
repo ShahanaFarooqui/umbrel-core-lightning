@@ -3,6 +3,5 @@
   "fiatUnit": "USD",
   "appMode": "DARK",
   "isLoading": false,
-  "error": null,
-  "useDummyData": false
+  "error": null
 }

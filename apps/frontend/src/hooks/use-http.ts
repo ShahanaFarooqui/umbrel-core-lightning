@@ -5,7 +5,6 @@ import logger from '../services/logger.service';
 import { AppContext } from '../store/AppContext';
 import { ApplicationConfiguration } from '../types/app-config.type';
 import { faDollarSign } from '@fortawesome/free-solid-svg-icons';
-import dummyDataFromJSON from '../z-dummy-data/dummy.data.json';
 
 const axiosInstance = axios.create({
   baseURL: API_BASE_URL + API_VERSION,
@@ -32,11 +31,7 @@ const useHttp = () => {
         logger.info(response);
         if(url === '/shared/config') {
           getFiatRate(response.data.fiatUnit);
-          if (response.data.useDummyData) {
-            appCtx.setStore(dummyDataFromJSON);
-          } else {
-            fetchData();
-          }
+          fetchData();
         }
         setStoreFunction({...response.data, ...{ isLoading: false, error: null }});
       })

@@ -12,8 +12,12 @@
     outline: none;
     opacity: 0.8;
     transition: opacity $theme-transition ease;
+    cursor: pointer;
     &:hover {
       opacity: 1;
+    }
+    &::-moz-range-track {
+      background: linear-gradient(to right, $success, $warning, $danger);
     }
     &::-webkit-slider-range-thumb {
       -webkit-appearance: none;
@@ -22,12 +26,6 @@
       width: 2.5rem;
       height: 2.5rem;
       cursor: pointer;
-    }
-    &::-moz-range-thumb {
-      width: 2.5rem;
-      height: 2.5rem;
-      cursor: pointer;
-      background: transparent;
     }
     &::-webkit-slider-runnable-track {
       background-color: transparent;

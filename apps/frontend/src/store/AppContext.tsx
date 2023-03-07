@@ -177,7 +177,7 @@ const filterOnChainTransactions = (events: BkprTransaction[]) => {
 const AppContext = React.createContext<AppContextType>({
   showModals: { nodeInfoModal: false, connectWalletModal: false},
   showToast: {show: false, message: ''},
-  appConfig: {isLoading: true, unit: Units.SATS, fiatUnit: 'USD', appMode: ApplicationModes.DARK, useDummyData: false},
+  appConfig: {isLoading: true, unit: Units.SATS, fiatUnit: 'USD', appMode: ApplicationModes.DARK},
   fiatConfig: {isLoading: true, symbol: faDollarSign, venue: '', rate: 1},
   feeRate: {isLoading: true},
   nodeInfo: {isLoading: true},
