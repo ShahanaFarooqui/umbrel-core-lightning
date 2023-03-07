@@ -13,14 +13,15 @@ services:
       - ${PWD}/data/app:/data/app
     environment:
       PORT: "3007"
-      LIGHTNING_HOST: "lightning"
+      HOST: "172.23.0.2"
       LIGHTNING_NETWORK: "regtest"
-      LOCAL_HOST: http://core-lightning-test.local    
       JSON_STORE_FILE: /data/app/store.json
+      TOR_HOST: "http://oqaer4kd7ufryngx6dsztovs4pnlmaouwmtkofjsasnanm.onion"
+      LIGHTNING_HOST: "172.23.0.3"
       LIGHTNING_LOCAL_SERVICE: "umbrel.local"
       LIGHTNING_RUNE: "NZ0wOuBtKlKdmQ_MBsME6Hlbo0kKYNNBo8gUZFYuFpI9MA=="
-      NODE_PUBKEY: "034c46fcb1a954ca34f61a3248c1854ff7f97b27217ffa9c9caafa81f78c772894"
       LIGHTNING_WEBSOCKET_PORT: 5001
+      NODE_PUBKEY: "034c46fcb1a954ca34f61a3248c1854ff7f97b27217ffa9c9caafa81f78c772894"
     ports:
       - "3007:3007"
 

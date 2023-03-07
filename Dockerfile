@@ -5,15 +5,13 @@ FROM node:16-buster-slim AS umbrel-lightning-builder
 WORKDIR /app
 
 # Copy project files and folders
-COPY apps/backend ./backend
-COPY apps/frontend ./frontend
+COPY apps/backend ./apps/backend
+COPY apps/frontend ./apps/frontend
 COPY package.json ./
+COPY package-lock.json ./
 
 # Install dependencies
 RUN npm install
-
-# Copy project files and folders to the current working directory (i.e. '/app')
-COPY . .
 
 # Build assets
 RUN npm run build

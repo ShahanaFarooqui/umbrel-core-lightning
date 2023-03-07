@@ -24,7 +24,7 @@ export const APP_CONSTANTS = {
   REQUEST_CORRELATION_NAMESPACE_KEY: 'umbrel-lightning-request',
   REQUEST_CORRELATION_ID_KEY: 'reqId',
   LIGHTNING_NETWORK: process.env.LIGHTNING_NETWORK || 'mainnet',
-  LOCAL_HOST: process.env.LOCAL_HOST || '0.0.0.0',
+  LIGHTNING_HOST: process.env.LIGHTNING_HOST || '0.0.0.0',
   LIGHTNING_RUNE: process.env.LIGHTNING_RUNE || 'bfoeiPMx3rZslYvQZq6hjtDXRMmT_JKxEgXDHjLRpyU9MA==',
   NODE_PUBKEY:
     process.env.NODE_PUBKEY || '037610b58f47e78ea5178e56f4c793656da5cf093d6269a37f5b0709b7d610e627',

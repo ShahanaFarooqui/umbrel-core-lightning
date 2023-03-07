@@ -10,3 +10,4 @@ data/lightning/lightningd-regtest.pid
 data/lightning/regtest/*
 data/cln/config
 data/lightning/log
+data/app/app.config.json

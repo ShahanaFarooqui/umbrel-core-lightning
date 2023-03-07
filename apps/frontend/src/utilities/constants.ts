@@ -1,9 +1,9 @@
 import { faDollarSign, faYenSign, faEuroSign, faSterlingSign, faIndianRupeeSign, faRubleSign  } from '@fortawesome/free-solid-svg-icons'
 
-export const LOCAL_HOST = 'http://umbrel.local';
-export const TOR_HOST = 'http://oqaer4kd7ufryngx6dsztovs4pnlmaouwmtkofjsasnanm.onion';
-export const PORT = '2104';
-export const MACAROON = 'my.macaroon';
+export const LIGHTNING_HOST = process.env.LIGHTNING_HOST;
+export const TOR_HOST = process.env.TOR_HOST;
+export const REST_PORT = process.env.REST_PORT || '2104';
+export const REST_MACAROON = process.env.REST_MACAROON;
 
 export const LOG_LEVEL = 'info';
 export const API_BASE_URL = 'http://localhost:3007';

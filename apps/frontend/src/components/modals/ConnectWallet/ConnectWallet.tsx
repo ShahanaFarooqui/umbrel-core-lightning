@@ -8,7 +8,7 @@ import Dropdown from 'react-bootstrap/esm/Dropdown';
 import InputGroup from 'react-bootstrap/esm/InputGroup';
 import Form from 'react-bootstrap/esm/Form';
 
-import { LOCAL_HOST, TOR_HOST, MACAROON, PORT, ApplicationModes } from '../../../utilities/constants';
+import { LIGHTNING_HOST, TOR_HOST, REST_MACAROON, REST_PORT, ApplicationModes } from '../../../utilities/constants';
 import { CopySVG } from '../../../svgs/Copy';
 import { AppContext } from '../../../store/AppContext';
 import { CloseSVG } from '../../../svgs/Close';
@@ -18,18 +18,18 @@ const NETWORK_TYPES = ['Local Network', 'Tor']
 const ConnectWallet = () => {
   const appCtx = useContext(AppContext);
   const [selNetwork, setSelNetwork] = useState(0);
-  const [clnConnectUrl, setClnConnectUrl] = useState('c-lightning-rest://' + LOCAL_HOST + ':' + PORT + '?macaroon=' + MACAROON + '&protocol=http');
+  const [clnConnectUrl, setClnConnectUrl] = useState('c-lightning-rest://' + LIGHTNING_HOST + ':' + REST_PORT + '?macaroon=' + REST_MACAROON + '&protocol=http');
 
   const copyHandler = (event) => {
     switch (event.target.id) {
       case 'REST Port':
-        navigator.clipboard.writeText(PORT || '');
+        navigator.clipboard.writeText(REST_PORT || '');
         break;
       case 'Host':
-        navigator.clipboard.writeText((selNetwork === 0 ? LOCAL_HOST : TOR_HOST) || '');
+        navigator.clipboard.writeText((selNetwork === 0 ? LIGHTNING_HOST : TOR_HOST) || '');
         break;
       case 'Macaroon':
-        navigator.clipboard.writeText(MACAROON || '');
+        navigator.clipboard.writeText(REST_MACAROON || '');
         break;
       default:
         navigator.clipboard.writeText(clnConnectUrl || '');
@@ -45,9 +45,9 @@ const ConnectWallet = () => {
   const networkChangeHandler = (event) => {
     setSelNetwork(+event.target.id);
     const url = (+event.target.id === 0) ?
-      'c-lightning-rest://' + LOCAL_HOST + ':' + PORT + '?macaroon=' + MACAROON + '&protocol=http'
+      'c-lightning-rest://' + LIGHTNING_HOST + ':' + REST_PORT + '?macaroon=' + REST_MACAROON + '&protocol=http'
     :
-      'c-lightning-rest://' + TOR_HOST + ':' + PORT + '?macaroon=' + MACAROON + '&protocol=http'
+      'c-lightning-rest://' + TOR_HOST + ':' + REST_PORT + '?macaroon=' + REST_MACAROON + '&protocol=http'
     setClnConnectUrl(url);
   }
 
@@ -87,8 +87,8 @@ const ConnectWallet = () => {
                 <Form.Control 
                   onClick={copyHandler}
                   id='REST Port'
-                  value={PORT}
-                  aria-label={PORT}
+                  value={REST_PORT}
+                  aria-label={REST_PORT}
                   aria-describedby='copy-addon-port'
                   className='form-control-left'
                   readOnly
@@ -106,8 +106,8 @@ const ConnectWallet = () => {
                 <Form.Control 
                   onClick={copyHandler}
                   id='Host'
-                  value={selNetwork === 0 ? LOCAL_HOST : TOR_HOST}
-                  aria-label={selNetwork === 0 ? LOCAL_HOST : TOR_HOST}
+                  value={selNetwork === 0 ? LIGHTNING_HOST : TOR_HOST}
+                  aria-label={selNetwork === 0 ? LIGHTNING_HOST : TOR_HOST}
                   aria-describedby='copy-addon-host'
                   className='form-control-left'
                   readOnly
@@ -125,8 +125,8 @@ const ConnectWallet = () => {
                 <Form.Control 
                   onClick={copyHandler}
                   id='Macaroon'
-                  value={MACAROON}
-                  aria-label={MACAROON}
+                  value={REST_MACAROON}
+                  aria-label={REST_MACAROON}
                   aria-describedby='copy-addon-macaroon'
                   className='form-control-left'
                   readOnly
