@@ -21,11 +21,12 @@ import FiatBox from '../../shared/FiatBox/FiatBox';
 import InvalidInputMessage from '../../shared/InvalidInputMessage/InvalidInputMessage';
 import { CloseSVG } from '../../../svgs/Close';
 import StatusAlert from '../../shared/StatusAlert/StatusAlert';
+import FeerateRange from '../../shared/FeerateRange/FeerateRange';
 
 const BTCWithdraw = (props) => {
   const appCtx = useContext(AppContext);
   const { btcWithdraw } = useHttp();
-  const [feeRate, setFeeRate] = useState(FeeRate.NORMAL);
+  const [selFeeRate, setSelFeeRate] = useState(FeeRate.NORMAL);
   const [responseStatus, setResponseStatus] = useState(CallStatus.NONE);
   const [responseMessage, setResponseMessage] = useState('');
 
@@ -55,8 +56,8 @@ const BTCWithdraw = (props) => {
     formIsValid = true;
   };
   
-  const feeRateChangeHandler = (event) => {
-    setFeeRate(FEE_RATES[+event.target.value]);
+  const selFeeRateChangeHandler = (event) => {
+    setSelFeeRate(FEE_RATES[+event.target.value]);
   };
 
   const touchFormControls = () => {
@@ -67,7 +68,7 @@ const BTCWithdraw = (props) => {
   const resetFormValues = () => {
     resetAddress();
     resetAmount();
-    setFeeRate(FeeRate.NORMAL);
+    setSelFeeRate(FeeRate.NORMAL);
   };
 
   const withdrawHandler = (event) => {
@@ -76,7 +77,7 @@ const BTCWithdraw = (props) => {
     if (!formIsValid) { return; }
     setResponseStatus(CallStatus.PENDING);
     setResponseMessage('Sending Transaction...');
-    btcWithdraw(addressValue, amountValue.toLowerCase(), feeRate.toLowerCase())
+    btcWithdraw(addressValue, amountValue.toLowerCase(), selFeeRate.toLowerCase())
     .then((response: any) => {
       logger.info(response);
       if (response.data && response.data.txid) {
@@ -188,15 +189,7 @@ const BTCWithdraw = (props) => {
                   }
                 </Col>
                 <Col xs={12}>
-                  <Form.Label className=' text-dark d-flex align-items-center justify-content-between'>
-                    Fee Rate
-                  </Form.Label>
-                  <Form.Range tabIndex={3} defaultValue={feeRate} min='0' max='2' onChange={feeRateChangeHandler} />
-                  <Row className='d-flex align-items-start justify-content-between'>
-                    {FEE_RATES.map((rate, i) => 
-                      <Col xs={4} className={'fs-7 text-light d-flex ' + (i === 0 ? 'justify-content-start' : i === 1 ? 'justify-content-center' : 'justify-content-end')} key={rate}>{rate}</Col>
-                    )}
-                  </Row>
+                  <FeerateRange tabIndex={3} selFeeRate={selFeeRate} selFeeRateChangeHandler={selFeeRateChangeHandler} />
                 </Col>
               </Row>
               <StatusAlert responseStatus={responseStatus} responseMessage={responseMessage} />
