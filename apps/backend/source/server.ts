@@ -43,7 +43,6 @@ app.use(
     cookie: {
       key: '_csrf',
       httpOnly: true,
-      secure: true,
       maxAge: 3600,
     },
   }),
