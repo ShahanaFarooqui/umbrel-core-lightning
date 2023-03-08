@@ -1,3 +1,4 @@
+import * as crypto from 'crypto';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 
@@ -21,37 +22,32 @@ export enum HttpStatusCode {
 }
 
 export const APP_CONSTANTS = {
-  REQUEST_CORRELATION_NAMESPACE_KEY: 'umbrel-lightning-request',
-  REQUEST_CORRELATION_ID_KEY: 'reqId',
-  LIGHTNING_NETWORK: process.env.LIGHTNING_NETWORK || 'mainnet',
-  LIGHTNING_HOST: process.env.LIGHTNING_HOST || '0.0.0.0',
-  LIGHTNING_RUNE: process.env.LIGHTNING_RUNE || 'bfoeiPMx3rZslYvQZq6hjtDXRMmT_JKxEgXDHjLRpyU9MA==',
-  NODE_PUBKEY:
-    process.env.NODE_PUBKEY || '037610b58f47e78ea5178e56f4c793656da5cf093d6269a37f5b0709b7d610e627',
-  LIGHTNING_WS_PORT: process.env.LIGHTNING_WS_PORT || 5001,
-  APPLICATION_MODE: process.env.APPLICATION_MODE || Environment.DEVELOPMENT,
-  LOG_FILE_LOCATION:
-    process.env.LOG_FILE_LOCATION ||
-    join(
-      dirname(fileURLToPath(import.meta.url)),
-      'apps',
-      'backend',
-      'dist',
-      'logs',
-      'cln-' + new Date().toISOString() + '.log',
-    ),
-  JSON_CONFIG_FILE:
-    process.env.JSON_CONFIG_FILE ||
-    join(
-      dirname(fileURLToPath(import.meta.url)),
-      '..',
-      '..',
-      '..',
-      '..',
-      'data',
-      'app',
-      'config.json',
-    ),
+  CLN_IP: process.env.APP_CORE_LIGHTNING_IP || 'localhost',
+  CLN_RUNE: process.env.APP_CORE_LIGHTNING_RUNE,
+  CLN_NODE_PUBKEY: process.env.APP_CORE_LIGHTNING_NODE_PUBKEY,
+  CLN_WS_PORT: +(process.env.APP_CORE_LIGHTNING_WS_PORT || 5001),
+  APPLICATION_MODE: process.env.APP_CORE_LIGHTNING_APPLICATION_MODE,
+  LOG_FILE_LOCATION: join(
+    dirname(fileURLToPath(import.meta.url)),
+    process.env.LOG_FILE_LOCATION || '',
+  ),
+  CONFIG_LOCATION: join(
+    dirname(fileURLToPath(import.meta.url)),
+    process.env.APP_CORE_LIGHTNING_CONFIG_LOCATION || '',
+  ),
+};
+
+export const LN_MESSAGE_CONFIG = {
+  remoteNodePublicKey: APP_CONSTANTS.CLN_NODE_PUBKEY || '',
+  wsProxy: 'ws://' + APP_CONSTANTS.CLN_IP + ':' + APP_CONSTANTS.CLN_WS_PORT,
+  ip: APP_CONSTANTS.CLN_IP,
+  port: APP_CONSTANTS.CLN_WS_PORT,
+  privateKey: crypto.randomBytes(32).toString('hex'),
+  logger: {
+    info: APP_CONSTANTS.APPLICATION_MODE === Environment.DEVELOPMENT ? console.info : () => {},
+    warn: APP_CONSTANTS.APPLICATION_MODE === Environment.DEVELOPMENT ? console.warn : () => {},
+    error: console.error,
+  },
 };
 
 export const API_VERSION = '/v1';

@@ -1,25 +1,19 @@
-import * as crypto from 'crypto';
 import Lnmessage from 'lnmessage';
 import { LightningError } from '../models/errors.js';
-import { Environment, HttpStatusCode, APP_CONSTANTS } from '../shared/consts.js';
+import { HttpStatusCode, APP_CONSTANTS, LN_MESSAGE_CONFIG } from '../shared/consts.js';
 import { logger } from '../shared/logger.js';
 
 export class LightningService {
   private lnMessage: any = null;
 
   constructor() {
-    this.lnMessage = new Lnmessage({
-      remoteNodePublicKey: APP_CONSTANTS.NODE_PUBKEY,
-      wsProxy: 'ws://' + APP_CONSTANTS.LIGHTNING_HOST + ':' + APP_CONSTANTS.LIGHTNING_WS_PORT,
-      ip: APP_CONSTANTS.LIGHTNING_HOST,
-      port: +APP_CONSTANTS.LIGHTNING_WS_PORT,
-      privateKey: crypto.randomBytes(32).toString('hex'),
-      logger: {
-        info: APP_CONSTANTS.APPLICATION_MODE === Environment.DEVELOPMENT ? console.info : () => {},
-        warn: APP_CONSTANTS.APPLICATION_MODE === Environment.DEVELOPMENT ? console.warn : () => {},
-        error: console.error,
-      },
-    });
+    this.lnMessage = new Lnmessage(LN_MESSAGE_CONFIG);
+    logger.info(
+      'Connecting to CLN node ' +
+        this.lnMessage.remoteNodePublicKey +
+        ' at ' +
+        LN_MESSAGE_CONFIG.wsProxy,
+    );
     this.lnMessage.connect();
   }
 
@@ -28,7 +22,7 @@ export class LightningService {
       .commando({
         method: method,
         params: methodParams,
-        rune: APP_CONSTANTS.LIGHTNING_RUNE,
+        rune: APP_CONSTANTS.CLN_RUNE,
       })
       .then((commandRes: any) => {
         logger.info('Command Res for ' + method + ': ' + JSON.stringify(commandRes));

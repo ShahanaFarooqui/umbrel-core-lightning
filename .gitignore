@@ -11,3 +11,14 @@ data/lightning/regtest/*
 data/cln/config
 data/lightning/log
 data/app/app.config.json
+data/bitcoin/signet/*
+data/lightning/lightningd-signet.pid
+data/bitcoin/blocks/*
+data/bitcoin/.lock
+data/bitcoin/anchors.dat
+data/bitcoin/banlist.json
+data/bitcoin/debug.log
+data/bitcoin/fee_estimates.dat
+data/bitcoin/mempool.dat
+data/bitcoin/peers.dat
+data/bitcoin/settings.json

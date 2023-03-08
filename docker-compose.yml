@@ -4,10 +4,11 @@ services:
   bitcoind:
     image: lncm/bitcoind:v24.0@sha256:db19fe46f30acd3854f4f0d239278137d828ce3728f925c8d92faaab1ba8556a
     command:
-      - -regtest
+      - -${APP_CORE_LIGHTNING_BITCOIN_NETWORK}
       - -rpcbind=0.0.0.0
       - -rpcallowip=0.0.0.0/0
-      - -rpcauth=usr:9fa0edec52d00832f0ed2969fa6d0373$$e56ef5516061536ee53e9a3cb89e618d47730258dc68e6ec60667344af98acb8
+      - -rpcauth=umbrel:5071d8b3ba93e53e414446ff9f1b7d7b$$375e9731abd2cd2c2c44d2327ec19f4f2644256fdeaf4fc5229bf98b778aafec
+    restart: on-failure
     volumes:
       - ${PWD}/data/bitcoin:/data/.bitcoin
 
@@ -15,18 +16,25 @@ services:
     image: elementsproject/lightningd:v22.11.1@sha256:14f1a7937f9692184e46ab6245ed51ed86262d208e81fd5ec5f0339ac5bf8096
     depends_on:
       - bitcoind
-    hostname: cln
+    ports:
+      - ${APP_CORE_LIGHTNING_DAEMON_PORT}:9735
     command: 
-      --network=regtest
-      --bitcoin-rpcuser=usr
-      --bitcoin-rpcpassword=usr
-      --bitcoin-rpcconnect=bitcoind
-      --experimental-websocket-port=5001
-      --experimental-offers
+      - --bitcoin-rpcconnect=${APP_BITCOIN_NODE_IP}
+      - --bitcoin-rpcuser=${APP_BITCOIN_RPC_USER}
+      - --bitcoin-rpcpassword=${APP_BITCOIN_RPC_PASS}
+      - --bind-addr=${APP_CORE_LIGHTNING_DAEMON_IP}:9735
+      - --network=${APP_CORE_LIGHTNING_BITCOIN_NETWORK}
+      - --experimental-websocket-port=5001
+      - --experimental-offers
+#      - --proxy=${TOR_PROXY_IP}:${TOR_PROXY_PORT}
+#      - --addr=statictor:${TOR_PROXY_IP}:29051
+#      - --tor-service-password=${TOR_PASSWORD}
+    restart: on-failure
     volumes:
       - ${PWD}/data/lightning:/data/.lightning
-    environment:
-      HOME: /data
+    networks:
+      default:
+        ipv4_address: ${APP_CORE_LIGHTNING_DAEMON_IP}
 
   app:
     build:
@@ -41,14 +49,18 @@ services:
       - ${PWD}/data/lightning:/data/.lightning
       - ${PWD}/data/app:/data/app
     environment:
-      HOST: "172.23.0.4"
-      PORT: "3007"
-      LIGHTNING_NETWORK: "regtest"
-      JSON_CONFIG_FILE: /data/app/config.json
-      TOR_HOST: "http://dummyryngx6dsztotorryngx6dsztohostryngx6dszto.onion"
-      LIGHTNING_HOST: "172.23.0.3"
-      LIGHTNING_RUNE: "NZ0wOuBtKlKdmQ_MBsME6Hlbo0kKYNNBo8gUZFYuFpI9MA=="
-      LIGHTNING_WS_PORT: 5001
-      NODE_PUBKEY: "034c46fcb1a954ca34f61a3248c1854ff7f97b27217ffa9c9caafa81f78c772894"
+      APP_CORE_LIGHTNING_DAEMON_IP: "${APP_CORE_LIGHTNING_DAEMON_IP}"
+      APP_CORE_LIGHTNING_IP: "${APP_CORE_LIGHTNING_IP}"
+      APP_CORE_LIGHTNING_PORT: "${APP_CORE_LIGHTNING_PORT}"
+      APP_CORE_LIGHTNING_RUNE: "${APP_CORE_LIGHTNING_RUNE}"
+      APP_CORE_LIGHTNING_WS_PORT: ${APP_CORE_LIGHTNING_WS_PORT}
+      APP_CORE_LIGHTNING_NODE_PUBKEY: "${APP_CORE_LIGHTNING_NODE_PUBKEY}"
+      APP_CORE_LIGHTNING_APPLICATION_MODE: "${APP_CORE_LIGHTNING_APPLICATION_MODE}"
+      APP_CORE_LIGHTNING_CONFIG_LOCATION: "${APP_CORE_LIGHTNING_CONFIG_LOCATION}"
+      APP_CORE_LIGHTNING_LOG_FILE_LOCATION: "${APP_CORE_LIGHTNING_LOG_FILE_LOCATION}"
+      APP_CORE_LIGHTNING_TOR_HOST: "${APP_CORE_LIGHTNING_TOR_HOST}"
     ports:
       - "3007:3007"
+    networks:
+      default:
+        ipv4_address: ${APP_CORE_LIGHTNING_IP}
