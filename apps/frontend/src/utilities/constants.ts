@@ -1,11 +1,11 @@
 import { faDollarSign, faYenSign, faEuroSign, faSterlingSign, faIndianRupeeSign, faRubleSign  } from '@fortawesome/free-solid-svg-icons'
 
-export const LIGHTNING_HOST = process.env.APP_CORE_LIGHTNING_DAEMON_IP;
-export const TOR_HOST = process.env.APP_CORE_LIGHTNING_TOR_HOST;
-export const REST_PORT = process.env.REST_PORT || '';
-export const REST_MACAROON = process.env.REST_MACAROON || '';
-export const HOST = process.env.APP_CORE_LIGHTNING_IP || 'localhost';
-export const PORT = process.env.APP_CORE_LIGHTNING_PORT || 3007;
+export const LIGHTNING_HOST = process.env.REACT_APP_LIGHTNING_DAEMON_IP;
+export const TOR_HOST = process.env.REACT_APP_LIGHTNING_TOR_HOST;
+export const REST_PORT = process.env.REACT_APP_REST_PORT || '';
+export const REST_MACAROON = process.env.REACT_APP_REST_MACAROON || '';
+export const HOST = process.env.REACT_APP_HOST || 'localhost';
+export const PORT = process.env.REACT_APP_PORT || 3007;
 
 export const LOG_LEVEL = 'info';
 export const API_BASE_URL = 'http://' + HOST + ':' + PORT;

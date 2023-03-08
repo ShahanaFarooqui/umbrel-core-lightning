@@ -135,6 +135,8 @@ const useHttp = () => {
 
   const setCSRFToken = () => {
     try {
+      logger.info('Environment Variables: ' + JSON.stringify(process.env));
+      logger.info('Base URL: ' + API_BASE_URL + API_VERSION);
       return axiosInstance.get('/shared/csrf').then(res => {
         return axiosInstance.defaults.headers.post = { 'X-XSRF-TOKEN': res.data.csrfToken };
       }).catch(err => {

@@ -22,7 +22,7 @@ export enum HttpStatusCode {
 }
 
 export const APP_CONSTANTS = {
-  CLN_IP: process.env.APP_CORE_LIGHTNING_IP || 'localhost',
+  CLN_HOST_IP: process.env.APP_CORE_LIGHTNING_DAEMON_IP || 'localhost',
   CLN_RUNE: process.env.APP_CORE_LIGHTNING_RUNE,
   CLN_NODE_PUBKEY: process.env.APP_CORE_LIGHTNING_NODE_PUBKEY,
   CLN_WS_PORT: +(process.env.APP_CORE_LIGHTNING_WS_PORT || 5001),
@@ -39,8 +39,8 @@ export const APP_CONSTANTS = {
 
 export const LN_MESSAGE_CONFIG = {
   remoteNodePublicKey: APP_CONSTANTS.CLN_NODE_PUBKEY || '',
-  wsProxy: 'ws://' + APP_CONSTANTS.CLN_IP + ':' + APP_CONSTANTS.CLN_WS_PORT,
-  ip: APP_CONSTANTS.CLN_IP,
+  wsProxy: 'ws://' + APP_CONSTANTS.CLN_HOST_IP + ':' + APP_CONSTANTS.CLN_WS_PORT,
+  ip: APP_CONSTANTS.CLN_HOST_IP,
   port: APP_CONSTANTS.CLN_WS_PORT,
   privateKey: crypto.randomBytes(32).toString('hex'),
   logger: {

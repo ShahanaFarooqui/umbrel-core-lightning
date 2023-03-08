@@ -25,6 +25,4 @@ COPY --from=umbrel-lightning-app-builder /app /app
 # Change directory to '/app' 
 WORKDIR /app
 
-EXPOSE 3007
-
 CMD [ "npm", "run", "start" ]
