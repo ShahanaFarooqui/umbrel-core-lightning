@@ -28,7 +28,7 @@ export const APP_CONSTANTS = {
   LIGHTNING_RUNE: process.env.LIGHTNING_RUNE || 'bfoeiPMx3rZslYvQZq6hjtDXRMmT_JKxEgXDHjLRpyU9MA==',
   NODE_PUBKEY:
     process.env.NODE_PUBKEY || '037610b58f47e78ea5178e56f4c793656da5cf093d6269a37f5b0709b7d610e627',
-  LIGHTNING_WEBSOCKET_PORT: process.env.LIGHTNING_WEBSOCKET_PORT || 5001,
+  LIGHTNING_WS_PORT: process.env.LIGHTNING_WS_PORT || 5001,
   APPLICATION_MODE: process.env.APPLICATION_MODE || Environment.DEVELOPMENT,
   LOG_FILE_LOCATION:
     process.env.LOG_FILE_LOCATION ||
@@ -40,8 +40,8 @@ export const APP_CONSTANTS = {
       'logs',
       'cln-' + new Date().toISOString() + '.log',
     ),
-  JSON_STORE_FILE:
-    process.env.JSON_STORE_FILE ||
+  JSON_CONFIG_FILE:
+    process.env.JSON_CONFIG_FILE ||
     join(
       dirname(fileURLToPath(import.meta.url)),
       '..',
@@ -50,7 +50,7 @@ export const APP_CONSTANTS = {
       '..',
       'data',
       'app',
-      'store.json',
+      'config.json',
     ),
 };
 

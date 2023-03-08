@@ -1,43 +1,54 @@
 version: "3.7"
 
 services:
+  bitcoind:
+    image: lncm/bitcoind:v24.0@sha256:db19fe46f30acd3854f4f0d239278137d828ce3728f925c8d92faaab1ba8556a
+    command:
+      - -regtest
+      - -rpcbind=0.0.0.0
+      - -rpcallowip=0.0.0.0/0
+      - -rpcauth=usr:9fa0edec52d00832f0ed2969fa6d0373$$e56ef5516061536ee53e9a3cb89e618d47730258dc68e6ec60667344af98acb8
+    volumes:
+      - ${PWD}/data/bitcoin:/data/.bitcoin
+
+  cln:
+    image: elementsproject/lightningd:v22.11.1@sha256:14f1a7937f9692184e46ab6245ed51ed86262d208e81fd5ec5f0339ac5bf8096
+    depends_on:
+      - bitcoind
+    hostname: cln
+    command: 
+      --network=regtest
+      --bitcoin-rpcuser=usr
+      --bitcoin-rpcpassword=usr
+      --bitcoin-rpcconnect=bitcoind
+      --experimental-websocket-port=5001
+      --experimental-offers
+    volumes:
+      - ${PWD}/data/lightning:/data/.lightning
+    environment:
+      HOME: /data
 
   app:
     build:
       dockerfile: ./Dockerfile
       context: ./
+    depends_on:
+      - bitcoind
+      - cln
     command: npm run start
     restart: on-failure
     volumes:
       - ${PWD}/data/lightning:/data/.lightning
       - ${PWD}/data/app:/data/app
     environment:
+      HOST: "172.23.0.4"
       PORT: "3007"
-      HOST: "172.23.0.2"
       LIGHTNING_NETWORK: "regtest"
-      JSON_STORE_FILE: /data/app/store.json
-      TOR_HOST: "http://oqaer4kd7ufryngx6dsztovs4pnlmaouwmtkofjsasnanm.onion"
+      JSON_CONFIG_FILE: /data/app/config.json
+      TOR_HOST: "http://dummyryngx6dsztotorryngx6dsztohostryngx6dszto.onion"
       LIGHTNING_HOST: "172.23.0.3"
-      LIGHTNING_LOCAL_SERVICE: "umbrel.local"
       LIGHTNING_RUNE: "NZ0wOuBtKlKdmQ_MBsME6Hlbo0kKYNNBo8gUZFYuFpI9MA=="
-      LIGHTNING_WEBSOCKET_PORT: 5001
+      LIGHTNING_WS_PORT: 5001
       NODE_PUBKEY: "034c46fcb1a954ca34f61a3248c1854ff7f97b27217ffa9c9caafa81f78c772894"
     ports:
       - "3007:3007"
-
-  cln:
-    image: lncm/clightning:v22.11.1@sha256:e9939341ca6736566e0499db5a339b25140d6e77fb16ab202c217112f0df9b77
-    user: 1000:1000
-    hostname: cln
-    command: --network=regtest --lightning-dir=/data/.lightning
-    volumes:
-      - ${PWD}/data/lightning:/data/.lightning
-    environment:
-      HOME: /data
-
-  bitcoind:
-    image: lncm/bitcoind:v24.0@sha256:db19fe46f30acd3854f4f0d239278137d828ce3728f925c8d92faaab1ba8556a
-    user: 1000:1000
-    command: -regtest -datadir=/data/.bitcoin
-    volumes:
-      - ${PWD}/data/bitcoin:/data/.bitcoin

@@ -4,9 +4,11 @@ export const LIGHTNING_HOST = process.env.LIGHTNING_HOST;
 export const TOR_HOST = process.env.TOR_HOST;
 export const REST_PORT = process.env.REST_PORT || '2104';
 export const REST_MACAROON = process.env.REST_MACAROON;
+export const HOST = process.env.HOST || 'localhost';
+export const PORT = process.env.PORT || 3007;
 
 export const LOG_LEVEL = 'info';
-export const API_BASE_URL = 'http://localhost:3007';
+export const API_BASE_URL = 'http://' + HOST + ':' + PORT;
 export const API_VERSION = '/v1';
 
 export const BTC_MSAT = 100000000000;

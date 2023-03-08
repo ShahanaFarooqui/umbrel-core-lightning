@@ -11,7 +11,7 @@ class SharedController {
   getApplicationSettings(req: Request, res: Response, next: NextFunction) {
     try {
       logger.info('Getting Application Settings');
-      res.status(200).json(JSON.parse(fs.readFileSync(APP_CONSTANTS.JSON_STORE_FILE, 'utf-8')));
+      res.status(200).json(JSON.parse(fs.readFileSync(APP_CONSTANTS.JSON_CONFIG_FILE, 'utf-8')));
     } catch (error: any) {
       handleError(error, req, res, next);
     }
@@ -20,7 +20,7 @@ class SharedController {
   setApplicationSettings(req: Request, res: Response, next: NextFunction) {
     try {
       logger.info('Updating Application Settings: ' + JSON.stringify(req.body));
-      fs.writeFileSync(APP_CONSTANTS.JSON_STORE_FILE, JSON.stringify(req.body, null, 2), 'utf-8');
+      fs.writeFileSync(APP_CONSTANTS.JSON_CONFIG_FILE, JSON.stringify(req.body, null, 2), 'utf-8');
       res.status(201).json({ message: 'Application Settings Updated Successfully' });
     } catch (error: any) {
       handleError(error, req, res, next);

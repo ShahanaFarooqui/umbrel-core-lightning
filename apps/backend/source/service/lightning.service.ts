@@ -10,9 +10,9 @@ export class LightningService {
   constructor() {
     this.lnMessage = new Lnmessage({
       remoteNodePublicKey: APP_CONSTANTS.NODE_PUBKEY,
-      wsProxy: 'ws://' + APP_CONSTANTS.LIGHTNING_HOST + ':' + APP_CONSTANTS.LIGHTNING_WEBSOCKET_PORT,
+      wsProxy: 'ws://' + APP_CONSTANTS.LIGHTNING_HOST + ':' + APP_CONSTANTS.LIGHTNING_WS_PORT,
       ip: APP_CONSTANTS.LIGHTNING_HOST,
-      port: +APP_CONSTANTS.LIGHTNING_WEBSOCKET_PORT,
+      port: +APP_CONSTANTS.LIGHTNING_WS_PORT,
       privateKey: crypto.randomBytes(32).toString('hex'),
       logger: {
         info: APP_CONSTANTS.APPLICATION_MODE === Environment.DEVELOPMENT ? console.info : () => {},

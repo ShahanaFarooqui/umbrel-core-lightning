@@ -3,7 +3,7 @@ node_modules
 dist
 build
 data/bitcoin/regtest
-data/app/store.json
+data/app/config.json
 data/app/app.config.json
 data/lightning/config
 data/lightning/lightningd-regtest.pid

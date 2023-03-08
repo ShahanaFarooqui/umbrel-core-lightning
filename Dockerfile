@@ -1,5 +1,5 @@
 # Build Stage
-FROM node:16-buster-slim AS umbrel-lightning-builder
+FROM node:18-buster AS umbrel-lightning-app-builder
 
 # Create app directory
 WORKDIR /app
@@ -17,10 +17,10 @@ RUN npm install
 RUN npm run build
 
 # Final image
-FROM node:16-buster-slim AS umbrel-lightning
+FROM node:18-buster AS umbrel-lightning
 
 # Copy built code from build stages to '/app' directory
-COPY --from=umbrel-lightning-builder /app /app
+COPY --from=umbrel-lightning-app-builder /app /app
 
 # Change directory to '/app' 
 WORKDIR /app
