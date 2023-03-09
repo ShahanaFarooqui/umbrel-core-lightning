@@ -1,11 +1,5 @@
 export const NoBTCTransactionDarkSVG = props => {
   return (
-    <>
-      <style>
-        {`
-        .cls-1{fill:url(#linear-gradient);}.cls-2{clip-path:url(#clippath);}.cls-3,.cls-4{fill:#1d2127;}.cls-4,.cls-5{stroke:#b3b3b3;stroke-miterlimit:10;stroke-width:2px;}.cls-6{clip-path:url(#clippath-1);}.cls-7{clip-path:url(#clippath-4);}.cls-8{clip-path:url(#clippath-3);}.cls-9{clip-path:url(#clippath-2);}.cls-10{fill:#e0ba2d;opacity:.2;}.cls-5{fill:none;}.cls-11{isolation:isolate;}        
-          `}
-      </style>
       <svg
         className={props.className}
         id="Layer_2"
@@ -699,6 +693,5 @@ export const NoBTCTransactionDarkSVG = props => {
           </g>
         </g>
       </svg>
-    </>
   );
 };

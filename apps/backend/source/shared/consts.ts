@@ -30,7 +30,7 @@ export const APP_CONSTANTS = {
   LOG_FILE_LOCATION: join(
     dirname(fileURLToPath(import.meta.url)),
     process.env.APP_DATA_DIR || '.',
-    '/data/app/cln.log',
+    '/data/app/application-cln.log',
   ),
   CONFIG_LOCATION: join(
     dirname(fileURLToPath(import.meta.url)),
@@ -38,6 +38,11 @@ export const APP_CONSTANTS = {
     '/data/app/config.json',
   ),
 };
+
+console.warn('CONFIG_LOCATION');
+console.warn(dirname(fileURLToPath(import.meta.url)));
+console.warn(process.env.APP_DATA_DIR);
+console.warn(APP_CONSTANTS.CONFIG_LOCATION);
 
 export const LN_MESSAGE_CONFIG = {
   remoteNodePublicKey: APP_CONSTANTS.CLN_NODE_PUBKEY || '',

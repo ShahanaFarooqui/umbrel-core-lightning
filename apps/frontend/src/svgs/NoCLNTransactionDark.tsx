@@ -1,11 +1,5 @@
 export const NoCLNTransactionDarkSVG = props => {
   return (
-    <>
-      <style>
-        {`
-          .cls-1{fill:url(#linear-gradient);}.cls-2{clip-path:url(#clippath);}.cls-3,.cls-4{fill:#1d2127;}.cls-4,.cls-5{stroke:#b3b3b3;stroke-miterlimit:10;stroke-width:2px;}.cls-6{clip-path:url(#clippath-1);}.cls-7{clip-path:url(#clippath-4);}.cls-8{clip-path:url(#clippath-3);}.cls-9{clip-path:url(#clippath-2);}.cls-10{clip-path:url(#clippath-7);}.cls-11{clip-path:url(#clippath-8);}.cls-12{clip-path:url(#clippath-6);}.cls-13{clip-path:url(#clippath-5);}.cls-14{clip-path:url(#clippath-9);}.cls-15{clip-path:url(#clippath-14);}.cls-16{clip-path:url(#clippath-13);}.cls-17{clip-path:url(#clippath-12);}.cls-18{clip-path:url(#clippath-10);}.cls-19{clip-path:url(#clippath-15);}.cls-20{clip-path:url(#clippath-17);}.cls-21{clip-path:url(#clippath-16);}.cls-22{clip-path:url(#clippath-19);}.cls-23{clip-path:url(#clippath-11);}.cls-24{clip-path:url(#clippath-18);}.cls-25{fill:#e0ba2d;opacity:.2;}.cls-5{fill:none;}.cls-26{isolation:isolate;}        
-          `}
-      </style>
       <svg
         className={props.className}
         id="Layer_2"
@@ -2253,6 +2247,5 @@ export const NoCLNTransactionDarkSVG = props => {
           </g>
         </g>
       </svg>
-    </>
   );
 };

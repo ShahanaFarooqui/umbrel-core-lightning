@@ -22,5 +22,5 @@ data/bitcoin/fee_estimates.dat
 data/bitcoin/mempool.dat
 data/bitcoin/peers.dat
 data/bitcoin/settings.json
-data/app/cln.log
+data/app/application-cln.log
 apps/frontend/.env

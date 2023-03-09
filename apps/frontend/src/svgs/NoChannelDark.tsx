@@ -1,11 +1,5 @@
 export const NoChannelDarkSVG = props => {
   return (
-    <>
-      <style>
-        {`
-          .cls-1,.cls-2{fill:none;}.cls-3{fill:url(#linear-gradient);}.cls-4{clip-path:url(#clippath);}.cls-5{fill:#b3b3b3;}.cls-6{fill:#1d2127;stroke-miterlimit:10;stroke-width:2px;}.cls-6,.cls-2{stroke:#b3b3b3;}.cls-7{clip-path:url(#clippath-1);}.cls-8{fill:#e0ba2d;opacity:.2;}.cls-9{fill:url(#linear-gradient-2);}.cls-2{stroke-dasharray:0 20;stroke-linecap:round;stroke-linejoin:round;stroke-width:4px;}        
-          `}
-      </style>
       <svg
         className={props.className}
         id="Layer_2"
@@ -229,6 +223,5 @@ export const NoChannelDarkSVG = props => {
           </g>
         </g>
       </svg>
-    </>
   );
 };
