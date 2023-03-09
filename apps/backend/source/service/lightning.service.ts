@@ -7,13 +7,8 @@ export class LightningService {
   private lnMessage: any = null;
 
   constructor() {
+    logger.info('lnMessage connecting with config: ' + JSON.stringify(LN_MESSAGE_CONFIG));
     this.lnMessage = new Lnmessage(LN_MESSAGE_CONFIG);
-    logger.info(
-      'Connecting to CLN node ' +
-        this.lnMessage.remoteNodePublicKey +
-        ' at ' +
-        LN_MESSAGE_CONFIG.wsProxy,
-    );
     this.lnMessage.connect();
   }
 

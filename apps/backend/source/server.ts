@@ -22,7 +22,7 @@ let routes: Array<CommonRoutesConfig> = [];
 const app: express.Application = express();
 const server: http.Server = http.createServer(app);
 
-const CLN_PORT = normalizePort(process.env.APP_PORT || '3007');
+const CLN_PORT = normalizePort(process.env.APP_PORT || '2103');
 const CLN_HOST = process.env.APP_HOST || 'localhost';
 
 function normalizePort(val: string) {

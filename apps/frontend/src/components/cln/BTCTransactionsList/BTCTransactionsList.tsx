@@ -14,7 +14,8 @@ import DateBox from '../../shared/DateBox/DateBox';
 import FiatBox from '../../shared/FiatBox/FiatBox';
 import Transaction from '../BTCTransaction/BTCTransaction';
 import { ApplicationModes, TRANSITION_DURATION, Units } from '../../../utilities/constants';
-import { EmptyStateSVG } from '../../../svgs/EmptyState';
+import { NoBTCTransactionDarkSVG } from '../../../svgs/NoBTCTransactionDark';
+import { NoBTCTransactionLightSVG } from '../../../svgs/NoBTCTransactionLight';
 
 const WithdrawHeader = ({withdraw, appConfig, fiatConfig}) => {
   return (
@@ -129,7 +130,10 @@ export const BTCTransactionsList = () => {
       :
         <Row className='text-light fs-6 h-75 mt-2 align-items-center justify-content-center'>
           <Row>
-            <EmptyStateSVG className='mb-2' />
+            { appCtx.appConfig.appMode === ApplicationModes.DARK ? 
+              <NoBTCTransactionDarkSVG className='no-btctx-dark mb-2' /> :
+              <NoBTCTransactionLightSVG className='no-btctx-light mb-2' />
+            }
             No transaction found. Click deposit to start!
           </Row>
         </Row>

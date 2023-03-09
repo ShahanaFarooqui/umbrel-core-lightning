@@ -14,8 +14,10 @@ import Tooltip from 'react-bootstrap/Tooltip';
 import { AppContext } from '../../../store/AppContext';
 import { formatCurrency, titleCase } from '../../../utilities/data-formatters';
 import { ActionSVG } from '../../../svgs/Action';
-import { Units } from '../../../utilities/constants';
+import { ApplicationModes, Units } from '../../../utilities/constants';
 import { EmptyStateSVG } from '../../../svgs/EmptyState';
+import { NoChannelLightSVG } from '../../../svgs/NoChannelLight';
+import { NoChannelDarkSVG } from '../../../svgs/NoChannelDark';
 
 const Channels = (props) => {
   const appCtx = useContext(AppContext);
@@ -77,7 +79,10 @@ const Channels = (props) => {
             :
               <Row className='text-light fs-6 mt-3 h-100 mt-2 align-items-center justify-content-center'>
                 <Row>
-                  <EmptyStateSVG className='mt-5 mb-2' />
+                  { appCtx.appConfig.appMode === ApplicationModes.DARK ? 
+                    <NoChannelDarkSVG className='no-channel-dark mt-5 mb-2' /> :
+                    <NoChannelLightSVG className='no-channel-light mt-5 mb-2' />
+                  }
                   No channels found. Open channel to start!
                 </Row>
               </Row>

@@ -15,6 +15,8 @@ import FiatBox from '../../shared/FiatBox/FiatBox';
 import Transaction from '../CLNTransaction/CLNTransaction';
 import { ApplicationModes, TRANSITION_DURATION, Units } from '../../../utilities/constants';
 import { EmptyStateSVG } from '../../../svgs/EmptyState';
+import { NoCLNTransactionLightSVG } from '../../../svgs/NoCLNTransactionLight';
+import { NoCLNTransactionDarkSVG } from '../../../svgs/NoCLNTransactionDark';
 
 const TODAY = Math.floor(Date.now() / 1000);
 
@@ -146,7 +148,10 @@ export const CLNTransactionsList = () => {
       :
         <Row className='text-light fs-6 h-75 mt-2 align-items-center justify-content-center'>
           <Row>
-            <EmptyStateSVG className='mb-2' />
+            { appCtx.appConfig.appMode === ApplicationModes.DARK ? 
+              <NoCLNTransactionDarkSVG className='no-clntx-dark mb-2' /> :
+              <NoCLNTransactionLightSVG className='no-clntx-light mb-2' />
+            }
             { !(appCtx.listChannels?.activeChannels && appCtx.listChannels.activeChannels.length && appCtx.listChannels.activeChannels.length > 0) ? 
               'No transaction found. Click send/receive!' : 
               'No transaction found. Open channel to start!'

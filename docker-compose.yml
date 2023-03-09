@@ -12,7 +12,7 @@ services:
     volumes:
       - ${PWD}/data/bitcoin:/data/.bitcoin
 
-  cln:
+  lightning:
     image: elementsproject/lightningd:v22.11.1@sha256:14f1a7937f9692184e46ab6245ed51ed86262d208e81fd5ec5f0339ac5bf8096
     depends_on:
       - bitcoind
@@ -24,11 +24,12 @@ services:
       - --bitcoin-rpcpassword=${APP_BITCOIN_RPC_PASS}
       - --bind-addr=${APP_CORE_LIGHTNING_DAEMON_IP}:9735
       - --network=${APP_CORE_LIGHTNING_BITCOIN_NETWORK}
-      - --experimental-websocket-port=5001
+      - --grpc-port=${APP_CORE_LIGHTNING_DAEMON_GRPC_PORT}
+      - --experimental-websocket-port=${APP_CORE_LIGHTNING_WS_PORT}
       - --experimental-offers
-#      - --proxy=${TOR_PROXY_IP}:${TOR_PROXY_PORT}
-#      - --addr=statictor:${TOR_PROXY_IP}:29051
-#      - --tor-service-password=${TOR_PASSWORD}
+      # - --proxy=${TOR_PROXY_IP}:${TOR_PROXY_PORT}
+      # - --addr=statictor:${TOR_PROXY_IP}:29051
+      # - --tor-service-password=${TOR_PASSWORD}
     restart: on-failure
     volumes:
       - ${PWD}/data/lightning:/data/.lightning
@@ -53,12 +54,8 @@ services:
       APP_PORT: "${APP_CORE_LIGHTNING_PORT}"
       APP_CORE_LIGHTNING_DAEMON_IP: "${APP_CORE_LIGHTNING_DAEMON_IP}"
       APP_CORE_LIGHTNING_RUNE: "${APP_CORE_LIGHTNING_RUNE}"
-      APP_CORE_LIGHTNING_WS_PORT: ${APP_CORE_LIGHTNING_WS_PORT}
       APP_CORE_LIGHTNING_NODE_PUBKEY: "${APP_CORE_LIGHTNING_NODE_PUBKEY}"
-      APP_CORE_LIGHTNING_APPLICATION_MODE: "${APP_CORE_LIGHTNING_APPLICATION_MODE}"
-      APP_CORE_LIGHTNING_CONFIG_LOCATION: "${APP_CORE_LIGHTNING_CONFIG_LOCATION}"
-      APP_CORE_LIGHTNING_LOG_FILE_LOCATION: "${APP_CORE_LIGHTNING_LOG_FILE_LOCATION}"
-      APP_CORE_LIGHTNING_TOR_HOST: "${APP_CORE_LIGHTNING_TOR_HOST}"
+      APP_CORE_LIGHTNING_WS_PORT: ${APP_CORE_LIGHTNING_WS_PORT}
     ports:
       - "${APP_CORE_LIGHTNING_PORT}:${APP_CORE_LIGHTNING_PORT}"
     networks:

@@ -8,7 +8,8 @@ import Dropdown from 'react-bootstrap/esm/Dropdown';
 import InputGroup from 'react-bootstrap/esm/InputGroup';
 import Form from 'react-bootstrap/esm/Form';
 
-import { LIGHTNING_HOST, TOR_HOST, REST_MACAROON, REST_PORT, ApplicationModes } from '../../../utilities/constants';
+import { ApplicationModes } from '../../../utilities/constants';
+// import { LIGHTNING_HOST, TOR_HOST, REST_MACAROON, REST_PORT, ApplicationModes } from '../../../utilities/constants';
 import { CopySVG } from '../../../svgs/Copy';
 import { AppContext } from '../../../store/AppContext';
 import { CloseSVG } from '../../../svgs/Close';
@@ -16,6 +17,10 @@ import { CloseSVG } from '../../../svgs/Close';
 const NETWORK_TYPES = ['Local Network', 'Tor']
 
 const ConnectWallet = () => {
+  const LIGHTNING_HOST = '';
+  const TOR_HOST = '';
+  const REST_MACAROON = '';
+  const REST_PORT = '';
   const appCtx = useContext(AppContext);
   const [selNetwork, setSelNetwork] = useState(0);
   const [clnConnectUrl, setClnConnectUrl] = useState('c-lightning-rest://' + LIGHTNING_HOST + ':' + REST_PORT + '?macaroon=' + REST_MACAROON + '&protocol=http');

@@ -26,14 +26,16 @@ export const APP_CONSTANTS = {
   CLN_RUNE: process.env.APP_CORE_LIGHTNING_RUNE,
   CLN_NODE_PUBKEY: process.env.APP_CORE_LIGHTNING_NODE_PUBKEY,
   CLN_WS_PORT: +(process.env.APP_CORE_LIGHTNING_WS_PORT || 5001),
-  APPLICATION_MODE: process.env.APP_CORE_LIGHTNING_APPLICATION_MODE,
+  APPLICATION_MODE: process.env.APP_CORE_LIGHTNING_APPLICATION_MODE || Environment.PRODUCTION,
   LOG_FILE_LOCATION: join(
     dirname(fileURLToPath(import.meta.url)),
-    process.env.LOG_FILE_LOCATION || '',
+    process.env.APP_DATA_DIR || '.',
+    '/data/app/cln.log',
   ),
   CONFIG_LOCATION: join(
     dirname(fileURLToPath(import.meta.url)),
-    process.env.APP_CORE_LIGHTNING_CONFIG_LOCATION || '',
+    process.env.APP_DATA_DIR || '.',
+    '/data/app/config.json',
   ),
 };
 
