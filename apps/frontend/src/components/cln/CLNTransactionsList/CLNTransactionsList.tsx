@@ -14,7 +14,6 @@ import DateBox from '../../shared/DateBox/DateBox';
 import FiatBox from '../../shared/FiatBox/FiatBox';
 import Transaction from '../CLNTransaction/CLNTransaction';
 import { ApplicationModes, TRANSITION_DURATION, Units } from '../../../utilities/constants';
-import { EmptyStateSVG } from '../../../svgs/EmptyState';
 import { NoCLNTransactionLightSVG } from '../../../svgs/NoCLNTransactionLight';
 import { NoCLNTransactionDarkSVG } from '../../../svgs/NoCLNTransactionDark';
 

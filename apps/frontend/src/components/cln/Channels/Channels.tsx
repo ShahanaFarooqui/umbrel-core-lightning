@@ -15,7 +15,6 @@ import { AppContext } from '../../../store/AppContext';
 import { formatCurrency, titleCase } from '../../../utilities/data-formatters';
 import { ActionSVG } from '../../../svgs/Action';
 import { ApplicationModes, Units } from '../../../utilities/constants';
-import { EmptyStateSVG } from '../../../svgs/EmptyState';
 import { NoChannelLightSVG } from '../../../svgs/NoChannelLight';
 import { NoChannelDarkSVG } from '../../../svgs/NoChannelDark';
 
