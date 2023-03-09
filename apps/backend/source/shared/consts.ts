@@ -39,11 +39,6 @@ export const APP_CONSTANTS = {
   ),
 };
 
-console.warn('CONFIG_LOCATION');
-console.warn(dirname(fileURLToPath(import.meta.url)));
-console.warn(process.env.APP_DATA_DIR);
-console.warn(APP_CONSTANTS.CONFIG_LOCATION);
-
 export const LN_MESSAGE_CONFIG = {
   remoteNodePublicKey: APP_CONSTANTS.CLN_NODE_PUBKEY || '',
   wsProxy: 'ws://' + APP_CONSTANTS.CLN_HOST_IP + ':' + APP_CONSTANTS.CLN_WS_PORT,

@@ -21,7 +21,7 @@ export const NoChannelLightSVG = (props) => {
             />
           </clipPath>
           <linearGradient
-            id="linear-gradient"
+            id="lgchlight1"
             x1="737.46"
             y1="505.24"
             x2="737.46"
@@ -39,12 +39,12 @@ export const NoChannelLightSVG = (props) => {
             <stop offset="1" stopColor="#e1bb2f" stopOpacity="0" />
           </linearGradient>
           <linearGradient
-            id="linear-gradient-2"
+            id="lgchlight2"
             x1="313.34"
             y1="266.8"
             x2="313.34"
             y2="54.64"
-            xlinkHref="#linear-gradient"
+            xlinkHref="#lgchlight1"
           />
         </defs>
         <g id="Layer_1-2">

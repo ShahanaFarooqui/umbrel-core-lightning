@@ -129,7 +129,7 @@ export const NoCLNTransactionLightSVG = props => {
             />
           </clipPath>
           <linearGradient
-            id="linear-gradient"
+            id="lgclnlight"
             x1="379.77"
             y1="346.4"
             x2="131.84"

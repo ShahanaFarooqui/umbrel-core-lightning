@@ -39,7 +39,7 @@ export const NoBTCTransactionLightSVG = props => {
             />
           </clipPath>
           <linearGradient
-            id="linear-gradient"
+            id="lgbtclight"
             x1="393.79"
             y1="196.88"
             x2="437.2"
