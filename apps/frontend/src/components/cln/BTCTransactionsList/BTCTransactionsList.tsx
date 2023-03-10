@@ -129,12 +129,12 @@ export const BTCTransactionsList = () => {
         </div>
       :
         <Row className='text-light fs-6 h-75 mt-2 align-items-center justify-content-center'>
-          <Row>
+          <Row className='d-flex align-items-center justify-content-center'>
             { appCtx.appConfig.appMode === ApplicationModes.DARK ? 
               <NoBTCTransactionDarkSVG className='no-btctx-dark mb-2' /> :
               <NoBTCTransactionLightSVG className='no-btctx-light mb-2' />
             }
-            No transaction found. Click deposit to start!
+            <Row className='text-center'>No transaction found. Click deposit to receive amount!</Row>
           </Row>
         </Row>
   );

@@ -77,12 +77,12 @@ const Channels = (props) => {
               </PerfectScrollbar>
             :
               <Row className='text-light fs-6 mt-3 h-100 mt-2 align-items-center justify-content-center'>
-                <Row>
+                <Row className='d-flex align-items-center justify-content-center'>
                   { appCtx.appConfig.appMode === ApplicationModes.DARK ? 
-                    <NoChannelDarkSVG className='no-channel-dark mt-5 mb-2' /> :
-                    <NoChannelLightSVG className='no-channel-light mt-5 mb-2' />
+                    <NoChannelDarkSVG className='no-channel-dark pb-5' /> :
+                    <NoChannelLightSVG className='no-channel-light pb-5' />
                   }
-                  No channels found. Open channel to start!
+                  <Row className='text-center pb-4'>No channel found. Open channel to start!</Row>
                 </Row>
               </Row>
         }

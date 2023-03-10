@@ -146,15 +146,17 @@ export const CLNTransactionsList = () => {
         </div>
       :
         <Row className='text-light fs-6 h-75 mt-2 align-items-center justify-content-center'>
-          <Row>
+          <Row className='d-flex align-items-center justify-content-center'>
             { appCtx.appConfig.appMode === ApplicationModes.DARK ? 
               <NoCLNTransactionDarkSVG className='no-clntx-dark mb-2' /> :
               <NoCLNTransactionLightSVG className='no-clntx-light mb-2' />
             }
+            <Row className='text-center'>
             { !(appCtx.listChannels?.activeChannels && appCtx.listChannels.activeChannels.length && appCtx.listChannels.activeChannels.length > 0) ? 
-              'No transaction found. Click send/receive!' : 
+              'No transaction found. Click send/receive to start!' : 
               'No transaction found. Open channel to start!'
             }
+            </Row>
           </Row>
         </Row>
   );
