@@ -34,8 +34,8 @@ const ToastMessage = () => {
           <Toast show={appCtx.showToast.show} onClose={closeHandler} delay={appCtx.showToast.delay || 3000} data-bg={appCtx.showToast.bg} className={appCtx.showToast.className || 'd-flex align-items-start justify-content-between'}>
             <Toast.Body className='p-0 w-100 d-flex align-items-start justify-content-start'>
               <Col className='d-flex align-items-stretch justify-content-between'>
-                <Col xs={2} className='message-type-box d-flex align-items-center justify-content-center'>
-                  <FontAwesomeIcon className='svg-white' size='xl' icon={faQuestion} />
+                <Col xs={2} className='message-type-box d-flex align-items-start justify-content-center'>
+                  <FontAwesomeIcon className='svg-white fa-xl' icon={faQuestion} />
                 </Col>
                 <Col xs={10} className='p-2'>
                   <Col className='d-flex align-items-center justify-content-between'>
@@ -50,11 +50,11 @@ const ToastMessage = () => {
         </motion.div>
       :
         <motion.div animate={{y}} transition={BOUNCY_SPRING_VARIANTS_3} className='toast-container top-0 w-100 d-flex justify-content-center'>
-          <Toast show={appCtx.showToast.show} onClose={closeHandler} delay={appCtx.showToast.delay || 3000} data-bg={appCtx.showToast.bg} autohide className={appCtx.showToast.className || 'd-flex align-items-start justify-content-between'}>
+          <Toast show={appCtx.showToast.show} onClose={closeHandler} delay={appCtx.showToast.delay || 3000} autohide data-bg={appCtx.showToast.bg} className={appCtx.showToast.className || 'd-flex align-items-start justify-content-between'}>
             <Toast.Body className='p-0 w-100 d-flex align-items-stretch justify-content-start'>
               <Col className='d-flex align-items-stretch justify-content-between'>
                 <Col xs={2} className='message-type-box d-flex align-items-center justify-content-center'>
-                  <FontAwesomeIcon className='svg-white' size='xl' icon={appCtx.showToast.bg === 'success' ? faCheck : appCtx.showToast.bg === 'danger' ? faTriangleExclamation : faExclamationCircle} />
+                  <FontAwesomeIcon className='svg-white fa-xl' icon={appCtx.showToast.bg === 'success' ? faCheck : appCtx.showToast.bg === 'danger' ? faTriangleExclamation : faExclamationCircle} />
                 </Col>
                 <Col xs={10} className='p-2'>
                   <Col className='d-flex align-items-center justify-content-between'>

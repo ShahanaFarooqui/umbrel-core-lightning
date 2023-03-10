@@ -252,7 +252,9 @@ svg {
       fill: $white;
     }
   }
- 
+  &.svg-inline--fa.fa-xl {
+    width: 1.5rem;
+  }
 }
 
 .svg-fill-disabled path.fill-contrast {
