@@ -28,6 +28,8 @@ export type ToastConfig = {
   message: string;
   position?: ToastPosition;
   delay?: number;
+  type?: string;
   bg?: string;
   className?: string;
+  confirmRes?: any;
 }

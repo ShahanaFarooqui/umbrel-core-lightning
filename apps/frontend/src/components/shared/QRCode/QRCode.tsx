@@ -21,7 +21,7 @@ const QRCodeComponent = (props) => {
     <div className={props.className}>
       <Row className='qr-container d-flex align-items-start justify-content-center'>
         <img alt='cln-logo' src={appCtx.appConfig.appMode === ApplicationModes.DARK ? 'images/cln-logo-dark.png' : 'images/cln-logo-light.png'} className='qr-cln-logo' />
-        <QRCodeCanvas value={props.message || ''} size={220} includeMargin={true} />
+        <QRCodeCanvas value={props.message || ''} size={220} includeMargin={true} bgColor={appCtx.appConfig.appMode === ApplicationModes.DARK ? '#0C0C0F' : '#FFFFFF'} fgColor={appCtx.appConfig.appMode === ApplicationModes.DARK ? '#FFFFFF' : '#000000'} />
       </Row>
       <Row className='w-100 mt-5 d-flex align-items-start justify-content-center'>
         <InputGroup className='mb-3'>

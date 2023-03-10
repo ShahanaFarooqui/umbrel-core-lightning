@@ -3,9 +3,12 @@
 .cln-transaction-placeholder {
   transform-origin: top left;
   & .cln-transaction-detail {
+    align-items: center;
     margin: 0.5rem;
   }
   & .cln-transaction-copy, .cln-transaction-open {
+    display: inline-flex;
+    align-items: flex-start;
     padding: 0;
     cursor: pointer;
     &:hover {

@@ -122,7 +122,7 @@ body {
   }
 }
 
-button.btn-rounded.btn.btn-primary, button.btn-rounded.bg-primary {
+button.btn-rounded.btn, button.btn-rounded {
   display: flex;
   align-items: center;
   border-radius: $border-radius;
@@ -132,13 +132,31 @@ button.btn-rounded.btn.btn-primary, button.btn-rounded.bg-primary {
   font-weight: 600;
   padding: 1.25rem 1.675rem;
   transition: all $transition-time ease;
+  &.btn-outline-primary {
+    border: 1px solid $primary;
+    &:hover {
+      color: $primary;
+    }
+  }
+  &.btn-sm {
+    padding: 0 1rem;
+  }
   &:not(.btn-settings-menu.dropdown-toggle) {
     transition: color $theme-transition ease;
   }
-  &:hover {
-    background-color: darken($primary, 8%) !important;
-    border-color: darken($primary, 8%) !important;
+  &.btn-primary, &.bg-primary {
+    &:hover {
+      background-color: darken($primary, 8%) !important;
+      border-color: darken($primary, 8%) !important;
+    }
   }
+  &.btn-primary, &.bg-primary {
+    &:hover {
+      background-color: darken($primary, 8%) !important;
+      border-color: darken($primary, 8%) !important;
+    }
+  }
+
 }
 
 .btn-group {
@@ -418,6 +436,10 @@ label.form-label {
       }  
     }
   }
+}
+
+.form-check-input:checked[type="radio"] {
+  background-image: url(../../public/images/radio-button.svg), var(--bs-gradient);
 }
 
 .qr-container {

@@ -1,7 +1,7 @@
 import { faDollarSign, faYenSign, faEuroSign, faSterlingSign, faIndianRupeeSign, faRubleSign  } from '@fortawesome/free-solid-svg-icons'
 
 export const HOST = process.env.NODE_ENV !== 'production' ? 'localhost' : window.location.hostname;
-export const PORT = process.env.NODE_ENV !== 'production' ? 2103 : window.location.port;
+export const PORT = process.env.NODE_ENV !== 'production' ? 3007 : window.location.port;
 
 export const LOG_LEVEL = 'info';
 export const API_BASE_URL = 'http://' + HOST + ':' + PORT;
@@ -112,7 +112,7 @@ export const BOUNCY_SPRING_VARIANTS_3 = { type: 'spring', stiffness: 400, dampin
 export const STAGERRED_SPRING_VARIANTS_1 = {
   hidden: { pathLength: 0, opacity: 0 },
   visible: (i) => {
-    const delay = 0 + i * 1;
+    const delay = 0 + i * 0.5;
     return {
       pathLength: 1,
       opacity: 1,

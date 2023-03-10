@@ -91,7 +91,7 @@ const BTCTransaction = (props) => {
     <motion.div
         variants={{ collapsed: { scale: 0.8, opacity: 0 }, open: { scale: 1, opacity: 1 } }}
         transition={{ duration: TRANSITION_DURATION }}
-        className='btc-transaction-placeholder'
+        className='btc-transaction-placeholder pb-2'
       >
       <TransactionDetail transaction={props.transaction} copyHandler={copyHandler} openLinkHandler={openLinkHandler} />
     </motion.div>

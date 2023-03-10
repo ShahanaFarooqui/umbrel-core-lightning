@@ -2,28 +2,18 @@
 
 .toast-container {
   & .toast {
-    padding-right: 1rem;
     box-shadow: 0px 8px 16px 0px rgba($dark, 0.2);
     border-radius: 0.5rem;
     border: 1px solid $light;
     
-    & .message-text {
-      padding: 0.875rem 0.5rem;
-    }
-
     & .message-type-box {
-      display: flex;
-      justify-content: center;
-      min-width: 3.5rem;
-      padding-top: 0.875rem;
       background-color: $light;
       border-top-left-radius: .35rem;
       border-bottom-left-radius: .35rem;
     }
 
     span.btn-toast-close {
-      display: inline-flex;
-      padding-top: 1.25rem;
+      padding: 0.5rem;
       cursor: pointer;
       & svg {
         width: 0.75rem;
@@ -52,6 +42,22 @@
 
       & .message-type-box {
         background-color: $danger;
+      }
+    }
+
+    &[data-bg='warning'] {
+      border: 1px solid $warning;
+
+      & .message-type-box {
+        background-color: $warning;
+      }
+    }
+
+    &[data-bg='primary'] {
+      border: 1px solid $primary;
+
+      & .message-type-box {
+        background-color: $primary;
       }
     }
   }

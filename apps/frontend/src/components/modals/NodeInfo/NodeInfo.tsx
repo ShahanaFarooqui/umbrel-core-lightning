@@ -31,7 +31,7 @@ const NodeInfo = () => {
         <Modal.Body className='py-0'>
           <Row className='qr-container m-auto d-flex'>
             <img alt='cln-logo' src={appCtx.appConfig.appMode === ApplicationModes.DARK ? 'images/cln-logo-dark.png' : 'images/cln-logo-light.png'} className='qr-cln-logo' />
-            <QRCodeCanvas value={appCtx.nodeInfo.id || ''} size={220} includeMargin={true} />
+            <QRCodeCanvas value={appCtx.nodeInfo.id || ''} size={220} includeMargin={true} bgColor={appCtx.appConfig.appMode === ApplicationModes.DARK ? '#0C0C0F' : '#FFFFFF'} fgColor={appCtx.appConfig.appMode === ApplicationModes.DARK ? '#FFFFFF' : '#000000'} />
           </Row>
           <Row className='d-flex align-items-start justify-content-center pt-2'>
             <h4 className='text-blue fw-bold d-flex justify-content-center'>Node ID</h4>

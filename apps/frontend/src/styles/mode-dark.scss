@@ -98,6 +98,12 @@
         box-shadow: 0px 2px 4px 0px rgba($light-dark, 0.25);
       }
     }
+    &.btn-outline-primary {
+      background-color: $card-bg-dark;
+      &:hover {
+        background-color: darken($card-bg-dark, 5%);
+      }
+    }  
   }
   
   .btn-group {

@@ -1,5 +1,5 @@
 import './ChannelDetails.scss';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import Card from 'react-bootstrap/Card';
 import Row from 'react-bootstrap/Row';
@@ -27,31 +27,45 @@ const ChannelDetails = (props) => {
   const [responseStatus, setResponseStatus] = useState(CallStatus.NONE);
   const [responseMessage, setResponseMessage] = useState('');
 
+  useEffect(() => {
+    if (typeof appCtx.showToast.confirmRes === 'undefined') {
+      return;
+    }
+    if (!!appCtx.showToast.confirmRes) {
+      setResponseStatus(CallStatus.PENDING);
+      setResponseMessage('Closing Channel...');
+      closeChannel(props.selChannel.channel_id)
+      .then((response: any) => {
+        logger.info(response);
+        if (response.data && response.data.type) {
+          setChannelClosed(true);
+          setResponseStatus(CallStatus.SUCCESS);
+          setResponseMessage('Channel ' + response.data.type + ' closed' + (response.data.txid ? (' with transaction id ' + response.data.txid) : ''));
+        } else {
+          setResponseStatus(CallStatus.ERROR);
+          setResponseMessage(response.message || 'Unknown Error');
+        }
+      })
+      .catch(err => {
+        logger.error(err.response && err.response.data ? err.response.data : err.message ? err.message : JSON.stringify(err));
+        setResponseStatus(CallStatus.ERROR);
+        setResponseMessage(err.response && err.response.data ? err.response.data : err.message ? err.message : JSON.stringify(err));
+      });
+    } else {
+      setResponseStatus(CallStatus.NONE);
+      setResponseMessage('');
+    }
+  }, [appCtx.showToast.confirmRes, closeChannel, props.selChannel.channel_id]);
+
   const openLinkHandler = (event) => {
     window.open('https://blockstream.info/' + (appCtx.nodeInfo.network === 'testnet' ? 'testnet/' : '') + 'tx/' + event.target.id, '_blank');
   };
 
-  const ChannelDetailsHandler = (event) => {
+  const ChannelCloseHandler = (event) => {
     event.preventDefault();
     setResponseStatus(CallStatus.PENDING);
-    setResponseMessage('Closing Channel...');
-    closeChannel(props.selChannel.channel_id)
-    .then((response: any) => {
-      logger.info(response);
-      if (response.data && response.data.type) {
-        setChannelClosed(true);
-        setResponseStatus(CallStatus.SUCCESS);
-        setResponseMessage('Channel ' + response.data.type + ' closed' + (response.data.txid ? (' with transaction id ' + response.data.txid) : ''));
-      } else {
-        setResponseStatus(CallStatus.ERROR);
-        setResponseMessage(response.message || 'Unknown Error');
-      }
-    })
-    .catch(err => {
-      logger.error(err.response && err.response.data ? err.response.data : err.message ? err.message : JSON.stringify(err));
-      setResponseStatus(CallStatus.ERROR);
-      setResponseMessage(err.response && err.response.data ? err.response.data : err.message ? err.message : JSON.stringify(err));
-    });
+    setResponseMessage('Close Channel...?');
+    appCtx.setShowToast({show: true, type: 'CONFIRM', message: ('Close this channel?'), bg: 'primary'});
   };
 
   const copyHandler = (event) => {
@@ -70,7 +84,7 @@ const ChannelDetails = (props) => {
   }
 
   return (
-    <form onSubmit={ChannelDetailsHandler} className='h-100'>
+    <form onSubmit={ChannelCloseHandler} className='h-100'>
       <Card className='h-100 d-flex align-items-stretch'>
         <Card.Body className='text-dark d-flex align-items-stretch flex-column pt-4'>
             <Card.Header className='p-0 d-flex align-items-start justify-content-between'>
