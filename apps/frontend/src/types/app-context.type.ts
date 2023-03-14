@@ -1,9 +1,10 @@
-import { ApplicationConfiguration, FiatConfig, ModalConfig, ToastConfig } from './app-config.type';
+import { ApplicationConfiguration, FiatConfig, ModalConfig, ToastConfig, WalletConnect } from './app-config.type';
 import { Fund, ListInvoices, ListPayments, ListPeers, ListBitcoinTransactions, NodeInfo, WalletBalances, ListLightningTransactions, ListChannels, NodeFeeRate } from './lightning-wallet.type';
 
 export type AppContextType = {
   showModals: ModalConfig;
   showToast: ToastConfig;
+  walletConnect: WalletConnect;
   appConfig: ApplicationConfiguration;
   fiatConfig: FiatConfig;
   feeRate: NodeFeeRate;
@@ -18,6 +19,7 @@ export type AppContextType = {
   walletBalances: WalletBalances;
   setShowModals: (newShowModals: ModalConfig) => void;
   setShowToast: (newShowToast: ToastConfig) => void;
+  setWalletConnect: (newWalletConnect: WalletConnect) => void;
   setConfig: (newAppConfig: ApplicationConfiguration) => void;
   setFiatConfig: (newFiatConfig: FiatConfig) => void;
   setFeeRate: (feeRate: NodeFeeRate) => void;

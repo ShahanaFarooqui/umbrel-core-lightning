@@ -2,6 +2,17 @@ import { ApplicationModes, Units } from '../utilities/constants';
 
 export type ToastPosition = 'top-start' | 'top-center' | 'top-end' | 'middle-start' | 'middle-center' | 'middle-end' | 'bottom-start' | 'bottom-center' | 'bottom-end';
 
+export type WalletConnect = {
+  isLoading: boolean;
+  GRPC_PORT?: string;
+  LOCAL_HOST?: string;
+  REST_MACAROON?: string;
+  REST_PORT?: string;
+  TOR_HOST?: string;
+  WS_PORT?: string;
+  error?: any;
+}
+
 export type ApplicationConfiguration = {
   isLoading: boolean;
   unit: Units;

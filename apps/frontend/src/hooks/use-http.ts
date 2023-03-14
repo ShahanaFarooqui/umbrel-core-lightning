@@ -75,6 +75,7 @@ const useHttp = () => {
       appCtx.setConfig(updatedConfig);
     }).catch(err => {
       logger.error(err);
+      return err;
     });
   }
 
@@ -150,6 +151,7 @@ const useHttp = () => {
 
   const getAppConfigurations = useCallback(() => {
     sendRequestToSetStore(appCtx.setConfig, 'get', '/shared/config');
+    sendRequestToSetStore(appCtx.setWalletConnect, 'get', '/shared/connectwallet');
   }, [appCtx, sendRequestToSetStore]);
 
   return {

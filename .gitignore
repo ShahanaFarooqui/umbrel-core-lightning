@@ -24,3 +24,4 @@ data/bitcoin/peers.dat
 data/bitcoin/settings.json
 data/app/application-cln.log
 apps/frontend/.env
+data/c-lightning-rest

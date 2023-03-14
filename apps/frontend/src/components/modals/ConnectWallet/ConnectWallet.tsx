@@ -9,7 +9,6 @@ import InputGroup from 'react-bootstrap/esm/InputGroup';
 import Form from 'react-bootstrap/esm/Form';
 
 import { ApplicationModes } from '../../../utilities/constants';
-// import { LIGHTNING_HOST, TOR_HOST, REST_MACAROON, REST_PORT, ApplicationModes } from '../../../utilities/constants';
 import { CopySVG } from '../../../svgs/Copy';
 import { AppContext } from '../../../store/AppContext';
 import { CloseSVG } from '../../../svgs/Close';
@@ -17,24 +16,20 @@ import { CloseSVG } from '../../../svgs/Close';
 const NETWORK_TYPES = ['Local Network', 'Tor']
 
 const ConnectWallet = () => {
-  const LIGHTNING_HOST = '';
-  const TOR_HOST = '';
-  const REST_MACAROON = '';
-  const REST_PORT = '';
   const appCtx = useContext(AppContext);
   const [selNetwork, setSelNetwork] = useState(0);
-  const [clnConnectUrl, setClnConnectUrl] = useState('c-lightning-rest://' + LIGHTNING_HOST + ':' + REST_PORT + '?macaroon=' + REST_MACAROON + '&protocol=http');
+  const [clnConnectUrl, setClnConnectUrl] = useState('c-lightning-rest://' + appCtx.walletConnect.LOCAL_HOST + ':' + appCtx.walletConnect.REST_PORT + '?macaroon=' + appCtx.walletConnect.REST_MACAROON + '&protocol=http');
 
   const copyHandler = (event) => {
     switch (event.target.id) {
       case 'REST Port':
-        navigator.clipboard.writeText(REST_PORT || '');
+        navigator.clipboard.writeText(appCtx.walletConnect.REST_PORT || '');
         break;
       case 'Host':
-        navigator.clipboard.writeText((selNetwork === 0 ? LIGHTNING_HOST : TOR_HOST) || '');
+        navigator.clipboard.writeText((selNetwork === 0 ? appCtx.walletConnect.LOCAL_HOST : appCtx.walletConnect.TOR_HOST) || '');
         break;
       case 'Macaroon':
-        navigator.clipboard.writeText(REST_MACAROON || '');
+        navigator.clipboard.writeText(appCtx.walletConnect.REST_MACAROON || '');
         break;
       default:
         navigator.clipboard.writeText(clnConnectUrl || '');
@@ -50,9 +45,9 @@ const ConnectWallet = () => {
   const networkChangeHandler = (event) => {
     setSelNetwork(+event.target.id);
     const url = (+event.target.id === 0) ?
-      'c-lightning-rest://' + LIGHTNING_HOST + ':' + REST_PORT + '?macaroon=' + REST_MACAROON + '&protocol=http'
+      'c-lightning-rest://' + appCtx.walletConnect.LOCAL_HOST + ':' + appCtx.walletConnect.REST_PORT + '?macaroon=' + appCtx.walletConnect.REST_MACAROON + '&protocol=http'
     :
-      'c-lightning-rest://' + TOR_HOST + ':' + REST_PORT + '?macaroon=' + REST_MACAROON + '&protocol=http'
+      'c-lightning-rest://' + appCtx.walletConnect.TOR_HOST + ':' + appCtx.walletConnect.REST_PORT + '?macaroon=' + appCtx.walletConnect.REST_MACAROON + '&protocol=http'
     setClnConnectUrl(url);
   }
 
@@ -92,8 +87,8 @@ const ConnectWallet = () => {
                 <Form.Control 
                   onClick={copyHandler}
                   id='REST Port'
-                  value={REST_PORT}
-                  aria-label={REST_PORT}
+                  value={appCtx.walletConnect.REST_PORT}
+                  aria-label={appCtx.walletConnect.REST_PORT}
                   aria-describedby='copy-addon-port'
                   className='form-control-left'
                   readOnly
@@ -111,8 +106,8 @@ const ConnectWallet = () => {
                 <Form.Control 
                   onClick={copyHandler}
                   id='Host'
-                  value={selNetwork === 0 ? LIGHTNING_HOST : TOR_HOST}
-                  aria-label={selNetwork === 0 ? LIGHTNING_HOST : TOR_HOST}
+                  value={selNetwork === 0 ? appCtx.walletConnect.LOCAL_HOST : appCtx.walletConnect.TOR_HOST}
+                  aria-label={selNetwork === 0 ? appCtx.walletConnect.LOCAL_HOST : appCtx.walletConnect.TOR_HOST}
                   aria-describedby='copy-addon-host'
                   className='form-control-left'
                   readOnly
@@ -130,8 +125,8 @@ const ConnectWallet = () => {
                 <Form.Control 
                   onClick={copyHandler}
                   id='Macaroon'
-                  value={REST_MACAROON}
-                  aria-label={REST_MACAROON}
+                  value={appCtx.walletConnect.REST_MACAROON}
+                  aria-label={appCtx.walletConnect.REST_MACAROON}
                   aria-describedby='copy-addon-macaroon'
                   className='form-control-left'
                   readOnly

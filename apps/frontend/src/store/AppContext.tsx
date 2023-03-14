@@ -6,7 +6,7 @@
 import React, { useReducer } from 'react';
 import { AppContextType } from '../types/app-context.type';
 import { ApplicationActions, ApplicationModes, SATS_MSAT, Units } from '../utilities/constants';
-import { ApplicationConfiguration, FiatConfig } from '../types/app-config.type';
+import { ApplicationConfiguration, FiatConfig, WalletConnect } from '../types/app-config.type';
 import { BkprTransaction, Fund, FundChannel, FundOutput, Invoice, ListBitcoinTransactions, ListInvoices, ListPayments, ListPeers, NodeFeeRate, NodeInfo, Payment, Peer } from '../types/lightning-wallet.type';
 import logger from '../services/logger.service';
 import { faDollarSign } from '@fortawesome/free-solid-svg-icons';
@@ -177,6 +177,7 @@ const filterOnChainTransactions = (events: BkprTransaction[]) => {
 const AppContext = React.createContext<AppContextType>({
   showModals: { nodeInfoModal: false, connectWalletModal: false},
   showToast: {show: false, message: ''},
+  walletConnect: {isLoading: true},
   appConfig: {isLoading: true, unit: Units.SATS, fiatUnit: 'USD', appMode: ApplicationModes.DARK},
   fiatConfig: {isLoading: true, symbol: faDollarSign, venue: '', rate: 1},
   feeRate: {isLoading: true},
@@ -190,7 +191,8 @@ const AppContext = React.createContext<AppContextType>({
   listBitcoinTransactions: {isLoading: true, btcTransactions: []},
   walletBalances: {isLoading: true, clnLocalBalance: 0, clnRemoteBalance: 0, clnPendingBalance: 0, clnInactiveBalance: 0, btcSpendableBalance: 0, btcReservedBalance: 0},
   setShowModals: (newShowModals) => {}, 
-  setShowToast: (newShowToast) => {}, 
+  setShowToast: (newShowToast) => {},
+  setWalletConnect: (newWalletConnect) => {},
   setConfig: (config: ApplicationConfiguration) => {},
   setFiatConfig: (fiatConfig: FiatConfig) => {},
   setFeeRate: (feeRate: NodeFeeRate) => {},
@@ -207,6 +209,7 @@ const AppContext = React.createContext<AppContextType>({
 const defaultAppState = {
   showModals: {nodeInfoModal: false, connectWalletModal: false, toastComponent: false},
   showToast: {show: false, message: ''},
+  walletConnect: {isLoading: true},
   appConfig: {isLoading: true, unit: Units.SATS, fiatUnit: 'USD', appMode: ApplicationModes.DARK},
   fiatConfig: {isLoading: true, symbol: faDollarSign, venue: '', rate: 1},
   feeRate: {isLoading: true},
@@ -235,6 +238,12 @@ const appReducer = (state, action) => {
       return {
         ...state,
         showToast: action.payload
+      };
+  
+    case ApplicationActions.SET_WALLET_CONNECT:
+      return {
+        ...state,
+        walletConnect: action.payload
       };
   
     case ApplicationActions.SET_CONFIG:
@@ -339,6 +348,10 @@ const AppProvider: React.PropsWithChildren<any> = (props) => {
     dispatchApplicationAction({ type: ApplicationActions.SET_SHOW_TOAST, payload: newShowToast });
   };
 
+  const setWalletConnectHandler = (walletConnect: WalletConnect) => {
+    dispatchApplicationAction({ type: ApplicationActions.SET_WALLET_CONNECT, payload: walletConnect });
+  };
+
   const setConfigurationHandler = (config: ApplicationConfiguration) => {
     dispatchApplicationAction({ type: ApplicationActions.SET_CONFIG, payload: config });
   };
@@ -386,6 +399,7 @@ const AppProvider: React.PropsWithChildren<any> = (props) => {
   const appContext: AppContextType = {
     showModals: applicationState.showModals,
     showToast: applicationState.showToast,
+    walletConnect: applicationState.walletConnect,
     appConfig: applicationState.appConfig,
     fiatConfig: applicationState.fiatConfig,
     feeRate: applicationState.feeRate,
@@ -400,6 +414,7 @@ const AppProvider: React.PropsWithChildren<any> = (props) => {
     walletBalances: applicationState.walletBalances,
     setShowModals: setShowModalsHandler,
     setShowToast: setShowToastHandler,
+    setWalletConnect: setWalletConnectHandler,
     setConfig: setConfigurationHandler,
     setFiatConfig: setFiatConfigHandler,
     setFeeRate: setFeeRateHandler,
