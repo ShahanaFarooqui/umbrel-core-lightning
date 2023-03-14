@@ -1,9 +1,9 @@
 import { faDollarSign, faYenSign, faEuroSign, faSterlingSign, faIndianRupeeSign, faRubleSign  } from '@fortawesome/free-solid-svg-icons'
 
 export const HOST = process.env.NODE_ENV !== 'production' ? 'localhost' : window.location.hostname;
-export const PORT = process.env.NODE_ENV !== 'production' ? 3007 : window.location.port;
+export const PORT = process.env.NODE_ENV !== 'production' ? 2103 : window.location.port;
 
-export const LOG_LEVEL = 'info';
+export const LOG_LEVEL = process.env.NODE_ENV !== 'production' ? 'info' : 'warn';
 export const API_BASE_URL = 'http://' + HOST + ':' + PORT;
 export const API_VERSION = '/v1';
 

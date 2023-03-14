@@ -189,6 +189,9 @@
       border: 1px solid $card-bg-dark;
       color: $light-dark;
       background-color: $body-bg-dark;
+      & svg path {
+        fill: $light-dark;
+      }
     }
   }
 

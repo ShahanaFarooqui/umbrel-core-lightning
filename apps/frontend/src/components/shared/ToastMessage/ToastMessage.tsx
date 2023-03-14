@@ -34,14 +34,14 @@ const ToastMessage = () => {
           <Toast show={appCtx.showToast.show} onClose={closeHandler} delay={appCtx.showToast.delay || 3000} data-bg={appCtx.showToast.bg} className={appCtx.showToast.className || 'd-flex align-items-start justify-content-between'}>
             <Toast.Body className='p-0 w-100 d-flex align-items-start justify-content-start'>
               <Col className='d-flex align-items-stretch justify-content-between'>
-                <Col xs={2} className='message-type-box d-flex align-items-start justify-content-center'>
+                <Col xs={2} className='pt-12px message-type-box d-flex align-items-start justify-content-center'>
                   <FontAwesomeIcon className='svg-white fa-xl' icon={faQuestion} />
                 </Col>
                 <Col xs={10} className='p-2'>
                   <Col className='d-flex align-items-center justify-content-between'>
                     {appCtx.showToast.message || 'Default Message!'}
-                    <button type="button" className="btn-rounded btn-sm btn btn-outline-primary" onClick={() => confirmCloseHandler(true)}><FontAwesomeIcon className='svg-primary' size='lg' icon={faCheck} /></button>
-                    <button type="button" className="btn-rounded btn-sm bg-primary" onClick={() => confirmCloseHandler(false)}><FontAwesomeIcon className='svg-white' size='lg' icon={faClose} /></button>
+                    <button type="button" className="btn-rounded btn-sm btn btn-outline-primary" onClick={() => confirmCloseHandler(true)}><FontAwesomeIcon className='svg-primary fa-xl' icon={faCheck} /></button>
+                    <button type="button" className="btn-rounded btn-sm bg-primary" onClick={() => confirmCloseHandler(false)}><FontAwesomeIcon className='svg-white fa-xl' icon={faClose} /></button>
                   </Col>
                 </Col>
               </Col>

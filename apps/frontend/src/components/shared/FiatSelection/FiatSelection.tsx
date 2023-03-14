@@ -19,19 +19,17 @@ const FiatSelection = (props) => {
   return (
     <>
     <Dropdown className={props.className} onSelect={fiatChangeHandler}>
-      <Dropdown.Toggle variant='outline border-gray-300'>
-        <div className='dropdown-toggle-text'>
-          <FontAwesomeIcon className='svg-curr-symbol' icon={appCtx.fiatConfig.symbol} />
-          {appCtx.appConfig.fiatUnit || 'USD'}
-        </div>
+      <Dropdown.Toggle variant='outline border-gray-300 d-flex align-items-center'>
+        <FontAwesomeIcon className='text-dark fa-md' icon={appCtx.fiatConfig.symbol} />
+        <span className='dropdown-toggle-text text-dark ms-2px'>{appCtx.appConfig.fiatUnit || 'USD'}</span>
       </Dropdown.Toggle>
       <Dropdown.Menu>
         <PerfectScrollbar className='ps-show-always'>
           <div className='fiat-dropdown-scroller fs-7'>
           {FIAT_CURRENCIES.map((fiat, i) => 
             <Dropdown.Item as='div' eventKey={fiat.currency} key={i}>
-              <FontAwesomeIcon icon={fiat.symbol} />
-              {fiat.currency}
+              <FontAwesomeIcon className='fa-md' icon={fiat.symbol} />
+              <span className='ms-2px'>{fiat.currency}</span>
             </Dropdown.Item>
           )}
           </div>

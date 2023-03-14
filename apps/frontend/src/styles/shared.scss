@@ -33,6 +33,14 @@ body {
   margin-top: 2px !important;
 }
 
+.pt-2px {
+  padding-top: 2px !important;
+}
+
+.pt-12px {
+  padding-top: 0.75rem !important;
+}
+
 .cursor-pointer {
   cursor: pointer !important;
 }
@@ -47,6 +55,10 @@ body {
 
 .text-blue {
   color: $blue;
+}
+
+.text-dark {
+  color: $dark;
 }
 
 .text-darker-blue {
@@ -71,6 +83,10 @@ body {
 
 .mt-10 {
   margin-top: $spacer * 10;
+}
+
+.ms-2px {
+  margin-left: 2px !important;
 }
 
 .border-gray-300 {
@@ -252,8 +268,23 @@ svg {
       fill: $white;
     }
   }
-  &.svg-inline--fa.fa-xl {
-    width: 1.5rem;
+  &.svg-inline--fa {
+    display: inline-flex;
+    &.fa-xl {
+      height: 1.25rem;
+    }
+    &.fa-lg {
+      height: 1rem;
+    }
+    &.fa-md {
+      height: 0.75rem;
+    }
+    &.fa-sm {
+      height: 0.5rem;
+    }
+    &.fa-xs {
+      height: 0.25rem;
+    }  
   }
 }
 
