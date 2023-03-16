@@ -17,7 +17,7 @@ RUN npm install
 RUN npm run build
 
 # Final image
-FROM node:18-buster AS umbrel-lightning
+FROM node:18-buster-slim AS umbrel-lightning
 
 # Copy built code from build stages to '/app' directory
 COPY --from=umbrel-lightning-app-builder /app /app

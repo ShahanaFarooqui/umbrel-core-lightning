@@ -18,7 +18,7 @@ export const getNodesInfo = (lightningPeers: any) => {
             resolve(peer);
           })
           .catch(err => {
-            logger.error('Node lookup failed');
+            logger.warn('Node lookup failed for ' + peer.id + ' with error ' + JSON.stringify(err) + ', using peer id instead.');
             peer.alias = peer.id.substring(0, 20);
             resolve(peer);
           });

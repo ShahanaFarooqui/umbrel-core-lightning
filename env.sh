@@ -1,3 +1,4 @@
+export APP_ID="core-lightning"
 export APP_BITCOIN_NETWORK="regtest"
 export APP_BITCOIN_RPC_USER="umbrel"
 export APP_BITCOIN_RPC_PASS="moneyprintergobrrr"
@@ -10,10 +11,9 @@ export TOR_PASSWORD=""
 export APP_CORE_LIGHTNING_IP="172.23.0.4"
 export APP_CORE_LIGHTNING_PORT="2103"
 export APP_CORE_LIGHTNING_DAEMON_IP="172.23.0.3"
-export APP_CORE_LIGHTNING_DAEMON_PORT=9736
+export APP_CORE_LIGHTNING_DAEMON_GRPC_PORT=5010
 
 export APP_CORE_LIGHTNING_TOR_HOST="tor.host"
-export LIGHTNING_GRPC_PORT=5001
 export LIGHTNING_REST_PORT=3001
 export LIGHTNING_REST_HIDDEN_SERVICE=""
 export LIGHTNING_REST_MACAROON_PATH="/data/c-lightning-rest/certs"
@@ -23,18 +23,6 @@ export CLIENT_KEY=""
 export CLIENT_CERT=""
 
 export APP_CORE_LIGHTNING_BITCOIN_NETWORK="${APP_BITCOIN_NETWORK}"
-if [ "${APP_BITCOIN_NETWORK}" == "mainnet" ]; then
-	export APP_CORE_LIGHTNING_BITCOIN_NETWORK="bitcoin"
-fi
-
-# Docker Variables
-# export APP_DATA_DIR="../../../../.."
-# export APP_CORE_LIGHTNING_APPLICATION_MODE="production"
-# export APP_CORE_LIGHTNING_RUNE="cfpGrB3QQVOphH8H8tBWMSyP5mkPdwrcJY6VBjW9i8w9MA=="
-# export APP_CORE_LIGHTNING_NODE_PUBKEY="0352aa08b2ce0861f5f9594073feb5ba67ac905c5dd33713c4323e48c4218faa6f"
-# echo "Docker Environment Variables Set"
-
-# # Local Variables
 export APP_DATA_DIR="../../../.."
 export APP_CORE_LIGHTNING_APPLICATION_MODE="development"
 export APP_CORE_LIGHTNING_DAEMON_IP="localhost"
@@ -58,4 +46,4 @@ export APP_CORE_LIGHTNING_NODE_PUBKEY="037610b58f47e78ea5178e56f4c793656da5cf093
 # export APP_CORE_LIGHTNING_WS_PORT=5010
 # export APP_CORE_LIGHTNING_RUNE="wRqTHqP5M5T87HTKl4SP3SlKebpzRBkHblgDPCk-lao9OA=="
 # export APP_CORE_LIGHTNING_NODE_PUBKEY="02b412142c42c143aad5805af68f214ec890398f982128c9921ee87e242177c2e6"
-echo "Local Environment Variables Set"
+# echo "Local Environment Variables Set"
