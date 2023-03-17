@@ -37,15 +37,25 @@ jobs:
         if: steps.cache-npm-packages.outputs.cache-hit != 'true'
         run: npm clean-install
 
-      - name: Cache build application
+      - name: Cache build frontend
         uses: actions/cache@v2
-        id: cache-build-app
+        id: cache-build-frontend
         with:
-          path: apps
-          key: ${{ runner.os }}-app-${{ github.sha }}
+          path: apps/frontend
+          key: ${{ runner.os }}-frontend-${{ github.sha }}
 
       - name: Run build production application
-        run: npm run build
+        run: npm run frontend:build
+
+      - name: Cache build backend
+        uses: actions/cache@v2
+        id: cache-build-backend
+        with:
+          path: apps/backend
+          key: ${{ runner.os }}-backend-${{ github.sha }}
+
+      - name: Run build backend server
+        run: npm run backend:build
 
   deploy:
     runs-on: ubuntu-22.04
@@ -54,17 +64,24 @@ jobs:
       - name: Checkout source code
         uses: actions/checkout@v2
 
-      - name: Cache build application
+      - name: Cache build frontend
         uses: actions/cache@v2
-        id: cache-build-app
+        id: cache-build-frontend
         with:
-          path: apps
-          key: ${{ runner.os }}-app-${{ github.sha }}
+          path: apps/frontend
+          key: ${{ runner.os }}-frontend-${{ github.sha }}
+
+      - name: Cache build backend
+        uses: actions/cache@v2
+        id: cache-build-backend
+        with:
+          path: apps/backend
+          key: ${{ runner.os }}-backend-${{ github.sha }}
 
       - name: Compress files
-        run: tar -czf /tmp/clnumbrelapp.tar.gz backend/dist frontend/build package.json package-lock.json
+        run: tar -czf /tmp/clnumbrelapp.tar.gz frontend/build backend/dist package.json package-lock.json
 
       - uses: actions/upload-artifact@v2
         with:
-          name: clnumbrelapp-build-${{ github.event.release.tag_name }}
+          name: clnumbrelapp-${{ github.event.release.tag_name }}
           path: /tmp/clnumbrelapp.tar.gz
