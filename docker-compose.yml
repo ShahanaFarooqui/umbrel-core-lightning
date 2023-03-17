@@ -19,12 +19,10 @@ services:
   lightning:
     image: elementsproject/lightningd:v22.11.1@sha256:14f1a7937f9692184e46ab6245ed51ed86262d208e81fd5ec5f0339ac5bf8096
     env_file: .env
-    # entrypoint: /root/entrypoint.sh
     command: --bitcoin-rpcconnect=${APP_BITCOIN_NODE_IP} --bitcoin-rpcuser=${APP_BITCOIN_RPC_USER} --bitcoin-rpcpassword=${APP_BITCOIN_RPC_PASS} --bind-addr=${APP_CORE_LIGHTNING_DAEMON_IP}:9735 --network=${APP_CORE_LIGHTNING_BITCOIN_NETWORK} --grpc-port=${APP_CORE_LIGHTNING_DAEMON_GRPC_PORT} --experimental-websocket-port=${APP_CORE_LIGHTNING_WS_PORT} --experimental-offers
     restart: on-failure
     volumes:
       - ${PWD}/data/lightning:/root/.lightning
-      - ${PWD}/entrypoint.sh:/root/entrypoint.sh
     networks:
       networkcln:
         ipv4_address: ${APP_CORE_LIGHTNING_DAEMON_IP}
@@ -40,6 +38,7 @@ services:
     command: npm run start
     restart: on-failure
     volumes:
+      - ${PWD}/data/lightning:/root/.lightning
       - ${PWD}/data/app:/data/app
     environment:
       APP_HOST: "${APP_CORE_LIGHTNING_IP}"
