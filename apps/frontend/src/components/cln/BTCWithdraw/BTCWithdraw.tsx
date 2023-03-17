@@ -11,7 +11,7 @@ import Spinner from 'react-bootstrap/Spinner';
 import logger from '../../../services/logger.service';
 import useInput from '../../../hooks/use-input';
 import useHttp from '../../../hooks/use-http';
-import { CallStatus, FeeRate, FEE_RATES } from '../../../utilities/constants';
+import { CallStatus, CLEAR_STATUS_ALERT_DELAY, FeeRate, FEE_RATES } from '../../../utilities/constants';
 import { AppContext } from '../../../store/AppContext';
 import { ActionSVG } from '../../../svgs/Action';
 import { AmountSVG } from '../../../svgs/Amount';
@@ -71,6 +71,13 @@ const BTCWithdraw = (props) => {
     setSelFeeRate(FeeRate.NORMAL);
   };
 
+  const delayedClearStatusAlert = () => {
+    setTimeout(() => {
+      setResponseStatus(CallStatus.NONE);
+      setResponseMessage('');
+    }, CLEAR_STATUS_ALERT_DELAY);
+  }
+
   const withdrawHandler = (event) => {
     event.preventDefault();
     touchFormControls();
@@ -84,15 +91,18 @@ const BTCWithdraw = (props) => {
         setResponseStatus(CallStatus.SUCCESS);
         setResponseMessage('Transaction sent with transaction id ' + response.data.txid);
         resetFormValues();
+        delayedClearStatusAlert();
       } else {
         setResponseStatus(CallStatus.ERROR);
         setResponseMessage(response.message || 'Unknown Error');
+        delayedClearStatusAlert();
       }
     })
     .catch(err => {
       logger.error(err.response && err.response.data ? err.response.data : err.message ? err.message : JSON.stringify(err));
       setResponseStatus(CallStatus.ERROR);
       setResponseMessage(err.response && err.response.data ? err.response.data : err.message ? err.message : JSON.stringify(err));
+      delayedClearStatusAlert();
     });
   };
 
@@ -197,7 +207,7 @@ const BTCWithdraw = (props) => {
             <Card.Footer className='d-flex justify-content-center'>
               <Button tabIndex={4} type='submit' variant='primary' className='btn-rounded' disabled={responseStatus === CallStatus.PENDING}>
                 Withdraw
-                {responseStatus === CallStatus.PENDING ? <Spinner className='mt-1 ms-2' size='sm' variant='white' /> : <ActionSVG className='ms-3' />}
+                {responseStatus === CallStatus.PENDING ? <Spinner className='mt-1 ms-2 text-white-dark' size='sm' /> : <ActionSVG className='ms-3' />}
               </Button>
             </Card.Footer>
         </Card.Body>

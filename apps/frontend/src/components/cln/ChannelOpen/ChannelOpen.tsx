@@ -11,7 +11,7 @@ import Spinner from 'react-bootstrap/Spinner';
 import logger from '../../../services/logger.service';
 import useInput from '../../../hooks/use-input';
 import useHttp from '../../../hooks/use-http';
-import { CallStatus, FeeRate, BOUNCY_SPRING_VARIANTS_1 } from '../../../utilities/constants';
+import { CallStatus, FeeRate, BOUNCY_SPRING_VARIANTS_1, CLEAR_STATUS_ALERT_DELAY } from '../../../utilities/constants';
 import { AppContext } from '../../../store/AppContext';
 import { ActionSVG } from '../../../svgs/Action';
 import { AmountSVG } from '../../../svgs/Amount';
@@ -82,6 +82,13 @@ const ChannelOpen = (props) => {
     setSelFeeRate(FeeRate.NORMAL);
   };
 
+  const delayedClearStatusAlert = () => {
+    setTimeout(() => {
+      setResponseStatus(CallStatus.NONE);
+      setResponseMessage('');
+    }, CLEAR_STATUS_ALERT_DELAY);
+  }
+
   const ChannelOpenHandler = (event) => {
     event.preventDefault();
     touchFormControls();
@@ -95,15 +102,18 @@ const ChannelOpen = (props) => {
         setResponseStatus(CallStatus.SUCCESS);
         setResponseMessage('Channel opened with ' + (response.data.channel_id ? ('channel id ' + response.data.channel_id) : ('transaction id ' + response.data.txid)));
         resetFormValues();
+        delayedClearStatusAlert();
       } else {
         setResponseStatus(CallStatus.ERROR);
         setResponseMessage(response.message || 'Unknown Error');
+        delayedClearStatusAlert();
       }
     })
     .catch(err => {
       logger.error(err.response && err.response.data ? err.response.data : err.message ? err.message : JSON.stringify(err));
       setResponseStatus(CallStatus.ERROR);
       setResponseMessage(err.response && err.response.data ? err.response.data : err.message ? err.message : JSON.stringify(err));
+      delayedClearStatusAlert();
     });
   };
 
@@ -195,7 +205,7 @@ const ChannelOpen = (props) => {
             <Card.Footer className='d-flex justify-content-center'>
               <button tabIndex={5} type='submit' className='btn-rounded bg-primary' disabled={responseStatus === CallStatus.PENDING}>
                 Open Channel
-                {responseStatus === CallStatus.PENDING ? <Spinner className='mt-1 ms-2' size='sm' variant='white' /> : <ActionSVG className='ms-3' />}
+                {responseStatus === CallStatus.PENDING ? <Spinner className='mt-1 ms-2 text-white-dark' size='sm' /> : <ActionSVG className='ms-3' />}
               </button>
             </Card.Footer>
         </Card.Body>

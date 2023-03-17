@@ -2,7 +2,7 @@ import './BTCDeposit.scss';
 import { useEffect, useState } from 'react';
 import Card from 'react-bootstrap/Card';
 
-import { CallStatus } from '../../../utilities/constants';
+import { CallStatus, CLEAR_STATUS_ALERT_DELAY } from '../../../utilities/constants';
 import logger from '../../../services/logger.service';
 import useHttp from '../../../hooks/use-http';
 import { BitcoinWalletSVG } from '../../../svgs/BitcoinWallet';
@@ -15,6 +15,13 @@ const BTCDeposit = (props) => {
   const [responseStatus, setResponseStatus] = useState(CallStatus.NONE);
   const [responseMessage, setResponseMessage] = useState('');
 
+  const delayedClearStatusAlert = () => {
+    setTimeout(() => {
+      setResponseStatus(CallStatus.NONE);
+      setResponseMessage('');
+    }, CLEAR_STATUS_ALERT_DELAY);
+  }
+
   useEffect(() => {
     setResponseStatus(CallStatus.PENDING);
     setResponseMessage('Generating New Address...');
@@ -24,15 +31,18 @@ const BTCDeposit = (props) => {
       if (response.data && response.data.bech32) {
         setResponseStatus(CallStatus.SUCCESS);
         setResponseMessage((response.data.bech32));
+        delayedClearStatusAlert();
       } else {
         setResponseStatus(CallStatus.ERROR);
         setResponseMessage(response.message || 'Unknown Error');
+        delayedClearStatusAlert();
       }
     })
     .catch(err => {
       logger.error(err.response && err.response.data ? err.response.data : err.message ? err.message : JSON.stringify(err));
       setResponseStatus(CallStatus.ERROR);
       setResponseMessage(err.response && err.response.data ? err.response.data : err.message ? err.message : JSON.stringify(err));
+      delayedClearStatusAlert();
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

@@ -33,7 +33,7 @@ const TransactionDetail = ({transaction, copyHandler, openLinkHandler}) => {
         <Col xs={12} className='fs-7 text-light'>Transaction ID</Col>
         <Col xs={10} className='pe-1 fs-7 overflow-x-ellipsis'>{transaction.txid}</Col>
         <Col xs={1} onClick={copyHandler} className='btc-transaction-copy'><CopySVG id='Transaction ID' showTooltip={true} /></Col>
-        <Col xs={1} onClick={openLinkHandler} className='btc-transaction-copy'><OpenLinkSVG id={transaction.txid} /></Col>
+        <Col xs={1} onClick={openLinkHandler} className='btc-transaction-open'><OpenLinkSVG id={transaction.txid} /></Col>
       </Row>
     :
       <></>
@@ -43,7 +43,7 @@ const TransactionDetail = ({transaction, copyHandler, openLinkHandler}) => {
         <Col xs={12} className='fs-7 text-light'>Payment ID</Col>
         <Col xs={10} className='pe-1 fs-7 overflow-x-ellipsis'>{transaction.payment_id}</Col>
         <Col xs={1} onClick={copyHandler} className='btc-transaction-copy'><CopySVG id='Payment ID' showTooltip={true} /></Col>
-        <Col xs={1} onClick={openLinkHandler} className='btc-transaction-copy'><OpenLinkSVG id={transaction.payment_id} /></Col>
+        <Col xs={1} onClick={openLinkHandler} className='btc-transaction-open'><OpenLinkSVG id={transaction.payment_id} /></Col>
       </Row>
     :
       <></>
@@ -53,7 +53,7 @@ const TransactionDetail = ({transaction, copyHandler, openLinkHandler}) => {
         <Col xs={12} className='fs-7 text-light'>Outpoint</Col>
         <Col xs={10} className='pe-1 fs-7 overflow-x-ellipsis'>{transaction.outpoint}</Col>
         <Col xs={1} onClick={copyHandler} className='btc-transaction-copy'><CopySVG id='Outpoint' showTooltip={true} /></Col>
-        <Col xs={1} onClick={openLinkHandler} className='btc-transaction-copy'><OpenLinkSVG id={transaction.outpoint ? (transaction.outpoint).split(':')[0] : ''} /></Col>
+        <Col xs={1} onClick={openLinkHandler} className='btc-transaction-open'><OpenLinkSVG id={transaction.outpoint ? (transaction.outpoint).split(':')[0] : ''} /></Col>
       </Row>
     :
       <></>

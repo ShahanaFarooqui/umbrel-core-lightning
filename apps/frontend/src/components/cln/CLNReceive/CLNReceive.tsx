@@ -11,7 +11,7 @@ import Spinner from 'react-bootstrap/Spinner';
 import logger from '../../../services/logger.service';
 import useInput from '../../../hooks/use-input';
 import useHttp from '../../../hooks/use-http';
-import { CallStatus, PaymentType } from '../../../utilities/constants';
+import { CallStatus, CLEAR_STATUS_ALERT_DELAY, PaymentType } from '../../../utilities/constants';
 import { AppContext } from '../../../store/AppContext';
 import { ActionSVG } from '../../../svgs/Action';
 import { AmountSVG } from '../../../svgs/Amount';
@@ -73,6 +73,13 @@ const CLNReceive = (props) => {
     resetAmount();
   };
 
+  const delayedClearStatusAlert = () => {
+    setTimeout(() => {
+      setResponseStatus(CallStatus.NONE);
+      setResponseMessage('');
+    }, CLEAR_STATUS_ALERT_DELAY);
+  }
+
   const CLNReceiveHandler = (event) => {
     event.preventDefault();
     touchFormControls();
@@ -90,12 +97,14 @@ const CLNReceive = (props) => {
       } else {
         setResponseStatus(CallStatus.ERROR);
         setResponseMessage(response.message || 'Unknown Error');
+        delayedClearStatusAlert();
       }
     })
     .catch(err => {
       logger.error(err.response.data);
       setResponseStatus(CallStatus.ERROR);
       setResponseMessage(err.response.data);
+      delayedClearStatusAlert();
     });
   };
 
@@ -207,7 +216,7 @@ const CLNReceive = (props) => {
             <Card.Footer className='d-flex justify-content-center'>
               <Button tabIndex={5} type='submit' variant='primary' className='btn-rounded' disabled={responseStatus === CallStatus.PENDING}>
                 Generate {paymentType === PaymentType.OFFER ? 'Offer' : 'Invoice'}
-                {responseStatus === CallStatus.PENDING ? <Spinner className='mt-1 ms-2' size='sm' variant='white' /> : <ActionSVG className='ms-3' />}
+                {responseStatus === CallStatus.PENDING ? <Spinner className='mt-1 ms-2 text-white-dark' size='sm' /> : <ActionSVG className='ms-3' />}
               </Button>
             </Card.Footer>
         </Card.Body>

@@ -42,5 +42,6 @@ export type ToastConfig = {
   type?: string;
   bg?: string;
   className?: string;
+  containerClassName?: string;
   confirmRes?: any;
 }

@@ -10,8 +10,12 @@ const StatusAlert = props => {
   return (
     (props.responseStatus !== CallStatus.NONE) ?
       <motion.div 
-        className={'w-100 d-flex align-items-start justify-content-start show alert alert-' + (props.responseStatus === CallStatus.ERROR ? 'danger' : props.responseStatus === CallStatus.PENDING ? 'warning' : props.responseStatus === CallStatus.SUCCESS ? 'success' : '')}
-        variants={OPACITY_VARIANTS} initial='hidden' animate='visible' exit='hidden'
+        className={'w-100 d-flex align-items-start justify-content-start alert alert-' + (props.responseStatus === CallStatus.ERROR ? 'danger' : props.responseStatus === CallStatus.PENDING ? 'warning' : props.responseStatus === CallStatus.SUCCESS ? 'success' : '')}
+        initial='hidden'
+        animate='visible'
+        exit='hidden'
+        variants={OPACITY_VARIANTS}
+        transition={{ ease: "easeOut", duration: 1 }}
       >
         {props.responseStatus === CallStatus.PENDING ? <Spinner className='me-2' variant='primary' size='sm' /> : <InformationSVG svgClassName='mt-2px information-svg' className={props.responseStatus === CallStatus.ERROR ? 'fill-danger' : 'fill-success'} />}
         {titleCase(props.responseMessage)}

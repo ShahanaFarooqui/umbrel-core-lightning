@@ -5,6 +5,10 @@
     color: $dark;
   }
   
+  .text-white-dark {
+    color: $white;
+  }
+
   .text-light-white {
     color: $light !important;
   }
@@ -83,11 +87,6 @@
         box-shadow: 0px 2px 4px 0px $gray-400;
       }
     }
-    &.btn-outline-primary {
-      &:hover {
-        background-color: darken($secondary, 5%);
-      }
-    }  
   }
   
   .btn-group {

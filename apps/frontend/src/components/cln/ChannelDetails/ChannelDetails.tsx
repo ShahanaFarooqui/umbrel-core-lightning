@@ -1,5 +1,5 @@
 import './ChannelDetails.scss';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import Card from 'react-bootstrap/Card';
 import Row from 'react-bootstrap/Row';
@@ -11,7 +11,7 @@ import Tooltip from 'react-bootstrap/Tooltip';
 
 import useHttp from '../../../hooks/use-http';
 import { formatCurrency, titleCase } from '../../../utilities/data-formatters';
-import { CallStatus, Units } from '../../../utilities/constants';
+import { CallStatus, CLEAR_STATUS_ALERT_DELAY, Units } from '../../../utilities/constants';
 import { AppContext } from '../../../store/AppContext';
 import { ActionSVG } from '../../../svgs/Action';
 import { CloseSVG } from '../../../svgs/Close';
@@ -19,43 +19,15 @@ import StatusAlert from '../../shared/StatusAlert/StatusAlert';
 import logger from '../../../services/logger.service';
 import { CopySVG } from '../../../svgs/Copy';
 import { OpenLinkSVG } from '../../../svgs/OpenLink';
+import ToastMessage from '../../shared/ToastMessage/ToastMessage';
 
 const ChannelDetails = (props) => {
   const appCtx = useContext(AppContext);
   const { closeChannel } = useHttp();
+  const [showToast, setShowToast] = useState(false);
   const [channelClosed, setChannelClosed] = useState(props.selChannel.current_state !== 'ACTIVE');
   const [responseStatus, setResponseStatus] = useState(CallStatus.NONE);
   const [responseMessage, setResponseMessage] = useState('');
-
-  useEffect(() => {
-    if (typeof appCtx.showToast.confirmRes === 'undefined') {
-      return;
-    }
-    if (!!appCtx.showToast.confirmRes) {
-      setResponseStatus(CallStatus.PENDING);
-      setResponseMessage('Closing Channel...');
-      closeChannel(props.selChannel.channel_id)
-      .then((response: any) => {
-        logger.info(response);
-        if (response.data && response.data.type) {
-          setChannelClosed(true);
-          setResponseStatus(CallStatus.SUCCESS);
-          setResponseMessage('Channel ' + response.data.type + ' closed' + (response.data.txid ? (' with transaction id ' + response.data.txid) : ''));
-        } else {
-          setResponseStatus(CallStatus.ERROR);
-          setResponseMessage(response.message || 'Unknown Error');
-        }
-      })
-      .catch(err => {
-        logger.error(err.response && err.response.data ? err.response.data : err.message ? err.message : JSON.stringify(err));
-        setResponseStatus(CallStatus.ERROR);
-        setResponseMessage(err.response && err.response.data ? err.response.data : err.message ? err.message : JSON.stringify(err));
-      });
-    } else {
-      setResponseStatus(CallStatus.NONE);
-      setResponseMessage('');
-    }
-  }, [appCtx.showToast.confirmRes, closeChannel, props.selChannel.channel_id]);
 
   const openLinkHandler = (event) => {
     window.open('https://blockstream.info/' + (appCtx.nodeInfo.network === 'testnet' ? 'testnet/' : '') + 'tx/' + event.target.id, '_blank');
@@ -64,8 +36,8 @@ const ChannelDetails = (props) => {
   const ChannelCloseHandler = (event) => {
     event.preventDefault();
     setResponseStatus(CallStatus.PENDING);
-    setResponseMessage('Close Channel...?');
-    appCtx.setShowToast({show: true, type: 'CONFIRM', message: ('Close this channel?'), bg: 'primary'});
+    setResponseMessage('');
+    setShowToast(true);
   };
 
   const copyHandler = (event) => {
@@ -82,6 +54,44 @@ const ChannelDetails = (props) => {
     }
     appCtx.setShowToast({show: true, message: (event.target.id + ' Copied Successfully!'), bg: 'success'});
   }
+
+  const delayedClearStatusAlert = () => {
+    setTimeout(() => {
+      setResponseStatus(CallStatus.NONE);
+      setResponseMessage('');
+    }, CLEAR_STATUS_ALERT_DELAY);
+  }
+
+  const confirmResponseHandler = (response) => {
+    setShowToast(false);
+    if (response) {
+      setResponseStatus(CallStatus.PENDING);
+      setResponseMessage('Closing Channel...');
+      closeChannel(props.selChannel.channel_id)
+      .then((response: any) => {
+        logger.info(response);
+        if (response.data && response.data.type) {
+          setChannelClosed(true);
+          setResponseStatus(CallStatus.SUCCESS);
+          setResponseMessage('Channel ' + response.data.type + ' closed' + (response.data.txid ? (' with transaction id ' + response.data.txid) : ''));
+          delayedClearStatusAlert();
+        } else {
+          setResponseStatus(CallStatus.ERROR);
+          setResponseMessage(response.message || 'Unknown Error');
+          delayedClearStatusAlert();          
+        }
+      })
+      .catch(err => {
+        logger.error(err.response && err.response.data ? err.response.data : err.message ? err.message : JSON.stringify(err));
+        setResponseStatus(CallStatus.ERROR);
+        setResponseMessage(err.response && err.response.data ? err.response.data : err.message ? err.message : JSON.stringify(err));
+        delayedClearStatusAlert();
+      });
+    } else {
+      setResponseStatus(CallStatus.NONE);
+      setResponseMessage('');
+    }
+  };
 
   return (
     <form onSubmit={ChannelCloseHandler} className='h-100'>
@@ -165,17 +175,18 @@ const ChannelDetails = (props) => {
                   <Row className='mt-12px'>
                     <Col xs={12} className='fs-7 text-light'>Channel ID</Col>
                     <Col xs={11} className='pe-1 overflow-x-ellipsis fw-bold'>{props.selChannel.channel_id}</Col>
-                    <Col xs={1} onClick={copyHandler} className='btn-sm-svg'><CopySVG id='Channel ID' showTooltip={true} /></Col>
+                    <Col xs={1} onClick={copyHandler} className='btn-sm-svg btn-svg-copy'><CopySVG id='Channel ID' showTooltip={true} /></Col>
                   </Row>
                   <Row className='mt-12px'>
                     <Col xs={12} className='fs-7 text-light'>Funding ID</Col>
                     <Col xs={10} className='pe-1 overflow-x-ellipsis fw-bold'>{props.selChannel.funding_txid}</Col>
-                    <Col xs={1} onClick={copyHandler} className='btn-sm-svg'><CopySVG id='Funding ID' showTooltip={true} /></Col>
-                    <Col xs={1} onClick={openLinkHandler} className='btn-sm-svg'><OpenLinkSVG id={props.selChannel.funding_txid} /></Col>
+                    <Col xs={1} onClick={copyHandler} className='btn-sm-svg btn-svg-copy'><CopySVG id='Funding ID' showTooltip={true} /></Col>
+                    <Col xs={1} onClick={openLinkHandler} className='btn-sm-svg btn-svg-open'><OpenLinkSVG id={props.selChannel.funding_txid} /></Col>
                   </Row>
                 </Row>
+                <ToastMessage showOnComponent={true} show={showToast} type={'CONFIRM'} message={'Close this channel?'} bg={'primary'} className={'opaque'} containerClassName={'position-absolute bottom-0 start-50 translate-middle-x'} onConfirmResponse={confirmResponseHandler} />
                 </PerfectScrollbar>
-                <StatusAlert responseStatus={responseStatus} responseMessage={responseMessage} />
+                {!showToast ? <StatusAlert responseStatus={responseStatus} responseMessage={responseMessage} /> : <></> }
               </Card.Body>
             {channelClosed ?
               <></> 
@@ -183,7 +194,7 @@ const ChannelDetails = (props) => {
               <Card.Footer className='d-flex justify-content-center'>
                 <button tabIndex={5} type='submit' className='btn-rounded bg-primary' disabled={responseStatus === CallStatus.PENDING}>
                   Close Channel
-                  {responseStatus === CallStatus.PENDING ? <Spinner className='mt-1 ms-2' size='sm' variant='white' /> : <ActionSVG className='ms-3' />}
+                  {responseStatus === CallStatus.PENDING ? <Spinner className='mt-1 ms-2 text-white-dark' size='sm' /> : <ActionSVG className='ms-3' />}
                 </button>
               </Card.Footer>
             }

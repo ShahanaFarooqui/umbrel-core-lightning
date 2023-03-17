@@ -32,9 +32,16 @@ class SharedController {
     try {
       logger.info('Getting Connection Settings');
       let macaroon = '';
-      if (typeof process.env.LIGHTNING_REST_MACAROON_PATH === 'string' && fs.existsSync(process.env.LIGHTNING_REST_MACAROON_PATH + '/access.macaroon')) {
-        logger.info('Getting REST Access Macaroon from ' + process.env.LIGHTNING_REST_MACAROON_PATH);
-        macaroon = Buffer.from(fs.readFileSync(join(process.env.LIGHTNING_REST_MACAROON_PATH, 'access.macaroon'))).toString('hex');
+      if (
+        typeof process.env.LIGHTNING_REST_MACAROON_PATH === 'string' &&
+        fs.existsSync(process.env.LIGHTNING_REST_MACAROON_PATH + '/access.macaroon')
+      ) {
+        logger.info(
+          'Getting REST Access Macaroon from ' + process.env.LIGHTNING_REST_MACAROON_PATH,
+        );
+        macaroon = Buffer.from(
+          fs.readFileSync(join(process.env.LIGHTNING_REST_MACAROON_PATH, 'access.macaroon')),
+        ).toString('hex');
       }
       const CONNECT_WALLET_SETTINGS = {
         LOCAL_HOST: process.env.LOCAL_HOST || '',
@@ -42,7 +49,7 @@ class SharedController {
         WS_PORT: process.env.APP_CORE_LIGHTNING_WS_PORT || '',
         GRPC_PORT: process.env.LIGHTNING_GRPC_PORT || '',
         REST_PORT: process.env.LIGHTNING_REST_PORT || '',
-        REST_MACAROON: macaroon
+        REST_MACAROON: macaroon,
       };
       res.status(200).json(CONNECT_WALLET_SETTINGS);
     } catch (error: any) {

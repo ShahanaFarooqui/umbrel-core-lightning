@@ -5,7 +5,7 @@
   & .progress {
     height: 6px;
   }
-  & .btn-sm-svg {
+  & .btn-sm-svg.btn-svg-copy {
     display: inline-flex;
     align-items: flex-start;
     padding: 0;
@@ -13,6 +13,17 @@
     &:hover {
       svg path {
         stroke: darken($primary, 10%);
+      }
+    }
+  }
+  & .btn-sm-svg.btn-svg-open {
+    display: inline-flex;
+    align-items: flex-start;
+    padding: 0;
+    cursor: pointer;
+    &:hover {
+      svg path {
+        fill: darken($primary, 10%);
       }
     }
   }

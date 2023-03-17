@@ -63,6 +63,7 @@ export type Alias = {
 };
 
 export type Channel = {
+  channel_id: string;
   current_state: string;
   short_channel_id: string;
   node_alias: string;
@@ -70,13 +71,12 @@ export type Channel = {
   satoshi_to_us: number;
   satoshi_to_them: number;
   satoshi_total: number;
-  state: string;
-  connected: boolean;
+  state?: string;
+  connected?: boolean;
   scratch_txid?: string;
   feerate?: ChannelFeeRate;
   owner?: string;
   direction?: number;
-  channel_id?: string;
   funding_txid?: string;
   funding_outnum?: number;
   close_to_addr?: string;

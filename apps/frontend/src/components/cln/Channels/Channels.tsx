@@ -79,8 +79,8 @@ const Channels = (props) => {
               <Row className='text-light fs-6 mt-3 h-100 mt-2 align-items-center justify-content-center'>
                 <Row className='d-flex align-items-center justify-content-center'>
                   { appCtx.appConfig.appMode === ApplicationModes.DARK ? 
-                    <NoChannelDarkSVG className='no-channel-dark pb-5' /> :
-                    <NoChannelLightSVG className='no-channel-light pb-5' />
+                    <NoChannelDarkSVG className='no-channel-dark mt-5 pb-1' /> :
+                    <NoChannelLightSVG className='no-channel-light mt-5 pb-1' />
                   }
                   <Row className='text-center pb-4'>No channel found. Open channel to start!</Row>
                 </Row>
