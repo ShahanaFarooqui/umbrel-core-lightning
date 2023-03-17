@@ -83,5 +83,5 @@ jobs:
 
       - uses: actions/upload-artifact@v2
         with:
-          name: clnumbrelapp-${{ github.event.release.tag_name }}
+          name: clnumbrelapp-build${{ github.event.release.tag_name }}
           path: /tmp/clnumbrelapp.tar.gz
