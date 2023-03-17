@@ -6,7 +6,7 @@ import { motion } from 'framer-motion';
 import Toast from 'react-bootstrap/Toast';
 import Col from 'react-bootstrap/Col';
 
-import { BOUNCY_SPRING_VARIANTS_3 } from '../../../utilities/constants';
+import { BOUNCY_SPRING_VARIANTS_3, STAGERRED_SPRING_VARIANTS_2 } from '../../../utilities/constants';
 import { AppContext } from '../../../store/AppContext';
 import { CloseSVG } from '../../../svgs/Close';
 import { QuestionMarkSVG } from '../../../svgs/QuestionMark';
@@ -24,9 +24,9 @@ const ToastMessage = (props) => {
 
   useEffect(() => {
     if (!props.showOnComponent) {
-      setY((appCtx.showToast.show ? '3rem' : '0'));
+      setY((TOAST_SHOW ? '3rem' : '0'));
     }
-  }, [props.showOnComponent, appCtx.showToast.show]);
+  }, [props.showOnComponent, TOAST_SHOW]);
   
   const closeHandler = () => {
     if (!props.showOnComponent) {
@@ -46,26 +46,29 @@ const ToastMessage = (props) => {
     <>
     {
       TOAST_TYPE === 'CONFIRM' ?
-        <motion.div animate={{y}} transition={BOUNCY_SPRING_VARIANTS_3} className={TOAST_CONTAINER_CLASS_NAME}>
-          <Toast show={TOAST_SHOW} onClose={closeHandler} delay={SHOW_DELAY || 3000} data-bg={TOAST_BG} className={TOAST_CLASS_NAME}>
-            <Toast.Body className='p-0 w-100 d-flex align-items-start justify-content-start'>
-              <Col className='d-flex align-items-stretch justify-content-between'>
-                <Col xs={2} className='message-type-box d-flex align-items-center justify-content-center'>
-                  <QuestionMarkSVG />
-                </Col>
-                <Col xs={10} className='py-3 px-3'>
-                  <Col className='d-flex align-items-center justify-content-between'>
-                    <Col xs={6}>
-                      {TOAST_MESSAGE || 'Default Message!'}
+        TOAST_SHOW ?
+          <motion.div variants={STAGERRED_SPRING_VARIANTS_2} initial='hidden' animate='visible' exit='hidden' custom={props.custom || 0} className={TOAST_CONTAINER_CLASS_NAME}>
+            <Toast show={true} onClose={closeHandler} delay={SHOW_DELAY || 3000} data-bg={TOAST_BG} className={TOAST_CLASS_NAME}>
+              <Toast.Body className='p-0 w-100 d-flex align-items-start justify-content-start'>
+                <Col className='d-flex align-items-stretch justify-content-between'>
+                  <Col xs={2} className='message-type-box d-flex align-items-center justify-content-center'>
+                    <QuestionMarkSVG />
+                  </Col>
+                  <Col xs={10} className='p-2'>
+                    <Col className='d-flex align-items-center justify-content-between'>
+                      <Col xs={6}>
+                        {TOAST_MESSAGE || 'Default Message!'}
+                      </Col>
+                      <button type="button" className="btn btn-rounded btn-sm btn-secondary" onClick={() => confirmCloseHandler(true)}>Yes</button>
+                      <button type="button" className="btn btn-rounded btn-sm btn-secondary" onClick={() => confirmCloseHandler(false)}>No</button>
                     </Col>
-                    <button type="button" className="btn btn-rounded btn-sm btn-secondary" onClick={() => confirmCloseHandler(true)}>Yes</button>
-                    <button type="button" className="btn btn-rounded btn-sm btn-secondary" onClick={() => confirmCloseHandler(false)}>No</button>
                   </Col>
                 </Col>
-              </Col>
-            </Toast.Body>
-          </Toast>
-        </motion.div>
+              </Toast.Body>
+            </Toast>
+          </motion.div>
+        :
+          <></>
       :
         <motion.div animate={{y}} transition={BOUNCY_SPRING_VARIANTS_3} className={TOAST_CONTAINER_CLASS_NAME}>
           <Toast show={TOAST_SHOW} onClose={closeHandler} delay={SHOW_DELAY || 3000} autohide data-bg={TOAST_BG} className={TOAST_CLASS_NAME}>

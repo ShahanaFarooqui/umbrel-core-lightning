@@ -320,7 +320,8 @@ const appReducer = (state, action) => {
       };
 
     case ApplicationActions.SET_LIST_BITCOIN_TRANSACTIONS:
-      const filteredTransactions = filterOnChainTransactions(action.payload.events);
+      const sortedTransactions = action.payload.events?.sort((t1: BkprTransaction, t2: BkprTransaction) => ((t1.timestamp && t2.timestamp && t1.timestamp > t2.timestamp) ? -1 : 1));
+      const filteredTransactions = filterOnChainTransactions(sortedTransactions);
       return {
         ...state,
         listBitcoinTransactions: { isLoading: false, error: action.payload.error, btcTransactions: filteredTransactions },

@@ -8,7 +8,7 @@ import { faDollarSign } from '@fortawesome/free-solid-svg-icons';
 
 const axiosInstance = axios.create({
   baseURL: API_BASE_URL + API_VERSION,
-  timeout: 15000,
+  timeout: 30000,
   withCredentials: true
 });
 
@@ -81,7 +81,7 @@ const useHttp = () => {
 
   const sendRequest = useCallback((flgRefreshData: boolean, method: string, url: string, reqBody: any = null) => {
     try {
-      return axiosInstance(url, {method: method, data: reqBody, timeout: 30000}).then(res => {
+      return axiosInstance(url, {method: method, data: reqBody, timeout: 50000}).then(res => {
         if (flgRefreshData) { fetchData(); }
         return res;
       }).catch(err => {

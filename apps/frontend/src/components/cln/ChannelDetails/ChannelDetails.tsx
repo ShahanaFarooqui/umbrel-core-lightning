@@ -77,7 +77,7 @@ const ChannelDetails = (props) => {
           delayedClearStatusAlert();
         } else {
           setResponseStatus(CallStatus.ERROR);
-          setResponseMessage(response.message || 'Unknown Error');
+          setResponseMessage(response.data || response.message || 'Unknown Error');
           delayedClearStatusAlert();          
         }
       })
@@ -184,7 +184,7 @@ const ChannelDetails = (props) => {
                     <Col xs={1} onClick={openLinkHandler} className='btn-sm-svg btn-svg-open'><OpenLinkSVG id={props.selChannel.funding_txid} /></Col>
                   </Row>
                 </Row>
-                <ToastMessage showOnComponent={true} show={showToast} type={'CONFIRM'} message={'Close this channel?'} bg={'primary'} className={'opaque'} containerClassName={'position-absolute bottom-0 start-50 translate-middle-x'} onConfirmResponse={confirmResponseHandler} />
+                <ToastMessage showOnComponent={true} show={showToast} type={'CONFIRM'} message={'Close this channel?'} bg={'primary'} className={'opaque'} containerClassName={'bottom-0'} onConfirmResponse={confirmResponseHandler} />
                 </PerfectScrollbar>
                 {!showToast ? <StatusAlert responseStatus={responseStatus} responseMessage={responseMessage} /> : <></> }
               </Card.Body>

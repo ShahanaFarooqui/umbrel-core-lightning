@@ -96,7 +96,7 @@ const CLNReceive = (props) => {
         resetFormValues();
       } else {
         setResponseStatus(CallStatus.ERROR);
-        setResponseMessage(response.message || 'Unknown Error');
+        setResponseMessage(response.data || response.message || 'Unknown Error');
         delayedClearStatusAlert();
       }
     })
