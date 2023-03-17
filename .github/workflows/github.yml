@@ -1,4 +1,4 @@
-name: Build and publish Docker image
+name: Build and publish Github image
 
 on:
   push:
@@ -11,9 +11,6 @@ on:
     branches: [ master ]
   workflow_dispatch:
   
-env:
-  DOCKER_CLI_EXPERIMENTAL: enabled
-
 jobs:
   build:
     name: Build image
