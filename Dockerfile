@@ -25,4 +25,6 @@ COPY --from=umbrel-lightning-app-builder /app /app
 # Change directory to '/app' 
 WORKDIR /app
 
-CMD [ "npm", "run", "start" ]
+COPY entrypoint.sh entrypoint.sh
+
+ENTRYPOINT ["bash", "./entrypoint.sh"]

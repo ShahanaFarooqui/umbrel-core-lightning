@@ -1,0 +1,7 @@
+{
+  "unit": "SATS",
+  "fiatUnit": "USD",
+  "appMode": "LIGHT",
+  "isLoading": false,
+  "error": null
+}
